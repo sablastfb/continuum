@@ -18,8 +18,8 @@ import { throttle } from 'lodash';
 
 function CanvasPage() {
   const divContainer = useRef<HTMLDivElement>(null);
-  const [zoomed, setZoomed] = useState(1);
   const color = useCanvasStore((state) => state.color);
+  const zoome = useCanvasStore((state) => state.zoome);
   const setPencileColor = useCanvasStore((state) => state.setPencileColor);
 
   async function SetUpPixi() {
@@ -27,14 +27,6 @@ function CanvasPage() {
     if (divContainer.current) {
       divContainer.current.appendChild(app.canvas);
     }
-    const viewport = Canvas.getViewport();
-
-  function Zoom(zoomDirection: number) {
-    const viewport = Canvas.getViewport();
-    viewport.zoom(zoomDirection * ZoomSensitivity);
-    setZoomed(viewport?.scale.x);
-  }
-
 }
 function SetColor(color: string){
   setPencileColor("#"+color);
@@ -61,9 +53,9 @@ function SetColor(color: string){
       </div>
       <div className="absolute right-0 bottom-0 p-2">
         <div className="flex justify-center items-center rounded-2xl p-2 gap-2 bg-white/10 backdrop-blur-sm text-gray-300 text-xl">
-            <ZoomIn size={25} onClick={() => Zoom(-1)} />
-          {(zoomed * 100).toFixed(1)}%
-            <ZoomOut size={25} onClick={() => Zoom(1)} />
+            <ZoomIn size={25} onClick={() => Canvas.zoom(1)} />
+          {(zoome * 100).toFixed(1)}%
+            <ZoomOut size={25} onClick={() =>Canvas.zoom(-1)} />
         </div>
       </div>
     </div>
