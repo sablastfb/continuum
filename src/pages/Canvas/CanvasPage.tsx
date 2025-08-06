@@ -34,14 +34,16 @@ function CanvasPage() {
       divContainer.current.appendChild(app.canvas);
     }
     const viewport = Canvas.getViewport();
+    const drawLine = throttle((e) => {
+      Canvas.drawLine(e, color);
+    }, 16);
+
     viewport.on("zoomed", (e: ZoomedEvent) => {
       setZoomed(viewport?.scale.x);
     }).on("mousedown", (e) => {
       Canvas.startToDraw(e);
     })
-    .on("mousemove", throttle((e) => {
-      Canvas.drawLine(e, color),16
-    },16))
+    .on("mousemove", drawLine)
     .on("mouseup", (e) => {
       Canvas.stopDrawing(e);
     }).on("mouseout", (e) => {

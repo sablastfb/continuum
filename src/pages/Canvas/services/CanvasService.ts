@@ -1,11 +1,15 @@
 import { Viewport } from "pixi-viewport";
 import { Application, FederatedMouseEvent, Graphics } from "pixi.js";
+import { Point } from "./CanvasTypes";
+import { Distance } from "./CanvasUtils";
+import { MinimumDistanceToNextLine } from "../CanvasConstants";
 
 export namespace Canvas {
   let appInstance: Application | null = null;
   let viewport: Viewport | null = null;
   let graph: Graphics;
   let drawing = false;
+  let lastPoint: Point = {x: 0, y: 0};
 
   export async function getPixiApp() {
     if (appInstance) return appInstance;
@@ -41,20 +45,30 @@ export namespace Canvas {
     graph.moveTo(worldPos.x, worldPos.y);
     graph.stroke({ width: 10, color: "white", cap:"round", join: "round" });
     viewport.addChild(graph);
+    lastPoint = {x: worldPos.x, y: worldPos.y};
+    count=0;
   }
 
  export  function drawLine(e: FederatedMouseEvent, color: string) {
     if (!drawing) return;
     if (graph === undefined) return;
     const viewport = getViewport();
-    const worldPos = viewport.toWorld(e.global);
-    graph.lineTo(worldPos.x, worldPos.y);
-    graph.stroke({ width: 2, color: "white", cap:"round" });
-    graph.tint = color;
-  }
+    const worldPos = viewport.toWorld(e.global) as Point;
+    if (Distance(worldPos, lastPoint) < MinimumDistanceToNextLine) {
+      return;
+    }
 
+    graph.lineTo(worldPos.x, worldPos.y);
+    graph.stroke({ width: 2, color: "white", cap:"round", join: "round" });
+    graph.tint = color;
+    count++;
+
+    lastPoint = {x: worldPos.x, y: worldPos.y};
+  }
+  let count = 0;
   export function stopDrawing(e: FederatedMouseEvent){
     if (!drawing) return;
     drawing = false;
+    console.log(count);
   }
 }
