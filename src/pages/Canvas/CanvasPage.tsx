@@ -1,15 +1,10 @@
-import { Viewport } from "pixi-viewport";
-import { Application, Graphics } from "pixi.js";
-import { Button } from "primereact/button";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { Canvas } from "./services/CanvasService";
 import {
   Circle,
   Eraser,
   Home,
   MousePointer2,
-  MoveLeft,
   PenLine,
   Square,
   ZoomIn,
@@ -27,30 +22,12 @@ function CanvasPage() {
   const color = useCanvasStore((state) => state.color);
   const setPencileColor = useCanvasStore((state) => state.setPencileColor);
 
-
   async function SetUpPixi() {
     const app = await Canvas.getPixiApp();
     if (divContainer.current) {
       divContainer.current.appendChild(app.canvas);
     }
     const viewport = Canvas.getViewport();
-    const drawLine = throttle((e) => {
-      Canvas.drawLine(e, color);
-    }, 16);
-
-    viewport.on("zoomed", (e: ZoomedEvent) => {
-      setZoomed(viewport?.scale.x);
-    }).on("mousedown", (e) => {
-      Canvas.startToDraw(e);
-    })
-    .on("mousemove", drawLine)
-    .on("mouseup", (e) => {
-      Canvas.stopDrawing(e);
-    }).on("mouseout", (e) => {
-      Canvas.stopDrawing(e);
-    });
-
-  }
 
   function Zoom(zoomDirection: number) {
     const viewport = Canvas.getViewport();
@@ -58,10 +35,10 @@ function CanvasPage() {
     setZoomed(viewport?.scale.x);
   }
 
-  function SetColor(color: string){
-    setPencileColor("#"+color);
-  }
-
+}
+function SetColor(color: string){
+  setPencileColor("#"+color);
+}
   SetUpPixi();
   return (
     <div className="relative h-screen w-screen">

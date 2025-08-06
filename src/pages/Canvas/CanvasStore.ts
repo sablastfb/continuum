@@ -7,9 +7,10 @@ interface CanvasStore {
 }
 
 
-const useCanvasStore = create<CanvasStore>()((set) => ({
+const useCanvasStore  = create<CanvasStore>()((set) => ({
   color: "#6466f1",
   setPencileColor: (newColor: string) => set((state) => ({ color: newColor })),
 }));
+
 
 export default useCanvasStore;

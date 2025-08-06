@@ -3,6 +3,9 @@ import { Application, FederatedMouseEvent, Graphics } from "pixi.js";
 import { Point } from "./CanvasTypes";
 import { Distance } from "./CanvasUtils";
 import { MinimumDistanceToNextLine } from "../CanvasConstants";
+import { throttle } from "lodash";
+import { ZoomedEvent } from "pixi-viewport/dist/types";
+import useCanvasStore from "../CanvasStore";
 
 export namespace Canvas {
   let appInstance: Application | null = null;
@@ -22,9 +25,22 @@ export namespace Canvas {
       worldHeight: 1024,
       events: appInstance.renderer.events,
     });
-
+    const drawPencileThrottle = throttle((e) => {
+      drawPencile(e);
+    }, 16);
     appInstance.stage.addChild(viewport);
     viewport.drag({ mouseButtons: "middle" }).pinch().wheel();
+    viewport.on("zoomed", (e: ZoomedEvent) => {
+        // setZoomed(viewport?.scale.x);
+      }).on("mousedown", (e) => {
+        Canvas.startToDraw(e);
+      })
+      .on("mousemove", drawPencileThrottle)
+      .on("mouseup", (e) => {
+        Canvas.stopDrawing(e);
+      }).on("mouseout", (e) => {
+        Canvas.stopDrawing(e);
+      });
 
     return appInstance;
   }
@@ -49,7 +65,7 @@ export namespace Canvas {
     count=0;
   }
 
- export  function drawLine(e: FederatedMouseEvent, color: string) {
+ export  function drawPencile(e: FederatedMouseEvent) {
     if (!drawing) return;
     if (graph === undefined) return;
     const viewport = getViewport();
@@ -60,6 +76,8 @@ export namespace Canvas {
 
     graph.lineTo(worldPos.x, worldPos.y);
     graph.stroke({ width: 2, color: "white", cap:"round", join: "round" });
+      const color = useCanvasStore.getState().color;
+
     graph.tint = color;
     count++;
 
