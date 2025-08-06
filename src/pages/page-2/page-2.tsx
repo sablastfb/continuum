@@ -6,7 +6,7 @@ function Page2() {
     <>
       <div>Page 2</div>
         <Button >
-        <Link to="/">Go to page one</Link>
+        <Link className="h-full w-full" to="/">Go to page one</Link>
       </Button>
     </>
   );
