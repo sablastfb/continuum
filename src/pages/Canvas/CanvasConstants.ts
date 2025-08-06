@@ -1,0 +1,1 @@
+export const ZoomSensitivity: number = 100;
