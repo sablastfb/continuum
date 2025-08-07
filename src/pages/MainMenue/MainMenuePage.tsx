@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 
-function Page2() {
+function MainMenue() {
   return (
     <>
       <div>Page 2</div>
@@ -12,4 +12,4 @@ function Page2() {
   );
 }
 
-export default Page2;
+export default MainMenue;

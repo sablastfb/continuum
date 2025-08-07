@@ -7,6 +7,7 @@ import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
 import useCanvasStore from "./data/CanvasStore";
 import TransformTools from "./components/tools/TransportComponent";
+import EraseTools from "./components/tools/EraseTools";
 
 function CanvasPage() {
   const divContainer = useRef<HTMLDivElement>(null);
@@ -23,6 +24,9 @@ function CanvasPage() {
     case 'drawing':
       activeToolComponent = <PencileTools />;
       break;
+    case 'eraser':
+      activeToolComponent = <EraseTools />;
+    break;
     case 'transform':
       activeToolComponent = <TransformTools />;
       break;

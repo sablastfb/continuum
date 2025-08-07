@@ -1,7 +1,7 @@
 import { ColorPicker } from "primereact/colorpicker";
-import CircleColorPicker from "../CircleColorPicker";
+import CircleColorPicker from "../misc/CircleColorPicker";
 import useCanvasStore from "../../data/CanvasStore";
-import CircleThicknesPicker from "../CircleThicknesPicker";
+import CircleThicknesPicker from "../misc/CircleThicknesPicker";
 
 function PencileTools(){
   const setPencileColor = useCanvasStore((state) => state.setPencileColor);
@@ -12,12 +12,15 @@ function PencileTools(){
           <CircleThicknesPicker thicknes={5} selected={false} />
           <CircleThicknesPicker thicknes={20} selected={false} />
           <CircleThicknesPicker thicknes={30} selected={false} />
-          <CircleColorPicker color="blue" selected={true}/> 
-          <CircleColorPicker color="red" selected={false}/>
-          <CircleColorPicker color="green" selected={false}/>
-          <CircleColorPicker color="yellow" selected={false}/>
+          <CircleColorPicker color="#1099bb" selected={true}/> 
+          <CircleColorPicker color="rgb(220,182,183)" selected={false}/> 
+          <CircleColorPicker color="rgb(210,245,214)" selected={false}/>
+          <CircleColorPicker color="rgb(215,201,235)" selected={false}/>
+          <CircleColorPicker color="rgb(255,240,199)" selected={false}/>
+          <CircleColorPicker color="rgb(185,222,240)" selected={false}/>
           <ColorPicker
             format="hex"
+            value={"6466f1"}
             onChange={(e) => setPencileColor(`#${e.value}` as string)}
           />
         </div>

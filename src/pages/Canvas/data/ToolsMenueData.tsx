@@ -18,19 +18,12 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { JSX } from "react";
+import { ActiveTool } from "./CanvasTypes";
 
-export type IconOption = {
-  names: string;
+export type IconOption = { 
+  name: string;
   icon: JSX.Element;
+  action: ActiveTool;
 }
 
-export const iconOptions = [
-  {
-    name: 'Eraser',
-    icon: <Eraser color="white" size={32} />
-  },
-  {
-    name: 'Pen',
-    icon: <PenLine color="white" size={32} />
-  },
-];
+

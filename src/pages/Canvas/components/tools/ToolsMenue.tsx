@@ -6,44 +6,80 @@ import {
   Home,
   Info,
   MousePointer2,
-  Move,
   PenLine,
   Redo,
-  RotateCcw,
-  Scaling,
   Settings,
   Square,
+  SquareDashed,
+  Type,
   Undo,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
 import useCanvasStore from "../../data/CanvasStore";
-import SettingsDialog from "../dialog/SettingsDialog";
 import { Canvas } from "../../services/CanvasService";
-import { useState } from "react";
-import { Dropdown } from "primereact/dropdown";
-import { IconOption, iconOptions } from "../../data/ToolsMenueData";
-import "./ToolsMenue.css";
-
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import DropdownToolSelector from "../misc/DropdownToolSelector/DropdownToolSelector";
+import { IconOption } from "../../data/ToolsMenueData";
 function ToolsMenue() {
-  const color = useCanvasStore((state) => state.color);
   const zoome = useCanvasStore((state) => state.zoome);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const setExportVisible = useCanvasStore((state) => state.setExportVisible);
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
+  const navigate = useNavigate();
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
   const background = "bg-white/10 backdrop-blur-sm";
+  const color = useCanvasStore((state) => state.color);
 
-  const iconOptionTemplate = (option: IconOption) => {
-    return <div className="flex items-center">{option.icon}</div>;
-  };
+  const DrawingOptions = useMemo<IconOption[]>(
+    () => [
+      {
+        name: "Pen",
+        icon: <PenLine color={color} size={32} />,
+        action: "drawing",
+      },
+      {
+        name: "Eraser",
+        icon: <Eraser size={32} />,
+        action: "eraser",
+      },
+    ],
+    [color]
+  );
 
-  const selectedIconTemplate = (option: IconOption) => {
-    if (option) {
-      return <div className="flex items-center">{option.icon}</div>;
-    }
-    return <span>Select an icon</span>;
-  };
+    const SelectionOptions = useMemo<IconOption[]>(
+    () => [
+      {
+        name: "Pen",
+        icon: <MousePointer2 size={32} />,
+        action: "move",
+      },
+      {
+        name: "Eraser",
+        icon: <SquareDashed  size={32} />,
+        action: "selection",
+      },
+    ],
+    []
+  );
+
+    const ShapesOption = useMemo<IconOption[]>(
+    () => [
+      {
+        name: "Pen",
+        icon: <Square size={32} />,
+        action: "move",
+      },
+      {
+        name: "Eraser",
+        icon: <Circle  size={32} />,
+        action: "selection",
+      },
+    ],
+    []
+  );
+
 
   return (
     <div className="flex bottom-0 left-0 right-0">
@@ -78,81 +114,29 @@ function ToolsMenue() {
       >
         <div className=" flex justify-center pb-2">
           <div
-            className={`flex justify-center items-center gap-4 rounded-2xl p-2  min-w-min ${background}`}
+            className={`flex justify-center items-center gap-4 rounded-2xl min-w-min ${background} p-1`}
           >
-            <div className="flex gap-1">
-              <PenLine color={color} size={32} />
-              <Dropdown
-                className="hover:bg-amber-200"
-                value={iconOptions[1]}
-                valueTemplate={selectedIconTemplate}
-                options={iconOptions}
-                itemTemplate={iconOptionTemplate}
-              />
-            </div>
-
-            {/* <MousePointer2
-              color="white"
-              size={32}
-              className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            />
-            <PenLine
-              color={color}
-              size={32}
-              className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            /> */}
-            {/* <Eraser
-              color="white"
-              size={32}
-              className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            /> */}
-            <div className="flex gap-1">
-              <Square
-                color="white"
-                size={32}
-                className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer bg-blue-800"
-              />
-              <Dropdown
-                className="hover:bg-amber-200"
-                value={iconOptions[1]}
-                valueTemplate={selectedIconTemplate}
-                options={iconOptions}
-                itemTemplate={iconOptionTemplate}
-              />
-            </div>
-
-   <div className="flex gap-1">
-                        <Move />
-
-              <Dropdown
-                className="hover:bg-amber-200"
-                value={iconOptions[1]}
-                valueTemplate={selectedIconTemplate}
-                options={iconOptions}
-                itemTemplate={iconOptionTemplate}
-              />
-            </div>
-
-
-            <RotateCcw />
-            <Scaling />
-
-            <Circle
-              color="white"
-              size={32}
-              className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            />
+            <DropdownToolSelector dropDownOptions={DrawingOptions} />
+            <DropdownToolSelector dropDownOptions={SelectionOptions} />
+            <DropdownToolSelector dropDownOptions={ShapesOption} />
+            <Type  size={32} className="hover:cursor-pointer"/>
             <Undo color="white" size={32} className="hover:cursor-pointer" />
             <Redo color="white" size={32} className="hover:cursor-pointer" />
           </div>
         </div>
         <div className="absolute left-0 bottom-0  p-2 flex justify-center">
           <div className="rounded-2xl p-2 bg-white/10 backdrop-blur-sm flex  gap-4">
-            <Home color="white" size={30} className="hover:cursor-pointer" />
+            <div
+              onClick={() => {
+                navigate("/main-menue");
+              }}
+            >
+              <Home color="white" size={30} className="hover:cursor-pointer" />
+            </div>
             <Settings
               color="white"
               size={30}
-              className="hover:cursor-pointer hover:rotate-45 transition-all"
+              className="hover:cursor-pointer"
               onClick={() => {
                 setSettingVisible(true);
               }}
@@ -160,7 +144,7 @@ function ToolsMenue() {
             <Download
               color="white"
               size={30}
-              className="hover:animate-bounce transition-all hover:cursor-pointer"
+              className="hover:cursor-pointer"
               onClick={() => {
                 setExportVisible(true);
               }}
@@ -168,7 +152,7 @@ function ToolsMenue() {
             <Info
               color="white"
               size={30}
-              className="hover:animate-pulse transition-all hover:cursor-pointer"
+              className="hover:cursor-pointer"
               onClick={() => {
                 setInfoVisible(true);
               }}

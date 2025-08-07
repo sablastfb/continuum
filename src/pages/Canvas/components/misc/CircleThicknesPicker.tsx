@@ -1,4 +1,4 @@
-import useCanvasStore from "../data/CanvasStore";
+import useCanvasStore from "../../data/CanvasStore";
 
 export type CircleThicknesPickerParm = {
   thicknes: number;

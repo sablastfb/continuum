@@ -1,3 +1,4 @@
+
 .p-dropdown	{
     background: transparent;
     border: none;
@@ -5,12 +6,12 @@
 
 .p-dropdown-panel{
     display: flex;
-    justify-content: left;
-    gap:px;
-    background-color: black;
+    justify-content: center;
+    gap:5px;
     border: none;
     border-radius: 20%;
-    padding: 0;
+    background-color: transparent;
+    margin-bottom: 5px;
 }
 .p-dropdown-item {
     border-radius: 20%;
@@ -23,12 +24,8 @@
 
 
 .p-dropdown-label	{
-    padding: 0;
-    display: none;
-    width: 0;
-
+    padding: 2px;
 }
 .p-dropdown-trigger	{
-    padding: 0;
-    width: 0.9rem;
+    width: 15px;
 }

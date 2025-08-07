@@ -26,20 +26,6 @@ function InfoDialog() {
                 <X size={32} color="white"/>
               </div>
             </div>
-            <div className="flex justify-end">
-              <Button
-                label="Discard"
-                icon="pi pi-times"
-                onClick={(e) => hide(e)}
-                className="p-button-text"
-              />
-              <Button
-                label="Save"
-                icon="pi pi-check"
-                onClick={(e) => hide(e)}
-                autoFocus
-              />
-            </div>
           </div>
         )}
       ></Dialog>
