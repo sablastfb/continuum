@@ -1,0 +1,34 @@
+.p-dropdown	{
+    background: transparent;
+    border: none;
+}
+
+.p-dropdown-panel{
+    display: flex;
+    justify-content: left;
+    gap:px;
+    background-color: black;
+    border: none;
+    border-radius: 20%;
+    padding: 0;
+}
+.p-dropdown-item {
+    border-radius: 20%;
+    padding: 5px;
+}
+
+.p-dropdown-items	{
+    padding: 0;
+}
+
+
+.p-dropdown-label	{
+    padding: 0;
+    display: none;
+    width: 0;
+
+}
+.p-dropdown-trigger	{
+    padding: 0;
+    width: 0.9rem;
+}

@@ -22,7 +22,8 @@ import SettingsDialog from "../dialog/SettingsDialog";
 import { Canvas } from "../../services/CanvasService";
 import { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
-import { iconOptions } from "../../data/ToolsMenueData";
+import { IconOption, iconOptions } from "../../data/ToolsMenueData";
+import "./ToolsMenue.css";
 
 function ToolsMenue() {
   const color = useCanvasStore((state) => state.color);
@@ -32,6 +33,17 @@ function ToolsMenue() {
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
   const background = "bg-white/10 backdrop-blur-sm";
+
+  const iconOptionTemplate = (option: IconOption) => {
+    return <div className="flex items-center">{option.icon}</div>;
+  };
+
+  const selectedIconTemplate = (option: IconOption) => {
+    if (option) {
+      return <div className="flex items-center">{option.icon}</div>;
+    }
+    return <span>Select an icon</span>;
+  };
 
   return (
     <div className="flex bottom-0 left-0 right-0">
@@ -68,10 +80,18 @@ function ToolsMenue() {
           <div
             className={`flex justify-center items-center gap-4 rounded-2xl p-2  min-w-min ${background}`}
           >
+            <div className="flex gap-1">
+              <PenLine color={color} size={32} />
+              <Dropdown
+                className="hover:bg-amber-200"
+                value={iconOptions[1]}
+                valueTemplate={selectedIconTemplate}
+                options={iconOptions}
+                itemTemplate={iconOptionTemplate}
+              />
+            </div>
 
-
-
-            <MousePointer2
+            {/* <MousePointer2
               color="white"
               size={32}
               className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
@@ -80,22 +100,42 @@ function ToolsMenue() {
               color={color}
               size={32}
               className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            />
-            <Eraser
+            /> */}
+            {/* <Eraser
               color="white"
               size={32}
               className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            />
-            <Square
-              color="white"
-              size={32}
-              className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
-            />
-                <Move />
+            /> */}
+            <div className="flex gap-1">
+              <Square
+                color="white"
+                size={32}
+                className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer bg-blue-800"
+              />
+              <Dropdown
+                className="hover:bg-amber-200"
+                value={iconOptions[1]}
+                valueTemplate={selectedIconTemplate}
+                options={iconOptions}
+                itemTemplate={iconOptionTemplate}
+              />
+            </div>
 
-          <RotateCcw />
-              <Scaling />
+   <div className="flex gap-1">
+                        <Move />
 
+              <Dropdown
+                className="hover:bg-amber-200"
+                value={iconOptions[1]}
+                valueTemplate={selectedIconTemplate}
+                options={iconOptions}
+                itemTemplate={iconOptionTemplate}
+              />
+            </div>
+
+
+            <RotateCcw />
+            <Scaling />
 
             <Circle
               color="white"
@@ -121,7 +161,7 @@ function ToolsMenue() {
               color="white"
               size={30}
               className="hover:animate-bounce transition-all hover:cursor-pointer"
-                 onClick={() => {
+              onClick={() => {
                 setExportVisible(true);
               }}
             />
@@ -129,7 +169,7 @@ function ToolsMenue() {
               color="white"
               size={30}
               className="hover:animate-pulse transition-all hover:cursor-pointer"
-                 onClick={() => {
+              onClick={() => {
                 setInfoVisible(true);
               }}
             />

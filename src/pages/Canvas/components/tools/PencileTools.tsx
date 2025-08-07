@@ -5,7 +5,6 @@ import CircleThicknesPicker from "../CircleThicknesPicker";
 
 function PencileTools(){
   const setPencileColor = useCanvasStore((state) => state.setPencileColor);
-  const setPencileThickens = useCanvasStore((state) => state.setPencileThickens);
 
     return <>
       <div className="absolute right-0 h-full flex justify-center items-center pr-2">

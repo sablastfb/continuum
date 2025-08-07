@@ -17,21 +17,20 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
+import { JSX } from "react";
+
+export type IconOption = {
+  names: string;
+  icon: JSX.Element;
+}
 
 export const iconOptions = [
-    {
-      name: 'Mouse Pointer',
-      value: 'pointer',
-      icon: <MousePointer2 color="white" size={32} />
-    },
-    {
-      name: 'Pen',
-      value: 'pen',
-      icon: <PenLine color="white" size={32} />
-    },
-    {
-      name: 'Eraser',
-      value: 'eraser',
-      icon: <Eraser color="white" size={32} />
-    }
-  ];
+  {
+    name: 'Eraser',
+    icon: <Eraser color="white" size={32} />
+  },
+  {
+    name: 'Pen',
+    icon: <PenLine color="white" size={32} />
+  },
+];
