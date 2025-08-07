@@ -21,6 +21,8 @@ import useCanvasStore from "../../data/CanvasStore";
 import SettingsDialog from "../dialog/SettingsDialog";
 import { Canvas } from "../../services/CanvasService";
 import { useState } from "react";
+import { Dropdown } from "primereact/dropdown";
+import { iconOptions } from "../../data/ToolsMenueData";
 
 function ToolsMenue() {
   const color = useCanvasStore((state) => state.color);
@@ -29,7 +31,6 @@ function ToolsMenue() {
   const setExportVisible = useCanvasStore((state) => state.setExportVisible);
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
-
   const background = "bg-white/10 backdrop-blur-sm";
 
   return (
@@ -67,6 +68,9 @@ function ToolsMenue() {
           <div
             className={`flex justify-center items-center gap-4 rounded-2xl p-2  min-w-min ${background}`}
           >
+
+
+
             <MousePointer2
               color="white"
               size={32}
