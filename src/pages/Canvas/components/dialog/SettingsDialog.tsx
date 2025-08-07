@@ -1,6 +1,7 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import useCanvasStore from "../data/CanvasStore";
+import useCanvasStore from "../../data/CanvasStore";
+import { X } from "lucide-react";
 
 function SettingsDialog() {
   const settingVisible = useCanvasStore((state)=> state.settingVisible);
@@ -19,13 +20,13 @@ function SettingsDialog() {
         }}
         content={({ hide }) => (
           <div className="flex flex-col p-4 gap-2 h-fit w-full">
-            <div className="felx">
+            <div className="flex justify-between">
                 <div className="text-5xl text-white ">
                 Setings
                 </div>
-            </div>
-            <div>
-                xxx
+              <div  className="hover:cursor-pointer" onClick={(e) => hide(e)}>
+                <X size={32} color="white"/>
+              </div>
             </div>
             <div className="flex justify-end">
                 <Button label="Discard" icon="pi pi-times" onClick={(e) => hide(e)} className="p-button-text" />

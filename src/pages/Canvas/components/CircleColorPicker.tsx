@@ -8,7 +8,6 @@ export type CircleColorPickerParm = {
 function CircleColorPicker({ color, selected }: CircleColorPickerParm) {
   const setPencileColor = useCanvasStore((state) => state.setPencileColor);
 
-
   return (
     <div
         onClick={() => {

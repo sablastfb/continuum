@@ -17,7 +17,7 @@ export namespace Canvas {
   export async function getPixiApp() {
     if (appInstance) return appInstance;
     appInstance = new Application();
-    await appInstance.init({ background: "black", resizeTo: window });
+    await appInstance.init({ background: "#222", resizeTo: window });
     viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
