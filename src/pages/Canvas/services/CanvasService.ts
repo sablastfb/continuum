@@ -79,7 +79,7 @@ export namespace Canvas {
     }
 
     graph.lineTo(worldPos.x, worldPos.y);
-    graph.stroke({ width: 7, color: "white", cap: "round", join: "round" });
+    graph.stroke({ width:  useCanvasStore.getState().pencileThickens, color: "white", cap: "round", join: "round" });
     const color = useCanvasStore.getState().color;
 
     graph.tint = color;

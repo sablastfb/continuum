@@ -6,8 +6,11 @@ import {
   Home,
   Info,
   MousePointer2,
+  Move,
   PenLine,
   Redo,
+  RotateCcw,
+  Scaling,
   Settings,
   Square,
   Undo,
@@ -84,6 +87,12 @@ function ToolsMenue() {
               size={32}
               className="hover:scale-110 hover:-translate-y-3 transition-all duration-200 cursor-pointer"
             />
+                <Move />
+
+          <RotateCcw />
+              <Scaling />
+
+
             <Circle
               color="white"
               size={32}
