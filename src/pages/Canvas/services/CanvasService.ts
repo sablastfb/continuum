@@ -57,7 +57,6 @@ export namespace Canvas {
   function handleResize() {
     if (!appInstance || !viewport) return;
     viewport.resize(window.innerWidth, window.innerHeight, 1024, 1024);
-    debugger;
   }
 
   export function destroyPixiApp() {
