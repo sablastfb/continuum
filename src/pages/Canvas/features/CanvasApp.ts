@@ -1,17 +1,18 @@
 import { Viewport } from "pixi-viewport";
-import { Application, Graphics } from "pixi.js";
+import { Application, FederatedPointerEvent, Graphics } from "pixi.js";
 
 import { ZoomedEvent } from "pixi-viewport/dist/types";
 import { throttle } from "lodash";
-import { ToolType } from "../../data/CanvasTypes";
-import useCanvasStore from "../../data/CanvasStore";
-import { ToolsManager } from "../tools/ToolManager";
-import { ZoomSensitivity } from "../../data/CanvasConstants";
+import { ToolType } from "../data/CanvasTypes";
+import useCanvasStore from "../data/CanvasStore";
+import { ToolsManager } from "./tools/ToolManager";
+import { ZoomSensitivity } from "../data/CanvasConstants";
 
 export namespace Canvas {
   let appInstance: Application | null = null;
   let viewport: Viewport | null = null;
   let toolsManager: ToolsManager;
+
   let cursor: Graphics;
   let drawing = false;
 
@@ -20,6 +21,7 @@ export namespace Canvas {
     await setUpAplication();
     setUpViewportAndEvent();
     setUpResize();
+    setUpCommandManager();
     return appInstance;
   }
 
@@ -42,10 +44,15 @@ export namespace Canvas {
     toolsManager = new ToolsManager(viewport, useCanvasStore);
   }
 
-  const throttledDraw = throttle((e) => {
-    if (!drawing) return;
+  function setUpCommandManager(){
+    
+  }
+
+  const throttledDraw = throttle((e: FederatedPointerEvent) => {
+    if (drawing && e.buttons==1) {
+      toolsManager.getCurrentTool()?.draw(e);
+    }
     toolsManager.getCurrentTool()?.updateCursor(cursor, e);
-    toolsManager.getCurrentTool()?.draw(e);
   }, 16);
 
   function setUpViewportAndEvent() {

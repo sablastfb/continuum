@@ -10,23 +10,21 @@ import EraseTools from "./components/tools/EraseTools";
 import CircleTool from "./components/tools/CircleTool";
 import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
-import { Canvas } from "./features/services/CanvasService";
+import { Canvas } from "./features/CanvasApp";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
   const activeTool = useCanvasStore((state) => state.activeTool);
 
   useEffect(() => {
-  async function SetUpPixi() {
-    const app = await Canvas.getPixiApp();
-    if (canvasContainer.current && app) {
-      canvasContainer.current.appendChild(app.canvas);
+    async function SetUpPixi() {
+      const app = await Canvas.getPixiApp();
+      if (canvasContainer.current && app) {
+        canvasContainer.current.appendChild(app.canvas);
+      }
     }
-  }
-  SetUpPixi();
-
+    SetUpPixi();
   }, []);
-
 
   let activeToolComponent;
   switch (activeTool) {
@@ -57,7 +55,10 @@ function CanvasPage() {
 
   return (
     <div className="relative h-screen w-screen">
-      <div ref={canvasContainer} className="absolute inset-0" 
+      <div
+        ref={canvasContainer}
+        className="absolute inset-0"
+        style={{ cursor: "none" }}
       />
       {activeToolComponent}
       <ToolsMenue />
