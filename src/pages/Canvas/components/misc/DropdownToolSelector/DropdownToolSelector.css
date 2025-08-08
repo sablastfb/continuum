@@ -2,6 +2,7 @@
 .p-dropdown	{
     background: transparent;
     border: none;
+    outline: none;
 }
 
 .p-dropdown-panel{
@@ -9,13 +10,14 @@
     justify-content: center;
     gap:5px;
     border: none;
-    border-radius: 20%;
-    background-color: transparent;
+    border-radius: 5%;
     margin-bottom: 5px;
+    background-color: rgb(66, 66, 66) 
 }
 .p-dropdown-item {
     border-radius: 20%;
     padding: 5px;
+    background-color: transparent;
 }
 
 .p-dropdown-items	{

@@ -104,7 +104,7 @@ function ToolsMenue() {
         </div>
       </div>
       <div
-        className={`absolute bottom-0 left-0 right-0
+        className={`absolute bottom-0 left-0 right-0 pointer-events-none
             transition-all duration-300 ease-in-out 
             ${
               toolsMenueVisible
@@ -113,9 +113,9 @@ function ToolsMenue() {
             }
             `}
       >
-        <div className=" flex justify-center pb-2">
+        <div className=" flex justify-center pb-2 ">
           <div
-            className={`flex justify-center items-center gap-4 rounded-2xl min-w-min ${background} p-1`}
+            className={`flex  pointer-events-auto justify-center items-center gap-4 rounded-2xl min-w-min ${background} p-1`}
           >
             <DropdownToolSelector dropDownOptions={DrawingOptions} />
             <DropdownToolSelector dropDownOptions={SelectionOptions} />
@@ -127,7 +127,7 @@ function ToolsMenue() {
           </div>
         </div>
         <div className="absolute left-0 bottom-0  p-2 flex justify-center">
-          <div className="rounded-2xl p-2 bg-white/10 backdrop-blur-sm flex  gap-4">
+          <div className="pointer-events-auto rounded-2xl p-2 bg-white/10 backdrop-blur-sm flex  gap-4">
             <div
               onClick={() => {
                 navigate("/main-menue");
@@ -162,7 +162,7 @@ function ToolsMenue() {
           </div>
         </div>
         <div className="absolute right-0 bottom-0 p-2">
-          <div className="flex justify-center items-center rounded-2xl p-2 gap-2 bg-white/10 backdrop-blur-sm text-gray-300 text-xl">
+          <div className="flex justify-center items-center pointer-events-auto rounded-2xl p-2 gap-2 bg-white/10 backdrop-blur-sm text-gray-300 text-xl">
             <ZoomIn
               className="hover:cursor-pointer"
               size={25}

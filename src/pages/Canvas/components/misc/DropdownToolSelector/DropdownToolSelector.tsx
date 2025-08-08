@@ -25,13 +25,15 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   return (
     <>
       <Dropdown
-        className="hover:bg-amber-200"
         value={selectedDropDownOptions}
         valueTemplate={selectedIconTemplate}
         options={dropDownOptions}
         itemTemplate={iconOptionTemplate}
         optionLabel="name"
         dataKey="action"
+        onClick={(e) => {
+          setActiveTool(selectedDropDownOptions.action);
+        }}
         onChange={(e) => {
           setSelectedDropDownOptions(e.value);
           setActiveTool((e.value as IconOption).action);
