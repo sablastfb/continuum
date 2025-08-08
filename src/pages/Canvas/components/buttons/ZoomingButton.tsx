@@ -1,7 +1,7 @@
 import { ZoomIn, ZoomOut } from "lucide-react";
 import useCanvasStore from "../../data/CanvasStore";
-import { Canvas } from "../../services/CanvasService";
 import { defaultCanvasBackground } from "../../data/CanvasConstants";
+import { Canvas } from "../../features/services/CanvasService";
 
 function ZoomingButton() {
   const zoome = useCanvasStore((state) => state.zoome);

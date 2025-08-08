@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import { ActiveTool } from "./CanvasTypes";
+import { ToolType } from "./CanvasTypes";
 
-interface CanvasStore {
+export interface CanvasStore {
   color: string;
   zoome: number;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
-  activeTool: ActiveTool;
+  activeTool: ToolType;
   pencileThickens: number;
   activeColorKey: number;
   setZoom: (zoom: number) => void;
@@ -15,7 +15,7 @@ interface CanvasStore {
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
-  setActiveTool: (activeTool: ActiveTool) => void;
+  setActiveTool: (activeTool: ToolType) => void;
   setPencileThickens: (pencileThickens: number) => void;
 }
 

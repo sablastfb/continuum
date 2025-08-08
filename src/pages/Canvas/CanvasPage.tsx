@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { Canvas } from "./services/CanvasService";
 import ToolsMenue from "./components/tools/ToolsMenue";
 import SettingsDialog from "./components/dialog/SettingsDialog";
 import PencileTools from "./components/tools/PencileTools";
@@ -11,16 +10,17 @@ import EraseTools from "./components/tools/EraseTools";
 import CircleTool from "./components/tools/CircleTool";
 import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
+import { Canvas } from "./features/services/CanvasService";
 
 function CanvasPage() {
-  const divContainer = useRef<HTMLDivElement>(null);
+  const canvasContainer = useRef<HTMLDivElement>(null);
   const activeTool = useCanvasStore((state) => state.activeTool);
 
   useEffect(() => {
   async function SetUpPixi() {
     const app = await Canvas.getPixiApp();
-    if (divContainer.current) {
-      divContainer.current.appendChild(app.canvas);
+    if (canvasContainer.current && app) {
+      canvasContainer.current.appendChild(app.canvas);
     }
   }
   SetUpPixi();
@@ -57,7 +57,8 @@ function CanvasPage() {
 
   return (
     <div className="relative h-screen w-screen">
-      <div ref={divContainer} className="absolute inset-0" />
+      <div ref={canvasContainer} className="absolute inset-0" 
+      />
       {activeToolComponent}
       <ToolsMenue />
       <SettingsDialog />

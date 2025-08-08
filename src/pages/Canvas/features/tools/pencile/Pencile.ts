@@ -1,0 +1,53 @@
+import { Viewport } from "pixi-viewport";
+import { ITool } from "../ITool";
+import { FederatedMouseEvent, Graphics } from "pixi.js";
+import { Point } from "../../../data/CanvasTypes";
+import { MinimumDistanceToNextLine } from "../../../data/CanvasConstants";
+import { Distance } from "../../utils/CanvasUtils";
+import { CanvasStore as Store } from "./../../../data/CanvasStore"
+
+export class Pencile implements ITool{
+    private graphic: Graphics | null = null;
+    private lastPoint: Point = { x: 0, y: 0 };
+    private count = 0;
+    
+    constructor(private viewport : Viewport, private state: Store) {}
+
+    public startDrawing(e: FederatedMouseEvent) {
+    const worldPos = this.viewport.toWorld(e.global);
+    this.graphic = new Graphics();
+    this.graphic.moveTo(worldPos.x, worldPos.y);
+    this.graphic.stroke({ width: 10, color: "white", cap: "round", join: "round" });
+    this.viewport.addChild(this.graphic);
+    this.lastPoint = { x: worldPos.x, y: worldPos.y };
+    this.count = 0;
+  }
+
+  public draw(e: FederatedMouseEvent) {
+    if(this.graphic === null) return;
+    const worldPos = this.viewport.toWorld(e.global) as Point;
+    if (Distance(worldPos, this.lastPoint) < MinimumDistanceToNextLine) {
+      return;
+    }
+
+    this.graphic.lineTo(worldPos.x, worldPos.y);
+    this.graphic.stroke({
+      width: this.state.pencileThickens,
+      color: "white",
+      cap: "round",
+      join: "round",
+    });
+    const color = this.state.color;
+
+    this.graphic.tint = color;
+    this.count++;
+    this.lastPoint = { x: worldPos.x, y: worldPos.y };
+  }
+  public stopDrawing(e: FederatedMouseEvent) {
+    console.log(this.count);
+  }
+
+  public updateCursor(cursor: Graphics, e: FederatedMouseEvent){
+
+  }
+}

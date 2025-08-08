@@ -1,11 +1,11 @@
 import { JSX } from "react";
 import useCanvasStore from "../../data/CanvasStore";
-import { ActiveTool } from "../../data/CanvasTypes";
+import { ToolType } from "../../data/CanvasTypes";
 
 export type ToolButtonParam = {
   name: string;
   icon: JSX.Element;
-  action: ActiveTool;
+  action: ToolType;
 };
 
 function ToolButton({name, icon, action}: ToolButtonParam) {
