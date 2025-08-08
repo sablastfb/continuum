@@ -22,6 +22,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DropdownToolSelector from "../misc/DropdownToolSelector/DropdownToolSelector";
 import { IconOption } from "../../data/ToolsMenueData";
+import ArrayDivider from "../misc/ArrayDivider";
 function ToolsMenue() {
   const zoome = useCanvasStore((state) => state.zoome);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -120,6 +121,7 @@ function ToolsMenue() {
             <DropdownToolSelector dropDownOptions={SelectionOptions} />
             <DropdownToolSelector dropDownOptions={ShapesOption} />
             <Type  size={32} className="hover:cursor-pointer"/>
+            <ArrayDivider orjentation="vertical"/>
             <Undo color="white" size={32} className="hover:cursor-pointer" />
             <Redo color="white" size={32} className="hover:cursor-pointer" />
           </div>
