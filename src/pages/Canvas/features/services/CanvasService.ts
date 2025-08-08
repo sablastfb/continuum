@@ -6,6 +6,7 @@ import { throttle } from "lodash";
 import { ToolType } from "../../data/CanvasTypes";
 import useCanvasStore from "../../data/CanvasStore";
 import { ToolsManager } from "../tools/ToolManager";
+import { ZoomSensitivity } from "../../data/CanvasConstants";
 
 export namespace Canvas {
   let appInstance: Application | null = null;
@@ -24,7 +25,7 @@ export namespace Canvas {
 
   async function setUpAplication() {
     appInstance = new Application();
-    await appInstance.init({ background: "#222", resizeTo: window });
+    await appInstance.init({ background: "#434", resizeTo: window });
     cursor = new Graphics();
 
     viewport = new Viewport({
@@ -60,7 +61,7 @@ export namespace Canvas {
         toolsManager.getCurrentTool()?.startDrawing(e);
       })
       .on("mousemove", (e) => {
-          throttledDraw(e);
+        throttledDraw(e);
       })
       .on("mouseup", (e) => {
         if (!drawing) return;
@@ -88,5 +89,13 @@ export namespace Canvas {
   export function changeTool(toolType: ToolType) {
     if (toolsManager === null) return;
     toolsManager.setTool(toolType);
+  }
+
+  export function zoom(zoomeDirection: number) {
+    if (viewport === null) return;
+    const zoome = useCanvasStore.getState().zoome;
+    const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
+    useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
+    viewport.setZoom(zomeValue);
   }
 }

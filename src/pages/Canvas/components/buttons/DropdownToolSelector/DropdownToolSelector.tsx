@@ -21,7 +21,6 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   };
 
   const selectedIconTemplate = (option: IconOption) => {
-    debugger;
     if (option) {
       return (
         <>
@@ -45,7 +44,6 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
         onChange={(e) => {
           setSelectedDropDownOptions(e.value);
           setActiveTool((e.value as IconOption).action);
-          debugger;
         }}
       />
     </>
