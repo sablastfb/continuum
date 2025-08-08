@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Canvas } from "./services/CanvasService";
 import ToolsMenue from "./components/tools/ToolsMenue";
 import SettingsDialog from "./components/dialog/SettingsDialog";
@@ -16,12 +16,17 @@ function CanvasPage() {
   const divContainer = useRef<HTMLDivElement>(null);
   const activeTool = useCanvasStore((state) => state.activeTool);
 
+  useEffect(() => {
   async function SetUpPixi() {
     const app = await Canvas.getPixiApp();
     if (divContainer.current) {
       divContainer.current.appendChild(app.canvas);
     }
   }
+  SetUpPixi();
+  }, []);
+
+
   let activeToolComponent;
   switch (activeTool) {
     case "drawing":
@@ -49,7 +54,6 @@ function CanvasPage() {
       activeToolComponent = <></>;
   }
 
-  SetUpPixi();
   return (
     <div className="relative h-screen w-screen">
       <div ref={divContainer} className="absolute inset-0" />
