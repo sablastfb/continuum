@@ -38,7 +38,7 @@ export namespace Canvas {
     appInstance.stage.addChild(viewport);
     appInstance!.stage.addChild(cursor);
 
-    toolsManager = new ToolsManager(viewport, useCanvasStore.getState());
+    toolsManager = new ToolsManager(viewport, useCanvasStore);
   }
 
   const throttledDraw = throttle((e) => {

@@ -4,14 +4,15 @@ import { FederatedMouseEvent, Graphics } from "pixi.js";
 import { Point } from "../../../data/CanvasTypes";
 import { MinimumDistanceToNextLine } from "../../../data/CanvasConstants";
 import { Distance } from "../../utils/CanvasUtils";
-import { CanvasStore as Store } from "./../../../data/CanvasStore"
+import { CanvasStore, CanvasStore as Store } from "./../../../data/CanvasStore"
+import { StoreApi, UseBoundStore } from "zustand";
 
 export class Pencile implements ITool{
     private graphic: Graphics | null = null;
     private lastPoint: Point = { x: 0, y: 0 };
     private count = 0;
     
-    constructor(private viewport : Viewport, private state: Store) {}
+    constructor(private viewport : Viewport, private state:  UseBoundStore<StoreApi<CanvasStore>>,) {}
 
     public startDrawing(e: FederatedMouseEvent) {
     const worldPos = this.viewport.toWorld(e.global);
@@ -32,13 +33,12 @@ export class Pencile implements ITool{
 
     this.graphic.lineTo(worldPos.x, worldPos.y);
     this.graphic.stroke({
-      width: this.state.pencileThickens,
+      width: this.state.getState().pencileThickens,
       color: "white",
       cap: "round",
       join: "round",
     });
-    const color = this.state.color;
-
+    const color = this.state.getState().color;
     this.graphic.tint = color;
     this.count++;
     this.lastPoint = { x: worldPos.x, y: worldPos.y };

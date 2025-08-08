@@ -1,9 +1,9 @@
 import { Dropdown } from "primereact/dropdown";
-import { IconOption } from "../../../data/ToolsMenueData";
 import "./DropdownToolSelector.css";
 import { useState } from "react";
 import useCanvasStore from "../../../data/CanvasStore";
 import ToolButton from "../ToolButton";
+import { IconOption } from "../../../data/CanvasTypes";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];
@@ -21,10 +21,11 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   };
 
   const selectedIconTemplate = (option: IconOption) => {
+    debugger;
     if (option) {
       return (
         <>
-          <ToolButton {...selectedDropDownOptions}/>
+          <ToolButton name={option.name} action={option.action} icon={option.icon}/>
         </>
       );
     }

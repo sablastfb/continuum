@@ -12,7 +12,7 @@ function CircleColorPicker({ color, colorKey }: CircleColorPickerParm) {
   return (
     <div
       onClick={() => {
-        setPencileColor({ color, activeColorKey: colorKey });
+        setPencileColor({ color: color, activeColorKey: colorKey });
       }}
       style={{ backgroundColor: color }}
       className={`hover:cursor-pointer rounded-full w-7 h-7 ${
