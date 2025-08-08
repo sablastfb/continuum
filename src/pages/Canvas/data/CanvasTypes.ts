@@ -7,7 +7,7 @@ export type ActiveTool =
   | "drawing"
   | "eraser"
   | "move"
-  | "selection"
+  | "transform"
   | "square"
   | "circle"
   | "text";

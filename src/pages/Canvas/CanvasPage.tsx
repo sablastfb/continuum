@@ -8,6 +8,9 @@ import InfoDialog from "./components/dialog/InfoDialog";
 import useCanvasStore from "./data/CanvasStore";
 import TransformTools from "./components/tools/TransportComponent";
 import EraseTools from "./components/tools/EraseTools";
+import CircleTool from "./components/tools/CircleTool";
+import SquareTool from "./components/tools/SquareTool";
+import TextTool from "./components/tools/TextTool";
 
 function CanvasPage() {
   const divContainer = useRef<HTMLDivElement>(null);
@@ -20,28 +23,41 @@ function CanvasPage() {
     }
   }
   let activeToolComponent;
-    switch(activeTool) {
-    case 'drawing':
+  switch (activeTool) {
+    case "drawing":
       activeToolComponent = <PencileTools />;
       break;
-    case 'eraser':
+    case "eraser":
       activeToolComponent = <EraseTools />;
-    break;
-    case 'transform':
+      break;
+    case "move":
+      activeToolComponent = <></>;
+      break;
+    case "transform":
       activeToolComponent = <TransformTools />;
       break;
+    case "circle":
+      activeToolComponent = <CircleTool />;
+      break;
+    case "square":
+      activeToolComponent = <SquareTool />;
+      break;
+    case "text":
+      activeToolComponent = <TextTool />;
+      break;
+    default:
+      activeToolComponent = <></>;
   }
-
 
   SetUpPixi();
   return (
     <div className="relative h-screen w-screen">
-    <div ref={divContainer} className="absolute inset-0" />
-    { activeToolComponent }
-    <ToolsMenue/>
-    <SettingsDialog />
-    <ExportDialog />
-    <InfoDialog />
+      <div ref={divContainer} className="absolute inset-0" />
+      {activeToolComponent}
+      <ToolsMenue />
+      <SettingsDialog />
+      <ExportDialog />
+      <InfoDialog />
     </div>
   );
 }

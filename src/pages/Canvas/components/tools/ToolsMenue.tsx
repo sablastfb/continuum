@@ -58,7 +58,7 @@ function ToolsMenue() {
       {
         name: "Eraser",
         icon: <SquareDashed  size={32} />,
-        action: "selection",
+        action: "transform",
       },
     ],
     []
@@ -67,14 +67,14 @@ function ToolsMenue() {
     const ShapesOption = useMemo<IconOption[]>(
     () => [
       {
-        name: "Pen",
+        name: "Square",
         icon: <Square size={32} />,
-        action: "move",
+        action: "square",
       },
       {
-        name: "Eraser",
+        name: "Circle",
         icon: <Circle  size={32} />,
-        action: "selection",
+        action: "circle",
       },
     ],
     []
