@@ -3,6 +3,7 @@ import {
   Circle,
   Download,
   Eraser,
+  Highlighter,
   Home,
   Info,
   MousePointer2,
@@ -23,6 +24,8 @@ import { useNavigate } from "react-router-dom";
 import DropdownToolSelector from "../misc/DropdownToolSelector/DropdownToolSelector";
 import { IconOption } from "../../data/ToolsMenueData";
 import ArrayDivider from "../misc/ArrayDivider";
+import { defaultCanvasBackground } from "../../data/CanvasConstants";
+import ZoomingButton from "../misc/ZoomingButton";
 function ToolsMenue() {
   const zoome = useCanvasStore((state) => state.zoome);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -30,15 +33,19 @@ function ToolsMenue() {
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
   const navigate = useNavigate();
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
-  const background = "bg-white/10 backdrop-blur-sm";
   const color = useCanvasStore((state) => state.color);
 
   const DrawingOptions = useMemo<IconOption[]>(
     () => [
       {
         name: "Pen",
-        icon: <PenLine color={color} size={32} />,
+        icon: <PenLine strokeWidth={1} size={32} fill={color} />,
         action: "drawing",
+      },
+      {
+        name: "Eraser",
+        icon:   <Highlighter strokeWidth={1} size={32} fill={color} />,
+        action: "eraser",
       },
       {
         name: "Eraser",
@@ -86,7 +93,7 @@ function ToolsMenue() {
     <div className="flex bottom-0 left-0 right-0">
       <div className="absolute bottom-0 left-0 right-0 flex justify-center">
         <div
-          className={`flex justify-center items-center ${background} rounded-full p-1 absolute hover:cursor-pointer
+          className={`flex justify-center items-center ${defaultCanvasBackground} rounded-full p-1 absolute hover:cursor-pointer
           transition-all ease-in-out
             ${toolsMenueVisible ? "bottom-1" : "bottom-15"}
             `}
@@ -115,7 +122,7 @@ function ToolsMenue() {
       >
         <div className=" flex justify-center pb-2 ">
           <div
-            className={`flex  pointer-events-auto justify-center items-center gap-4 rounded-2xl min-w-min ${background} p-1`}
+            className={`flex  pointer-events-auto justify-center items-center gap-4 rounded-2xl min-w-min ${defaultCanvasBackground} p-1`}
           >
             <DropdownToolSelector dropDownOptions={DrawingOptions} />
             <DropdownToolSelector dropDownOptions={SelectionOptions} />
@@ -161,21 +168,7 @@ function ToolsMenue() {
             />
           </div>
         </div>
-        <div className="absolute right-0 bottom-0 p-2">
-          <div className="flex justify-center items-center pointer-events-auto rounded-2xl p-2 gap-2 bg-white/10 backdrop-blur-sm text-gray-300 text-xl">
-            <ZoomIn
-              className="hover:cursor-pointer"
-              size={25}
-              onClick={() => Canvas.zoom(1)}
-            />
-            {(zoome * 100).toFixed(1)}%
-            <ZoomOut
-              className="hover:cursor-pointer"
-              size={25}
-              onClick={() => Canvas.zoom(-1)}
-            />
-          </div>
-        </div>
+        <ZoomingButton/>
       </div>
     </div>
   );
