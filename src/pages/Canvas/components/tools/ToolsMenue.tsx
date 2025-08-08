@@ -1,93 +1,11 @@
-import {
-  ArrowDown,
-  Circle,
-  Download,
-  Eraser,
-  Highlighter,
-  Home,
-  Info,
-  MousePointer2,
-  PenLine,
-  Redo,
-  Settings,
-  Square,
-  SquareDashed,
-  Type,
-  Undo,
-  ZoomIn,
-  ZoomOut,
-} from "lucide-react";
-import useCanvasStore from "../../data/CanvasStore";
-import { Canvas } from "../../services/CanvasService";
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DropdownToolSelector from "../misc/DropdownToolSelector/DropdownToolSelector";
-import { IconOption } from "../../data/ToolsMenueData";
-import ArrayDivider from "../misc/ArrayDivider";
+import { ArrowDown } from "lucide-react";
+import { useState } from "react";
 import { defaultCanvasBackground } from "../../data/CanvasConstants";
-import ZoomingButton from "../misc/ZoomingButton";
+import ZoomingButton from "../buttons/ZoomingButton";
+import OptionButtons from "../buttons/OptionsButton";
+import ToolsButtons from "../buttons/ToolsButtons";
 function ToolsMenue() {
-  const zoome = useCanvasStore((state) => state.zoome);
-  const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
-  const setExportVisible = useCanvasStore((state) => state.setExportVisible);
-  const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
-  const navigate = useNavigate();
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
-  const color = useCanvasStore((state) => state.color);
-
-  const DrawingOptions = useMemo<IconOption[]>(
-    () => [
-      {
-        name: "Pen",
-        icon: <PenLine strokeWidth={1} size={32} fill={color} />,
-        action: "drawing",
-      },
-      {
-        name: "Eraser",
-        icon:   <Highlighter strokeWidth={1} size={32} fill={color} />,
-        action: "eraser",
-      },
-      {
-        name: "Eraser",
-        icon: <Eraser size={32} />,
-        action: "eraser",
-      },
-    ],
-    [color]
-  );
-
-    const SelectionOptions = useMemo<IconOption[]>(
-    () => [
-      {
-        name: "Pen",
-        icon: <MousePointer2 size={32} />,
-        action: "move",
-      },
-      {
-        name: "Eraser",
-        icon: <SquareDashed  size={32} />,
-        action: "transform",
-      },
-    ],
-    []
-  );
-
-    const ShapesOption = useMemo<IconOption[]>(
-    () => [
-      {
-        name: "Square",
-        icon: <Square size={32} />,
-        action: "square",
-      },
-      {
-        name: "Circle",
-        icon: <Circle  size={32} />,
-        action: "circle",
-      },
-    ],
-    []
-  );
-
 
   return (
     <div className="flex bottom-0 left-0 right-0">
@@ -110,9 +28,10 @@ function ToolsMenue() {
           />
         </div>
       </div>
+
       <div
-        className={`absolute bottom-0 left-0 right-0 pointer-events-none
-            transition-all duration-300 ease-in-out 
+        className={`
+            absolute bottom-0 left-0 right-0 pointer-events-none
             ${
               toolsMenueVisible
                 ? " translate-y-10 pointer-events-none hidden"
@@ -120,55 +39,9 @@ function ToolsMenue() {
             }
             `}
       >
-        <div className=" flex justify-center pb-2 ">
-          <div
-            className={`flex  pointer-events-auto justify-center items-center gap-4 rounded-2xl min-w-min ${defaultCanvasBackground} p-1`}
-          >
-            <DropdownToolSelector dropDownOptions={DrawingOptions} />
-            <DropdownToolSelector dropDownOptions={SelectionOptions} />
-            <DropdownToolSelector dropDownOptions={ShapesOption} />
-            <Type  size={32} className="hover:cursor-pointer"/>
-            <ArrayDivider orjentation="vertical"/>
-            <Undo color="white" size={32} className="hover:cursor-pointer" />
-            <Redo color="white" size={32} className="hover:cursor-pointer" />
-          </div>
-        </div>
-        <div className="absolute left-0 bottom-0  p-2 flex justify-center">
-          <div className="pointer-events-auto rounded-2xl p-2 bg-white/10 backdrop-blur-sm flex  gap-4">
-            <div
-              onClick={() => {
-                navigate("/main-menue");
-              }}
-            >
-              <Home color="white" size={30} className="hover:cursor-pointer" />
-            </div>
-            <Settings
-              color="white"
-              size={30}
-              className="hover:cursor-pointer"
-              onClick={() => {
-                setSettingVisible(true);
-              }}
-            />
-            <Download
-              color="white"
-              size={30}
-              className="hover:cursor-pointer"
-              onClick={() => {
-                setExportVisible(true);
-              }}
-            />
-            <Info
-              color="white"
-              size={30}
-              className="hover:cursor-pointer"
-              onClick={() => {
-                setInfoVisible(true);
-              }}
-            />
-          </div>
-        </div>
-        <ZoomingButton/>
+        <ToolsButtons />
+        <OptionButtons />
+        <ZoomingButton />
       </div>
     </div>
   );

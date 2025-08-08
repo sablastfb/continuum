@@ -3,6 +3,7 @@ import { IconOption } from "../../../data/ToolsMenueData";
 import "./DropdownToolSelector.css";
 import { useState } from "react";
 import useCanvasStore from "../../../data/CanvasStore";
+import ToolButton from "../ToolButton";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];
@@ -14,20 +15,17 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   );
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const iconOptionTemplate = (option: IconOption) => {
-    return <div className="flex items-center cursor-pointer">{option.icon}</div>;
+    return (
+      <div className="flex items-center cursor-pointer">{option.icon}</div>
+    );
   };
 
   const selectedIconTemplate = (option: IconOption) => {
     if (option) {
       return (
-        <div
-          className="flex items-center hover:cursor-pointer"
-          onClick={() => {
-            setActiveTool(selectedDropDownOptions.action);
-          }}
-        >
-          {option.icon}
-        </div>
+        <>
+          <ToolButton {...selectedDropDownOptions}/>
+        </>
       );
     }
     return <span></span>;
