@@ -2,7 +2,10 @@ import { Viewport } from "pixi-viewport";
 import { Application, FederatedMouseEvent, Graphics } from "pixi.js";
 import { Point } from "../data/CanvasTypes";
 import { Distance } from "./CanvasUtils";
-import { MinimumDistanceToNextLine, ZoomSensitivity } from "../data/CanvasConstants";
+import {
+  MinimumDistanceToNextLine,
+  ZoomSensitivity,
+} from "../data/CanvasConstants";
 import { throttle } from "lodash";
 import { ZoomedEvent } from "pixi-viewport/dist/types";
 import useCanvasStore from "../data/CanvasStore";
@@ -46,8 +49,25 @@ export namespace Canvas {
         Canvas.stopDrawing(e);
       });
 
+    window.addEventListener("resize", handleResize);
+    handleResize();
     return appInstance;
   }
+
+  function handleResize() {
+    if (!appInstance || !viewport) return;
+    viewport.resize(window.innerWidth, window.innerHeight, 1024, 1024);
+    debugger;
+  }
+
+  export function destroyPixiApp() {
+    if (appInstance) {
+        window.removeEventListener('resize', handleResize);
+        appInstance.destroy();
+        appInstance = null;
+        viewport = null;
+    }
+}
 
   export function getViewport() {
     if (viewport) {
@@ -79,7 +99,12 @@ export namespace Canvas {
     }
 
     graph.lineTo(worldPos.x, worldPos.y);
-    graph.stroke({ width:  useCanvasStore.getState().pencileThickens, color: "white", cap: "round", join: "round" });
+    graph.stroke({
+      width: useCanvasStore.getState().pencileThickens,
+      color: "white",
+      cap: "round",
+      join: "round",
+    });
     const color = useCanvasStore.getState().color;
 
     graph.tint = color;

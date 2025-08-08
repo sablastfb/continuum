@@ -24,6 +24,7 @@ function CanvasPage() {
     }
   }
   SetUpPixi();
+
   }, []);
 
 
