@@ -14,17 +14,17 @@ function PencileTools(){
           <CircleThicknesPicker thicknes={20} selected={false} />
           <CircleThicknesPicker thicknes={30} selected={false} />
           <ArrayDivider orjentation="horizontal"/>
-          <CircleColorPicker color="#1099bb" selected={true}/> 
-          <CircleColorPicker color="rgb(220,182,183)" selected={false}/> 
-          <CircleColorPicker color="rgb(210,245,214)" selected={false}/>
-          <CircleColorPicker color="rgb(215,201,235)" selected={false}/>
-          <CircleColorPicker color="rgb(255,240,199)" selected={false}/>
-          <CircleColorPicker color="rgb(185,222,240)" selected={false}/>
-          <ColorPicker
+          <CircleColorPicker color="#1099bb" colorKey={0}/> 
+          <CircleColorPicker color="rgb(220,182,183)"  colorKey={1}/> 
+          <CircleColorPicker color="rgb(210,245,214)"  colorKey={2}/>
+          <CircleColorPicker color="rgb(215,201,235)"  colorKey={3}/>
+          <CircleColorPicker color="rgb(255,240,199)"  colorKey={4}/>
+          <CircleColorPicker color="rgb(185,222,240)"  colorKey={5}/>
+          {/* <ColorPicker
             format="hex"
             value={"6466f1"}
             onChange={(e) => setPencileColor(`#${e.value}` as string)}
-          />
+          /> */}
         </div>
       </div>
     </>

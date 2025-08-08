@@ -9,8 +9,9 @@ interface CanvasStore {
   exportVisible: boolean;
   activeTool: ActiveTool;
   pencileThickens: number;
+  activeColorKey: number;
   setZoom: (zoom: number) => void;
-  setPencileColor: (newColor: string) => void;
+  setPencileColor: (newColor: {color: string, activeColorKey: number}) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
@@ -26,8 +27,9 @@ const useCanvasStore = create<CanvasStore>((set) => ({
   exportVisible: false,
   activeTool: "drawing",
   pencileThickens: 5,
+  activeColorKey: 0,
   setZoom: (zoome) => set({ zoome }),
-  setPencileColor: (color) => set({ color }),
+  setPencileColor: (color) => set({ color: color.color, activeColorKey: color.activeColorKey }),
   setSettingVisible: (settingVisible) => set({ settingVisible }),
   setInfoVisible: (infoVisible) => set({ infoVisible }),
   setExportVisible: (exportVisible) => set({ exportVisible }),
