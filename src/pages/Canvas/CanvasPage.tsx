@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import ToolsMenue from "./components/tools/ToolsMenue";
 import SettingsDialog from "./components/dialog/Settings/SettingsDialog";
-import PencileTools from "./components/tools/PencileTools";
+import PencileTools from "./features/tools/pencile/PencileTools";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
 import useCanvasStore from "./data/CanvasStore";

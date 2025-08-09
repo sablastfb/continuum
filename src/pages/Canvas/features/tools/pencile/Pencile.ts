@@ -4,7 +4,7 @@ import { FederatedMouseEvent, Graphics } from "pixi.js";
 import { Point } from "../../../data/CanvasTypes";
 import { MinimumDistanceToNextLine } from "../../../data/CanvasConstants";
 import { Distance } from "../../utils/CanvasUtils";
-import { CanvasStore } from "./../../../data/CanvasStore";
+import { CanvasStore } from "../../../data/CanvasStore";
 import { StoreApi, UseBoundStore } from "zustand";
 import { graphicsData } from "../../service/data";
 import { v4 as uuidv4 } from "uuid";

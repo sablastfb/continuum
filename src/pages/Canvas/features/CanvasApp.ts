@@ -19,7 +19,6 @@ export namespace Canvas {
     if (appInstance) {
       updateCursor();
       updateCursorVisibilty();
-      debugger;
       return appInstance;
     }
 
@@ -125,5 +124,10 @@ export namespace Canvas {
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
     viewport.setZoom(zomeValue);
+  }
+
+  export function changeBackground(color: string) {
+    if (appInstance === null) return;
+    appInstance.renderer.background.color = color;
   }
 }
