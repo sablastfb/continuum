@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import ToolsMenue from "./components/tools/ToolsMenue";
-import SettingsDialog from "./components/dialog/SettingsDialog";
+import SettingsDialog from "./components/dialog/Settings/SettingsDialog";
 import PencileTools from "./components/tools/PencileTools";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
@@ -23,6 +23,7 @@ function CanvasPage() {
   useEffect(() => {
     async function SetUpPixi() {
       const app = await Canvas.getPixiApp();
+      setCanvasCursorActive(true);
       if (canvasContainer.current && app) {
         canvasContainer.current.appendChild(app.canvas);
       }
@@ -59,7 +60,7 @@ function CanvasPage() {
 
   return (
     <div className="relative h-screen w-screen">
-      <Cursor/>
+      <Cursor />
       <div
         onMouseEnter={() => {
           setCanvasCursorActive(true);

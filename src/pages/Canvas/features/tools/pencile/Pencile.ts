@@ -57,15 +57,30 @@ export class Pencile implements ITool {
     this.count++;
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
   }
+
   public stopDrawing(e: FederatedMouseEvent) {
-    console.log(this.count);
+    // if (this.graphic === null) return;
+
+    // const worldPos = this.viewport.toWorld(e.global) as Point;
+
+    // this.graphic
+    //   .lineTo(worldPos.x+1, worldPos.y)
+    // this.graphic.stroke({
+    //   width: this.state.getState().pencileThickens,
+    //   color: "white",
+    //   cap: "round",
+    //   join: "round",
+    // });
+    // const color = this.state.getState().color;
+    // this.graphic.tint = color;
   }
 
   public updateCursor(cursor: Graphics) {
-    const lineDistanceOffset = 5; 
-    const outlineWidth = 3;
-    const lineDistance = 25 + lineDistanceOffset; 
+    const lineDistanceOffset = 5;
+    const outlineWidth = 1;
+    const lineDistance = 20 + lineDistanceOffset;
     const lineWidth = 1;
+    cursor.clear();
     cursor
       .circle(0, 0, this.state.getState().pencileThickens)
       .fill(this.state.getState().color)
@@ -78,6 +93,6 @@ export class Pencile implements ITool {
       .lineTo(0, this.state.getState().pencileThickens + lineDistanceOffset)
       .moveTo(0, -lineDistance)
       .lineTo(0, -this.state.getState().pencileThickens - lineDistanceOffset)
-      .stroke({ width: lineWidth, color: "black" });
+      .stroke({ width: lineWidth, color: "gray" });
   }
 }

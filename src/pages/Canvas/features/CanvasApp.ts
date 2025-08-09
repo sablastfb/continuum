@@ -12,12 +12,17 @@ export namespace Canvas {
   let appInstance: Application | null = null;
   let viewport: Viewport | null = null;
   export let toolsManager: ToolsManager;
-
   let cursor: Graphics;
   let drawing = false;
 
   export async function getPixiApp() {
-    if (appInstance) return appInstance;
+    if (appInstance) {
+      updateCursor();
+      updateCursorVisibilty();
+      debugger;
+      return appInstance;
+    }
+
     await setUpAplication();
     setUpViewportAndEvent();
     setUpResize();
@@ -59,15 +64,16 @@ export namespace Canvas {
     }
   };
 
-  const moveCursor = throttle((e: FederatedPointerEvent) => {
-    if (useCanvasStore.getState().canvasCursorActive) {
-      cursor.visible = true;
-      cursor.x = e.global.x;
-      cursor.y = e.global.y;
-    } else {
-      cursor.visible = false;
+  export const updateCursorVisibilty = () => {
+    if (cursor) {
+      cursor.visible = useCanvasStore.getState().canvasCursorActive;
     }
-  }, 8);
+  };
+
+  export const moveCursor = throttle((e: FederatedPointerEvent) => {
+    cursor.x = e.global.x;
+    cursor.y = e.global.y;
+  }, 1);
 
   function setUpViewportAndEvent() {
     if (viewport === null) return;
