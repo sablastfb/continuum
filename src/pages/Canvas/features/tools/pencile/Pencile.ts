@@ -58,7 +58,7 @@ export class Pencile implements ITool {
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
   }
 
-  public stopDrawing(e: FederatedMouseEvent) {
+  public stopDrawing() {
     // if (this.graphic === null) return;
 
     // const worldPos = this.viewport.toWorld(e.global) as Point;

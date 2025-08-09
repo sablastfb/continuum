@@ -8,7 +8,7 @@ export type ToolButtonParam = {
   action: ToolType;
 };
 
-function ToolButton({name, icon, action}: ToolButtonParam) {
+function ToolButton({icon, action}: ToolButtonParam) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
 
   return (

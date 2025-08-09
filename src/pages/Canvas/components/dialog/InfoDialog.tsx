@@ -1,6 +1,5 @@
 import { Dialog } from "primereact/dialog";
 import useCanvasStore from "../../data/CanvasStore";
-import { Button } from "primereact/button";
 import { X } from "lucide-react";
 
 function InfoDialog() {

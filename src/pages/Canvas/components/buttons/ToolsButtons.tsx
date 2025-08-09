@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import useCanvasStore from "../../data/CanvasStore";
-import { IconOption } from "../../data/ToolsMenueData";
 import {
   Circle,
   Eraser,
@@ -17,6 +16,7 @@ import DropdownToolSelector from "./DropdownToolSelector/DropdownToolSelector";
 import ArrayDivider from "../misc/ArrayDivider";
 import { defaultCanvasBackground } from "../../data/CanvasConstants";
 import ToolButton from "./ToolButton";
+import { IconOption } from "../../data/CanvasTypes";
 
 function ToolsButtons() {
   const color = useCanvasStore((state) => state.color);
