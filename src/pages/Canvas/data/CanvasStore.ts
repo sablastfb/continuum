@@ -10,13 +10,18 @@ export interface CanvasStore {
   activeTool: ToolType;
   pencileThickens: number;
   activeColorKey: number;
+  canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
-  setPencileColor: (newColor: {color: string, activeColorKey: number}) => void;
+  setPencileColor: (newColor: {
+    color: string;
+    activeColorKey: number;
+  }) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
   setActiveTool: (activeTool: ToolType) => void;
   setPencileThickens: (pencileThickens: number) => void;
+  setCanvasCursorActive: (canvasCursorActive: boolean) => void;
 }
 
 const useCanvasStore = create<CanvasStore>((set) => ({
@@ -28,13 +33,17 @@ const useCanvasStore = create<CanvasStore>((set) => ({
   activeTool: "drawing",
   pencileThickens: 5,
   activeColorKey: 0,
+  canvasCursorActive: true,
   setZoom: (zoome) => set({ zoome }),
-  setPencileColor: (color) => set({ color: color.color, activeColorKey: color.activeColorKey }),
+  setPencileColor: (color) =>
+    set({ color: color.color, activeColorKey: color.activeColorKey }),
   setSettingVisible: (settingVisible) => set({ settingVisible }),
   setInfoVisible: (infoVisible) => set({ infoVisible }),
   setExportVisible: (exportVisible) => set({ exportVisible }),
   setActiveTool: (activeTool) => set({ activeTool }),
   setPencileThickens: (pencileThickens: number) => set({ pencileThickens }),
+  setCanvasCursorActive: (canvasCursorActive: boolean) =>
+    set({ canvasCursorActive }),
 }));
 
 export default useCanvasStore;

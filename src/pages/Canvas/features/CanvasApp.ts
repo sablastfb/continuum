@@ -11,7 +11,7 @@ import { ZoomSensitivity } from "../data/CanvasConstants";
 export namespace Canvas {
   let appInstance: Application | null = null;
   let viewport: Viewport | null = null;
-  let toolsManager: ToolsManager;
+  export let toolsManager: ToolsManager;
 
   let cursor: Graphics;
   let drawing = false;
@@ -22,6 +22,7 @@ export namespace Canvas {
     setUpViewportAndEvent();
     setUpResize();
     setUpCommandManager();
+    updateCursor();
     return appInstance;
   }
 
@@ -44,16 +45,29 @@ export namespace Canvas {
     toolsManager = new ToolsManager(viewport, useCanvasStore);
   }
 
-  function setUpCommandManager(){
-    
-  }
+  function setUpCommandManager() {}
 
   const throttledDraw = throttle((e: FederatedPointerEvent) => {
-    if (drawing && e.buttons==1) {
+    if (drawing && e.buttons == 1) {
       toolsManager.getCurrentTool()?.draw(e);
     }
-    toolsManager.getCurrentTool()?.updateCursor(cursor, e);
   }, 16);
+
+  export const updateCursor = () => {
+    if (toolsManager) {
+      toolsManager.getCurrentTool()?.updateCursor(cursor);
+    }
+  };
+
+  const moveCursor = throttle((e: FederatedPointerEvent) => {
+    if (useCanvasStore.getState().canvasCursorActive) {
+      cursor.visible = true;
+      cursor.x = e.global.x;
+      cursor.y = e.global.y;
+    } else {
+      cursor.visible = false;
+    }
+  }, 8);
 
   function setUpViewportAndEvent() {
     if (viewport === null) return;
@@ -69,14 +83,15 @@ export namespace Canvas {
       })
       .on("mousemove", (e) => {
         throttledDraw(e);
+        moveCursor(e);
       })
       .on("mouseup", (e) => {
         if (!drawing) return;
-
         drawing = false;
         toolsManager.getCurrentTool()?.stopDrawing(e);
       })
       .on("mouseout", (e) => {
+        cursor.visible = false;
         if (!drawing) return;
         drawing = false;
         toolsManager.getCurrentTool()?.stopDrawing(e);

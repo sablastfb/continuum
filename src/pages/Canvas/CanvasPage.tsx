@@ -11,10 +11,14 @@ import CircleTool from "./components/tools/CircleTool";
 import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
+import Cursor from "./features/utils/Cursor";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
   const activeTool = useCanvasStore((state) => state.activeTool);
+  const setCanvasCursorActive = useCanvasStore(
+    (state) => state.setCanvasCursorActive
+  );
 
   useEffect(() => {
     async function SetUpPixi() {
@@ -55,12 +59,23 @@ function CanvasPage() {
 
   return (
     <div className="relative h-screen w-screen">
+      <Cursor/>
       <div
-        ref={canvasContainer}
-        className="absolute inset-0"
-        style={{ cursor: "none" }}
-      />
+        onMouseEnter={() => {
+          setCanvasCursorActive(true);
+        }}
+        onMouseLeave={() => {
+          setCanvasCursorActive(false);
+        }}
+      >
+        <div
+          ref={canvasContainer}
+          className="absolute inset-0"
+          style={{ cursor: "none" }}
+        />
+      </div>
       {activeToolComponent}
+
       <ToolsMenue />
       <SettingsDialog />
       <ExportDialog />
