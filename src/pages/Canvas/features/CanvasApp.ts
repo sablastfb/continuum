@@ -32,7 +32,10 @@ export namespace Canvas {
 
   async function setUpAplication() {
     appInstance = new Application();
-    await appInstance.init({ background: "#434", resizeTo: window });
+    await appInstance.init({
+      background: useCanvasStore.getState().canvasSettings.background.color,
+      resizeTo: window,
+    });
     cursor = new Graphics();
 
     viewport = new Viewport({
@@ -127,7 +130,7 @@ export namespace Canvas {
   }
 
   export function changeBackground(color: string) {
-    if (appInstance === null) return;
+    if (!appInstance?.renderer?.background) return;
     appInstance.renderer.background.color = color;
   }
 }

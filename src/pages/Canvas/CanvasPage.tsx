@@ -12,6 +12,7 @@ import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
 import Cursor from "./features/utils/Cursor";
+import Background from "./features/utils/Background";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -24,7 +25,7 @@ function CanvasPage() {
     async function SetUpPixi() {
       const app = await Canvas.getPixiApp();
       setCanvasCursorActive(true);
-      if (canvasContainer.current && app) {
+      if (canvasContainer.current && app && ('canvas' in app)) {
         canvasContainer.current.appendChild(app.canvas);
       }
     }
@@ -61,6 +62,7 @@ function CanvasPage() {
   return (
     <div className="relative h-screen w-screen">
       <Cursor />
+      <Background />
       <div
         onMouseEnter={() => {
           setCanvasCursorActive(true);

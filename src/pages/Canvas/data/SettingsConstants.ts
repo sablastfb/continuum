@@ -3,7 +3,7 @@ import { CanvasSettings } from "./CanvasStore";
 export const DefaultSettings: CanvasSettings = {
   background: {
     type: "color",
-    color: "#434",
+    color: "#231F20",
     grid: {},
     dots: {},
   },

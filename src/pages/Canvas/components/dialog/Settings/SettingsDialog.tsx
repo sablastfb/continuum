@@ -1,22 +1,27 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import useCanvasStore from "../../../data/CanvasStore";
+import useCanvasStore, { CanvasSettings } from "../../../data/CanvasStore";
 import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SettingsDialog.css";
 import BackgroundSettings from "./BackgroundSettings";
 import DrawingSettings from "./DrawingSettings";
 import LayoutSettings from "./LayoutSettings";
+import { DefaultSettings } from "../../../data/SettingsConstants";
 
 function SettingsDialog() {
   const settingVisible = useCanvasStore((state) => state.settingVisible);
+  const canvasSettings = useCanvasStore((state) => state.canvasSettings);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
+  const [currentCanvasSettings, setCurrentCanvasSettings] =
+    useState<CanvasSettings | null>(DefaultSettings);
+
   const [settingActiveTab, setSettingActiveTab] =
     useState<SettingTabs>("background");
-
+  const resetSettings = useCanvasStore().reserToDefaultSettings;
+  const discardSettings = useCanvasStore().discardSettings;
   type SettingTabs = "background" | "drawing" | "layout";
-
   const items = [
     {
       label: "Background",
@@ -41,6 +46,9 @@ function SettingsDialog() {
       header="Settings"
       visible={settingVisible}
       className="h-[90vh] w-[50vw] bg-white/10 backdrop-blur-sm rounded-l-2xl p-2 settings"
+      onShow={() => {
+        setCurrentCanvasSettings(canvasSettings);
+      }}
       onHide={() => {
         if (!settingVisible) return;
         setSettingVisible(false);
@@ -73,14 +81,21 @@ function SettingsDialog() {
             <Button
               label="Reset default settings"
               icon="pi pi-refresh"
-              onClick={(e) => hide(e)}
+              onClick={() => {
+                resetSettings();
+              }}
               className="p-button-text text-white"
             />
             <div className="flex gap-5">
               <Button
                 label="Discard"
                 icon="pi pi-times"
-                onClick={(e) => hide(e)}
+                onClick={(e) => {
+                  if (currentCanvasSettings) {
+                    discardSettings(currentCanvasSettings);
+                  }
+                  hide(e);
+                }}
                 className="p-button-text text-white"
               />
               <Button

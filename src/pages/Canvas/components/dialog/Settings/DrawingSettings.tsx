@@ -1,11 +1,11 @@
 import { useState } from "react";
-import useCanvasStore, { usePencileSettings } from "../../../data/CanvasStore";
+import useCanvasStore from "../../../data/CanvasStore";
 import CircleColorPicker from "../../misc/CircleColorPicker";
 import { ColorPicker } from "primereact/colorpicker";
 import { Button } from "primereact/button";
 
 function DrawingSettings() {
-  const pencileSettings = usePencileSettings();
+  const pencileSettings = useCanvasStore();
   const addColor = useCanvasStore().addColor;
   const [color, setColor] = useState<string>("red");
 
@@ -13,7 +13,7 @@ function DrawingSettings() {
     <div className="p-4">
       <h3 className="text-xl text-white mb-4">Pencil Settings</h3>
       <div className="flex gap-4">
-      {pencileSettings.colors.map((color, ix) => {
+      {pencileSettings.canvasSettings.pencile.colors.map((color, ix) => {
         return <CircleColorPicker color={color} colorKey={ix} key={ix} />;
       })}
        <ColorPicker
