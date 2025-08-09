@@ -3,12 +3,13 @@ import { Dialog } from "primereact/dialog";
 import useCanvasStore, { CanvasSettings } from "../../../data/CanvasStore";
 import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./SettingsDialog.css";
 import BackgroundSettings from "./BackgroundSettings";
 import DrawingSettings from "./DrawingSettings";
 import LayoutSettings from "./LayoutSettings";
 import { DefaultSettings } from "../../../data/SettingsConstants";
+import { ConfirmPopup } from "primereact/confirmpopup";
 
 function SettingsDialog() {
   const settingVisible = useCanvasStore((state) => state.settingVisible);
@@ -19,6 +20,11 @@ function SettingsDialog() {
 
   const [settingActiveTab, setSettingActiveTab] =
     useState<SettingTabs>("background");
+
+  const [defaultSettingsVisibleConf, setDefaultSettingsVisibleConf] =
+    useState(false);
+  const defaultButton = useRef(null);
+
   const resetSettings = useCanvasStore().reserToDefaultSettings;
   const discardSettings = useCanvasStore().discardSettings;
   type SettingTabs = "background" | "drawing" | "layout";
@@ -78,11 +84,26 @@ function SettingsDialog() {
           </div>
 
           <div className="flex justify-between gap-2">
+            <ConfirmPopup
+              target={defaultButton.current!}
+              visible={defaultSettingsVisibleConf}
+              onHide={() => setDefaultSettingsVisibleConf(false)}
+              message="Are you sure you want to proceed?"
+              icon="pi pi-exclamation-triangle"
+              accept={() => {
+                resetSettings();
+                hide({
+                  preventDefault: () => {},
+                  stopPropagation: () => {},
+                } as any);
+              }}
+            />
             <Button
+              ref={defaultButton}
               label="Reset default settings"
               icon="pi pi-refresh"
               onClick={() => {
-                resetSettings();
+                setDefaultSettingsVisibleConf(true);
               }}
               className="p-button-text text-white"
             />
