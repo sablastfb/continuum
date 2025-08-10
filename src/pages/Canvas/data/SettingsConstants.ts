@@ -4,7 +4,7 @@ import { CanvasSettings } from "./CanvasTypes";
 
 export const DefaultSettings: CanvasSettings = {
   background:  {
-    type: "dots",
+    type: "grid",
     color: defaultBackgroundColor,
     grid: {
       bacgroundColor: defaultBackgroundColor,

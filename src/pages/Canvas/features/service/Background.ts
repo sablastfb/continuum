@@ -20,12 +20,12 @@ export namespace CanvasBacground {
     }
   }
 
-  function ClearBackground(){
+  function ClearBackground() {
     if (!Canvas.backgroundTexture) return;
-    
-    Canvas.appInstance?.stage.removeChild(   Canvas.backgroundTexture);
+
+    Canvas.appInstance?.stage.removeChild(Canvas.backgroundTexture);
   }
-  
+
   function SolidColorBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance?.renderer?.background) return;
     ClearBackground();
@@ -33,8 +33,8 @@ export namespace CanvasBacground {
   }
 
   async function DotsBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance) return;
-        ClearBackground();
+    if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
+    ClearBackground();
 
     const bacground = bs.dots;
     Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
@@ -59,18 +59,22 @@ export namespace CanvasBacground {
   }
 
   function GridBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance) return;
+    if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
     ClearBackground();
     const bacground = bs.grid;
     Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
-    
+
     const graphics = new Graphics();
     const width = 100;
 
-
-    graphics.rect(0, 0, width, width)
-      .stroke({ color: "#323232", width: 1});
-
+    graphics
+      .rect(0, 0, width, width)
+      .stroke({ color: "#323232", width: 1 })
+      .moveTo(0, 0)
+      .lineTo(0, width)
+      .moveTo(0, 0)
+      .lineTo(width, 0)
+      .stroke({ color: bacground.bacgroundColor, width: 1 });
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
@@ -86,19 +90,23 @@ export namespace CanvasBacground {
   }
 
   function LineBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance) return;
-        ClearBackground();
+    if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
+    ClearBackground();
 
     const bacground = bs.line;
     Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
 
     const graphics = new Graphics();
     const width = 100;
-    graphics.rect(0, 0, width, width).stroke({alpha:0});
     graphics
+      .rect(0, 0, width, width)
+      .stroke({ color: "#323232", width: 1 })
+      .moveTo(0, 0)
+      .lineTo(0, width)
       .moveTo(0, 0)
       .lineTo(width, 0)
-      .stroke({ color: "#323232", width: 1 });
+      .lineTo(width, width)
+      .stroke({ color: bacground.bacgroundColor, width: 1 });
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
