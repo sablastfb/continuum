@@ -1,10 +1,10 @@
 import { ColorPicker } from "primereact/colorpicker";
-import useCanvasStore from "../../../data/CanvasStore";
 import "./BackgroundSettings.css";
 import {
   BackgroundTypes,
   BackgroundSettings as Bs,
-} from "../../../data//CanvasTypes";
+} from "../../../..//data//CanvasTypes";
+import useCanvasStore from "../../../../data/CanvasStore";
 function BackgroundSettings() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
@@ -24,14 +24,14 @@ function BackgroundSettings() {
       <>
         {type === "color" && (
           <div
-            className="w-10 h-10 outline-2 rounded-sm outline-gray-800 cursor-pointer"
+            className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer"
             style={{ backgroundColor: settings.color }}
             onClick={() => setBackgroundType('color')}
           />
         )}
         {type === "grid" && (
           <div
-            className="w-10 h-10 outline-2 rounded-sm outline-gray-800 cursor-pointer  grid-pattern"
+            className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer  grid-pattern"
             style={{
               backgroundColor: settings.grid.bacgroundColor,
               //@ts-ignore
@@ -42,7 +42,7 @@ function BackgroundSettings() {
         )}
         {type === "dots" && (
           <div
-            className="w-10 h-10 outline-2 rounded-sm outline-gray-800  cursor-pointer dot-pattern"
+            className="w-20 h-20 outline-2 rounded-sm outline-gray-800  cursor-pointer dot-pattern"
             style={{
               backgroundColor: settings.dots.bacgroundColor,
               //@ts-ignore
@@ -53,7 +53,7 @@ function BackgroundSettings() {
         )}
         {type === "line" && (
           <div
-            className="w-10 h-10 outline-2 rounded-sm outline-gray-800 cursor-pointer  line-pattern"
+            className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer  line-pattern"
             style={{
               backgroundColor: settings.line.bacgroundColor,
               //@ts-ignore

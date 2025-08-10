@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import ToolsMenue from "./components/tools/ToolsMenue";
 import SettingsDialog from "./components/dialog/Settings/SettingsDialog";
-import PencileTools from "./features/tools/pencile/PencileTools";
+import PencileTools from "./components/tools/PencileTools";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
 import useCanvasStore from "./data/CanvasStore";
@@ -11,8 +11,8 @@ import CircleTool from "./components/tools/CircleTool";
 import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
-import Cursor from "./features/utils/Cursor";
-import BackgroundEffect from "./features/utils/BackgroundEffect";
+import Cursor from "./features/effects/CursorEffect";
+import BackgroundEffect from "./features/effects/BackgroundEffect";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);

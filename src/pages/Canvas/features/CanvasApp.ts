@@ -132,6 +132,10 @@ export namespace Canvas {
   function handleResize() {
     if (!appInstance || !viewport) return;
     viewport.resize(window.innerWidth, window.innerHeight, 1024, 1024);
+    if ( Canvas.backgroundTexture ){
+      Canvas.backgroundTexture.width = window.innerWidth;
+      Canvas.backgroundTexture.height = window.innerHeight;
+    }
   }
 
   export function changeTool(toolType: ToolType) {

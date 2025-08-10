@@ -1,13 +1,12 @@
 import { Viewport } from "pixi-viewport";
-import { ITool } from "../ITool";
 import { FederatedMouseEvent, Graphics } from "pixi.js";
-import { Point } from "../../../data/CanvasTypes";
-import { MinimumDistanceToNextLine } from "../../../data/CanvasConstants";
-import { Distance } from "../../utils/CanvasUtils";
-import { CanvasStore } from "../../../data/CanvasStore";
 import { StoreApi, UseBoundStore } from "zustand";
-import { graphicsData } from "../../service/data";
 import { v4 as uuidv4 } from "uuid";
+import { CanvasStore, Point } from "../../data/CanvasTypes";
+import { MinimumDistanceToNextLine } from "../../data/CanvasConstants";
+import { Distance } from "../utils/CanvasUtils";
+import { graphicsData } from "../service/data";
+import { ITool } from "./ITool";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;

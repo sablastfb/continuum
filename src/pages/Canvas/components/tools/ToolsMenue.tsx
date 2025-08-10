@@ -8,7 +8,7 @@ function ToolsMenue() {
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
 
   return (
-    <div className="flex bottom-0 left-0 right-0">
+    <div className="flex">
       <div className="absolute bottom-0 left-0 right-0 flex justify-center">
         <div
           className={`flex justify-center items-center ${defaultCanvasBackground} rounded-full p-1 absolute hover:cursor-pointer

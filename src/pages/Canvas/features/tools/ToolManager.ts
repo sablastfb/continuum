@@ -1,10 +1,9 @@
 import { Viewport } from "pixi-viewport";
 import { ITool } from "./ITool";
-import { ToolType } from "../../data/CanvasTypes";
-import { Pencile } from "./pencile/Pencile";
-import { CanvasStore } from "../../data/CanvasStore"
+import { CanvasStore, ToolType } from "../../data/CanvasTypes";
 import { UseBoundStore } from "zustand/react";
 import { StoreApi } from "zustand";
+import { Pencile } from "./Pencile";
 
 export class ToolsManager {
   private tools: Map<ToolType, ITool> = new Map();

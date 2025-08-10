@@ -1,11 +1,12 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import useCanvasStore, { CanvasSettings } from "../../../data/CanvasStore";
+import useCanvasStore from "../../../data/CanvasStore";
+import { CanvasSettings } from "../../../data/CanvasTypes";
 import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
 import { useRef, useState } from "react";
 import "./SettingsDialog.css";
-import BackgroundSettings from "./BackgroundSettings";
+import BackgroundSettings from "./BackgroundSettings/BackgroundSettings";
 import DrawingSettings from "./DrawingSettings";
 import LayoutSettings from "./LayoutSettings";
 import { DefaultSettings } from "../../../data/SettingsConstants";
@@ -51,7 +52,7 @@ function SettingsDialog() {
       modal
       header="Settings"
       visible={settingVisible}
-      className="h-[90vh] w-[50vw] bg-white/10 backdrop-blur-sm rounded-l-2xl p-2 settings"
+      className="h-[90vh]  w-[min(80vw,900px)] bg-white/10 backdrop-blur-sm rounded-l-2xl p-2 settings"
       onShow={() => {
         setCurrentCanvasSettings(canvasSettings);
       }}
