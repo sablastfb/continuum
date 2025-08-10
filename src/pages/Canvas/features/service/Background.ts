@@ -1,4 +1,4 @@
-import { Assets, Texture, TilingSprite } from "pixi.js";
+import { Assets, Graphics, Texture, TilingSprite } from "pixi.js";
 import { BackgroundSettings } from "../../data/CanvasTypes";
 import { Canvas } from "../CanvasApp";
 
@@ -28,7 +28,13 @@ export namespace CanvasBacground {
   async function DotsBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance) return;
     const bacground = bs.dots;
-    const texture = await Assets.load("https://pixijs.com/assets/p2.jpeg");
+
+const graphics = new Graphics()
+    .rect(0, 0, 50, 50)
+    .fill({ color: 'white', alpha: 0 }) // Completely transparent square
+    .circle(5, 5, 2)
+    .fill('gray');
+    const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
         texture: texture,
         width: Canvas.appInstance.renderer.width,
