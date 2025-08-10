@@ -28,3 +28,67 @@ export type ToolType =
   | "square"
   | "circle"
   | "text";
+
+
+export interface CanvasSettings {
+  background: BackgroundSettings;
+  pencile: {
+    colors: string[];
+    thicknes: number[];
+  };
+}
+
+export interface CanvasStore {
+  canvasSettings: CanvasSettings;
+  color: string;
+  zoome: number;
+  settingVisible: boolean;
+  infoVisible: boolean;
+  exportVisible: boolean;
+  activeTool: ToolType;
+  pencileThickens: number;
+  activeColorKey: number;
+  canvasCursorActive: boolean;
+  setZoom: (zoom: number) => void;
+  setPencileColor: (newColor: {
+    color: string;
+    activeColorKey: number;
+  }) => void;
+  setSettingVisible: (visible: boolean) => void;
+  setInfoVisible: (visible: boolean) => void;
+  setExportVisible: (visible: boolean) => void;
+  setActiveTool: (activeTool: ToolType) => void;
+  setPencileThickens: (pencileThickens: number) => void;
+  setCanvasCursorActive: (canvasCursorActive: boolean) => void;
+  addColor: (color: string) => void;
+  setBackgroundColor: (color: string) => void;
+  setBackgroundType: (type: BackgroundTypes) => void;
+  discardSettings: (settings: CanvasSettings) => void;
+  reserToDefaultSettings: () => void;
+}
+  
+
+
+export type BackgroundTypes = "color" | "grid" | "dots" | "line";
+
+export type BackgroundSettings =  {
+    type: BackgroundTypes;
+    color: string;
+    grid: {
+        bacgroundColor: string;
+        gridColor: string;
+        size: number;
+        width: number;
+    };
+    dots: {
+        bacgroundColor: string;
+        dotColor: string;
+        radius: number;
+        width: number;
+    };
+    line: {
+        bacgroundColor: string;
+        lineColor: string;
+        width: number;
+    };
+}

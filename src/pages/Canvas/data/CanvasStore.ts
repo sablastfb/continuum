@@ -1,49 +1,8 @@
 import { create } from "zustand";
-import { ToolType } from "./CanvasTypes";
+import { CanvasStore } from "./CanvasTypes";
 import { DefaultSettings } from "./SettingsConstants";
 import { immer } from "zustand/middleware/immer";
 
-export type BackgroundTypes = "color" | "grid" | "dots";
-export interface CanvasSettings {
-  background: {
-    type: BackgroundTypes;
-    color: string;
-    grid: {};
-    dots: {};
-  };
-  pencile: {
-    colors: string[];
-    thicknes: number[];
-  };
-}
-
-export interface CanvasStore {
-  canvasSettings: CanvasSettings;
-  color: string;
-  zoome: number;
-  settingVisible: boolean;
-  infoVisible: boolean;
-  exportVisible: boolean;
-  activeTool: ToolType;
-  pencileThickens: number;
-  activeColorKey: number;
-  canvasCursorActive: boolean;
-  setZoom: (zoom: number) => void;
-  setPencileColor: (newColor: {
-    color: string;
-    activeColorKey: number;
-  }) => void;
-  setSettingVisible: (visible: boolean) => void;
-  setInfoVisible: (visible: boolean) => void;
-  setExportVisible: (visible: boolean) => void;
-  setActiveTool: (activeTool: ToolType) => void;
-  setPencileThickens: (pencileThickens: number) => void;
-  setCanvasCursorActive: (canvasCursorActive: boolean) => void;
-  addColor: (color: string) => void;
-  setBackgroundColor: (color: string) => void;
-  discardSettings: (settings: CanvasSettings) => void;
-  reserToDefaultSettings: () => void;
-}
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
@@ -102,6 +61,9 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.canvasSettings = { ...DefaultSettings };
       }),
+    setBackgroundType: (type) => set((state) => {
+      state.canvasSettings.background.type = type
+    }),
     discardSettings: (settings) => {
       set((state) => {
         state.canvasSettings = settings;

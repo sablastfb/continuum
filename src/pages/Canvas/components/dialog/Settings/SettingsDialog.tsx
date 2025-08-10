@@ -3,7 +3,7 @@ import { Dialog } from "primereact/dialog";
 import useCanvasStore, { CanvasSettings } from "../../../data/CanvasStore";
 import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./SettingsDialog.css";
 import BackgroundSettings from "./BackgroundSettings";
 import DrawingSettings from "./DrawingSettings";

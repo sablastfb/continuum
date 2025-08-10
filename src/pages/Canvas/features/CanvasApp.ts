@@ -1,5 +1,10 @@
 import { Viewport } from "pixi-viewport";
-import { Application, FederatedPointerEvent, Graphics } from "pixi.js";
+import {
+  Application,
+  FederatedPointerEvent,
+  Graphics,
+  TilingSprite,
+} from "pixi.js";
 
 import { ZoomedEvent } from "pixi-viewport/dist/types";
 import { throttle } from "lodash";
@@ -9,9 +14,10 @@ import { ToolsManager } from "./tools/ToolManager";
 import { ZoomSensitivity } from "../data/CanvasConstants";
 
 export namespace Canvas {
-  let appInstance: Application | null = null;
+  export let appInstance: Application | null = null;
   let viewport: Viewport | null = null;
   export let toolsManager: ToolsManager;
+  export let backgroundTexture: TilingSprite;
   let cursor: Graphics;
   let drawing = false;
 
@@ -103,6 +109,18 @@ export namespace Canvas {
         if (!drawing) return;
         drawing = false;
         toolsManager.getCurrentTool()?.stopDrawing(e);
+      })
+      .on("zoomed", (e) => {
+        if (Canvas.backgroundTexture && viewport?.scale.x) {
+          Canvas.backgroundTexture.tileScale.x = viewport?.scale.x;
+          Canvas.backgroundTexture.tileScale.y = viewport?.scale.y;
+        }
+      })
+      .on("moved", () => {
+        if (Canvas.backgroundTexture && viewport?.scale.x) {
+          Canvas.backgroundTexture.tilePosition.x = viewport?.x;
+          Canvas.backgroundTexture.tilePosition.y = viewport?.y;
+        }
       });
   }
 
@@ -127,10 +145,5 @@ export namespace Canvas {
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
     viewport.setZoom(zomeValue);
-  }
-
-  export function changeBackground(color: string) {
-    if (!appInstance?.renderer?.background) return;
-    appInstance.renderer.background.color = color;
   }
 }

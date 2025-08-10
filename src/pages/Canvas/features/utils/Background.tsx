@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useCanvasStore from "../../data/CanvasStore";
-import { Canvas } from "../CanvasApp";
+import { CanvasBacground } from "../service/background";
 
 function Background() {
   const backgroundSetting = useCanvasStore(
@@ -8,7 +8,7 @@ function Background() {
   );
 
   useEffect(() => {
-    Canvas.changeBackground(backgroundSetting.color);
+    CanvasBacground.changeBackground(backgroundSetting);
   }, [backgroundSetting]);
   return <></>;
 }

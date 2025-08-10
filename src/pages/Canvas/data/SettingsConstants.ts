@@ -1,11 +1,28 @@
-import { CanvasSettings } from "./CanvasStore";
+import { CanvasSettings } from "./CanvasTypes";
+
+const defaultBackgroundColor = "#231F20";
 
 export const DefaultSettings: CanvasSettings = {
-  background: {
+  background:  {
     type: "color",
-    color: "#231F20",
-    grid: {},
-    dots: {},
+    color: defaultBackgroundColor,
+    grid: {
+      bacgroundColor: defaultBackgroundColor,
+      gridColor: "white",
+      size: 5,
+      width: 10
+    },
+    dots: {
+      bacgroundColor: defaultBackgroundColor,
+      dotColor: "white",
+      radius: 0,
+      width: 0
+    },
+    line: {
+      bacgroundColor: defaultBackgroundColor,
+      lineColor: "white",
+      width: 0
+    }
   },
   pencile: {
     colors: [
