@@ -12,6 +12,7 @@ import { ToolType } from "../data/CanvasTypes";
 import useCanvasStore from "../data/CanvasStore";
 import { ToolsManager } from "./tools/ToolManager";
 import { ZoomSensitivity } from "../data/CanvasConstants";
+import { CanvasBacground } from "./service/Background";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
@@ -33,6 +34,7 @@ export namespace Canvas {
     setUpResize();
     setUpCommandManager();
     updateCursor();
+    CanvasBacground.changeBackground( useCanvasStore.getState().canvasSettings.background);
     return appInstance;
   }
 
