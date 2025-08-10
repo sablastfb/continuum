@@ -69,6 +69,22 @@ const useCanvasStore = create<CanvasStore>()(
         state.canvasSettings = settings;
       });
     },
+    setBackgroundDotsColor: (color) => {
+      set((state) => {
+        state.canvasSettings.background.dots.bacgroundColor = color;
+      });
+    },
+    setBackgroundLineColor: (color) => {
+      set((state) => {
+        state.canvasSettings.background.line.bacgroundColor = color;
+      });
+
+    },
+    setBackgroundGridColor: (color) => {
+       set((state) => {
+        state.canvasSettings.background.grid.bacgroundColor = color;
+      });
+    },
   }))
 );
 

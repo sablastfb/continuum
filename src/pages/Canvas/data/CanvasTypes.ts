@@ -62,6 +62,9 @@ export interface CanvasStore {
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   addColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
+  setBackgroundDotsColor: (color: string) => void;
+  setBackgroundLineColor: (color: string) => void;
+  setBackgroundGridColor: (color: string) => void;
   setBackgroundType: (type: BackgroundTypes) => void;
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;

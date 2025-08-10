@@ -20,14 +20,24 @@ export namespace CanvasBacground {
     }
   }
 
+  function ClearBackground(){
+    if (!Canvas.backgroundTexture) return;
+    
+    Canvas.appInstance?.stage.removeChild(   Canvas.backgroundTexture);
+  }
+  
   function SolidColorBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance?.renderer?.background) return;
+    ClearBackground();
     Canvas.appInstance.renderer.background.color = bs.color;
   }
 
   async function DotsBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance) return;
+        ClearBackground();
+
     const bacground = bs.dots;
+    Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
 
     const graphics = new Graphics()
       .rect(0, 0, bacground.width, bacground.width)
@@ -50,18 +60,17 @@ export namespace CanvasBacground {
 
   function GridBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance) return;
+    ClearBackground();
     const bacground = bs.grid;
+    Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
+    
     const graphics = new Graphics();
     const width = 100;
+
+
     graphics.rect(0, 0, width, width)
-    // graphics
-    //   .moveTo(0, 0)
-    //   .lineTo(width, 0)
       .stroke({ color: "#323232", width: 1});
-    // graphics
-    //   .moveTo(0, 0)
-    //   .lineTo(0, width)
-    //   .stroke({ color: "#323232", width: 1 });
+
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
@@ -78,13 +87,17 @@ export namespace CanvasBacground {
 
   function LineBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance) return;
-    const bacground = bs.grid;
+        ClearBackground();
+
+    const bacground = bs.line;
+    Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
+
     const graphics = new Graphics();
     const width = 100;
-    graphics.rect(0, 0, width, width).fill("#231F20");
+    graphics.rect(0, 0, width, width).stroke({alpha:0});
     graphics
       .moveTo(0, 0)
-      .lineTo(width+1, 0)
+      .lineTo(width, 0)
       .stroke({ color: "#323232", width: 1 });
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);

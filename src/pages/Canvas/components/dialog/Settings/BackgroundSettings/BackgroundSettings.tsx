@@ -10,6 +10,9 @@ function BackgroundSettings() {
     (state) => state.canvasSettings.background
   );
   const setBackgroundColor = useCanvasStore().setBackgroundColor;
+  const setBackgroundDotsColor = useCanvasStore().setBackgroundDotsColor;
+  const setBackgroundLineColor = useCanvasStore().setBackgroundLineColor;
+  const setBackgroundGridColor = useCanvasStore().setBackgroundGridColor;
   const setBackgroundType = useCanvasStore().setBackgroundType;
   const background = useCanvasStore().canvasSettings.background;
 
@@ -77,7 +80,22 @@ function BackgroundSettings() {
       <>
         <div
           style={{ backgroundColor: color }}
-          onClick={() => setBackgroundColor(color)}
+          onClick={() => {
+            switch (type){
+              case 'color':
+                setBackgroundColor(color);
+                break;
+              case 'dots':
+                setBackgroundDotsColor(color);
+                break;
+              case 'grid':
+                setBackgroundGridColor(color);
+                break;
+              case 'line':
+                setBackgroundLineColor(color);
+                break;
+            }
+          }}
           className={`hover:cursor-pointer rounded-full w-7 h-7 outline-neutral-900 outline-1`}
         ></div>
       </>
