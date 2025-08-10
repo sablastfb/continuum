@@ -29,22 +29,74 @@ export namespace CanvasBacground {
     if (!Canvas.appInstance) return;
     const bacground = bs.dots;
 
-const graphics = new Graphics()
-    .rect(0, 0, 50, 50)
-    .fill({ color: 'white', alpha: 0 }) // Completely transparent square
-    .circle(5, 5, 2)
-    .fill('gray');
+    const graphics = new Graphics()
+      .rect(0, 0, bacground.width, bacground.width)
+      .fill({ color: "#323232", alpha: 0 })
+      .circle(0, 0, bacground.radius)
+      .fill("#323232");
+
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
-        texture: texture,
-        width: Canvas.appInstance.renderer.width,
-        height: Canvas.appInstance.renderer.height,
+      texture: texture,
+      width: Canvas.appInstance.renderer.width,
+      height: Canvas.appInstance.renderer.height,
     });
+    tilingSprite.tilePosition.x -= bacground.width / 2;
+    tilingSprite.tilePosition.y -= bacground.width / 2;
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
     Canvas.backgroundTexture = tilingSprite;
   }
 
-  function GridBacground(bs: BackgroundSettings) {}
-  function LineBacground(bs: BackgroundSettings) {}
+  function GridBacground(bs: BackgroundSettings) {
+    if (!Canvas.appInstance) return;
+    const bacground = bs.grid;
+    const graphics = new Graphics();
+    const width = 100;
+    graphics.rect(0, 0, width, width)
+    // graphics
+    //   .moveTo(0, 0)
+    //   .lineTo(width, 0)
+      .stroke({ color: "#323232", width: 1});
+    // graphics
+    //   .moveTo(0, 0)
+    //   .lineTo(0, width)
+    //   .stroke({ color: "#323232", width: 1 });
+
+    const texture = Canvas.appInstance.renderer.generateTexture(graphics);
+    const tilingSprite = new TilingSprite({
+      texture: texture,
+      width: Canvas.appInstance.renderer.width,
+      height: Canvas.appInstance.renderer.height,
+    });
+    tilingSprite.tilePosition.x -= -width / 2;
+    tilingSprite.tilePosition.y -= -width / 2;
+    tilingSprite.zIndex = -1;
+    Canvas.appInstance.stage.addChild(tilingSprite);
+    Canvas.backgroundTexture = tilingSprite;
+  }
+
+  function LineBacground(bs: BackgroundSettings) {
+    if (!Canvas.appInstance) return;
+    const bacground = bs.grid;
+    const graphics = new Graphics();
+    const width = 100;
+    graphics.rect(0, 0, width, width).fill("#231F20");
+    graphics
+      .moveTo(0, 0)
+      .lineTo(width+1, 0)
+      .stroke({ color: "#323232", width: 1 });
+
+    const texture = Canvas.appInstance.renderer.generateTexture(graphics);
+    const tilingSprite = new TilingSprite({
+      texture: texture,
+      width: Canvas.appInstance.renderer.width,
+      height: Canvas.appInstance.renderer.height,
+    });
+    tilingSprite.tilePosition.x -= width / 2;
+    tilingSprite.tilePosition.y -= width / 2;
+    tilingSprite.zIndex = -1;
+    Canvas.appInstance.stage.addChild(tilingSprite);
+    Canvas.backgroundTexture = tilingSprite;
+  }
 }

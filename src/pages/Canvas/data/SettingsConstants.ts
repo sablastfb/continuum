@@ -1,6 +1,6 @@
+import { defaultBackgroundColor } from "./CanvasConstants";
 import { CanvasSettings } from "./CanvasTypes";
 
-const defaultBackgroundColor = "#231F20";
 
 export const DefaultSettings: CanvasSettings = {
   background:  {
@@ -15,8 +15,8 @@ export const DefaultSettings: CanvasSettings = {
     dots: {
       bacgroundColor: defaultBackgroundColor,
       dotColor: "white",
-      radius: 0,
-      width: 0
+      radius: 1.5,
+      width: 25
     },
     line: {
       bacgroundColor: defaultBackgroundColor,

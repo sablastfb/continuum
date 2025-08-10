@@ -12,7 +12,7 @@ import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
 import Cursor from "./features/utils/Cursor";
-import Background from "./features/utils/Background";
+import BackgroundEffect from "./features/utils/BackgroundEffect";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -62,7 +62,7 @@ function CanvasPage() {
   return (
     <div className="relative h-screen w-screen">
       <Cursor />
-      <Background />
+      <BackgroundEffect />
       <div
         onMouseEnter={() => {
           setCanvasCursorActive(true);

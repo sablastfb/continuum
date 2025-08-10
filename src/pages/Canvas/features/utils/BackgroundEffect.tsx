@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import useCanvasStore from "../../data/CanvasStore";
-import { CanvasBacground } from "../service/background";
+import { CanvasBacground } from "../service/Background";
 
-function Background() {
+function BackgroundEffect() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
   );
@@ -13,4 +13,4 @@ function Background() {
   return <></>;
 }
 
-export default Background;
+export default BackgroundEffect;
