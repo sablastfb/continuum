@@ -1,6 +1,12 @@
 import { Graphics } from "pixi.js";
 import { JSX } from "react";
 
+
+export type DeepPartial<T> = T extends object ? {
+    [P in keyof T]?: DeepPartial<T[P]>;
+} : T;
+
+
 export type Id = string;
 
 export type GraphicsData = {
@@ -28,6 +34,31 @@ export type ToolType =
   | "square"
   | "circle"
   | "text";
+
+export type BackgroundTypes = "color" | "grid" | "dots" | "line";
+
+export type BackgroundSettings =  {
+    type: BackgroundTypes;
+    color: string;
+    grid: {
+        bacgroundColor: string;
+        gridColor: string;
+        size: number;
+        width: number;
+    };
+    dots: {
+        bacgroundColor: string;
+        dotColor: string;
+        radius: number;
+        width: number;
+    };
+    line: {
+        bacgroundColor: string;
+        lineColor: string;
+        width: number;
+    };
+}
+
 
 
 export interface CanvasSettings {
@@ -61,37 +92,31 @@ export interface CanvasStore {
   setPencileThickens: (pencileThickens: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   addColor: (color: string) => void;
-  setBackgroundColor: (color: string) => void;
-  setBackgroundDotsColor: (color: string) => void;
-  setBackgroundLineColor: (color: string) => void;
-  setBackgroundGridColor: (color: string) => void;
-  setBackgroundType: (type: BackgroundTypes) => void;
+  setBackgroundSettings: (bacgroundSettings: DeepPartial<BackgroundSettings>) => void;
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
 }
+
+export function deepMerge<T>(target: T, source: DeepPartial<T>): T {
+  const result = { ...target } as any;
   
-
-
-export type BackgroundTypes = "color" | "grid" | "dots" | "line";
-
-export type BackgroundSettings =  {
-    type: BackgroundTypes;
-    color: string;
-    grid: {
-        bacgroundColor: string;
-        gridColor: string;
-        size: number;
-        width: number;
-    };
-    dots: {
-        bacgroundColor: string;
-        dotColor: string;
-        radius: number;
-        width: number;
-    };
-    line: {
-        bacgroundColor: string;
-        lineColor: string;
-        width: number;
-    };
+  for (const key in source) {
+    const sourceValue = source[key];
+    if (sourceValue !== undefined) {
+      if (
+        typeof sourceValue === 'object' && 
+        sourceValue !== null && 
+        !Array.isArray(sourceValue) &&
+        typeof result[key] === 'object' && 
+        result[key] !== null && 
+        !Array.isArray(result[key])
+      ) {
+        result[key] = deepMerge(result[key], sourceValue);
+      } else {
+        result[key] = sourceValue;
+      }
+    }
+  }
+  
+  return result as T;
 }

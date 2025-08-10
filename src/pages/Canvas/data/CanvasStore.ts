@@ -1,8 +1,12 @@
 import { create } from "zustand";
-import { CanvasStore } from "./CanvasTypes";
+import {
+  BackgroundSettings,
+  CanvasStore,
+  deepMerge,
+  DeepPartial,
+} from "./CanvasTypes";
 import { DefaultSettings } from "./SettingsConstants";
 import { immer } from "zustand/middleware/immer";
-
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
@@ -45,10 +49,13 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.pencileThickens = pencileThickens;
       }),
-    setBackgroundColor: (color) =>
-      set((state) => {
-        state.canvasSettings.background.color = color;
-      }),
+    setBackgroundSettings: (settings) =>
+      set((state) => ({
+        canvasSettings: {
+          ...state.canvasSettings,
+          background: deepMerge(state.canvasSettings.background, settings),
+        },
+      })),
     setCanvasCursorActive: (canvasCursorActive) =>
       set((state) => {
         state.canvasCursorActive = canvasCursorActive;
@@ -61,28 +68,10 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.canvasSettings = { ...DefaultSettings };
       }),
-    setBackgroundType: (type) => set((state) => {
-      state.canvasSettings.background.type = type
-    }),
+
     discardSettings: (settings) => {
       set((state) => {
         state.canvasSettings = settings;
-      });
-    },
-    setBackgroundDotsColor: (color) => {
-      set((state) => {
-        state.canvasSettings.background.dots.bacgroundColor = color;
-      });
-    },
-    setBackgroundLineColor: (color) => {
-      set((state) => {
-        state.canvasSettings.background.line.bacgroundColor = color;
-      });
-
-    },
-    setBackgroundGridColor: (color) => {
-       set((state) => {
-        state.canvasSettings.background.grid.bacgroundColor = color;
       });
     },
   }))

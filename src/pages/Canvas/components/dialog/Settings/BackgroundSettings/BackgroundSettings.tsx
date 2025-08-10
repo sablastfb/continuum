@@ -9,11 +9,7 @@ function BackgroundSettings() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
   );
-  const setBackgroundColor = useCanvasStore().setBackgroundColor;
-  const setBackgroundDotsColor = useCanvasStore().setBackgroundDotsColor;
-  const setBackgroundLineColor = useCanvasStore().setBackgroundLineColor;
-  const setBackgroundGridColor = useCanvasStore().setBackgroundGridColor;
-  const setBackgroundType = useCanvasStore().setBackgroundType;
+  const setBackgroundSettings = useCanvasStore().setBackgroundSettings;
   const background = useCanvasStore().canvasSettings.background;
 
   const SquareType = ({
@@ -29,7 +25,7 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer"
             style={{ backgroundColor: settings.color }}
-            onClick={() => setBackgroundType('color')}
+            onClick={() => setBackgroundSettings({ type: "color" })}
           />
         )}
         {type === "grid" && (
@@ -40,7 +36,7 @@ function BackgroundSettings() {
               //@ts-ignore
               "--grid-color": settings.grid.gridColor,
             }}
-            onClick={() => setBackgroundType('grid')}
+            onClick={() => setBackgroundSettings({ type: "grid" })}
           />
         )}
         {type === "dots" && (
@@ -51,7 +47,11 @@ function BackgroundSettings() {
               //@ts-ignore
               "--dot-color": settings.dots.dotColor,
             }}
-            onClick={() => setBackgroundType('dots')}
+            onClick={() =>
+              setBackgroundSettings({
+                type: "dots",
+              })
+            }
           />
         )}
         {type === "line" && (
@@ -62,7 +62,7 @@ function BackgroundSettings() {
               //@ts-ignore
               "--line-color": settings.line.lineColor,
             }}
-            onClick={() => setBackgroundType('line')}
+            onClick={() => setBackgroundSettings({ type: "line" })}
           />
         )}
       </>
@@ -81,18 +81,18 @@ function BackgroundSettings() {
         <div
           style={{ backgroundColor: color }}
           onClick={() => {
-            switch (type){
-              case 'color':
-                setBackgroundColor(color);
+            switch (type) {
+              case "color":
+                setBackgroundSettings({ color: color });
                 break;
-              case 'dots':
-                setBackgroundDotsColor(color);
+              case "dots":
+                setBackgroundSettings({ dots: { bacgroundColor: color } });
                 break;
-              case 'grid':
-                setBackgroundGridColor(color);
+              case "grid":
+                setBackgroundSettings({ grid: { bacgroundColor: color } });
                 break;
-              case 'line':
-                setBackgroundLineColor(color);
+              case "line":
+                setBackgroundSettings({ line: { bacgroundColor: color } });
                 break;
             }
           }}
@@ -128,18 +128,18 @@ function BackgroundSettings() {
           </div>
         </div>
         {
-        //   backgroundSetting.type ===  'line' &&
-        //   <div className="flex flex-col gap-4">
-        //   <div className="text-xl">Background color</div>
-        //   <div className="flex gap-5">
-        //     <CircleColorButton color="#231F20" type={backgroundSetting.type} />
-        //     <CircleColorButton color="#0A1931" type={backgroundSetting.type} />
-        //     <CircleColorButton color="#2E2E2E" type={backgroundSetting.type} />
-        //     <CircleColorButton color="#1B263B" type={backgroundSetting.type} />
-        //     <CircleColorButton color="#2F4F4F" type={backgroundSetting.type} />
-        //     <CircleColorButton color="#2D033B" type={backgroundSetting.type} />
-        //   </div>
-        // </div>
+          //   backgroundSetting.type ===  'line' &&
+          //   <div className="flex flex-col gap-4">
+          //   <div className="text-xl">Background color</div>
+          //   <div className="flex gap-5">
+          //     <CircleColorButton color="#231F20" type={backgroundSetting.type} />
+          //     <CircleColorButton color="#0A1931" type={backgroundSetting.type} />
+          //     <CircleColorButton color="#2E2E2E" type={backgroundSetting.type} />
+          //     <CircleColorButton color="#1B263B" type={backgroundSetting.type} />
+          //     <CircleColorButton color="#2F4F4F" type={backgroundSetting.type} />
+          //     <CircleColorButton color="#2D033B" type={backgroundSetting.type} />
+          //   </div>
+          // </div>
         }
       </div>
     </div>
