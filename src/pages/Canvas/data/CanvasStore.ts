@@ -1,12 +1,8 @@
 import { create } from "zustand";
-import {
-  BackgroundSettings,
-  CanvasStore,
-  deepMerge,
-  DeepPartial,
-} from "./CanvasTypes";
+import { CanvasStore } from "./CanvasTypes";
 import { DefaultSettings } from "./SettingsConstants";
 import { immer } from "zustand/middleware/immer";
+import { merge } from "lodash";
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
@@ -53,7 +49,7 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => ({
         canvasSettings: {
           ...state.canvasSettings,
-          background: deepMerge(state.canvasSettings.background, settings),
+          background: merge({}, state.canvasSettings.background, settings),
         },
       })),
     setCanvasCursorActive: (canvasCursorActive) =>

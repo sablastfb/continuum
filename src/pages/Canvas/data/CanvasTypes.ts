@@ -96,27 +96,3 @@ export interface CanvasStore {
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
 }
-
-export function deepMerge<T>(target: T, source: DeepPartial<T>): T {
-  const result = { ...target } as any;
-  
-  for (const key in source) {
-    const sourceValue = source[key];
-    if (sourceValue !== undefined) {
-      if (
-        typeof sourceValue === 'object' && 
-        sourceValue !== null && 
-        !Array.isArray(sourceValue) &&
-        typeof result[key] === 'object' && 
-        result[key] !== null && 
-        !Array.isArray(result[key])
-      ) {
-        result[key] = deepMerge(result[key], sourceValue);
-      } else {
-        result[key] = sourceValue;
-      }
-    }
-  }
-  
-  return result as T;
-}

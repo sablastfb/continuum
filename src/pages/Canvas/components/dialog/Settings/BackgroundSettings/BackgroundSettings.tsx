@@ -1,4 +1,3 @@
-import { ColorPicker } from "primereact/colorpicker";
 import "./BackgroundSettings.css";
 import {
   BackgroundTypes,
@@ -104,7 +103,9 @@ function BackgroundSettings() {
 
   return (
     <div className="p-4">
-      <h3 className="text-2xl text-white mb-4">Background Settings</h3>
+      <h3 className="text-2xl text-white mb-4">Background Settings
+
+<div className=""></div>      </h3>
       <div className="flex gap-4 flex-col">
         <div className="flex flex-col gap-4">
           <div className="text-xl">Background type</div>
@@ -128,18 +129,18 @@ function BackgroundSettings() {
           </div>
         </div>
         {
-          //   backgroundSetting.type ===  'line' &&
-          //   <div className="flex flex-col gap-4">
-          //   <div className="text-xl">Background color</div>
-          //   <div className="flex gap-5">
-          //     <CircleColorButton color="#231F20" type={backgroundSetting.type} />
-          //     <CircleColorButton color="#0A1931" type={backgroundSetting.type} />
-          //     <CircleColorButton color="#2E2E2E" type={backgroundSetting.type} />
-          //     <CircleColorButton color="#1B263B" type={backgroundSetting.type} />
-          //     <CircleColorButton color="#2F4F4F" type={backgroundSetting.type} />
-          //     <CircleColorButton color="#2D033B" type={backgroundSetting.type} />
-          //   </div>
-          // </div>
+            backgroundSetting.type ===  'line' &&
+            <div className="flex flex-col gap-4">
+            <div className="text-xl">Background color</div>
+            <div className="flex gap-5">
+              <CircleColorButton color="#231F20" type={backgroundSetting.type} />
+              <CircleColorButton color="#0A1931" type={backgroundSetting.type} />
+              <CircleColorButton color="#2E2E2E" type={backgroundSetting.type} />
+              <CircleColorButton color="#1B263B" type={backgroundSetting.type} />
+              <CircleColorButton color="#2F4F4F" type={backgroundSetting.type} />
+              <CircleColorButton color="#2D033B" type={backgroundSetting.type} />
+            </div>
+          </div>
         }
       </div>
     </div>
