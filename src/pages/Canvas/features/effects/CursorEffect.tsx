@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Canvas } from "../CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 
-function Cursor() {
+function CursorEffect() {
     const color = useCanvasStore((state) => state.color);
     const activeTool = useCanvasStore((state) => state.activeTool);
     const canvasCursorActive = useCanvasStore((state) => state.canvasCursorActive);
@@ -19,4 +19,4 @@ function Cursor() {
   return <></>;
 }
 
-export default Cursor;
+export default CursorEffect;

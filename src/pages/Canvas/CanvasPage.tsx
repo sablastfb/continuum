@@ -10,10 +10,10 @@ import CircleTool from "./components/tools/CircleTool";
 import SquareTool from "./components/tools/SquareTool";
 import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
-import Cursor from "./features/effects/CursorEffect";
+import CursorEffect from "./features/effects/CursorEffect";
 import BackgroundEffect from "./features/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
-import ThemeSwitchEffect from "./features/effects/ThemeSwitchEffect";
+import { CanvasPalet } from "./data/container/PaletContainer";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -82,9 +82,8 @@ function CanvasPage() {
       <SettingsDialog />
       <ExportDialog />
       <InfoDialog />
-      <Cursor />
+      <CursorEffect />
       <BackgroundEffect />
-      <ThemeSwitchEffect />
     </div>
   );
 }

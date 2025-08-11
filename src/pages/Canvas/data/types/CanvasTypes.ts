@@ -1,5 +1,6 @@
 import { Graphics } from "pixi.js";
 import { JSX } from "react";
+import { PaletContainer } from "../constants/PaletConstants";
 
 
 export type DeepPartial<T> = T extends object ? {
@@ -41,38 +42,39 @@ export type BackgroundTypes = "color" | "grid" | "dots" | "line";
 
 export type BackgroundSettings =  {
     type: BackgroundTypes;
-    color: string;
+    color: ColorId;
     grid: {
-        bacgroundColor: string;
-        gridColor: string;
+        bacgroundColor: ColorId;
+        gridColor: ColorId;
         size: number;
         width: number;
     };
     dots: {
-        bacgroundColor: string;
-        dotColor: string;
+        bacgroundColor: ColorId;
+        dotColor: ColorId;
         radius: number;
         width: number;
     };
     line: {
-        bacgroundColor: string;
-        lineColor: string;
+        bacgroundColor: ColorId;
+        lineColor: ColorId;
         width: number;
     };
+    backgroundColors: ColorId[];
 }
 
 export interface CanvasSettings {
   theme: Theme,
   background: BackgroundSettings;
   pencile: {
-    colors: string[];
+    colors: ColorId[];
     thicknes: number[];
   };
 }
 
 export interface CanvasStore {
   canvasSettings: CanvasSettings;
-  color: string;
+  color: ColorId;
   zoome: number;
   settingVisible: boolean;
   infoVisible: boolean;
@@ -83,7 +85,7 @@ export interface CanvasStore {
   canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
   setPencileColor: (newColor: {
-    color: string;
+    color: ColorId;
     activeColorKey: number;
   }) => void;
   setSettingVisible: (visible: boolean) => void;
@@ -92,9 +94,12 @@ export interface CanvasStore {
   setActiveTool: (activeTool: ToolType) => void;
   setPencileThickens: (pencileThickens: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
-  addColor: (color: string) => void;
+  addColor: (color: ColorId) => void;
   setBackgroundSettings: (bacgroundSettings: DeepPartial<BackgroundSettings>) => void;
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
   setTheme: (theme: Theme) => void;
 }
+
+export type Color = string;
+export type ColorId = (typeof PaletContainer)[number]["id"];

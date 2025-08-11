@@ -6,10 +6,13 @@ function BackgroundEffect() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
   );
+  const theme = useCanvasStore(
+    (state) => state.canvasSettings.theme
+  );
 
   useEffect(() => {
     CanvasBacground.changeBackground(backgroundSetting);
-  }, [backgroundSetting]);
+  }, [backgroundSetting, theme]);
   return <></>;
 }
 

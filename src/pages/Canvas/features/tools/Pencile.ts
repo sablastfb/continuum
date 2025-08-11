@@ -7,6 +7,7 @@ import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants"
 import { Distance } from "../utils/CanvasUtils";
 import { graphicsData } from "../service/data";
 import { ITool } from "./ITool";
+import { CanvasPalet } from "../../data/container/PaletContainer";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;
@@ -52,7 +53,7 @@ export class Pencile implements ITool {
       join: "round",
     });
     const color = this.state.getState().color;
-    this.graphic.tint = color;
+    this.graphic.tint = CanvasPalet.GetColor(color);
     this.count++;
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
   }
@@ -82,7 +83,7 @@ export class Pencile implements ITool {
     cursor.clear();
     cursor
       .circle(0, 0, this.state.getState().pencileThickens)
-      .fill(this.state.getState().color)
+      .fill(CanvasPalet.GetColor(this.state.getState().color))
       .stroke({ alignment: 0, width: outlineWidth, color: "black" })
       .moveTo(lineDistance, 0)
       .lineTo(this.state.getState().pencileThickens + lineDistanceOffset, 0)

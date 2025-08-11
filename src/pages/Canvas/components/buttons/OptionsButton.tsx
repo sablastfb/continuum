@@ -17,10 +17,9 @@ function OptionButtons() {
               navigate("/main-menue");
             }}
           >
-            <Home color="white" size={30} className="hover:cursor-pointer" />
+            <Home size={30} className="hover:cursor-pointer" />
           </div>
           <Settings
-            color="white"
             size={30}
             className="hover:cursor-pointer"
             onClick={() => {
@@ -28,7 +27,6 @@ function OptionButtons() {
             }}
           />
           <Download
-            color="white"
             size={30}
             className="hover:cursor-pointer"
             onClick={() => {
@@ -36,7 +34,6 @@ function OptionButtons() {
             }}
           />
           <Info
-            color="white"
             size={30}
             className="hover:cursor-pointer"
             onClick={() => {

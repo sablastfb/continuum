@@ -3,13 +3,12 @@ import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
 import { CanvasStore } from "../types/CanvasTypes";
 import { DefaultSettings } from "../constants/SettingsConstants";
-import { Settings } from "lucide-react";
 import { Theme } from "@tauri-apps/api/window";
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
     canvasSettings: { ...DefaultSettings },
-    color: "#1099bb",
+    color: "p-1",
     zoome: 1,
     settingVisible: false,
     infoVisible: false,

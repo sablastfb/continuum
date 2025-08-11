@@ -29,8 +29,7 @@ export namespace Canvas {
       updateCursorVisibilty();
       return appInstance;
     }
-    
-    CanvasPalet.setUpPalet();
+
     await setUpAplication();
     setUpViewportAndEvent();
     setUpResize();
@@ -43,7 +42,7 @@ export namespace Canvas {
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
-      background: useCanvasStore.getState().canvasSettings.background.color,
+      background: CanvasPalet.GetColor( useCanvasStore.getState().canvasSettings.background.color),
       resizeTo: window,
     });
     cursor = new Graphics();

@@ -69,7 +69,7 @@ function SettingsDialog() {
               <ThemeToggle />
             </div>
             <div className="hover:cursor-pointer" onClick={(e) => hide(e)}>
-              <X size={32} color="white" />
+              <X size={32}  />
             </div>
           </div>
 
@@ -110,7 +110,7 @@ function SettingsDialog() {
               onClick={() => {
                 setDefaultSettingsVisibleConf(true);
               }}
-              className="p-button-text text-white"
+              className="p-button-text"
             />
             <div className="flex gap-5">
               <Button
@@ -122,7 +122,7 @@ function SettingsDialog() {
                   }
                   hide(e);
                 }}
-                className="p-button-text text-white"
+                className="p-button-text"
               />
               <Button
                 label="Save"

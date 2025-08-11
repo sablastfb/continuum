@@ -1,38 +1,32 @@
 import { defaultBackgroundColor } from "./CanvasConstants";
 import { CanvasSettings } from "../types/CanvasTypes";
 
-
 export const DefaultSettings: CanvasSettings = {
   background: {
-    type: "grid",
+    type: "color",
     color: defaultBackgroundColor,
     grid: {
       bacgroundColor: defaultBackgroundColor,
-      gridColor: "white",
+      gridColor: "bg-2",
       size: 5,
-      width: 10
+      width: 10,
     },
     dots: {
       bacgroundColor: defaultBackgroundColor,
-      dotColor: "white",
+      dotColor: "bg-2",
       radius: 1.5,
-      width: 25
+      width: 25,
     },
     line: {
       bacgroundColor: defaultBackgroundColor,
-      lineColor: "white",
-      width: 0
-    }
+      lineColor: "bg-2",
+      width: 0,
+    },
+    backgroundColors: ["bg-1", "bg-2", "bg-3"],
   },
   pencile: {
-    colors: [
-      "rgb(220,182,183)",
-      "rgb(210,245,214)",
-      "rgb(215,201,235)",
-      "rgb(255,240,199)",
-      "rgb(185,222,240)",
-    ],
+    colors: ["p-1", "p-2", "p-5"],
     thicknes: [5, 8, 16],
   },
-  theme: "dark"
+  theme: "dark",
 };

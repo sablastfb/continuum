@@ -88,8 +88,8 @@ function ToolsButtons() {
             icon={<Type size={32} className="hover:cursor-pointer" />}
           />
           <ArrayDivider orjentation="vertical" />
-          <Undo color="white" size={32} className="hover:cursor-pointer" />
-          <Redo color="white" size={32} className="hover:cursor-pointer" />
+          <Undo  size={32} className="hover:cursor-pointer" />
+          <Redo  size={32} className="hover:cursor-pointer" />
         </div>
       </div>
     </>

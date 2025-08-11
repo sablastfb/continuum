@@ -18,9 +18,9 @@ function ExportDialog() {
         content={({ hide }) => (
           <div className="flex flex-col p-4 gap-2 h-fit w-full">
             <div className="flex justify-between">
-              <div className="text-5xl text-white ">Export</div>
+              <div className="text-5xl ">Export</div>
               <div  className="hover:cursor-pointer" onClick={(e) => hide(e)}>
-                <X size={32} color="white"/>
+                <X size={32} />
               </div>
             </div>
           </div>

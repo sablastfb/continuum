@@ -20,7 +20,6 @@ function ToolsMenue() {
           }}
         >
           <ArrowDown
-            color="white"
             size={25}
             className={`transition-all ${
               toolsMenueVisible ? "rotate-180" : ""

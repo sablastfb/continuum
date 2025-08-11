@@ -1,6 +1,8 @@
 import { Assets, Graphics, Texture, TilingSprite } from "pixi.js";
 import { BackgroundSettings } from "../../data/types/CanvasTypes";
 import { Canvas } from "../CanvasApp";
+import CanvasPage from "../../CanvasPage";
+import { CanvasPalet } from "../../data/container/PaletContainer";
 
 export namespace CanvasBacground {
   export function changeBackground(bs: BackgroundSettings) {
@@ -20,12 +22,6 @@ export namespace CanvasBacground {
     }
   }
 
-  export function WihtBacground(){
-       if (!Canvas.appInstance?.renderer?.background) return;
-    ClearBackground();
-    Canvas.appInstance.renderer.background.color = "#F1F1F1";
-  }
-
   function ClearBackground() {
     if (!Canvas.backgroundTexture) return;
 
@@ -35,7 +31,7 @@ export namespace CanvasBacground {
   function SolidColorBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance?.renderer?.background) return;
     ClearBackground();
-    Canvas.appInstance.renderer.background.color = bs.color;
+    Canvas.appInstance.renderer.background.color = CanvasPalet.GetColor(bs.color);
   }
 
   async function DotsBacground(bs: BackgroundSettings) {
@@ -43,7 +39,7 @@ export namespace CanvasBacground {
     ClearBackground();
 
     const bacground = bs.dots;
-    Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
+    Canvas.appInstance.renderer.background.color = CanvasPalet.GetColor( bacground.bacgroundColor);
 
     const graphics = new Graphics()
       .rect(0, 0, bacground.width, bacground.width)
@@ -66,7 +62,7 @@ export namespace CanvasBacground {
     if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
     ClearBackground();
     const bacground = bs.grid;
-    Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
+    Canvas.appInstance.renderer.background.color =  CanvasPalet.GetColor(bacground.bacgroundColor);
 
     const graphics = new Graphics();
     const width = 100;
@@ -78,7 +74,7 @@ export namespace CanvasBacground {
       .lineTo(0, width)
       .moveTo(0, 0)
       .lineTo(width, 0)
-      .stroke({ color: bacground.bacgroundColor, width: 1 });
+      .stroke({ color:  CanvasPalet.GetColor( bacground.bacgroundColor), width: 1 });
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
@@ -96,7 +92,7 @@ export namespace CanvasBacground {
     ClearBackground();
 
     const bacground = bs.line;
-    Canvas.appInstance.renderer.background.color = bacground.bacgroundColor;
+    Canvas.appInstance.renderer.background.color =  CanvasPalet.GetColor(bacground.bacgroundColor);
 
     const graphics = new Graphics();
     const width = 100;
@@ -108,7 +104,7 @@ export namespace CanvasBacground {
       .moveTo(0, 0)
       .lineTo(width, 0)
       .lineTo(width, width)
-      .stroke({ color: bacground.bacgroundColor, width: 1 });
+      .stroke({ color: CanvasPalet.GetColor( bacground.bacgroundColor), width: 1 });
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
