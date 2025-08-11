@@ -1,8 +1,10 @@
 import { create } from "zustand";
-import { CanvasStore } from "./CanvasTypes";
-import { DefaultSettings } from "./SettingsConstants";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
+import { CanvasStore } from "../types/CanvasTypes";
+import { DefaultSettings } from "../constants/SettingsConstants";
+import { Settings } from "lucide-react";
+import { Theme } from "@tauri-apps/api/window";
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
@@ -70,6 +72,11 @@ const useCanvasStore = create<CanvasStore>()(
         state.canvasSettings = settings;
       });
     },
+    setTheme: (theme: Theme) => {
+      set((state) => {
+        state.canvasSettings.theme = theme
+      });
+    }
   }))
 );
 

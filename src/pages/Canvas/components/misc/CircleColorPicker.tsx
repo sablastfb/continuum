@@ -1,4 +1,4 @@
-import useCanvasStore from "../../data/CanvasStore";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 export type CircleColorPickerParm = {
   color: string;

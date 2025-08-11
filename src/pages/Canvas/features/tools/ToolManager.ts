@@ -1,6 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { ITool } from "./ITool";
-import { CanvasStore, ToolType } from "../../data/CanvasTypes";
+import { CanvasStore, ToolType } from "../../data/types/CanvasTypes";
 import { UseBoundStore } from "zustand/react";
 import { StoreApi } from "zustand";
 import { Pencile } from "./Pencile";

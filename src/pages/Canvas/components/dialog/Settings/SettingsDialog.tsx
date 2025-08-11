@@ -1,7 +1,6 @@
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import useCanvasStore from "../../../data/CanvasStore";
-import { CanvasSettings } from "../../../data/CanvasTypes";
+import { CanvasSettings } from "../../../data/types/CanvasTypes";
 import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
 import { useRef, useState } from "react";
@@ -9,8 +8,9 @@ import "./SettingsDialog.css";
 import BackgroundSettings from "./BackgroundSettings/BackgroundSettings";
 import DrawingSettings from "./DrawingSettings";
 import LayoutSettings from "./LayoutSettings";
-import { DefaultSettings } from "../../../data/SettingsConstants";
+import { DefaultSettings } from "../../../data/constants/SettingsConstants";
 import { ConfirmPopup } from "primereact/confirmpopup";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function SettingsDialog() {
   const settingVisible = useCanvasStore((state) => state.settingVisible);

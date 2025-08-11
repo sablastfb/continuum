@@ -1,5 +1,5 @@
 import { Assets, Graphics, Texture, TilingSprite } from "pixi.js";
-import { BackgroundSettings } from "../../data/CanvasTypes";
+import { BackgroundSettings } from "../../data/types/CanvasTypes";
 import { Canvas } from "../CanvasApp";
 
 export namespace CanvasBacground {
@@ -51,8 +51,6 @@ export namespace CanvasBacground {
       width: Canvas.appInstance.renderer.width,
       height: Canvas.appInstance.renderer.height,
     });
-    tilingSprite.tilePosition.x -= bacground.width / 2;
-    tilingSprite.tilePosition.y -= bacground.width / 2;
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
     Canvas.backgroundTexture = tilingSprite;
@@ -82,8 +80,6 @@ export namespace CanvasBacground {
       width: Canvas.appInstance.renderer.width,
       height: Canvas.appInstance.renderer.height,
     });
-    tilingSprite.tilePosition.x -= -width / 2;
-    tilingSprite.tilePosition.y -= -width / 2;
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
     Canvas.backgroundTexture = tilingSprite;
@@ -114,8 +110,6 @@ export namespace CanvasBacground {
       width: Canvas.appInstance.renderer.width,
       height: Canvas.appInstance.renderer.height,
     });
-    tilingSprite.tilePosition.x -= width / 2;
-    tilingSprite.tilePosition.y -= width / 2;
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
     Canvas.backgroundTexture = tilingSprite;

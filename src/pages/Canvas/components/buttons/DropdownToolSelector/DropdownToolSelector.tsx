@@ -1,9 +1,9 @@
 import { Dropdown } from "primereact/dropdown";
 import "./DropdownToolSelector.css";
 import { useState } from "react";
-import useCanvasStore from "../../../data/CanvasStore";
 import ToolButton from "../ToolButton";
-import { IconOption } from "../../../data/CanvasTypes";
+import { IconOption } from "../../../data/types/CanvasTypes";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];

@@ -1,6 +1,6 @@
 import { JSX } from "react";
-import useCanvasStore from "../../data/CanvasStore";
-import { ToolType } from "../../data/CanvasTypes";
+import { ToolType } from "../../data/types/CanvasTypes";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 export type ToolButtonParam = {
   name: string;

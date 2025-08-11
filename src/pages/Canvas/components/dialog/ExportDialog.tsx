@@ -1,6 +1,6 @@
 import { Dialog } from "primereact/dialog";
-import useCanvasStore from "../../data/CanvasStore";
 import { X } from "lucide-react";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 function ExportDialog() {
   const exportVisible = useCanvasStore((state) => state.exportVisible);

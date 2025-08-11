@@ -2,9 +2,9 @@ import "./BackgroundSettings.css";
 import {
   BackgroundTypes,
   BackgroundSettings as Bs,
-} from "../../../..//data//CanvasTypes";
-import useCanvasStore from "../../../../data/CanvasStore";
-import ThemeToggle from "../../ThemeToggle";
+} from "../../../../data/types/CanvasTypes";
+import ThemeToggle from "../../../misc/ThemeToggle";
+import useCanvasStore from "../../../../data/store/CanvasStore";
 function BackgroundSettings() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
@@ -103,7 +103,7 @@ function BackgroundSettings() {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <h3 className="text-2xl text-white mb-4">Background Settings
       <ThemeToggle/>
       </h3>

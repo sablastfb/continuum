@@ -1,9 +1,9 @@
 import { defaultBackgroundColor } from "./CanvasConstants";
-import { CanvasSettings } from "./CanvasTypes";
+import { CanvasSettings } from "../types/CanvasTypes";
 
 
 export const DefaultSettings: CanvasSettings = {
-  background:  {
+  background: {
     type: "grid",
     color: defaultBackgroundColor,
     grid: {
@@ -34,4 +34,5 @@ export const DefaultSettings: CanvasSettings = {
     ],
     thicknes: [5, 8, 16],
   },
+  theme: "dark"
 };

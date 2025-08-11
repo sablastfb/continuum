@@ -1,7 +1,7 @@
 import CircleColorPicker from "../misc/CircleColorPicker";
 import CircleThicknesPicker from "../misc/CircleThicknesPicker";
 import ArrayDivider from "../misc/ArrayDivider";
-import useCanvasStore from "../../data/CanvasStore";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 function PencileTools() {
   const pencileSettings = useCanvasStore();

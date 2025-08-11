@@ -8,11 +8,11 @@ import {
 
 import { ZoomedEvent } from "pixi-viewport/dist/types";
 import { throttle } from "lodash";
-import { ToolType } from "../data/CanvasTypes";
-import useCanvasStore from "../data/CanvasStore";
+import { ToolType } from "../data/types/CanvasTypes";
 import { ToolsManager } from "./tools/ToolManager";
-import { ZoomSensitivity } from "../data/CanvasConstants";
+import { ZoomSensitivity } from "../data/constants/CanvasConstants";
 import { CanvasBacground } from "./service/Background";
+import useCanvasStore from "../data/store/CanvasStore";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;

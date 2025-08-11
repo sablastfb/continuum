@@ -1,8 +1,8 @@
 import { useState } from "react";
-import useCanvasStore from "../../../data/CanvasStore";
 import CircleColorPicker from "../../misc/CircleColorPicker";
 import { ColorPicker } from "primereact/colorpicker";
 import { Button } from "primereact/button";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function DrawingSettings() {
   const pencileSettings = useCanvasStore();

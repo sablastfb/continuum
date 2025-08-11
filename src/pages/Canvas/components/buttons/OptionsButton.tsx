@@ -1,6 +1,6 @@
 import { Download, Home, Info, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import useCanvasStore from "../../data/CanvasStore";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 function OptionButtons() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);

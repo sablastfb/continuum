@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import useCanvasStore from "../../data/CanvasStore";
 import { Canvas } from "../CanvasApp";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 function Cursor() {
     const color = useCanvasStore((state) => state.color);

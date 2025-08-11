@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import useCanvasStore from "../../data/CanvasStore";
 import {
   Circle,
   Eraser,
@@ -14,9 +13,10 @@ import {
 } from "lucide-react";
 import DropdownToolSelector from "./DropdownToolSelector/DropdownToolSelector";
 import ArrayDivider from "../misc/ArrayDivider";
-import { defaultCanvasBackground } from "../../data/CanvasConstants";
+import { defaultCanvasBackground } from "../../data/constants/CanvasConstants";
 import ToolButton from "./ToolButton";
-import { IconOption } from "../../data/CanvasTypes";
+import { IconOption } from "../../data/types/CanvasTypes";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 function ToolsButtons() {
   const color = useCanvasStore((state) => state.color);

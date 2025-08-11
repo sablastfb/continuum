@@ -1,6 +1,6 @@
 import { ArrowDown } from "lucide-react";
 import { useState } from "react";
-import { defaultCanvasBackground } from "../../data/CanvasConstants";
+import { defaultCanvasBackground } from "../../data/constants/CanvasConstants";
 import ZoomingButton from "../buttons/ZoomingButton";
 import OptionButtons from "../buttons/OptionsButton";
 import ToolsButtons from "../buttons/ToolsButtons";

@@ -35,6 +35,8 @@ export type ToolType =
   | "circle"
   | "text";
 
+export type Theme = 'dark' | 'light';
+
 export type BackgroundTypes = "color" | "grid" | "dots" | "line";
 
 export type BackgroundSettings =  {
@@ -59,9 +61,8 @@ export type BackgroundSettings =  {
     };
 }
 
-
-
 export interface CanvasSettings {
+  theme: Theme,
   background: BackgroundSettings;
   pencile: {
     colors: string[];
@@ -95,4 +96,5 @@ export interface CanvasStore {
   setBackgroundSettings: (bacgroundSettings: DeepPartial<BackgroundSettings>) => void;
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
+  setTheme: (theme: Theme) => void;
 }

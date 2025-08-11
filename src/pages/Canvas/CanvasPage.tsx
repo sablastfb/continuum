@@ -4,7 +4,6 @@ import SettingsDialog from "./components/dialog/Settings/SettingsDialog";
 import PencileTools from "./components/tools/PencileTools";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
-import useCanvasStore from "./data/CanvasStore";
 import TransformTools from "./components/tools/TransportComponent";
 import EraseTools from "./components/tools/EraseTools";
 import CircleTool from "./components/tools/CircleTool";
@@ -13,6 +12,7 @@ import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
 import Cursor from "./features/effects/CursorEffect";
 import BackgroundEffect from "./features/effects/BackgroundEffect";
+import useCanvasStore from "./data/store/CanvasStore";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
