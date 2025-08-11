@@ -11,6 +11,7 @@ import LayoutSettings from "./LayoutSettings";
 import { DefaultSettings } from "../../../data/constants/SettingsConstants";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../data/store/CanvasStore";
+import ThemeToggle from "../../misc/ThemeToggle";
 
 function SettingsDialog() {
   const settingVisible = useCanvasStore((state) => state.settingVisible);
@@ -62,8 +63,11 @@ function SettingsDialog() {
       }}
       content={({ hide }) => (
         <div className="flex flex-col p-4 h-full w-full gap-5">
-          <div className="flex justify-between">
-            <div className="text-5xl text-white">Settings</div>
+          <div className="flex justify-between items-center">
+            <div className="text-5xl text-white flex gap-4">
+              Settings
+              <ThemeToggle />
+            </div>
             <div className="hover:cursor-pointer" onClick={(e) => hide(e)}>
               <X size={32} color="white" />
             </div>

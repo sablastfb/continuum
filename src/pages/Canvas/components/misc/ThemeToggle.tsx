@@ -1,13 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { PrimeReactContext } from "primereact/api";
 import { AppConstants } from "../../data/constants/AppConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
+
+import { Button } from "primereact/button";
 
 const ThemeToggle = () => {
   const { changeTheme } = useContext(PrimeReactContext)!;
   const theme = useCanvasStore().canvasSettings.theme;
   const setTheme = useCanvasStore().setTheme;
-  const isLight = theme === 'light';
+  const isLight = theme === "light";
 
   const toggle = () => {
     const [nextTheme, currentTheme] =
@@ -28,14 +30,22 @@ const ThemeToggle = () => {
     }
     if (changeTheme)
       changeTheme(currentTheme, nextTheme, "theme-link", () => {
-          setTheme(isLight ? 'dark':'light');
+        setTheme(isLight ? "dark" : "light");
       });
   };
 
   return (
-    <button onClick={toggle} className="bg-red-400  dark:bg-blue-900">
-      Switch to {isLight ? "Light" : "Dark"}
-    </button>
+    <>
+      <Button
+        rounded
+        text
+        raised
+        icon={`
+          ${isLight ? "pi pi-moon" : "pi pi-sun"} 
+          `}
+        onClick={toggle}
+      />
+    </>
   );
 };
 export default ThemeToggle;
