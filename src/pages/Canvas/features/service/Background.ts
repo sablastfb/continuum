@@ -20,6 +20,12 @@ export namespace CanvasBacground {
     }
   }
 
+  export function WihtBacground(){
+       if (!Canvas.appInstance?.renderer?.background) return;
+    ClearBackground();
+    Canvas.appInstance.renderer.background.color = "#F1F1F1";
+  }
+
   function ClearBackground() {
     if (!Canvas.backgroundTexture) return;
 

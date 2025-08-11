@@ -64,7 +64,7 @@ function SettingsDialog() {
       content={({ hide }) => (
         <div className="flex flex-col p-4 h-full w-full gap-5">
           <div className="flex justify-between items-center">
-            <div className="text-5xl text-white flex gap-4">
+            <div className="text-5xl flex gap-4">
               Settings
               <ThemeToggle />
             </div>

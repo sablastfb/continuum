@@ -13,6 +13,7 @@ import { ToolsManager } from "./tools/ToolManager";
 import { ZoomSensitivity } from "../data/constants/CanvasConstants";
 import { CanvasBacground } from "./service/Background";
 import useCanvasStore from "../data/store/CanvasStore";
+import { CanvasPalet } from "../data/container/PaletContainer";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
@@ -28,7 +29,8 @@ export namespace Canvas {
       updateCursorVisibilty();
       return appInstance;
     }
-
+    
+    CanvasPalet.setUpPalet();
     await setUpAplication();
     setUpViewportAndEvent();
     setUpResize();

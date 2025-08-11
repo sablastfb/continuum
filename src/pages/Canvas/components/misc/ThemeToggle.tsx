@@ -39,7 +39,6 @@ const ThemeToggle = () => {
       <Button
         rounded
         text
-        raised
         icon={`
           ${isLight ? "pi pi-moon" : "pi pi-sun"} 
           `}

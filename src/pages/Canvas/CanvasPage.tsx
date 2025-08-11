@@ -13,6 +13,7 @@ import { Canvas } from "./features/CanvasApp";
 import Cursor from "./features/effects/CursorEffect";
 import BackgroundEffect from "./features/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
+import ThemeSwitchEffect from "./features/effects/ThemeSwitchEffect";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -25,7 +26,7 @@ function CanvasPage() {
     async function SetUpPixi() {
       const app = await Canvas.getPixiApp();
       setCanvasCursorActive(true);
-      if (canvasContainer?.current && app&& app.canvas) {
+      if (canvasContainer?.current && app && app.canvas) {
         canvasContainer.current.appendChild(app?.canvas);
       }
     }
@@ -61,8 +62,6 @@ function CanvasPage() {
 
   return (
     <div className="relative h-screen w-screen">
-      <Cursor />
-      <BackgroundEffect />
       <div
         onMouseEnter={() => {
           setCanvasCursorActive(true);
@@ -83,6 +82,9 @@ function CanvasPage() {
       <SettingsDialog />
       <ExportDialog />
       <InfoDialog />
+      <Cursor />
+      <BackgroundEffect />
+      <ThemeSwitchEffect />
     </div>
   );
 }
