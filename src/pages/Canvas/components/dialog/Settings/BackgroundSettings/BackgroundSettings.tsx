@@ -4,6 +4,7 @@ import {
   BackgroundSettings as Bs,
 } from "../../../..//data//CanvasTypes";
 import useCanvasStore from "../../../../data/CanvasStore";
+import ThemeToggle from "../../ThemeToggle";
 function BackgroundSettings() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
@@ -104,8 +105,8 @@ function BackgroundSettings() {
   return (
     <div className="p-4">
       <h3 className="text-2xl text-white mb-4">Background Settings
-
-<div className=""></div>      </h3>
+      <ThemeToggle/>
+      </h3>
       <div className="flex gap-4 flex-col">
         <div className="flex flex-col gap-4">
           <div className="text-xl">Background type</div>
