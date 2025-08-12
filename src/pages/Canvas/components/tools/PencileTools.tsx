@@ -8,6 +8,7 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 
 function CustomColorPicker() {
   const setPencileColor = useCanvasStore().setPencileColor;
+  const pencilColorId = useCanvasStore().pencil.pencilColorId;
   const [color, setColor] = useState<ColorPickerRGBType>({
     r: 100,
     g: 102,
@@ -23,8 +24,15 @@ function CustomColorPicker() {
 
   return (
     <ColorPicker
+      className={`rounded-sm ${pencilColorId === "1" ? "outline-4" : ""}`}
       format="rgb"
       value={color}
+      onDoubleClick={() => {
+        setPencileColor({
+          colorId: "1",
+          color: `rgb(${color.r}, ${color.g}, ${color.b})`,
+        });
+      }}
       onChange={(e) => setColorUp(e.value as ColorPickerRGBType)}
     />
   );
