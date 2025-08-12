@@ -14,6 +14,7 @@ import useCanvasStore from "../../../data/store/CanvasStore";
 import ThemeToggle from "../../misc/ThemeToggle";
 
 function SettingsDialog() {
+  const setTheme = useCanvasStore().setTheme;
   const settingVisible = useCanvasStore((state) => state.settingVisible);
   const canvasSettings = useCanvasStore((state) => state.canvasSettings);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -96,6 +97,7 @@ function SettingsDialog() {
               message="Are you sure you want to proceed?"
               icon="pi pi-exclamation-triangle"
               accept={() => {
+                setTheme(DefaultSettings.theme);
                 resetSettings();
                 hide({
                   preventDefault: () => {},

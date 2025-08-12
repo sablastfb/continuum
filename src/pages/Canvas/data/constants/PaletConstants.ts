@@ -47,5 +47,5 @@ export const PaletContainer = [
     dark: "rgb(30, 25, 15)",
   },
   //
-  { id: "bgt-1", light: "rgb(0, 240, 230)", dark: "rgb(255, 255, 255)" },
-] as const;
+  { id: "bgt-1", light: "rgb(0, 240, 230)", dark: "rgb(123, 123, 123)" },
+];

@@ -16,4 +16,8 @@ export namespace CanvasPalet {
       return color.light;
     }
   }
+
+  export function setColor(colorId: ColorId, color: string) {
+    colorContainer[colorId] = { id: colorId, light: color, dark: color };
+  }
 }

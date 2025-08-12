@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PrimeReactContext } from "primereact/api";
 import { AppConstants } from "../../data/constants/AppConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
@@ -23,15 +23,14 @@ const ThemeToggle = () => {
             AppConstants.primeReactLightModeTheme,
           ];
 
+    setTheme(isLight ? "dark" : "light");
     if (isLight) {
       document.documentElement.classList.remove("dark");
     } else {
       document.documentElement.classList.add("dark");
     }
     if (changeTheme)
-      changeTheme(currentTheme, nextTheme, "theme-link", () => {
-        setTheme(isLight ? "dark" : "light");
-      });
+      changeTheme(currentTheme, nextTheme, "theme-link", () => {});
   };
 
   return (

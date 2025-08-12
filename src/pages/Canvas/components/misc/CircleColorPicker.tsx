@@ -13,7 +13,7 @@ function CircleColorPicker({ colorId, selected }: CircleColorPickerParm) {
   return (
     <div
       onClick={() => {
-        setPencileColor({ color: colorId });
+        setPencileColor({ colorId: colorId, color: "" });
       }}
       style={{ backgroundColor: CanvasPalet.GetColor(colorId) }}
       className={`hover:cursor-pointer rounded-full w-7 h-7 ${ selected ? "outline-4 " : "" } `}

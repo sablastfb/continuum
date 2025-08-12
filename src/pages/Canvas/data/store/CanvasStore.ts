@@ -8,7 +8,10 @@ import { Theme } from "@tauri-apps/api/window";
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
     canvasSettings: { ...DefaultSettings },
-    pencilColor: DefaultSettings.pencile.colors[0],
+    pencil: {
+      pencilColorId: DefaultSettings.pencile.colors[0],
+      pencilColor: "",
+    },
     zoome: 1,
     settingVisible: false,
     infoVisible: false,
@@ -22,7 +25,8 @@ const useCanvasStore = create<CanvasStore>()(
       }),
     setPencileColor: (color) =>
       set((state) => {
-        state.pencilColor = color.color;
+        state.pencil.pencilColorId = color.colorId;
+        state.pencil.pencilColor = color.color;
       }),
     setSettingVisible: (settingVisible) =>
       set((state) => {
@@ -71,9 +75,9 @@ const useCanvasStore = create<CanvasStore>()(
     },
     setTheme: (theme: Theme) => {
       set((state) => {
-        state.canvasSettings.theme = theme
+        state.canvasSettings.theme = theme;
       });
-    }
+    },
   }))
 );
 

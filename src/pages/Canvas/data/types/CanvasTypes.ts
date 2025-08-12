@@ -2,25 +2,24 @@ import { Graphics } from "pixi.js";
 import { JSX } from "react";
 import { PaletContainer } from "../constants/PaletConstants";
 
-
-export type DeepPartial<T> = T extends object ? {
-    [P in keyof T]?: DeepPartial<T[P]>;
-} : T;
-
+export type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
 
 export type Id = string;
 
 export type GraphicsData = {
-  id: Id,
-  graph: Graphics
-}
+  id: Id;
+  graph: Graphics;
+};
 
-export type IconOption = { 
+export type IconOption = {
   name: string;
   icon: JSX.Element;
   action: ToolType;
-}
-
+};
 
 export type Point = {
   x: number;
@@ -36,35 +35,35 @@ export type ToolType =
   | "circle"
   | "text";
 
-export type Theme = 'dark' | 'light';
+export type Theme = "dark" | "light";
 
 export type BackgroundTypes = "color" | "grid" | "dots" | "line";
 
-export type BackgroundSettings =  {
-    type: BackgroundTypes;
-    color: ColorId;
-    grid: {
-        bacgroundColor: ColorId;
-        gridColor: ColorId;
-        size: number;
-        width: number;
-    };
-    dots: {
-        bacgroundColor: ColorId;
-        dotColor: ColorId;
-        radius: number;
-        width: number;
-    };
-    line: {
-        bacgroundColor: ColorId;
-        lineColor: ColorId;
-        width: number;
-    };
-    backgroundColors: ColorId[];
-}
+export type BackgroundSettings = {
+  type: BackgroundTypes;
+  color: ColorId;
+  grid: {
+    bacgroundColor: ColorId;
+    gridColor: ColorId;
+    size: number;
+    width: number;
+  };
+  dots: {
+    bacgroundColor: ColorId;
+    dotColor: ColorId;
+    radius: number;
+    width: number;
+  };
+  line: {
+    bacgroundColor: ColorId;
+    lineColor: ColorId;
+    width: number;
+  };
+  backgroundColors: ColorId[];
+};
 
 export interface CanvasSettings {
-  theme: Theme,
+  theme: Theme;
   background: BackgroundSettings;
   pencile: {
     colors: ColorId[];
@@ -72,10 +71,15 @@ export interface CanvasSettings {
   };
 }
 
+export interface PencilSettings {
+  pencilColorId: ColorId;
+  pencilColor: string;
+}
+
 export interface CanvasStore {
   canvasSettings: CanvasSettings;
+  pencil: PencilSettings;
   zoome: number;
-  pencilColor: ColorId;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
@@ -83,9 +87,7 @@ export interface CanvasStore {
   pencileThickens: number;
   canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
-  setPencileColor: (newColor: {
-    color: ColorId;
-  }) => void;
+  setPencileColor: (newColor: { colorId: ColorId; color: string }) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
@@ -93,7 +95,9 @@ export interface CanvasStore {
   setPencileThickens: (pencileThickens: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   addColor: (color: ColorId) => void;
-  setBackgroundSettings: (bacgroundSettings: DeepPartial<BackgroundSettings>) => void;
+  setBackgroundSettings: (
+    bacgroundSettings: DeepPartial<BackgroundSettings>
+  ) => void;
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
   setTheme: (theme: Theme) => void;

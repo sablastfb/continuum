@@ -6,6 +6,7 @@ import {
 } from "../../../../data/types/CanvasTypes";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import { CanvasPalet } from "../../../../data/container/PaletContainer";
+import WidthControlForm from "../WidthControlForm";
 function BackgroundSettings() {
   const backgroundSetting = useCanvasStore(
     (state) => state.canvasSettings.background
@@ -33,7 +34,9 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer  grid-pattern"
             style={{
-              backgroundColor: CanvasPalet.GetColor(settings.grid.bacgroundColor),
+              backgroundColor: CanvasPalet.GetColor(
+                settings.grid.bacgroundColor
+              ),
               //@ts-ignore
               "--grid-color": CanvasPalet.GetColor(settings.grid.gridColor),
             }}
@@ -44,7 +47,9 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800  cursor-pointer dot-pattern"
             style={{
-              backgroundColor: CanvasPalet.GetColor(settings.dots.bacgroundColor),
+              backgroundColor: CanvasPalet.GetColor(
+                settings.dots.bacgroundColor
+              ),
               //@ts-ignore
               "--dot-color": CanvasPalet.GetColor(settings.dots.dotColor),
             }}
@@ -59,7 +64,9 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer  line-pattern"
             style={{
-              backgroundColor: CanvasPalet.GetColor(settings.line.bacgroundColor),
+              backgroundColor: CanvasPalet.GetColor(
+                settings.line.bacgroundColor
+              ),
               //@ts-ignore
               "--line-color": CanvasPalet.GetColor(settings.line.lineColor),
             }}
@@ -70,11 +77,7 @@ function BackgroundSettings() {
     );
   };
 
-  const CircleColorButton = ({
-    color,
-  }: {
-    color: ColorId;
-  }) => {
+  const CircleColorButton = ({ color }: { color: ColorId }) => {
     return (
       <>
         <div
@@ -119,17 +122,12 @@ function BackgroundSettings() {
           <div className="text-xl">Background color</div>
           <div className="flex gap-5">
             {backgroundSetting.backgroundColors.map((colorId) => (
-              <CircleColorButton
-                key={colorId}
-                color={colorId}
-              />
+              <CircleColorButton key={colorId} color={colorId} />
             ))}
-            {/* <CircleColorButton color="#0A1931" type={backgroundSetting.type} />
-            <CircleColorButton color="#2E2E2E" type={backgroundSetting.type} />
-            <CircleColorButton color="#1B263B" type={backgroundSetting.type} />
-            <CircleColorButton color="#2F4F4F" type={backgroundSetting.type} />
-            <CircleColorButton color="#2D033B" type={backgroundSetting.type} /> */}
           </div>
+            {backgroundSetting.type === "grid" && <WidthControlForm></WidthControlForm>}
+            {backgroundSetting.type === "dots" && <div>Dots</div>}
+            {backgroundSetting.type === "line" && <div>Line</div>}
         </div>
         {}
       </div>

@@ -20,13 +20,13 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 
 function ToolsButtons() {
-  const pencilColor = useCanvasStore((state) => state.pencilColor);
+  const pencil = useCanvasStore((state) => state.pencil);
 
   const DrawingOptions = useMemo<IconOption[]>(
     () => [
       {
         name: "Pen",
-        icon: <PenLine strokeWidth={1} size={32} fill={CanvasPalet.GetColor(pencilColor)} />,
+        icon: <PenLine strokeWidth={1} size={32} fill={CanvasPalet.GetColor(pencil.pencilColorId)} />,
         action: "drawing",
       },
       {
@@ -40,7 +40,7 @@ function ToolsButtons() {
         action: "eraser",
       },
     ],
-    [pencilColor]
+    [pencil]
   );
 
   const SelectionOptions = useMemo<IconOption[]>(

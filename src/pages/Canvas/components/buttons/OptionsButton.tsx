@@ -17,13 +17,13 @@ function OptionButtons() {
             onClick={() => {
               if (Canvas.viewport)
                 Canvas.viewport.animate({
-                  time: 500, // animation duration in ms
+                  time: 500,
                   position: {
                     x: window.innerWidth / 2,
                     y: window.innerHeight / 2,
                   },
                   scale: 1,
-                  ease: "easeInOutQuad", // optional easing
+                  ease: "easeInOutQuad", 
                 });
             }}
           >
