@@ -8,10 +8,10 @@ function ToolsMenue() {
   const [toolsMenueVisible, setToolsMenueVisible] = useState<boolean>(false);
 
   return (
-    <div className="flex">
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center">
+    <div className="flex ">
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center">
         <div
-          className={`flex justify-center items-center ${defaultCanvasBackground} rounded-full p-1 absolute hover:cursor-pointer
+          className={`flex  justify-center items-center ${defaultCanvasBackground} rounded-full p-1 absolute hover:cursor-pointer
           transition-all ease-in-out
             ${toolsMenueVisible ? "bottom-1" : "bottom-15"}
             `}
@@ -30,7 +30,7 @@ function ToolsMenue() {
 
       <div
         className={`
-            absolute bottom-0 left-0 right-0 pointer-events-none
+            absolute bottom-0 left-0 right-0 pointer-events-none 
             ${
               toolsMenueVisible
                 ? " translate-y-10 pointer-events-none hidden"

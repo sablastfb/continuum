@@ -24,7 +24,7 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
     if (option) {
       return (
         <>
-          <ToolButton name={option.name} action={option.action} icon={option.icon}/>
+          <ToolButton  name={option.name} action={option.action} icon={option.icon}/>
         </>
       );
     }

@@ -9,9 +9,8 @@ function CustomColorPicker() {
   const setPencileColor = useCanvasStore().setPencileColor;
   const pencilColorId = useCanvasStore().pencil.pencilColorId;
 
-  const [color, setColor] = useState<string>("#6466f1"); // equivalent to rgb(100, 102, 241)
+  const [color, setColor] = useState<string>("#6466f1"); 
 
-  // Helper function to convert hex to RGB object
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result

@@ -12,8 +12,8 @@
     gap:5px;
     border: none;
     border-radius: 20% 20% 5% 5%;
-    background-color: rgb(66, 66, 66);
 }
+
 .p-dropdown-item {
     border-radius: 20%;
     padding: 5px;
@@ -26,7 +26,7 @@
 
 
 .p-dropdown-label	{
-    padding: 2px;
+    padding: 3px;
 }
 .p-dropdown-trigger	{
     width: 15px;

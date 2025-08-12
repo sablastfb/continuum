@@ -125,7 +125,7 @@ function BackgroundSettings() {
               <CircleColorButton key={colorId} color={colorId} />
             ))}
           </div>
-            {backgroundSetting.type === "grid" && <WidthControlForm></WidthControlForm>}
+            {backgroundSetting.type === "grid" }
             {backgroundSetting.type === "dots" && <div>Dots</div>}
             {backgroundSetting.type === "line" && <div>Line</div>}
         </div>
