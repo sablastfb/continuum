@@ -3,7 +3,7 @@ import { Canvas } from "../CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 
 function CursorEffect() {
-    const color = useCanvasStore((state) => state.color);
+    const color = useCanvasStore((state) => state.pencilColor);
     const activeTool = useCanvasStore((state) => state.activeTool);
     const canvasCursorActive = useCanvasStore((state) => state.canvasCursorActive);
 

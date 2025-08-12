@@ -52,7 +52,7 @@ export class Pencile implements ITool {
       cap: "round",
       join: "round",
     });
-    const color = this.state.getState().color;
+    const color = this.state.getState().pencilColor;
     this.graphic.tint = CanvasPalet.GetColor(color);
     this.count++;
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
@@ -83,7 +83,7 @@ export class Pencile implements ITool {
     cursor.clear();
     cursor
       .circle(0, 0, this.state.getState().pencileThickens)
-      .fill(CanvasPalet.GetColor(this.state.getState().color))
+      .fill(CanvasPalet.GetColor(this.state.getState().pencilColor))
       .stroke({ alignment: 0, width: outlineWidth, color: "black" })
       .moveTo(lineDistance, 0)
       .lineTo(this.state.getState().pencileThickens + lineDistanceOffset, 0)

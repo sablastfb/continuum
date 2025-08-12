@@ -13,7 +13,6 @@ import { Canvas } from "./features/CanvasApp";
 import CursorEffect from "./features/effects/CursorEffect";
 import BackgroundEffect from "./features/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
-import { CanvasPalet } from "./data/container/PaletContainer";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);

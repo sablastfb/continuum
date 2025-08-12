@@ -1,7 +1,5 @@
 import { useState } from "react";
 import CircleColorPicker from "../../misc/CircleColorPicker";
-import { ColorPicker } from "primereact/colorpicker";
-import { Button } from "primereact/button";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { ColorId } from "../../../data/types/CanvasTypes";
 
@@ -15,7 +13,7 @@ function DrawingSettings() {
       <h3 className="text-xl mb-4">Pencil Settings</h3>
       <div className="flex gap-4">
       {pencileSettings.canvasSettings.pencile.colors.map((color, ix) => {
-        return <CircleColorPicker color={color} colorKey={ix} key={ix} />;
+        return <CircleColorPicker colorId={color} selected={false} key={ix} />;
       })}
        {/* <ColorPicker
               value={color}

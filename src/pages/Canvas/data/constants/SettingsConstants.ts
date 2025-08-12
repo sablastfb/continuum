@@ -3,23 +3,23 @@ import { CanvasSettings } from "../types/CanvasTypes";
 
 export const DefaultSettings: CanvasSettings = {
   background: {
-    type: "color",
+    type: "grid",
     color: defaultBackgroundColor,
     grid: {
       bacgroundColor: defaultBackgroundColor,
-      gridColor: "bg-2",
+      gridColor: "bgt-1",
       size: 5,
       width: 10,
     },
     dots: {
       bacgroundColor: defaultBackgroundColor,
-      dotColor: "bg-2",
+      dotColor: "bgt-1",
       radius: 1.5,
       width: 25,
     },
     line: {
       bacgroundColor: defaultBackgroundColor,
-      lineColor: "bg-2",
+      lineColor: "bgt-1",
       width: 0,
     },
     backgroundColors: ["bg-1", "bg-2", "bg-3"],

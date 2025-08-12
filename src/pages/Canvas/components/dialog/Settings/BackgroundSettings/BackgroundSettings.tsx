@@ -72,17 +72,15 @@ function BackgroundSettings() {
 
   const CircleColorButton = ({
     color,
-    type,
   }: {
     color: ColorId;
-    type: BackgroundTypes;
   }) => {
     return (
       <>
         <div
           style={{ backgroundColor: CanvasPalet.GetColor(color) }}
           onClick={() => {
-            switch (type) {
+            switch (backgroundSetting.type) {
               case "color":
                 setBackgroundSettings({ color: color });
                 break;
@@ -124,7 +122,6 @@ function BackgroundSettings() {
               <CircleColorButton
                 key={colorId}
                 color={colorId}
-                type={backgroundSetting.type}
               />
             ))}
             {/* <CircleColorButton color="#0A1931" type={backgroundSetting.type} />

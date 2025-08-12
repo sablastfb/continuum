@@ -5,6 +5,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 
 function PencileTools() {
   const pencileSettings = useCanvasStore();
+  const pencilColor = useCanvasStore().pencilColor;
   return (
     <>
       <div className="absolute right-0 h-full flex justify-center items-center pr-2 pointer-events-none">
@@ -15,8 +16,8 @@ function PencileTools() {
           })}
 
           <ArrayDivider orjentation="horizontal" />
-          {pencileSettings.canvasSettings.pencile.colors.map((color, ix) => {
-            return <CircleColorPicker color={color} colorKey={ix} key={ix} />;
+          {pencileSettings.canvasSettings.pencile.colors.map((colorId, ix) => {
+            return <CircleColorPicker colorId={colorId} key={ix} selected={colorId === pencilColor} />;
           })}
         </div>
       </div>

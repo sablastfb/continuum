@@ -17,7 +17,7 @@ import { CanvasPalet } from "../data/container/PaletContainer";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
-  let viewport: Viewport | null = null;
+  export let viewport: Viewport | null = null;
   export let toolsManager: ToolsManager;
   export let backgroundTexture: TilingSprite;
   let cursor: Graphics;

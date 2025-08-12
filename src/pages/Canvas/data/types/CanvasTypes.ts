@@ -74,19 +74,17 @@ export interface CanvasSettings {
 
 export interface CanvasStore {
   canvasSettings: CanvasSettings;
-  color: ColorId;
   zoome: number;
+  pencilColor: ColorId;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
   activeTool: ToolType;
   pencileThickens: number;
-  activeColorKey: number;
   canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
   setPencileColor: (newColor: {
     color: ColorId;
-    activeColorKey: number;
   }) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
