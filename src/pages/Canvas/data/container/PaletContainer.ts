@@ -6,7 +6,7 @@ import { ColorId } from "../types/CanvasTypes";
 export namespace CanvasPalet {
   export const colorContainer = keyBy(PaletContainer, "id");
 
-  export function GetColor(colorId: ColorId) {
+  export function getColor(colorId: ColorId) {
     const color = colorContainer[colorId];
     if (color === undefined) return "";
 

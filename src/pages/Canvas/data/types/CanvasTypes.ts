@@ -1,6 +1,7 @@
 import { Graphics } from "pixi.js";
 import { JSX } from "react";
 import { PaletContainer } from "../constants/PaletConstants";
+import { ThicknesConstants } from "../constants/ThicknesConstants";
 
 export type DeepPartial<T> = T extends object
   ? {
@@ -67,13 +68,15 @@ export interface CanvasSettings {
   background: BackgroundSettings;
   pencile: {
     colors: ColorId[];
-    thicknes: number[];
+    thicknes: ThicknesId[];
   };
 }
 
 export interface PencilSettings {
   pencilColorId: ColorId;
   pencilColor: string;
+  thicknesId: ThicknesId,
+  thicknes: number
 }
 
 export interface CanvasStore {
@@ -84,15 +87,14 @@ export interface CanvasStore {
   infoVisible: boolean;
   exportVisible: boolean;
   activeTool: ToolType;
-  pencileThickens: number;
   canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
   setPencileColor: (newColor: { colorId: ColorId; color: string }) => void;
+  setPencileThickens: (pencileThickens: {thicknesId: ThicknesId, thicknes: number}) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
   setActiveTool: (activeTool: ToolType) => void;
-  setPencileThickens: (pencileThickens: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   addColor: (color: ColorId) => void;
   setBackgroundSettings: (
@@ -105,3 +107,6 @@ export interface CanvasStore {
 
 export type Color = string;
 export type ColorId = (typeof PaletContainer)[number]["id"];
+
+export type Thicknes = number;
+export type ThicknesId = (typeof ThicknesConstants)[number]["id"];

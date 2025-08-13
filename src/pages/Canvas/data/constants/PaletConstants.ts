@@ -30,7 +30,6 @@ export const PaletContainer = [
   { id: "p-9", light: "rgb(0, 0, 0)", dark: "rgb(255, 255, 255)" },
   { id: "p-10", light: "rgb(0, 122, 255)", dark: "rgb(10, 132, 255)" },
 
-  // Background Colors
   { id: "bg-1", light: "rgb(255, 255, 255)", dark: "rgb(0, 0, 0)" },
   {
     id: "bg-2",

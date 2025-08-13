@@ -8,6 +8,8 @@ import { Distance } from "../utils/CanvasUtils";
 import { graphicsData } from "../service/data";
 import { ITool } from "./ITool";
 import { CanvasPalet } from "../../data/container/PaletContainer";
+import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;
@@ -47,22 +49,20 @@ export class Pencile implements ITool {
 
     this.graphic.lineTo(worldPos.x, worldPos.y);
     this.graphic.stroke({
-      width: this.state.getState().pencileThickens,
+      width: ThicknesPalet.getThicknes(this.state.getState().pencil.thicknesId)*2,
       color: "white",
       cap: "round",
       join: "round",
     });
     const color = this.state.getState().pencil.pencilColorId;
-    this.graphic.tint = CanvasPalet.GetColor(color);
+    this.graphic.tint = CanvasPalet.getColor(color);
     this.count++;
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
   }
 
   public stopDrawing() {
     // if (this.graphic === null) return;
-
     // const worldPos = this.viewport.toWorld(e.global) as Point;
-
     // this.graphic
     //   .lineTo(worldPos.x+1, worldPos.y)
     // this.graphic.stroke({
@@ -76,23 +76,27 @@ export class Pencile implements ITool {
   }
 
   public updateCursor(cursor: Graphics) {
-    const lineDistanceOffset = 5;
     const outlineWidth = 1;
-    const lineDistance = 20 + lineDistanceOffset;
     const lineWidth = 1;
+    const zoom = useCanvasStore.getState().zoome;
+    const thicknes = zoom* ThicknesPalet.getThicknes(
+      this.state.getState().pencil.thicknesId
+    );
+    const lineDistanceOffset = thicknes;
+    const lineDistance = 20*zoom + lineDistanceOffset;
     cursor.clear();
     cursor
-      .circle(0, 0, this.state.getState().pencileThickens)
-      .fill(CanvasPalet.GetColor(this.state.getState().pencil.pencilColorId))
+      .circle(0, 0, thicknes)
+      .fill(CanvasPalet.getColor(this.state.getState().pencil.pencilColorId))
       .stroke({ alignment: 0, width: outlineWidth, color: "black" })
       .moveTo(lineDistance, 0)
-      .lineTo(this.state.getState().pencileThickens + lineDistanceOffset, 0)
+      .lineTo(thicknes + lineDistanceOffset, 0)
       .moveTo(-lineDistance, 0)
-      .lineTo(-this.state.getState().pencileThickens - lineDistanceOffset, 0)
+      .lineTo(-thicknes - lineDistanceOffset, 0)
       .moveTo(0, lineDistance)
-      .lineTo(0, this.state.getState().pencileThickens + lineDistanceOffset)
+      .lineTo(0, thicknes + lineDistanceOffset)
       .moveTo(0, -lineDistance)
-      .lineTo(0, -this.state.getState().pencileThickens - lineDistanceOffset)
+      .lineTo(0, -thicknes - lineDistanceOffset)
       .stroke({ width: lineWidth, color: "gray" });
   }
 }

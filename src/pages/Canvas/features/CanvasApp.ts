@@ -42,7 +42,7 @@ export namespace Canvas {
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
-      background: CanvasPalet.GetColor( useCanvasStore.getState().canvasSettings.background.color),
+      background: CanvasPalet.getColor( useCanvasStore.getState().canvasSettings.background.color),
       resizeTo: window,
     });
     cursor = new Graphics();

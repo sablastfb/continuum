@@ -2,7 +2,6 @@ import { Graphics, TilingSprite } from "pixi.js";
 import { BackgroundSettings } from "../../data/types/CanvasTypes";
 import { Canvas } from "../CanvasApp";
 import { CanvasPalet } from "../../data/container/PaletContainer";
-import useCanvasStore from "../../data/store/CanvasStore";
 
 export namespace CanvasBacground {
   export function changeBackground(bs: BackgroundSettings) {
@@ -31,7 +30,7 @@ export namespace CanvasBacground {
   function SolidColorBacground(bs: BackgroundSettings) {
     if (!Canvas.appInstance?.renderer?.background) return;
     ClearBackground();
-    Canvas.appInstance.renderer.background.color = CanvasPalet.GetColor(
+    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bs.color
     );
   }
@@ -41,7 +40,7 @@ export namespace CanvasBacground {
     ClearBackground();
 
     const bacground = bs.dots;
-    Canvas.appInstance.renderer.background.color = CanvasPalet.GetColor(
+    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bacground.bacgroundColor
     );
 
@@ -49,7 +48,7 @@ export namespace CanvasBacground {
       .rect(0, 0, bacground.width, bacground.width)
       .fill({ alpha: 0 })
       .circle(0, 0, bacground.radius)
-      .fill(CanvasPalet.GetColor(bacground.dotColor));
+      .fill(CanvasPalet.getColor(bacground.dotColor));
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
@@ -68,7 +67,7 @@ export namespace CanvasBacground {
     if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
     ClearBackground();
     const bacground = bs.grid;
-    Canvas.appInstance.renderer.background.color = CanvasPalet.GetColor(
+    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bacground.bacgroundColor
     );
 
@@ -77,13 +76,13 @@ export namespace CanvasBacground {
 
     graphics
       .rect(0, 0, width, width)
-      .stroke({ color: CanvasPalet.GetColor(bacground.gridColor), width: 1 })
+      .stroke({ color: CanvasPalet.getColor(bacground.gridColor), width: 1 })
       .moveTo(0, 0)
       .lineTo(0, width)
       .moveTo(0, 0)
       .lineTo(width, 0)
       .stroke({
-        color: CanvasPalet.GetColor(bacground.bacgroundColor),
+        color: CanvasPalet.getColor(bacground.bacgroundColor),
         width: 1,
       });
 
@@ -105,7 +104,7 @@ export namespace CanvasBacground {
     ClearBackground();
 
     const bacground = bs.line;
-    Canvas.appInstance.renderer.background.color = CanvasPalet.GetColor(
+    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bacground.bacgroundColor
     );
 
@@ -113,14 +112,14 @@ export namespace CanvasBacground {
     const width = 100;
     graphics
       .rect(0, 0, width, width)
-      .stroke({ color: CanvasPalet.GetColor(bacground.lineColor), width: 1 })
+      .stroke({ color: CanvasPalet.getColor(bacground.lineColor), width: 1 })
       .moveTo(0, 0)
       .lineTo(0, width)
       .moveTo(0, 0)
       .lineTo(width, 0)
       .lineTo(width, width)
       .stroke({
-        color: CanvasPalet.GetColor(bacground.bacgroundColor),
+        color: CanvasPalet.getColor(bacground.bacgroundColor),
         width: 1,
       });
 

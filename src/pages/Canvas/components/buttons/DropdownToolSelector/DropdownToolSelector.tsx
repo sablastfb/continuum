@@ -4,6 +4,7 @@ import { useState } from "react";
 import ToolButton from "../ToolButton";
 import { IconOption } from "../../../data/types/CanvasTypes";
 import useCanvasStore from "../../../data/store/CanvasStore";
+import { defaultCanvasBackground } from "../../../data/constants/CanvasConstants";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];
@@ -16,7 +17,7 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const iconOptionTemplate = (option: IconOption) => {
     return (
-      <div className="flex items-center cursor-pointer">{option.icon}</div>
+      <div className={`flex items-center cursor-pointer  rounded-xl  shadow-2xl p-2 ${defaultCanvasBackground}`}>{option.icon}</div>
     );
   };
 

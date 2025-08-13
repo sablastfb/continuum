@@ -26,7 +26,7 @@ function BackgroundSettings() {
         {type === "color" && (
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer"
-            style={{ backgroundColor: CanvasPalet.GetColor(settings.color) }}
+            style={{ backgroundColor: CanvasPalet.getColor(settings.color) }}
             onClick={() => setBackgroundSettings({ type: "color" })}
           />
         )}
@@ -34,11 +34,11 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer  grid-pattern"
             style={{
-              backgroundColor: CanvasPalet.GetColor(
+              backgroundColor: CanvasPalet.getColor(
                 settings.grid.bacgroundColor
               ),
               //@ts-ignore
-              "--grid-color": CanvasPalet.GetColor(settings.grid.gridColor),
+              "--grid-color": CanvasPalet.getColor(settings.grid.gridColor),
             }}
             onClick={() => setBackgroundSettings({ type: "grid" })}
           />
@@ -47,11 +47,11 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800  cursor-pointer dot-pattern"
             style={{
-              backgroundColor: CanvasPalet.GetColor(
+              backgroundColor: CanvasPalet.getColor(
                 settings.dots.bacgroundColor
               ),
               //@ts-ignore
-              "--dot-color": CanvasPalet.GetColor(settings.dots.dotColor),
+              "--dot-color": CanvasPalet.getColor(settings.dots.dotColor),
             }}
             onClick={() =>
               setBackgroundSettings({
@@ -64,11 +64,11 @@ function BackgroundSettings() {
           <div
             className="w-20 h-20 outline-2 rounded-sm outline-gray-800 cursor-pointer  line-pattern"
             style={{
-              backgroundColor: CanvasPalet.GetColor(
+              backgroundColor: CanvasPalet.getColor(
                 settings.line.bacgroundColor
               ),
               //@ts-ignore
-              "--line-color": CanvasPalet.GetColor(settings.line.lineColor),
+              "--line-color": CanvasPalet.getColor(settings.line.lineColor),
             }}
             onClick={() => setBackgroundSettings({ type: "line" })}
           />
@@ -81,7 +81,7 @@ function BackgroundSettings() {
     return (
       <>
         <div
-          style={{ backgroundColor: CanvasPalet.GetColor(color) }}
+          style={{ backgroundColor: CanvasPalet.getColor(color) }}
           onClick={() => {
             switch (backgroundSetting.type) {
               case "color":

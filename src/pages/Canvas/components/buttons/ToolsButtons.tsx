@@ -31,7 +31,7 @@ function ToolsButtons() {
           <PenLine
             strokeWidth={1}
             size={32}
-            fill={CanvasPalet.GetColor(pencil.pencilColorId)}
+            fill={CanvasPalet.getColor(pencil.pencilColorId)}
           />
         ),
         action: "drawing",

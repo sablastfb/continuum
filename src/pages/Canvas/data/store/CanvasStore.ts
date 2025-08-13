@@ -11,6 +11,8 @@ const useCanvasStore = create<CanvasStore>()(
     pencil: {
       pencilColorId: DefaultSettings.pencile.colors[0],
       pencilColor: "",
+      thicknesId: DefaultSettings.pencile.thicknes[0],
+      thicknes: 0,
     },
     zoome: 1,
     settingVisible: false,
@@ -25,6 +27,7 @@ const useCanvasStore = create<CanvasStore>()(
       }),
     setPencileColor: (color) =>
       set((state) => {
+        debugger;
         state.pencil.pencilColorId = color.colorId;
         state.pencil.pencilColor = color.color;
       }),
@@ -46,7 +49,8 @@ const useCanvasStore = create<CanvasStore>()(
       }),
     setPencileThickens: (pencileThickens) =>
       set((state) => {
-        state.pencileThickens = pencileThickens;
+        state.pencil.thicknes = pencileThickens.thicknes;
+        state.pencil.thicknesId = pencileThickens.thicknesId;
       }),
     setBackgroundSettings: (settings) =>
       set((state) => ({

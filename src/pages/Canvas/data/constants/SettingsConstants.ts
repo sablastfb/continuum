@@ -20,13 +20,13 @@ export const DefaultSettings: CanvasSettings = {
     line: {
       bacgroundColor: defaultBackgroundColor,
       lineColor: "bgt-1",
-      width: 0,
+      width: 25,
     },
     backgroundColors: ["bg-1", "bg-2", "bg-3", "bg-5"],
   },
   pencile: {
-    colors: ['p-7', "p-1", "p-2", "p-5", "p-4", ],
-    thicknes: [5, 8, 16,20],
+    colors: ['p-7', "p-1", "p-2", "p-5", "p-4"],
+    thicknes: ['th-1', 'th-2', 'th-3', 'th-4'],
   },
   theme: "dark",
 };
