@@ -24,7 +24,7 @@ function CircleThicknesPicker({
         });
       }}
       className={`w-8 h-8 flex justify-center items-center hover:cursor-pointer  rounded-full outline-1 ${
-        selected ? "ring-2 ring-offset-2 ring-gray-400" : ""
+        selected ? "ring-2 ring-offset-2 ring-amber-300 dark:ring-gray-400"  : ""
       }`}
     >
       <div

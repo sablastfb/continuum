@@ -12,22 +12,22 @@ const ThemeToggle = () => {
   const isLight = theme === "light";
 
   const toggle = () => {
-    const [nextTheme, currentTheme] =
-      theme === "dark"
-        ? [
-            AppConstants.primeReactLightModeTheme,
-            AppConstants.primeReactDarkModeTheme,
-          ]
-        : [
-            AppConstants.primeReactDarkModeTheme,
-            AppConstants.primeReactLightModeTheme,
-          ];
+    const [nextTheme, currentTheme] = isLight
+      ? [
+          AppConstants.primeReactDarkModeTheme,
+          AppConstants.primeReactLightModeTheme,
+        ]
+      : [
+          AppConstants.primeReactLightModeTheme,
+          AppConstants.primeReactDarkModeTheme,
+        ];
 
     setTheme(isLight ? "dark" : "light");
+
     if (isLight) {
-      document.documentElement.classList.remove("dark");
-    } else {
       document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
     if (changeTheme)
       changeTheme(currentTheme, nextTheme, "theme-link", () => {});

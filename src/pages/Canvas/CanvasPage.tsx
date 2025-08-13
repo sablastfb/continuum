@@ -22,6 +22,8 @@ function CanvasPage() {
   );
 
   useEffect(() => {
+    document.documentElement.classList.add("dark");
+
     async function SetUpPixi() {
       const app = await Canvas.getPixiApp();
       setCanvasCursorActive(true);
