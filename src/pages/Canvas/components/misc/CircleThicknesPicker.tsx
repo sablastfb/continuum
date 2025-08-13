@@ -23,14 +23,18 @@ function CircleThicknesPicker({
           thicknesId: thicknesId,
         });
       }}
-      style={{
-        width: ThicknesPalet.getThicknes(thicknesId) * 1.5,
-        height: ThicknesPalet.getThicknes(thicknesId) * 1.5,
-      }}
-      className={`hover:cursor-pointer bg-amber-100 rounded-full  ${
+      className={`w-8 h-8 flex justify-center items-center hover:cursor-pointer  rounded-full ${
         selected ? "ring-2 ring-offset-2 ring-gray-400" : ""
       }`}
-    ></div>
+    >
+      <div
+        style={{
+          width: ThicknesPalet.getThicknes(thicknesId),
+          height: ThicknesPalet.getThicknes(thicknesId) ,
+        }}
+        className={`bg-amber-100 rounded-full`}
+      ></div>
+    </div>
   );
 }
 

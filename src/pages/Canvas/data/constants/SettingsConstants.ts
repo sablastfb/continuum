@@ -26,7 +26,7 @@ export const DefaultSettings: CanvasSettings = {
   },
   pencile: {
     colors: ['p-7', "p-1", "p-2", "p-5", "p-4"],
-    thicknes: ['th-1', 'th-2', 'th-3', 'th-4'],
+    thicknes: ['th-1', 'th-2', 'th-3'],
   },
   theme: "dark",
 };

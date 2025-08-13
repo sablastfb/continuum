@@ -11,7 +11,7 @@ export namespace ThicknesPalet {
     return thicknes.thicknes;
   }
 
-  export function setColor(id: ThicknesId, thicknes: Thicknes) {
+  export function setThicknes(id: ThicknesId, thicknes: Thicknes) {
     thicknesContainer[id] = { id, thicknes };
   }
 }
