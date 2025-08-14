@@ -7,6 +7,7 @@ import {
   defaultCanvasBackground,
 } from "../../../data/constants/CanvasConstants";
 import { ArrowUp, ChevronDown } from "lucide-react";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function DropdownYiBi({
   options: options,
@@ -16,6 +17,8 @@ function DropdownYiBi({
   position: LayoutPositon;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const setActiveTool = useCanvasStore((state) => state.setActiveTool);
+  const [ix, setix] = useState(0);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -24,23 +27,26 @@ function DropdownYiBi({
   return (
     <>
       <div
-        className={`flex items-center gap-0 
+        className={`flex items-center gap-0  rounded-2xl
          ${position === "left" && "flex-col "}
          ${position === "right" && "flex-col "}
         `}
       >
         <ToolButton
-          name={options[0].name}
-          action={options[0].action}
-          icon={options[0].icon}
+          name={options[ix].name}
+          action={options[ix].action}
+          icon={options[ix].icon}
         />
         <div
-          className={`${
-            isOpen && "rotate-180"
-          } ease-in-out transition-all duration-75`}
+          className={`
+            ${isOpen && "rotate-180"} ease-in-out transition-all duration-75`}
           onClick={toggleDropdown}
         >
-          <div className="rotate-270">
+          <div
+            className={` 
+            ${position === "left" && "rotate-270"}
+            ${position === "right" && "rotate-90"}`}
+          >
             <ChevronDown size={20} />
           </div>
         </div>
@@ -53,9 +59,18 @@ function DropdownYiBi({
         `}
         >
           {isOpen &&
-            options.map((element) => (
-              <div className={` rounded-2xl p-2 ${defaultCanvasBackground}`}>
-                {element.icon}
+            options.map((element, ix) => (
+              <div>
+                <div
+                  className={`h-full cursor-pointer rounded-2xl p-2 ${defaultCanvasBackground}`}
+                  onClick={() => {
+                    setActiveTool(element.action);
+                    setix(ix);
+                    setIsOpen(false);
+                  }}
+                >
+                  {element.icon}
+                </div>
               </div>
             ))}
         </div>

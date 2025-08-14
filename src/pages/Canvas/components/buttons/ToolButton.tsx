@@ -8,14 +8,16 @@ export type ToolButtonParam = {
   action: ToolType;
 };
 
-function ToolButton({icon, action}: ToolButtonParam) {
+function ToolButton({ icon, action }: ToolButtonParam) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const activeTool = useCanvasStore().activeTool;
 
   return (
     <>
       <div
-        className={`flex items-center hover:cursor-pointer p-1 ${action === activeTool ? 'outline-3 rounded-xl' : ''}`}
+        className={`flex items-center hover:cursor-pointer p-1 ${
+          action === activeTool ? "outline-2 rounded-xl" : ""
+        }`}
         onClick={() => {
           setActiveTool(action);
         }}
