@@ -60,18 +60,7 @@ export class Pencile implements ITool {
   }
 
   public stopDrawing() {
-    // if (this.graphic === null) return;
-    // const worldPos = this.viewport.toWorld(e.global) as Point;
-    // this.graphic
-    //   .lineTo(worldPos.x+1, worldPos.y)
-    // this.graphic.stroke({
-    //   width: this.state.getState().pencileThickens,
-    //   color: "white",
-    //   cap: "round",
-    //   join: "round",
-    // });
-    // const color = this.state.getState().color;
-    // this.graphic.tint = color;
+    if (this.graphic === null) return;
   }
 
   public updateCursor(cursor: Graphics) {

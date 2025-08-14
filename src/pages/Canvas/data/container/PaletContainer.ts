@@ -2,6 +2,7 @@ import { keyBy } from "lodash";
 import { PaletContainer } from "../constants/PaletConstants";
 import useCanvasStore from "../store/CanvasStore";
 import { ColorId } from "../types/CanvasTypes";
+import useSettingsStore from "../store/SettingsStore";
 
 export namespace CanvasPalet {
   export const colorContainer = keyBy(PaletContainer, "id");
@@ -10,7 +11,7 @@ export namespace CanvasPalet {
     const color = colorContainer[colorId];
     if (color === undefined) return "";
 
-    if (useCanvasStore.getState().canvasSettings.theme === "dark") {
+    if (useSettingsStore.getState().theme === "dark") {
       return color.dark;
     } else {
       return color.light;

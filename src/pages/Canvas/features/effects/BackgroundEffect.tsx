@@ -11,6 +11,7 @@ function BackgroundEffect() {
   );
 
   useEffect(() => {
+    debugger;
     CanvasBacground.changeBackground(backgroundSetting);
   }, [backgroundSetting, theme]);
   return <></>;

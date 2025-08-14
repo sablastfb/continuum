@@ -67,7 +67,7 @@ export const useSettingsStore = create<SettingsStore>()(
 
     setBackgroundSettings: (settings) =>
       set((state) => {
-       state.background = merge({}, state.background, settings);
+        state.background = merge({}, state.background, settings);
       }),
     discardSettings: (settings) => {
       set((state) => {

@@ -4,6 +4,8 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 import { BackgroundSettings } from "../../data/store/SettingsStore";
 
 export namespace CanvasBacground {
+  export let backgroundTexture: TilingSprite;
+
   export function changeBackground(bs: BackgroundSettings) {
     switch (bs.type) {
       case "color":
@@ -22,9 +24,9 @@ export namespace CanvasBacground {
   }
 
   function ClearBackground() {
-    if (!Canvas.backgroundTexture) return;
+    if (!backgroundTexture) return;
 
-    Canvas.appInstance?.stage.removeChild(Canvas.backgroundTexture);
+    Canvas.appInstance?.stage.removeChild(backgroundTexture);
   }
 
   function SolidColorBacground(bs: BackgroundSettings) {
@@ -58,7 +60,7 @@ export namespace CanvasBacground {
     });
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
-    Canvas.backgroundTexture = tilingSprite;
+    backgroundTexture = tilingSprite;
    resize();
 
   }
@@ -94,7 +96,7 @@ export namespace CanvasBacground {
     });
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
-    Canvas.backgroundTexture = tilingSprite;
+    backgroundTexture = tilingSprite;
    resize();
 
   }
@@ -131,17 +133,17 @@ export namespace CanvasBacground {
     });
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
-    Canvas.backgroundTexture = tilingSprite;
+    backgroundTexture = tilingSprite;
 
    resize();
   }
   function resize(){
-    if (Canvas.backgroundTexture && Canvas.viewport?.scale.x) {
-      Canvas.backgroundTexture.tilePosition.x = Canvas.viewport?.x;
-      Canvas.backgroundTexture.tilePosition.y = Canvas.viewport?.y;
-      if (Canvas.backgroundTexture && Canvas.viewport?.scale.x) {
-        Canvas.backgroundTexture.tileScale.x = Canvas.viewport?.scale.x;
-        Canvas.backgroundTexture.tileScale.y = Canvas.viewport?.scale.y;
+    if (backgroundTexture && Canvas.viewport?.scale.x) {
+      backgroundTexture.tilePosition.x = Canvas.viewport?.x;
+      backgroundTexture.tilePosition.y = Canvas.viewport?.y;
+      if (backgroundTexture && Canvas.viewport?.scale.x) {
+        backgroundTexture.tileScale.x = Canvas.viewport?.scale.x;
+        backgroundTexture.tileScale.y = Canvas.viewport?.scale.y;
       }
     }
   }
