@@ -4,10 +4,11 @@ import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { useState } from "react";
 import { CanvasPalet } from "../../data/container/PaletContainer";
+import { usePencileStore } from "../../data/store/PencileStore";
 
 function CustomColorPicker() {
-  const setPencileColor = useCanvasStore().setPencileColor;
-  const pencilColorId = useCanvasStore().pencil.pencilColorId;
+  const setPencileColor = usePencileStore().setPencileColor;
+  const pencilColorId = usePencileStore().pencilColorId;
 
   const [color, setColor] = useState<string>("#6466f1");
 
@@ -60,8 +61,8 @@ function CustomColorPicker() {
 
 function PencileTools() {
   const pencileSettings = useCanvasStore();
-  const pencilColorId = useCanvasStore().pencil.pencilColorId;
-  const thicknesId = useCanvasStore().pencil.thicknesId;
+  const pencilColorId = usePencileStore().pencilColorId;
+  const thicknesId = usePencileStore().thicknesId;
 
   return (
     <>

@@ -8,12 +8,6 @@ import { Theme } from "@tauri-apps/api/window";
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
     canvasSettings: { ...DefaultSettings },
-    pencil: {
-      pencilColorId: DefaultSettings.pencile.colors[0],
-      pencilColor: "",
-      thicknesId: DefaultSettings.pencile.thicknes[0],
-      thicknes: 0,
-    },
     zoome: 1,
     settingVisible: false,
     infoVisible: false,
@@ -23,12 +17,6 @@ const useCanvasStore = create<CanvasStore>()(
     setZoom: (zoome) =>
       set((state) => {
         state.zoome = zoome;
-      }),
-    setPencileColor: (color) =>
-      set((state) => {
-        debugger;
-        state.pencil.pencilColorId = color.colorId;
-        state.pencil.pencilColor = color.color;
       }),
     setSettingVisible: (settingVisible) =>
       set((state) => {
@@ -45,11 +33,6 @@ const useCanvasStore = create<CanvasStore>()(
     setActiveTool: (activeTool) =>
       set((state) => {
         state.activeTool = activeTool;
-      }),
-    setPencileThickens: (pencileThickens) =>
-      set((state) => {
-        state.pencil.thicknes = pencileThickens.thicknes;
-        state.pencil.thicknesId = pencileThickens.thicknesId;
       }),
     setBackgroundSettings: (settings) =>
       set((state) => ({

@@ -1,8 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { ITool } from "./ITool";
-import { CanvasStore, ToolType } from "../../data/types/CanvasTypes";
-import { UseBoundStore } from "zustand/react";
-import { StoreApi } from "zustand";
+import { ToolType } from "../../data/types/CanvasTypes";
 import { Pencile } from "./Pencile";
 
 export class ToolsManager {
@@ -11,7 +9,6 @@ export class ToolsManager {
 
   constructor(
     private viewport: Viewport,
-    private state: UseBoundStore<StoreApi<CanvasStore>>,
     toolType: ToolType = 'drawing'
   ) {
     this.registerDefaultTools();
@@ -19,7 +16,7 @@ export class ToolsManager {
   }
 
   private registerDefaultTools(){
-    this.registerDefaultTool('drawing', new Pencile(this.viewport, this.state));
+    this.registerDefaultTool('drawing', new Pencile(this.viewport));
   }
   private registerDefaultTool(toolType: ToolType, tool: ITool){
     this.tools.set(toolType, tool);

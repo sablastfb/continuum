@@ -10,6 +10,7 @@ import { ITool } from "./ITool";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
+import { usePencileStore } from "../../data/store/PencileStore";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;
@@ -18,7 +19,6 @@ export class Pencile implements ITool {
 
   constructor(
     private viewport: Viewport,
-    private state: UseBoundStore<StoreApi<CanvasStore>>
   ) {}
 
   public startDrawing(e: FederatedMouseEvent) {
@@ -49,12 +49,12 @@ export class Pencile implements ITool {
 
     this.graphic.lineTo(worldPos.x, worldPos.y);
     this.graphic.stroke({
-      width: ThicknesPalet.getThicknes(this.state.getState().pencil.thicknesId)*2,
+      width: ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId)*2,
       color: "white",
       cap: "round",
       join: "round",
     });
-    const color = this.state.getState().pencil.pencilColorId;
+    const color = usePencileStore.getState().pencilColorId;
     this.graphic.tint = CanvasPalet.getColor(color);
     this.count++;
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
@@ -80,14 +80,14 @@ export class Pencile implements ITool {
     const lineWidth = 1;
     const zoom = useCanvasStore.getState().zoome;
     const thicknes = zoom* ThicknesPalet.getThicknes(
-      this.state.getState().pencil.thicknesId
+      usePencileStore.getState().thicknesId
     );
     const lineDistanceOffset = thicknes;
     const lineDistance = 20*zoom + lineDistanceOffset;
     cursor.clear();
     cursor
       .circle(0, 0, thicknes)
-      .fill(CanvasPalet.getColor(this.state.getState().pencil.pencilColorId))
+      .fill(CanvasPalet.getColor(usePencileStore.getState().pencilColorId))
       .stroke({ alignment: 0, width: outlineWidth, color: "black" })
       .moveTo(lineDistance, 0)
       .lineTo(thicknes + lineDistanceOffset, 0)

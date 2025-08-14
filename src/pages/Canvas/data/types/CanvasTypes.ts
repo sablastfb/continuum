@@ -80,16 +80,8 @@ export interface CanvasSettings {
   };
 }
 
-export interface PencilSettings {
-  pencilColorId: ColorId;
-  pencilColor: string;
-  thicknesId: ThicknesId;
-  thicknes: number;
-}
-
 export interface CanvasStore {
   canvasSettings: CanvasSettings;
-  pencil: PencilSettings;
   zoome: number;
   settingVisible: boolean;
   infoVisible: boolean;
@@ -97,11 +89,6 @@ export interface CanvasStore {
   activeTool: ToolType;
   canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
-  setPencileColor: (newColor: { colorId: ColorId; color: string }) => void;
-  setPencileThickens: (pencileThickens: {
-    thicknesId: ThicknesId;
-    thicknes: number;
-  }) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;

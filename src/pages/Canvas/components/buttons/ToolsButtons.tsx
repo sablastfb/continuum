@@ -19,9 +19,10 @@ import ToolButton from "./ToolButton";
 import { IconOption } from "../../data/types/CanvasTypes";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { CanvasPalet } from "../../data/container/PaletContainer";
+import { usePencileStore } from "../../data/store/PencileStore";
 
 function ToolsButtons() {
-  const pencil = useCanvasStore((state) => state.pencil);
+  const pencil = usePencileStore();
   const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";

@@ -62,7 +62,7 @@ export namespace Canvas {
     appInstance.stage.addChild(viewport);
     appInstance!.stage.addChild(cursor);
 
-    toolsManager = new ToolsManager(viewport, useCanvasStore);
+    toolsManager = new ToolsManager(viewport);
   }
 
   function setUpCommandManager() {}
