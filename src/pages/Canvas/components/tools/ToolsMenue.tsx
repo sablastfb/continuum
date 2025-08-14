@@ -9,16 +9,15 @@ function ToolsMenue() {
     <div
       className={`
         flex 
-        items-start
         justify-between
         p-2
         pointer-events-none
-        ${toolButtonPosition === "top" && "top-0 left-0 right-0 "}
+        ${toolButtonPosition === "top" && "top-0 left-0 right-0 items-start"}
         ${
-          toolButtonPosition === "bottom" && "absolute bottom-0 left-0 right-0 "
+          toolButtonPosition === "bottom" && "absolute bottom-0 left-0 right-0 items-start"
         }
-           ${toolButtonPosition === "left" && "absolute bottom-0 top-0 left-0  flex-col"}
-           ${toolButtonPosition === "right" && "absolute bottom-0 top-0 right-0  flex-col"}
+           ${toolButtonPosition === "left" && "absolute bottom-0 top-0 left-0  flex-col items-start"}
+           ${toolButtonPosition === "right" && "absolute bottom-0 top-0 right-0 items-end flex-col"}
         `}
     >
       <OptionButtons />

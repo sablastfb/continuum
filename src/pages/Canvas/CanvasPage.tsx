@@ -13,6 +13,7 @@ import { Canvas } from "./features/CanvasApp";
 import CursorEffect from "./features/effects/CursorEffect";
 import BackgroundEffect from "./features/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
+import Tool from "./components/tools/Tool";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -77,8 +78,8 @@ function CanvasPage() {
           style={{ cursor: "none" }}
         />
       </div>
-      {activeToolComponent}
 
+      {/* <Tool/> */}
       <ToolsMenue />
       <SettingsDialog />
       <ExportDialog />

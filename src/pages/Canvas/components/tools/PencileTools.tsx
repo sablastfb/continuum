@@ -2,7 +2,7 @@ import CircleColorPicker from "../misc/CircleColorPicker";
 import CircleThicknesPicker from "../misc/CircleThicknesPicker";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
-import {  useState } from "react";
+import { useState } from "react";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 
 function CustomColorPicker() {
@@ -58,7 +58,6 @@ function CustomColorPicker() {
   );
 }
 
-
 function PencileTools() {
   const pencileSettings = useCanvasStore();
   const pencilColorId = useCanvasStore().pencil.pencilColorId;
@@ -66,30 +65,28 @@ function PencileTools() {
 
   return (
     <>
-      <div className="absolute right-0 h-full flex justify-center items-center pr-2 pointer-events-none">
-        <div className="flex flex-col justify-center items-center gap-4  bg-white/10 backdrop-blur-sm rounded-lg p-1  min-w-min pointer-events-auto">
-          {pencileSettings.canvasSettings.pencile.thicknes.map((id, ix) => {
-            return (
-              <CircleThicknesPicker
-                thicknesId={id}
-                selected={thicknesId === id}
-                key={ix}
-              />
-            );
-          })}
-          {/* <Width thicknesId="th-custom-2" /> */}
-          <ArrayDivider orjentation="horizontal" />
-          {pencileSettings.canvasSettings.pencile.colors.map((colorId, ix) => {
-            return (
-              <CircleColorPicker
-                colorId={colorId}
-                key={ix}
-                selected={colorId === pencilColorId}
-              />
-            );
-          })}
-          <CustomColorPicker key="1" />
-        </div>
+      <div className="flex flex-col justify-center items-center gap-4  bg-white/10 backdrop-blur-sm rounded-lg p-1 pointer-events-auto">
+        {pencileSettings.canvasSettings.pencile.thicknes.map((id, ix) => {
+          return (
+            <CircleThicknesPicker
+              thicknesId={id}
+              selected={thicknesId === id}
+              key={ix}
+            />
+          );
+        })}
+        {/* <Width thicknesId="th-custom-2" /> */}
+        <ArrayDivider orjentation="horizontal" />
+        {pencileSettings.canvasSettings.pencile.colors.map((colorId, ix) => {
+          return (
+            <CircleColorPicker
+              colorId={colorId}
+              key={ix}
+              selected={colorId === pencilColorId}
+            />
+          );
+        })}
+        <CustomColorPicker key="1" />
       </div>
     </>
   );
