@@ -78,7 +78,8 @@ function CanvasPage() {
           style={{ cursor: "none" }}
         />
       </div>
-
+      
+      <Tool/>
       <ToolsMenue />
       <SettingsDialog />
       <ExportDialog />

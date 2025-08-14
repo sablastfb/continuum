@@ -22,7 +22,7 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 
 function ToolsButtons() {
   const pencil = useCanvasStore((state) => state.pencil);
-  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolButtons;
+  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";
   const DrawingOptions = useMemo<IconOption[]>(

@@ -3,7 +3,7 @@ import OptionButtons from "../buttons/OptionsButton";
 import ToolsButtons from "../buttons/ToolsButtons";
 import useCanvasStore from "../../data/store/CanvasStore";
 function ToolsMenue() {
-  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolButtons;
+  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
 
   return (
     <div

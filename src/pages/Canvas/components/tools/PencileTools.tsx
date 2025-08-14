@@ -65,7 +65,6 @@ function PencileTools() {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center gap-4  bg-white/10 backdrop-blur-sm rounded-lg p-1 pointer-events-auto">
         {pencileSettings.canvasSettings.pencile.thicknes.map((id, ix) => {
           return (
             <CircleThicknesPicker
@@ -76,7 +75,6 @@ function PencileTools() {
           );
         })}
         {/* <Width thicknesId="th-custom-2" /> */}
-        <ArrayDivider orjentation="horizontal" />
         {pencileSettings.canvasSettings.pencile.colors.map((colorId, ix) => {
           return (
             <CircleColorPicker
@@ -87,7 +85,6 @@ function PencileTools() {
           );
         })}
         <CustomColorPicker key="1" />
-      </div>
     </>
   );
 }

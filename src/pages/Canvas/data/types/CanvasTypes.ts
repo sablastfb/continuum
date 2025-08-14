@@ -69,8 +69,8 @@ export type LayoutPositon = "top" | "bottom" | "left" | "right";
 
 export interface CanvasSettings {
   layout: {
-    toolMenue: LayoutPositon;
     toolButtons: LayoutPositon;
+    toolMenue: LayoutPositon;
   };
   theme: Theme;
   background: BackgroundSettings;
@@ -114,8 +114,8 @@ export interface CanvasStore {
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
   setTheme: (theme: Theme) => void;
-  setLayoutToolsButton: (positon: LayoutPositon) => void;
   setLayoutToolsMenue: (positon: LayoutPositon) => void;
+  setLayoutToolsButton: (positon: LayoutPositon) => void;
 }
 
 export type Color = string;

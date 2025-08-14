@@ -30,7 +30,7 @@ export const DefaultSettings: CanvasSettings = {
   },
   theme: "dark",
   layout: {
-    toolMenue: "right",
-    toolButtons: "top"
+    toolButtons: "right",
+    toolMenue: "top"
   }
 };

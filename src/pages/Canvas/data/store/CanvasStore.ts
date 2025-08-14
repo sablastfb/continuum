@@ -81,12 +81,12 @@ const useCanvasStore = create<CanvasStore>()(
         state.canvasSettings.theme = theme;
       });
     },
-    setLayoutToolsButton: (positon: LayoutPositon) => {
+    setLayoutToolsMenue: (positon: LayoutPositon) => {
       set((state) => {
-        state.canvasSettings.layout.toolButtons = positon
+        state.canvasSettings.layout.toolMenue = positon
       })
     },
-    setLayoutToolsMenue: (positon: LayoutPositon) => {
+    setLayoutToolsButton: (positon: LayoutPositon) => {
       set((state) => {
         state.canvasSettings.layout.toolButtons = positon
       })

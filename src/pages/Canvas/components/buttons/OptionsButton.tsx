@@ -8,7 +8,7 @@ function OptionButtons() {
   const navigate = useNavigate();
   const setExportVisible = useCanvasStore((state) => state.setExportVisible);
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
-  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolButtons;
+  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";
   return (

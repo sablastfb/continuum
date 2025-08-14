@@ -5,14 +5,14 @@ import { IconOption } from "../../../data/types/CanvasTypes";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { defaultCanvasBackground } from "../../../data/constants/CanvasConstants";
 import "./DropdownToolSelector.scss";
-import DropdownYiBi from "./DropDown";
+import DropdownYiBi from "./Dropdown";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];
 };
 
 function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
-  const toomButtonPos = useCanvasStore().canvasSettings.layout.toolButtons;
+  const toomButtonPos = useCanvasStore().canvasSettings.layout.toolMenue;
 
   const [selectedDropDownOptions, setSelectedDropDownOptions] = useState(
     dropDownOptions[0]
