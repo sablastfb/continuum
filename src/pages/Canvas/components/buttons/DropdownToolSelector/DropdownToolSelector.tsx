@@ -5,12 +5,15 @@ import { IconOption } from "../../../data/types/CanvasTypes";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { defaultCanvasBackground } from "../../../data/constants/CanvasConstants";
 import "./DropdownToolSelector.scss";
+import DropdownYiBi from "./DropDown";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];
 };
 
 function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
+  const toomButtonPos = useCanvasStore().canvasSettings.layout.toolButtons;
+
   const [selectedDropDownOptions, setSelectedDropDownOptions] = useState(
     dropDownOptions[0]
   );
@@ -42,7 +45,12 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
 
   return (
     <>
-      <Dropdown
+      <DropdownYiBi
+       options={dropDownOptions}
+       position={toomButtonPos} 
+      ></DropdownYiBi>
+    
+      {/* <Dropdown
         panelClassName="tm-dropdown-panel left-aligned " // Added tm-dropdown-panel
         className="cursor-pointer"
         value={selectedDropDownOptions}
@@ -55,7 +63,7 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
           setSelectedDropDownOptions(e.value);
           setActiveTool((e.value as IconOption).action);
         }}
-      />
+      /> */}
     </>
   );
 }

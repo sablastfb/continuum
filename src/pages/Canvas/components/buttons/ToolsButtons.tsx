@@ -86,7 +86,7 @@ function ToolsButtons() {
   return (
     <>
       <div
-        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultCanvasBackground} ${
+        className={`p-1 flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultCanvasBackground} ${
           inline && "flex-col"
         }`}
       >

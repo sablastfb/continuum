@@ -79,7 +79,6 @@ function CanvasPage() {
         />
       </div>
 
-      {/* <Tool/> */}
       <ToolsMenue />
       <SettingsDialog />
       <ExportDialog />

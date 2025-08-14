@@ -8,6 +8,7 @@ import TransformTools from "./TransportComponent";
 
 function Tool() {
   const activeTool = useCanvasStore((state) => state.activeTool);
+  const toolMenue = useCanvasStore().canvasSettings.layout.toolMenue;
 
   let activeToolComponent;
   switch (activeTool) {
@@ -38,7 +39,7 @@ function Tool() {
 
   return (
     <>
-      <div className="absolute right-0 h-full flex justify-center items-center pr-2 pointer-events-none">
+      <div className="h-full flex justify-center items-center pr-2 pointer-events-none">
         {activeToolComponent}
       </div>
     </>
