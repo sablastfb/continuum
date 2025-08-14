@@ -29,4 +29,8 @@ export const DefaultSettings: CanvasSettings = {
     thicknes: ['th-1', 'th-2', 'th-3'],
   },
   theme: "dark",
+  layout: {
+    toolMenue: "right",
+    toolButtons: "top"
+  }
 };

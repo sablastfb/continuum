@@ -1,10 +1,10 @@
 import { Dropdown } from "primereact/dropdown";
-import "./DropdownToolSelector.css";
 import { useState } from "react";
 import ToolButton from "../ToolButton";
 import { IconOption } from "../../../data/types/CanvasTypes";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { defaultCanvasBackground } from "../../../data/constants/CanvasConstants";
+import "./DropdownToolSelector.scss";
 
 export type DropdownToolSelectorParams = {
   dropDownOptions: IconOption[];
@@ -17,7 +17,11 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const iconOptionTemplate = (option: IconOption) => {
     return (
-      <div className={`flex items-center cursor-pointer  rounded-xl  shadow-2xl p-2 ${defaultCanvasBackground}`}>{option.icon}</div>
+      <div
+        className={`flex  items-center cursor-pointer  rounded-xl  shadow-2xl p-2 ${defaultCanvasBackground}`}
+      >
+        {option.icon}
+      </div>
     );
   };
 
@@ -25,7 +29,11 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
     if (option) {
       return (
         <>
-          <ToolButton  name={option.name} action={option.action} icon={option.icon}/>
+            <ToolButton
+              name={option.name}
+              action={option.action}
+              icon={option.icon}
+            />
         </>
       );
     }
@@ -35,6 +43,7 @@ function DropdownToolSelector({ dropDownOptions }: DropdownToolSelectorParams) {
   return (
     <>
       <Dropdown
+        panelClassName="tm-dropdown-panel left-aligned " // Added tm-dropdown-panel
         className="cursor-pointer"
         value={selectedDropDownOptions}
         valueTemplate={selectedIconTemplate}

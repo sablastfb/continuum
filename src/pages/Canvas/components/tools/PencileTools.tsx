@@ -2,12 +2,8 @@ import CircleColorPicker from "../misc/CircleColorPicker";
 import CircleThicknesPicker from "../misc/CircleThicknesPicker";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { ChangeEvent, useEffect, useState } from "react";
+import {  useState } from "react";
 import { CanvasPalet } from "../../data/container/PaletContainer";
-import { Minus, Plus } from "lucide-react";
-import { throttle } from "lodash";
-import { ThicknesId } from "../../data/types/CanvasTypes";
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
 
 function CustomColorPicker() {
   const setPencileColor = useCanvasStore().setPencileColor;
@@ -62,51 +58,6 @@ function CustomColorPicker() {
   );
 }
 
-function Width({ thicknesId }: { thicknesId: ThicknesId }) {
-  const [width, setWidth] = useState(12);
-  const setPencileThickens = useCanvasStore().setPencileThickens;
-
-  return (
-    <>
-      <div className="flex justify-center items-center gap-0  rounded-2xl  m-0 ">
-        <div
-          className="h-full w-full hover:cursor-pointer bg-gray-950/50 pt-2 pb-2 pl-0.5 rounded-l-2xl"
-          onClick={() =>{
-
-            ThicknesPalet.setThicknes(
-              thicknesId,
-              width - 1
-            );
-            setWidth(width - 1);
-            setPencileThickens({thicknesId: thicknesId, thicknes: width - 1});
-          }
-          }
-        >
-          <Minus size={10} />
-        </div>
-        <div className="pl-1 pr-1 bg-gray-800/50 ">
-          {ThicknesPalet.getThicknes(thicknesId)}
-        </div>
-        <div
-          className="h-full w-full hover:cursor-pointer bg-gray-950/50 pt-2 pb-2 pr-0.5 pl-0.5 rounded-r-2xl"
-          onClick={() =>{
-
-            ThicknesPalet.setThicknes(
-              thicknesId,
-              width + 1
-            );
-            setWidth(width + 1);
-            setPencileThickens({thicknesId: thicknesId, thicknes: width + 1});
-
-          }
-          }
-        >
-          <Plus size={10} />
-        </div>
-      </div>
-    </>
-  );
-}
 
 function PencileTools() {
   const pencileSettings = useCanvasStore();

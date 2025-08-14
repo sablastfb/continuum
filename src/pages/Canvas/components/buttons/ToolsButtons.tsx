@@ -22,7 +22,9 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 
 function ToolsButtons() {
   const pencil = useCanvasStore((state) => state.pencil);
-
+  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolButtons;
+  const inline =
+    toolButtonPosition === "left" || toolButtonPosition === "right";
   const DrawingOptions = useMemo<IconOption[]>(
     () => [
       {
@@ -37,9 +39,9 @@ function ToolsButtons() {
         action: "drawing",
       },
       {
-        name: "Eraser",
+        name: "marker",
         icon: <Highlighter strokeWidth={1} size={32} />,
-        action: "eraser",
+        action: "marker",
       },
       {
         name: "Eraser",
@@ -83,25 +85,38 @@ function ToolsButtons() {
 
   return (
     <>
-      <div className=" flex justify-center pb-2 ">
-        <div
-          className={`flex  pointer-events-auto justify-center items-center gap-4 rounded-2xl min-w-min ${defaultCanvasBackground} p-1`}
-        >
-          <DropdownToolSelector dropDownOptions={DrawingOptions}  />
-          <DropdownToolSelector dropDownOptions={SelectionOptions} />
-          <DropdownToolSelector dropDownOptions={ShapesOption} />
-          <ToolButton
-            name=""
-            action="eraser"
-            icon={<Image size={32} className="hover:cursor-pointer" />}
-          />
-          <ToolButton
-            name=""
-            action="eraser"
-            icon={<Type size={32} className="hover:cursor-pointer" />}
-          />
-          <ArrayDivider orjentation="vertical" />
+      <div
+        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultCanvasBackground} ${
+          inline && "flex-col"
+        }`}
+      >
+        <DropdownToolSelector dropDownOptions={DrawingOptions} />
+        <DropdownToolSelector dropDownOptions={SelectionOptions} />
+        <DropdownToolSelector dropDownOptions={ShapesOption} />
+        <ToolButton
+          name=""
+          action="image"
+          icon={<Image size={32} className="hover:cursor-pointer" />}
+        />
+        <ToolButton
+          name=""
+          action="circle"
+          icon={<Type size={32} className="hover:cursor-pointer" />}
+        />
+        {inline ? (
+          <div className="w-10 h-1">
+            <ArrayDivider orjentation="horizontal" />
+          </div>
+        ) : (
+          <div className="w-1 h-10">
+            <ArrayDivider orjentation="vertical" />
+          </div>
+        )}
+
+        <div>
           <Undo size={32} className="hover:cursor-pointer" />
+        </div>
+        <div>
           <Redo size={32} className="hover:cursor-pointer" />
         </div>
       </div>

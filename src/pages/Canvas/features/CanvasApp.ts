@@ -35,14 +35,18 @@ export namespace Canvas {
     setUpResize();
     setUpCommandManager();
     updateCursor();
-    CanvasBacground.changeBackground( useCanvasStore.getState().canvasSettings.background);
+    CanvasBacground.changeBackground(
+      useCanvasStore.getState().canvasSettings.background
+    );
     return appInstance;
   }
 
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
-      background: CanvasPalet.getColor( useCanvasStore.getState().canvasSettings.background.color),
+      background: CanvasPalet.getColor(
+        useCanvasStore.getState().canvasSettings.background.color
+      ),
       resizeTo: window,
     });
     cursor = new Graphics();
@@ -114,15 +118,15 @@ export namespace Canvas {
         toolsManager.getCurrentTool()?.stopDrawing(e);
       })
       .on("zoomed", (e) => {
-        if (Canvas.backgroundTexture && viewport?.scale.x) {
-          Canvas.backgroundTexture.tileScale.x = viewport?.scale.x;
-          Canvas.backgroundTexture.tileScale.y = viewport?.scale.y;
+        if (Canvas.backgroundTexture && Canvas.viewport?.scale.x) {
+          Canvas.backgroundTexture.tileScale.x = Canvas.viewport?.scale.x;
+          Canvas.backgroundTexture.tileScale.y = Canvas.viewport?.scale.y;
         }
       })
       .on("moved", () => {
-        if (Canvas.backgroundTexture && viewport?.scale.x) {
-          Canvas.backgroundTexture.tilePosition.x = viewport?.x;
-          Canvas.backgroundTexture.tilePosition.y = viewport?.y;
+        if (Canvas.backgroundTexture && Canvas.viewport?.scale.x) {
+          Canvas.backgroundTexture.tilePosition.x = Canvas.viewport?.x;
+          Canvas.backgroundTexture.tilePosition.y = Canvas.viewport?.y;
         }
       });
   }
@@ -135,7 +139,7 @@ export namespace Canvas {
   function handleResize() {
     if (!appInstance || !viewport) return;
     viewport.resize(window.innerWidth, window.innerHeight, 1024, 1024);
-    if ( Canvas.backgroundTexture ){
+    if (Canvas.backgroundTexture) {
       Canvas.backgroundTexture.width = window.innerWidth;
       Canvas.backgroundTexture.height = window.innerHeight;
     }
@@ -152,5 +156,10 @@ export namespace Canvas {
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
     viewport.setZoom(zomeValue);
+    if (Canvas.backgroundTexture && Canvas.viewport?.scale.x) {
+      Canvas.backgroundTexture.tileScale.x = Canvas.viewport?.scale.x;
+      Canvas.backgroundTexture.tileScale.y = Canvas.viewport?.scale.y;
+    }
   }
 }
+  

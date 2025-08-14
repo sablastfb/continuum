@@ -1,30 +1,24 @@
 import { ZoomIn, ZoomOut } from "lucide-react";
-import { defaultCanvasBackground } from "../../data/constants/CanvasConstants";
 import { Canvas } from "../../features/CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 
 function ZoomingButton() {
   const zoome = useCanvasStore((state) => state.zoome);
-
   return (
     <>
-      <div className="absolute right-0 bottom-0 p-2">
-        <div
-          className={`flex gap-2 justify-center items-center pointer-events-auto rounded-2xl p-2 gap-2text-gray-300 text-xl ${defaultCanvasBackground}`}
-        >
+        <div className={`pointer-events-auto rounded-2xl p-2 bg-white/10 backdrop-blur-sm flex items-center gap-1`}>
           <ZoomIn
             className="hover:cursor-pointer"
             size={25}
             onClick={() => Canvas.zoom(1)}
           />
-         <span className="select-none">{(zoome * 100).toFixed(1)}%</span>
+          <div className="select-none text-xl w-20 text-center">{(zoome * 100).toFixed(1)}%</div>
           <ZoomOut
             className="hover:cursor-pointer"
             size={25}
             onClick={() => Canvas.zoom(-1)}
           />
         </div>
-      </div>
     </>
   );
 }

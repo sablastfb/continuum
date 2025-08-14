@@ -28,13 +28,15 @@ export type Point = {
 };
 
 export type ToolType =
+  | "marker"
   | "drawing"
   | "eraser"
   | "move"
   | "transform"
   | "square"
   | "circle"
-  | "text";
+  | "text"
+  | "image";
 
 export type Theme = "dark" | "light";
 
@@ -63,7 +65,13 @@ export type BackgroundSettings = {
   backgroundColors: ColorId[];
 };
 
+export type LayoutPositon = "top" | "bottom" | "left" | "right";
+
 export interface CanvasSettings {
+  layout: {
+    toolMenue: LayoutPositon;
+    toolButtons: LayoutPositon;
+  };
   theme: Theme;
   background: BackgroundSettings;
   pencile: {
@@ -75,8 +83,8 @@ export interface CanvasSettings {
 export interface PencilSettings {
   pencilColorId: ColorId;
   pencilColor: string;
-  thicknesId: ThicknesId,
-  thicknes: number
+  thicknesId: ThicknesId;
+  thicknes: number;
 }
 
 export interface CanvasStore {
@@ -90,7 +98,10 @@ export interface CanvasStore {
   canvasCursorActive: boolean;
   setZoom: (zoom: number) => void;
   setPencileColor: (newColor: { colorId: ColorId; color: string }) => void;
-  setPencileThickens: (pencileThickens: {thicknesId: ThicknesId, thicknes: number}) => void;
+  setPencileThickens: (pencileThickens: {
+    thicknesId: ThicknesId;
+    thicknes: number;
+  }) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
@@ -103,6 +114,8 @@ export interface CanvasStore {
   discardSettings: (settings: CanvasSettings) => void;
   reserToDefaultSettings: () => void;
   setTheme: (theme: Theme) => void;
+  setLayoutToolsButton: (positon: LayoutPositon) => void;
+  setLayoutToolsMenue: (positon: LayoutPositon) => void;
 }
 
 export type Color = string;

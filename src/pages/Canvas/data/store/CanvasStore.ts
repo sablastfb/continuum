@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
-import { CanvasStore } from "../types/CanvasTypes";
+import { CanvasStore, LayoutPositon } from "../types/CanvasTypes";
 import { DefaultSettings } from "../constants/SettingsConstants";
 import { Theme } from "@tauri-apps/api/window";
 
@@ -19,7 +19,6 @@ const useCanvasStore = create<CanvasStore>()(
     infoVisible: false,
     exportVisible: false,
     activeTool: "drawing",
-    pencileThickens: 5,
     canvasCursorActive: true,
     setZoom: (zoome) =>
       set((state) => {
@@ -82,6 +81,16 @@ const useCanvasStore = create<CanvasStore>()(
         state.canvasSettings.theme = theme;
       });
     },
+    setLayoutToolsButton: (positon: LayoutPositon) => {
+      set((state) => {
+        state.canvasSettings.layout.toolButtons = positon
+      })
+    },
+    setLayoutToolsMenue: (positon: LayoutPositon) => {
+      set((state) => {
+        state.canvasSettings.layout.toolButtons = positon
+      })
+    }
   }))
 );
 
