@@ -1,10 +1,9 @@
 import CircleColorPicker from "../misc/CircleColorPicker";
 import CircleThicknesPicker from "../misc/CircleThicknesPicker";
-import ArrayDivider from "../misc/ArrayDivider";
-import useCanvasStore from "../../data/store/CanvasStore";
 import { useState } from "react";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
+import useSettingsStore from "../../data/store/SettingsStore";
 
 function CustomColorPicker() {
   const setPencileColor = usePencileStore().setPencileColor;
@@ -60,13 +59,13 @@ function CustomColorPicker() {
 }
 
 function PencileTools() {
-  const pencileSettings = useCanvasStore();
+  const pencileSettings = useSettingsStore();
   const pencilColorId = usePencileStore().pencilColorId;
   const thicknesId = usePencileStore().thicknesId;
 
   return (
     <>
-        {pencileSettings.canvasSettings.pencile.thicknes.map((id, ix) => {
+        {pencileSettings.pencile.thicknes.map((id, ix) => {
           return (
             <CircleThicknesPicker
               thicknesId={id}
@@ -75,8 +74,7 @@ function PencileTools() {
             />
           );
         })}
-        {/* <Width thicknesId="th-custom-2" /> */}
-        {pencileSettings.canvasSettings.pencile.colors.map((colorId, ix) => {
+        {pencileSettings.pencile.colors.map((colorId, ix) => {
           return (
             <CircleColorPicker
               colorId={colorId}

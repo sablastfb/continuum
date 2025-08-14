@@ -1,5 +1,6 @@
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
+import { usePencileStore } from "../../data/store/PencileStore";
 import { ThicknesId } from "../../data/types/CanvasTypes";
 
 export type CircleThicknesPickerParm = {
@@ -11,7 +12,7 @@ function CircleThicknesPicker({
   thicknesId,
   selected,
 }: CircleThicknesPickerParm) {
-  const setPencileThickens = useCanvasStore(
+  const setPencileThickens = usePencileStore(
     (state) => state.setPencileThickens
   );
 

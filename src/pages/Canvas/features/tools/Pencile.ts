@@ -84,7 +84,6 @@ export class Pencile implements ITool {
     const lineDistanceOffset = thicknes;
     const lineDistance = 20*zoom + lineDistanceOffset;
     cursor.clear();
-    debugger;
     cursor
       .circle(0, 0, thicknes)
       .fill(CanvasPalet.getColor(usePencileStore.getState().pencilColorId))

@@ -1,5 +1,6 @@
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
+import { usePencileStore } from "../../data/store/PencileStore";
 import { ColorId } from "../../data/types/CanvasTypes";
 
 export type CircleColorPickerParm = {
@@ -8,7 +9,7 @@ export type CircleColorPickerParm = {
 };
 
 function CircleColorPicker({ colorId, selected }: CircleColorPickerParm) {
-  const setPencileColor = useCanvasStore((state) => state.setPencileColor);
+  const setPencileColor = usePencileStore((state) => state.setPencileColor);
 
   return (
     <div

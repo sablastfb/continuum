@@ -66,12 +66,9 @@ export const useSettingsStore = create<SettingsStore>()(
       }),
 
     setBackgroundSettings: (settings) =>
-      set((state) => ({
-        canvasSettings: {
-          ...state,
-          background: merge({}, state.background, settings),
-        },
-      })),
+      set((state) => {
+       state.background = merge({}, state.background, settings);
+      }),
     discardSettings: (settings) => {
       set((state) => {
         merge({}, state, settings);
@@ -94,7 +91,7 @@ export const useSettingsStore = create<SettingsStore>()(
     },
     reserToDefaultSettings: () =>
       set((state) => {
-        merge({}, state, DefaultSettings);
+        state = merge({}, state, DefaultSettings);
       }),
   }))
 );

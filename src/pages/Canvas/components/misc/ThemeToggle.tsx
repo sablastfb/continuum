@@ -1,14 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PrimeReactContext } from "primereact/api";
 import { AppConstants } from "../../data/constants/AppConstants";
-import useCanvasStore from "../../data/store/CanvasStore";
-
 import { Button } from "primereact/button";
+import useSettingsStore from "../../data/store/SettingsStore";
 
 const ThemeToggle = () => {
   const { changeTheme } = useContext(PrimeReactContext)!;
-  const theme = useCanvasStore().canvasSettings.theme;
-  const setTheme = useCanvasStore().setTheme;
+  const theme = useSettingsStore().theme;
+  const setTheme = useSettingsStore().setTheme;
   const isLight = theme === "light";
 
   const toggle = () => {
