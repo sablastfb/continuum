@@ -1,9 +1,22 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { merge } from "lodash";
-import { CanvasStore, LayoutPositon } from "../types/CanvasTypes";
-import { DefaultSettings } from "../constants/SettingsConstants";
-import { Theme } from "@tauri-apps/api/window";
+import { ToolType } from "../types/CanvasTypes";
+import { DefaultSettings } from "../constants/DefaultSettings";
+
+export interface CanvasStore {
+  zoome: number;
+  settingVisible: boolean;
+  infoVisible: boolean;
+  exportVisible: boolean;
+  activeTool: ToolType;
+  canvasCursorActive: boolean;
+  setZoom: (zoom: number) => void;
+  setCanvasCursorActive: (canvasCursorActive: boolean) => void;
+  setSettingVisible: (visible: boolean) => void;
+  setInfoVisible: (visible: boolean) => void;
+  setExportVisible: (visible: boolean) => void;
+  setActiveTool: (activeTool: ToolType) => void;
+}
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
@@ -34,46 +47,10 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.activeTool = activeTool;
       }),
-    setBackgroundSettings: (settings) =>
-      set((state) => ({
-        canvasSettings: {
-          ...state.canvasSettings,
-          background: merge({}, state.canvasSettings.background, settings),
-        },
-      })),
     setCanvasCursorActive: (canvasCursorActive) =>
       set((state) => {
         state.canvasCursorActive = canvasCursorActive;
       }),
-    addColor: (color) =>
-      set((state) => {
-        state.canvasSettings.pencile.colors.push(color);
-      }),
-    reserToDefaultSettings: () =>
-      set((state) => {
-        state.canvasSettings = { ...DefaultSettings };
-      }),
-
-    discardSettings: (settings) => {
-      set((state) => {
-        state.canvasSettings = settings;
-      });
-    },
-    setTheme: (theme: Theme) => {
-      set((state) => {
-        state.canvasSettings.theme = theme;
-      });
-    },
-    setLayoutToolsMenue: (positon: LayoutPositon) => {
-      set((state) => {
-        state.canvasSettings.layout.toolMenue = positon
-      })
-    },
-    setLayoutToolsButton: (positon: LayoutPositon) => {
-      set((state) => {
-        state.canvasSettings.layout.toolButtons = positon
-      })
-    }
   }))
 );
 

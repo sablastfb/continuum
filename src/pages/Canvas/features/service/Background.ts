@@ -1,7 +1,7 @@
 import { Graphics, TilingSprite } from "pixi.js";
-import { BackgroundSettings } from "../../data/types/CanvasTypes";
 import { Canvas } from "../CanvasApp";
 import { CanvasPalet } from "../../data/container/PaletContainer";
+import { BackgroundSettings } from "../../data/store/SettingsStore";
 
 export namespace CanvasBacground {
   export function changeBackground(bs: BackgroundSettings) {

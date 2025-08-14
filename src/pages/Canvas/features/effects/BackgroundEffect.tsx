@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { CanvasBacground } from "../service/Background";
-import useCanvasStore from "../../data/store/CanvasStore";
+import useSettingsStore from "../../data/store/SettingsStore";
 
 function BackgroundEffect() {
-  const backgroundSetting = useCanvasStore(
-    (state) => state.canvasSettings.background
+  const backgroundSetting = useSettingsStore(
+    (state) => state.background
   );
-  const theme = useCanvasStore(
-    (state) => state.canvasSettings.theme
+  const theme = useSettingsStore(
+    (state) => state.theme
   );
 
   useEffect(() => {

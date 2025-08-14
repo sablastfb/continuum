@@ -1,7 +1,7 @@
+import { SettingsData } from "../store/SettingsStore";
 import { defaultBackgroundColor } from "./CanvasConstants";
-import { CanvasSettings } from "../types/CanvasTypes";
 
-export const DefaultSettings: CanvasSettings = {
+export const DefaultSettings: SettingsData = {
   background: {
     type: "grid",
     color: defaultBackgroundColor,

@@ -1,7 +1,7 @@
 import { create } from "zustand/react";
 import { Color, ColorId, Thicknes, ThicknesId } from "../types/CanvasTypes";
 import { immer } from "zustand/middleware/immer";
-import { DefaultSettings } from "../constants/SettingsConstants";
+import { DefaultSettings } from "../constants/DefaultSettings";
 
 export type PencilSettings = {
   pencilColorId: ColorId;

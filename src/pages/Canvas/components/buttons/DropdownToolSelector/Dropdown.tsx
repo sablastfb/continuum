@@ -1,13 +1,12 @@
-import { JSX, useState } from "react";
-import "./Dropdown.scss";
-import { IconOption, LayoutPositon } from "../../../data/types/CanvasTypes";
+import {useState } from "react";
+import { IconOption } from "../../../data/types/CanvasTypes";
 import ToolButton from "../ToolButton";
 import {
-  defaultBackgroundColor,
   defaultCanvasBackground,
 } from "../../../data/constants/CanvasConstants";
-import { ArrowUp, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
+import { LayoutPositon } from "../../../data/store/SettingsStore";
 
 function DropdownYiBi({
   options: options,

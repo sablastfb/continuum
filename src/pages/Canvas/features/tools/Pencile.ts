@@ -2,10 +2,9 @@ import { Viewport } from "pixi-viewport";
 import { FederatedMouseEvent, Graphics } from "pixi.js";
 import { StoreApi, UseBoundStore } from "zustand";
 import { v4 as uuidv4 } from "uuid";
-import { CanvasStore, Point } from "../../data/types/CanvasTypes";
+import { Point } from "../../data/types/CanvasTypes";
 import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants";
 import { Distance } from "../utils/CanvasUtils";
-import { graphicsData } from "../service/data";
 import { ITool } from "./ITool";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
@@ -26,7 +25,7 @@ export class Pencile implements ITool {
     this.graphic = new Graphics();
 
     const guid: string = uuidv4();
-    graphicsData.push({ id: guid, graph: this.graphic });
+    // graphicsData.push({ id: guid, graph: this.graphic });
 
     this.graphic.moveTo(worldPos.x, worldPos.y);
     this.graphic.stroke({
@@ -85,6 +84,7 @@ export class Pencile implements ITool {
     const lineDistanceOffset = thicknes;
     const lineDistance = 20*zoom + lineDistanceOffset;
     cursor.clear();
+    debugger;
     cursor
       .circle(0, 0, thicknes)
       .fill(CanvasPalet.getColor(usePencileStore.getState().pencilColorId))

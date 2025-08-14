@@ -1,18 +1,12 @@
 import "./BackgroundSettings.css";
 import {
-  BackgroundTypes,
-  BackgroundSettings as Bs,
   ColorId,
 } from "../../../../data/types/CanvasTypes";
-import useCanvasStore from "../../../../data/store/CanvasStore";
 import { CanvasPalet } from "../../../../data/container/PaletContainer";
-import WidthControlForm from "../WidthControlForm";
+import useSettingsStore, { BackgroundTypes, BackgroundSettings as Bs } from "../../../../data/store/SettingsStore";
 function BackgroundSettings() {
-  const backgroundSetting = useCanvasStore(
-    (state) => state.canvasSettings.background
-  );
-  const setBackgroundSettings = useCanvasStore().setBackgroundSettings;
-  const background = useCanvasStore().canvasSettings.background;
+  const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
+  const background = useSettingsStore().background;
 
   const SquareType = ({
     settings,
@@ -83,7 +77,7 @@ function BackgroundSettings() {
         <div
           style={{ backgroundColor: CanvasPalet.getColor(color) }}
           onClick={() => {
-            switch (backgroundSetting.type) {
+            switch (background.type) {
               case "color":
                 setBackgroundSettings({ color: color });
                 break;
@@ -121,13 +115,13 @@ function BackgroundSettings() {
         <div className="flex flex-col gap-4">
           <div className="text-xl">Background color</div>
           <div className="flex gap-5">
-            {backgroundSetting.backgroundColors.map((colorId) => (
+            {background.backgroundColors.map((colorId) => (
               <CircleColorButton key={colorId} color={colorId} />
             ))}
           </div>
-            {backgroundSetting.type === "grid" }
-            {backgroundSetting.type === "dots" && <div>Dots</div>}
-            {backgroundSetting.type === "line" && <div>Line</div>}
+            {background.type === "grid" }
+            {background.type === "dots" && <div>Dots</div>}
+            {background.type === "line" && <div>Line</div>}
         </div>
         {}
       </div>

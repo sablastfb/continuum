@@ -2,13 +2,14 @@ import { Download, Home, Info, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Canvas } from "../../features/CanvasApp";
+import useSettingsStore from "../../data/store/SettingsStore";
 
 function OptionButtons() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const navigate = useNavigate();
   const setExportVisible = useCanvasStore((state) => state.setExportVisible);
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
-  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
+  const toolButtonPosition = useSettingsStore().layout.toolMenue;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";
   return (

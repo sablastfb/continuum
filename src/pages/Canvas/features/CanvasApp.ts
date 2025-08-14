@@ -14,6 +14,7 @@ import { ZoomSensitivity } from "../data/constants/CanvasConstants";
 import { CanvasBacground } from "./service/Background";
 import useCanvasStore from "../data/store/CanvasStore";
 import { CanvasPalet } from "../data/container/PaletContainer";
+import useSettingsStore from "../data/store/SettingsStore";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
@@ -36,7 +37,7 @@ export namespace Canvas {
     setUpCommandManager();
     updateCursor();
     CanvasBacground.changeBackground(
-      useCanvasStore.getState().canvasSettings.background
+      useSettingsStore.getState().background
     );
     return appInstance;
   }
@@ -45,7 +46,7 @@ export namespace Canvas {
     appInstance = new Application();
     await appInstance.init({
       background: CanvasPalet.getColor(
-        useCanvasStore.getState().canvasSettings.background.color
+        useSettingsStore.getState().background.color
       ),
       resizeTo: window,
     });

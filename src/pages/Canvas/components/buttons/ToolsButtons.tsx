@@ -17,13 +17,13 @@ import ArrayDivider from "../misc/ArrayDivider";
 import { defaultCanvasBackground } from "../../data/constants/CanvasConstants";
 import ToolButton from "./ToolButton";
 import { IconOption } from "../../data/types/CanvasTypes";
-import useCanvasStore from "../../data/store/CanvasStore";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
+import useSettingsStore from "../../data/store/SettingsStore";
 
 function ToolsButtons() {
   const pencil = usePencileStore();
-  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
+  const toolButtonPosition = useSettingsStore().layout.toolMenue;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";
   const DrawingOptions = useMemo<IconOption[]>(
