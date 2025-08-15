@@ -56,13 +56,8 @@ export const useSettingsStore = create<SettingsStore>()(
     ...DefaultSettings,
     setBackgroundSettings: (settings) =>
       set((state) => {
-        state.background = merge({}, state.background, settings);
+        merge(state.background, settings);
       }),
-    discardSettings: (settings) => {
-      set((state) => {
-        merge({}, state, settings);
-      });
-    },
     setTheme: (theme: Theme) => {
       set((state) => {
         state.theme = theme;
@@ -78,9 +73,14 @@ export const useSettingsStore = create<SettingsStore>()(
         state.layout.toolButtons = positon;
       });
     },
+    discardSettings: (settings) => {
+      set((state) => {
+        merge(state, settings);
+      });
+    },
     reserToDefaultSettings: () =>
       set((state) => {
-        state = merge({}, state, DefaultSettings);
+        merge(state, DefaultSettings);
       }),
   }))
 );

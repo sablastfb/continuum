@@ -8,7 +8,7 @@ function BackgroundSettings() {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
   const background = useSettingsStore().background;
 
-  const SquareType = ({
+  const BacgroundPicker = ({
     settings,
     type,
   }: {
@@ -71,6 +71,7 @@ function BackgroundSettings() {
     );
   };
 
+  // TODO REMOVE
   const CircleColorButton = ({ color }: { color: ColorId }) => {
     return (
       <>
@@ -105,10 +106,10 @@ function BackgroundSettings() {
         <div className="flex flex-col gap-4">
           <div className="text-xl">Background type</div>
           <div className="flex gap-5">
-            <SquareType type="color" settings={background} />
-            <SquareType type="grid" settings={background} />
-            <SquareType type="dots" settings={background} />
-            <SquareType type="line" settings={background} />
+            <BacgroundPicker type="color" settings={background}  />
+            <BacgroundPicker type="grid" settings={background} />
+            <BacgroundPicker type="dots" settings={background} />
+            <BacgroundPicker type="line" settings={background} />
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import { defaultOutlineColor } from "../../data/constants/CanvasConstants";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { ColorId } from "../../data/types/CanvasTypes";
@@ -16,7 +17,7 @@ function CircleColorPicker({ colorId, selected }: CircleColorPickerParm) {
         setPencileColor({ colorId: colorId, color: "" });
       }}
       style={{ backgroundColor: CanvasPalet.getColor(colorId) }}
-      className={`hover:cursor-pointer rounded-full w-7 h-7 ${ selected ? "outline-4 " : "" } `}
+      className={`hover:cursor-pointer rounded-full w-7 h-7 ${ selected ? defaultOutlineColor : "" } `}
     ></div>
   );
 }

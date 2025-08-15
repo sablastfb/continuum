@@ -3,16 +3,17 @@ import { CanvasBacground } from "../service/Background";
 import useSettingsStore from "../../data/store/SettingsStore";
 
 function BackgroundEffect() {
-  const backgroundSetting = useSettingsStore(
-    (state) => state.background
+  const settings = useSettingsStore(
+    (state) => state
   );
   const theme = useSettingsStore(
-    (state) => state.theme
+    (state) => state
   );
 
   useEffect(() => {
-    CanvasBacground.changeBackground(backgroundSetting);
-  }, [backgroundSetting, theme]);
+    debugger;
+    CanvasBacground.changeBackground(settings.background);
+  }, [settings, theme]);
   return <></>;
 }
 

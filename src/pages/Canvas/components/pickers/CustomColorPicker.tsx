@@ -41,7 +41,6 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
         value={color}
         onDoubleClick={(e) => {
           e.preventDefault();
-          debugger;
           const rgbObj = hexToRgb(color);
           CanvasPalet.setColor(
             customColorId,
