@@ -1,5 +1,4 @@
 import { CanvasPalet } from "../../data/container/PaletContainer";
-import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { ColorId } from "../../data/types/CanvasTypes";
 

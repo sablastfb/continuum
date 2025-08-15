@@ -1,14 +1,9 @@
 import { JSX } from "react";
-import { ToolType } from "../../data/types/CanvasTypes";
-import useCanvasStore from "../../data/store/CanvasStore";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import { ToolType } from "../../../features/tools/ToolManager";
+import { IconOption } from "../../../data/types/CanvasTypes";
 
-export type ToolButtonParam = {
-  name: string;
-  icon: JSX.Element;
-  action: ToolType;
-};
-
-function ToolButton({ icon, action }: ToolButtonParam) {
+function ToolButton({ icon, action }: IconOption) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const activeTool = useCanvasStore().activeTool;
 

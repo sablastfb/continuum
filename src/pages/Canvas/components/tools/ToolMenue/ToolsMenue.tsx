@@ -1,7 +1,7 @@
-import ZoomingButton from "../buttons/ZoomingButton";
-import OptionButtons from "../buttons/OptionsButton";
-import ToolsButtons from "../buttons/ToolsButtons";
-import useSettingsStore from "../../data/store/SettingsStore";
+import ZoomingButton from "./ZoomingButton";
+import OptionButtons from "./OptionsButton";
+import ToolsButtons from "./ToolsButtons";
+import useSettingsStore from "../../../data/store/SettingsStore";
 function ToolsMenue() {
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
 

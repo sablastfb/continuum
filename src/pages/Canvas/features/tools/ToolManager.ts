@@ -1,7 +1,17 @@
 import { Viewport } from "pixi-viewport";
 import { ITool } from "./ITool";
-import { ToolType } from "../../data/types/CanvasTypes";
 import { Pencile } from "./Pencile";
+
+export type ToolType =
+  | "marker"
+  | "drawing"
+  | "eraser"
+  | "move"
+  | "transform"
+  | "square"
+  | "circle"
+  | "text"
+  | "image";
 
 export class ToolsManager {
   private tools: Map<ToolType, ITool> = new Map();

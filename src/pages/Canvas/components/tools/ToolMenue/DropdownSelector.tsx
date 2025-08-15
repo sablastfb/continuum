@@ -1,20 +1,13 @@
-import {useState } from "react";
-import { IconOption } from "../../../data/types/CanvasTypes";
-import ToolButton from "../ToolButton";
-import {
-  defaultCanvasBackground,
-} from "../../../data/constants/CanvasConstants";
+import { useState } from "react";
+import ToolButton from "./ToolButton";
+import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import { ChevronDown } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
-import { LayoutPositon } from "../../../data/store/SettingsStore";
+import useSettingsStore from "../../../data/store/SettingsStore";
+import { IconOption } from "../../../data/types/CanvasTypes";
 
-function DropdownYiBi({
-  options: options,
-  position,
-}: {
-  options: IconOption[];
-  position: LayoutPositon;
-}) {
+function DropdownSelector({ options: options }: { options: IconOption[] }) {
+  const position = useSettingsStore().layout.toolMenue;
   const [isOpen, setIsOpen] = useState(false);
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const [ix, setix] = useState(0);
@@ -32,7 +25,6 @@ function DropdownYiBi({
         `}
       >
         <ToolButton
-          name={options[ix].name}
           action={options[ix].action}
           icon={options[ix].icon}
         />
@@ -61,7 +53,7 @@ function DropdownYiBi({
             options.map((element, ix) => (
               <div>
                 <div
-                  className={`h-full cursor-pointer rounded-2xl p-2 ${defaultCanvasBackground}`}
+                  className={`h-full cursor-pointer rounded-2xl p-2 ${defaultButtonsBackground}`}
                   onClick={() => {
                     setActiveTool(element.action);
                     setix(ix);
@@ -78,4 +70,4 @@ function DropdownYiBi({
   );
 }
 
-export default DropdownYiBi;
+export default DropdownSelector;

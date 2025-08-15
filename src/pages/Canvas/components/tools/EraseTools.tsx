@@ -1,5 +1,3 @@
-import CircleColorPicker from "../misc/CircleColorPicker";
-
 function EraseTools() {
   return (
     <>

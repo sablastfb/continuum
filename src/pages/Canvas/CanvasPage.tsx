@@ -1,14 +1,8 @@
 import { useEffect, useRef } from "react";
-import ToolsMenue from "./components/tools/ToolsMenue";
+import ToolsMenue from "./components/tools/ToolMenue/ToolsMenue";
 import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
-import PencileTools from "./components/tools/PencileTools";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
-import TransformTools from "./components/tools/TransportComponent";
-import EraseTools from "./components/tools/EraseTools";
-import CircleTool from "./components/tools/CircleTool";
-import SquareTool from "./components/tools/SquareTool";
-import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
 import CursorEffect from "./features/effects/CursorEffect";
 import BackgroundEffect from "./features/effects/BackgroundEffect";
@@ -17,7 +11,6 @@ import Tool from "./components/tools/Tool";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
-  const activeTool = useCanvasStore((state) => state.activeTool);
   const setCanvasCursorActive = useCanvasStore(
     (state) => state.setCanvasCursorActive
   );
@@ -35,33 +28,6 @@ function CanvasPage() {
     SetUpPixi();
   }, []);
 
-  let activeToolComponent;
-  switch (activeTool) {
-    case "drawing":
-      activeToolComponent = <PencileTools />;
-      break;
-    case "eraser":
-      activeToolComponent = <EraseTools />;
-      break;
-    case "move":
-      activeToolComponent = <></>;
-      break;
-    case "transform":
-      activeToolComponent = <TransformTools />;
-      break;
-    case "circle":
-      activeToolComponent = <CircleTool />;
-      break;
-    case "square":
-      activeToolComponent = <SquareTool />;
-      break;
-    case "text":
-      activeToolComponent = <TextTool />;
-      break;
-    default:
-      activeToolComponent = <></>;
-  }
-
   return (
     <div className="relative h-screen w-screen">
       <div
@@ -78,8 +44,8 @@ function CanvasPage() {
           style={{ cursor: "none" }}
         />
       </div>
-      
-      <Tool/>
+
+      <Tool />
       <ToolsMenue />
       <SettingsDialog />
       <ExportDialog />

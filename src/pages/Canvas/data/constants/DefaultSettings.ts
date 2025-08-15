@@ -1,36 +1,33 @@
 import { SettingsData } from "../store/SettingsStore";
-import { defaultBackgroundColor } from "./CanvasConstants";
+
+const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const DefaultSettings: SettingsData = {
   background: {
     type: "grid",
-    color: defaultBackgroundColor,
+    color: backgroundColors[0],
     grid: {
-      bacgroundColor: defaultBackgroundColor,
+      bacgroundColor: backgroundColors[3],
       gridColor: "bgt-1",
       size: 5,
       width: 10,
     },
     dots: {
-      bacgroundColor: defaultBackgroundColor,
+      bacgroundColor: backgroundColors[0],
       dotColor: "bgt-1",
       radius: 1.5,
       width: 25,
     },
     line: {
-      bacgroundColor: defaultBackgroundColor,
+      bacgroundColor: backgroundColors[0],
       lineColor: "bgt-1",
       width: 25,
     },
-    backgroundColors: ["bg-1", "bg-2", "bg-3", "bg-5"],
-  },
-  pencile: {
-    colors: ['p-7', "p-1", "p-2", "p-5", "p-4"],
-    thicknes: ['th-1', 'th-2', 'th-3'],
+    backgroundColors: backgroundColors,
   },
   theme: "dark",
   layout: {
     toolButtons: "right",
-    toolMenue: "top"
-  }
+    toolMenue: "top",
+  },
 };

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { ToolType } from "../types/CanvasTypes";
 import { DefaultSettings } from "../constants/DefaultSettings";
+import { ToolType } from "../../features/tools/ToolManager";
 
 export interface CanvasStore {
   zoome: number;

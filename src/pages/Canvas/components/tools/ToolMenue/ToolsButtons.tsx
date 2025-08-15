@@ -12,14 +12,14 @@ import {
   Type,
   Undo,
 } from "lucide-react";
-import DropdownToolSelector from "./DropdownToolSelector/DropdownToolSelector";
-import ArrayDivider from "../misc/ArrayDivider";
-import { defaultCanvasBackground } from "../../data/constants/CanvasConstants";
+import ArrayDivider from "../../misc/ArrayDivider";
+import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import ToolButton from "./ToolButton";
-import { IconOption } from "../../data/types/CanvasTypes";
-import { CanvasPalet } from "../../data/container/PaletContainer";
-import { usePencileStore } from "../../data/store/PencileStore";
-import useSettingsStore from "../../data/store/SettingsStore";
+import { IconOption } from "../../../data/types/CanvasTypes";
+import { CanvasPalet } from "../../../data/container/PaletContainer";
+import { usePencileStore } from "../../../data/store/PencileStore";
+import useSettingsStore from "../../../data/store/SettingsStore";
+import DropdownSelector from "./DropdownSelector";
 
 function ToolsButtons() {
   const pencil = usePencileStore();
@@ -29,7 +29,6 @@ function ToolsButtons() {
   const DrawingOptions = useMemo<IconOption[]>(
     () => [
       {
-        name: "Pen",
         icon: (
           <PenLine
             strokeWidth={1}
@@ -40,12 +39,10 @@ function ToolsButtons() {
         action: "drawing",
       },
       {
-        name: "marker",
         icon: <Highlighter strokeWidth={1} size={32} />,
         action: "marker",
       },
       {
-        name: "Eraser",
         icon: <Eraser size={32} />,
         action: "eraser",
       },
@@ -56,12 +53,10 @@ function ToolsButtons() {
   const SelectionOptions = useMemo<IconOption[]>(
     () => [
       {
-        name: "Pen",
         icon: <MousePointer2 size={32} />,
         action: "move",
       },
       {
-        name: "Eraser",
         icon: <SquareDashed size={32} />,
         action: "transform",
       },
@@ -71,12 +66,10 @@ function ToolsButtons() {
   const ShapesOption = useMemo<IconOption[]>(
     () => [
       {
-        name: "Square",
         icon: <Square size={32} />,
         action: "square",
       },
       {
-        name: "Circle",
         icon: <Circle size={32} />,
         action: "circle",
       },
@@ -87,20 +80,18 @@ function ToolsButtons() {
   return (
     <>
       <div
-        className={`p-1 flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultCanvasBackground} ${
+        className={`p-1 flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultButtonsBackground} ${
           inline && "flex-col"
         }`}
       >
-        <DropdownToolSelector dropDownOptions={DrawingOptions} />
-        <DropdownToolSelector dropDownOptions={SelectionOptions} />
-        <DropdownToolSelector dropDownOptions={ShapesOption} />
+        <DropdownSelector options={DrawingOptions} />
+        <DropdownSelector options={SelectionOptions} />
+        <DropdownSelector options={ShapesOption} />
         <ToolButton
-          name=""
           action="image"
           icon={<Image size={32} className="hover:cursor-pointer" />}
         />
         <ToolButton
-          name=""
           action="circle"
           icon={<Type size={32} className="hover:cursor-pointer" />}
         />
