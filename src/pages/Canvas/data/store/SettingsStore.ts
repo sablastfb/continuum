@@ -9,7 +9,7 @@ export type BackgroundTypes = "color" | "grid" | "dots" | "line";
 export type LayoutPositon = "top" | "bottom" | "left" | "right";
 
 export type BackgroundSettings = {
-  type: BackgroundTypes;
+  activeBacgroundType: BackgroundTypes;
   color: ColorId;
   grid: {
     bacgroundColor: ColorId;

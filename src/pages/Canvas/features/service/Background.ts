@@ -8,7 +8,7 @@ export namespace CanvasBacground {
   export let backgroundTexture: TilingSprite;
 
   export function changeBackground(bs: BackgroundSettings) {
-    switch (bs.type) {
+    switch (bs.activeBacgroundType) {
       case "color":
         SolidColorBacground(bs);
         break;

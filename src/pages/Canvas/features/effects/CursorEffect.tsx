@@ -6,7 +6,7 @@ import { CanvasCursor } from "../service/Cursor";
 
 function CursorEffect() {
     const zoom = useCanvasStore().zoome;
-    const color = useSettingsStore((state) => state.pencile);
+    const color = useSettingsStore((state) => state);
     const activeTool = useCanvasStore((state) => state.activeTool);
     const canvasCursorActive = useCanvasStore((state) => state.canvasCursorActive);
    const pen = usePencileStore();

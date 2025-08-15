@@ -1,6 +1,4 @@
-import { JSX } from "react";
 import useCanvasStore from "../../../data/store/CanvasStore";
-import { ToolType } from "../../../features/tools/ToolManager";
 import { IconOption } from "../../../data/types/CanvasTypes";
 
 function ToolButton({ icon, action }: IconOption) {

@@ -28,7 +28,7 @@ function SettingsDialog() {
     useState(false);
   const defaultButton = useRef(null);
 
-  const resetSettings = useSettingsStore().reserToDefaultSettings;
+  const reserToDefaultSettings = useSettingsStore().reserToDefaultSettings;
   const discardSettings = useSettingsStore().discardSettings;
   type SettingTabs = "background" | "drawing" | "layout";
   const items = [
@@ -98,7 +98,7 @@ function SettingsDialog() {
               icon="pi pi-exclamation-triangle"
               accept={() => {
                 setTheme(DefaultSettings.theme);
-                resetSettings();
+                reserToDefaultSettings();
                 hide({
                   preventDefault: () => {},
                   stopPropagation: () => {},

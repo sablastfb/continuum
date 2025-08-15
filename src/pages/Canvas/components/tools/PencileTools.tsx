@@ -7,6 +7,7 @@ function PencileTools() {
   const pencileSettings = usePencileStore();
   const pencilColorId = usePencileStore().pencilColorId;
   const thicknesId = usePencileStore().thicknesId;
+  const setPencileColor = usePencileStore((state) => state.setPencileColor);
 
   return (
     <>
@@ -25,6 +26,8 @@ function PencileTools() {
             colorId={colorId}
             key={ix}
             selected={colorId === pencilColorId}
+            action={() => setPencileColor({ colorId: colorId, color: "" })
+            }
           />
         );
       })}

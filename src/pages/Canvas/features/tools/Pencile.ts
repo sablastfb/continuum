@@ -1,7 +1,5 @@
 import { Viewport } from "pixi-viewport";
 import { FederatedMouseEvent, Graphics } from "pixi.js";
-import { StoreApi, UseBoundStore } from "zustand";
-import { v4 as uuidv4 } from "uuid";
 import { Point } from "../../data/types/CanvasTypes";
 import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants";
 import { Distance } from "../utils/CanvasUtils";
@@ -24,7 +22,7 @@ export class Pencile implements ITool {
     const worldPos = this.viewport.toWorld(e.global);
     this.graphic = new Graphics();
 
-    const guid: string = uuidv4();
+    // const guid: string = uuidv4();
     // graphicsData.push({ id: guid, graph: this.graphic });
 
     this.graphic.moveTo(worldPos.x, worldPos.y);

@@ -1,7 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { Application, Graphics } from "pixi.js";
-import { ToolType } from "../data/types/CanvasTypes";
-import { ToolsManager } from "./tools/ToolManager";
+import { ToolsManager, ToolType } from "./tools/ToolManager";
 import { CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
