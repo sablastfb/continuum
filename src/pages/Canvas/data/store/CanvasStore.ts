@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { DefaultSettings } from "../constants/DefaultSettings";
 import { ToolType } from "../../features/tools/ToolManager";
 
 export interface CanvasStore {
@@ -20,7 +19,6 @@ export interface CanvasStore {
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
-    canvasSettings: { ...DefaultSettings },
     zoome: 1,
     settingVisible: false,
     infoVisible: false,

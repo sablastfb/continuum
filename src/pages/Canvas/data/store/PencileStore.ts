@@ -1,6 +1,7 @@
 import { create } from "zustand/react";
-import { Color, ColorId, Thicknes, ThicknesId } from "../types/CanvasTypes";
 import { immer } from "zustand/middleware/immer";
+import { Color, ColorId } from "../container/PaletContainer";
+import { Thicknes, ThicknesId } from "../container/ThickneContainer";
 
 export type PencilSettings = {
   pencilColorId: ColorId;
@@ -17,7 +18,7 @@ export type PencilSettings = {
   }) => void;
 };
 
-const allThicknes = ["th-1", "th-2", "th-3"];
+const allThicknes = ["th-0", "th-1", "th-2", "th-3"];
 const allPencilColors = ["p-7", "p-1", "p-2", "p-5", "p-4"];
 
 export const usePencileStore = create<PencilSettings>()(

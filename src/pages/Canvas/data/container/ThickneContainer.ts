@@ -1,6 +1,9 @@
 import { keyBy } from "lodash";
-import { Thicknes, ThicknesId } from "../types/CanvasTypes";
 import { ThicknesConstants } from "../constants/ThicknesConstants";
+
+export type Thicknes = number;
+export type ThicknesId = (typeof ThicknesConstants)[number]["id"];
+
 
 export namespace ThicknesPalet {
   export const thicknesContainer = keyBy(ThicknesConstants, "id");

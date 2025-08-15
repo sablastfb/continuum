@@ -1,6 +1,6 @@
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import { defaultOutlineColor } from "../../data/constants/CanvasConstants";
+import { ThicknesId, ThicknesPalet } from "../../data/container/ThickneContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { ThicknesId } from "../../data/types/CanvasTypes";
 
 export type CircleThicknesPickerParm = {
   thicknesId: ThicknesId;
@@ -23,8 +23,8 @@ function CircleThicknesPicker({
           thicknesId: thicknesId,
         });
       }}
-      className={`w-8 h-8 flex justify-center items-center hover:cursor-pointer  rounded-full outline-1  ${
-        selected ? "ring-5 ring-amber-300 dark:ring-amber-500"  : ""
+      className={`w-8 h-8 flex justify-center items-center hover:cursor-pointer  rounded-full outline-2  ${
+        selected ? `${defaultOutlineColor}`  : ""
       }`}
     >
       <div

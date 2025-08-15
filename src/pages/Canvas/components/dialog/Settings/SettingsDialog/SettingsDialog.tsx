@@ -7,11 +7,10 @@ import "./SettingsDialog.css";
 import BackgroundSettings from "../BackgroundSettings/BackgroundSettings";
 import DrawingSettings from "../DrawingSettings";
 import LayoutSettings from "../LayoutSettings";
-import { DefaultSettings } from "../../../../data/constants/DefaultSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
-import useSettingsStore, { SettingsData } from "../../../../data/store/SettingsStore";
+import useSettingsStore, { DefaultSettings, SettingsData } from "../../../../data/store/SettingsStore";
 
 function SettingsDialog() {
   const setTheme = useSettingsStore().setTheme;

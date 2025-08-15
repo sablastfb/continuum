@@ -1,5 +1,5 @@
-import CircleColorPicker from "../../pickers/CircleColorPicker";
 import { usePencileStore } from "../../../data/store/PencileStore";
+import CircleColorPicker from "../../pickers/CircleColorPicker";
 
 function DrawingSettings() {
   const pencileSettings = usePencileStore();
@@ -10,7 +10,7 @@ function DrawingSettings() {
       <div className="flex gap-4">
         {pencileSettings.allPencilColors.map((color, ix) => {
           return (
-            <CircleColorPicker colorId={color} selected={false} key={ix} />
+            <CircleColorPicker colorId={color} selected={false} key={ix} action={()=>{}}/>
           );
         })}
       </div>

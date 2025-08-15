@@ -1,6 +1,5 @@
 import { defaultOutlineColor } from "../../data/constants/CanvasConstants";
-import { CanvasPalet } from "../../data/container/PaletContainer";
-import { ColorId } from "../../data/types/CanvasTypes";
+import { CanvasPalet, ColorId } from "../../data/container/PaletContainer";
 
 export type CircleColorPickerParm = {
   colorId: ColorId;

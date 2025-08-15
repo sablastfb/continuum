@@ -1,10 +1,9 @@
 import { useState } from "react";
-import ToolButton from "./ToolButton";
+import ToolButton, { IconOption } from "./ToolButton";
 import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import { ChevronDown } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
-import { IconOption } from "../../../data/types/CanvasTypes";
 
 function DropdownSelector({ options: options }: { options: IconOption[] }) {
   const position = useSettingsStore().layout.toolMenue;

@@ -1,5 +1,4 @@
 import "./BackgroundSettings.css";
-import { ColorId } from "../../../../data/types/CanvasTypes";
 import { CanvasPalet } from "../../../../data/container/PaletContainer";
 import CircleColorPicker from "../../../pickers/CircleColorPicker";
 import { defaultOutlineColor } from "../../../../data/constants/CanvasConstants";
@@ -12,9 +11,7 @@ function BacgroundPickerColor({ selected }: { selected: boolean }) {
     <>
       <div
         className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer line-pattern ${
-          selected
-            ? `${defaultOutlineColor} outline-amber-300`
-            : "outline-gray-800"
+          selected ? `${defaultOutlineColor}` : "outline-gray-800"
         }`}
         style={{ backgroundColor: CanvasPalet.getColor(background.color) }}
         onClick={() => setBackgroundSettings({ activeBacgroundType: "color" })}
@@ -29,9 +26,7 @@ function BacgroundPickerGrid({ selected }: { selected: boolean }) {
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer grid-pattern ${
-        selected
-          ? `${defaultOutlineColor} outline-amber-300`
-          : "outline-gray-800"
+        selected ? `${defaultOutlineColor}` : "outline-gray-800"
       }`}
       style={{
         backgroundColor: CanvasPalet.getColor(background.grid.bacgroundColor),
@@ -49,9 +44,7 @@ function BacgroundPickerDots({ selected }: { selected: boolean }) {
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer dot-pattern ${
-        selected
-          ? `${defaultOutlineColor} outline-amber-300`
-          : "outline-gray-800"
+        selected ? `${defaultOutlineColor} ` : "outline-gray-800"
       }`}
       style={{
         backgroundColor: CanvasPalet.getColor(background.dots.bacgroundColor),
@@ -73,9 +66,7 @@ function BacgroundPickerLine({ selected }: { selected: boolean }) {
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer line-pattern ${
-        selected
-          ? `${defaultOutlineColor} outline-amber-300`
-          : "outline-gray-800"
+        selected ? `${defaultOutlineColor} ` : "outline-gray-800"
       }`}
       style={{
         backgroundColor: CanvasPalet.getColor(background.line.bacgroundColor),
