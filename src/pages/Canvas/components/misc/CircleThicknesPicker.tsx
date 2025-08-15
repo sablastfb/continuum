@@ -1,5 +1,4 @@
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
-import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { ThicknesId } from "../../data/types/CanvasTypes";
 

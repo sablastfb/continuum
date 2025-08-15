@@ -1,9 +1,9 @@
 import ZoomingButton from "../buttons/ZoomingButton";
 import OptionButtons from "../buttons/OptionsButton";
 import ToolsButtons from "../buttons/ToolsButtons";
-import useCanvasStore from "../../data/store/CanvasStore";
+import useSettingsStore from "../../data/store/SettingsStore";
 function ToolsMenue() {
-  const toolButtonPosition = useCanvasStore().canvasSettings.layout.toolMenue;
+  const toolButtonPosition = useSettingsStore().layout.toolMenue;
 
   return (
     <div

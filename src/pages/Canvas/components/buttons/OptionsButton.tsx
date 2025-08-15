@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Canvas } from "../../features/CanvasApp";
 import useSettingsStore from "../../data/store/SettingsStore";
+import { CanvasViewport } from "../../features/service/Viewport";
 
 function OptionButtons() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -21,8 +22,8 @@ function OptionButtons() {
       >
         <div
           onClick={() => {
-            if (Canvas.viewport)
-              Canvas.viewport.animate({
+            if (CanvasViewport.viewport)
+              CanvasViewport.viewport.animate({
                 time: 500,
                 position: {
                   x: window.innerWidth / 2,

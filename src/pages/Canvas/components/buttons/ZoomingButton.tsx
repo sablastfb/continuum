@@ -1,6 +1,6 @@
 import { ZoomIn, ZoomOut } from "lucide-react";
-import { Canvas } from "../../features/CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
+import { CanvasResize } from "../../features/service/Resize";
 
 function ZoomingButton() {
   const zoome = useCanvasStore((state) => state.zoome);
@@ -10,13 +10,13 @@ function ZoomingButton() {
           <ZoomIn
             className="hover:cursor-pointer"
             size={25}
-            onClick={() => Canvas.zoom(1)}
+            onClick={() => CanvasResize.manualZoom(1)}
           />
           <div className="select-none text-xl w-20 text-center">{(zoome * 100).toFixed(1)}%</div>
           <ZoomOut
             className="hover:cursor-pointer"
             size={25}
-            onClick={() => Canvas.zoom(-1)}
+            onClick={() => CanvasResize.manualZoom(-1)}
           />
         </div>
     </>

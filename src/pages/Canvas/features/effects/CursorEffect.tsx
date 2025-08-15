@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Canvas } from "../CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import { usePencileStore } from "../../data/store/PencileStore";
+import { CanvasCursor } from "../service/Cursor";
 
 function CursorEffect() {
     const zoom = useCanvasStore().zoome;
@@ -11,11 +11,11 @@ function CursorEffect() {
     const canvasCursorActive = useCanvasStore((state) => state.canvasCursorActive);
    const pen = usePencileStore();
     useEffect(() => {
-       Canvas.updateCursor();
+       CanvasCursor.updateCursor();
     }, [color, activeTool, zoom, pen]);
 
     useEffect(() => {
-       Canvas.updateCursorVisibilty();
+       CanvasCursor.updateCursorVisibilty();
     }, [canvasCursorActive])
 
 

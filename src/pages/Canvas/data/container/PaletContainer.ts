@@ -1,6 +1,5 @@
 import { keyBy } from "lodash";
 import { PaletContainer } from "../constants/PaletConstants";
-import useCanvasStore from "../store/CanvasStore";
 import { ColorId } from "../types/CanvasTypes";
 import useSettingsStore from "../store/SettingsStore";
 

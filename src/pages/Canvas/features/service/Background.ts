@@ -2,6 +2,7 @@ import { Graphics, TilingSprite } from "pixi.js";
 import { Canvas } from "../CanvasApp";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { BackgroundSettings } from "../../data/store/SettingsStore";
+import { CanvasViewport } from "./Viewport";
 
 export namespace CanvasBacground {
   export let backgroundTexture: TilingSprite;
@@ -138,12 +139,12 @@ export namespace CanvasBacground {
    resize();
   }
   function resize(){
-    if (backgroundTexture && Canvas.viewport?.scale.x) {
-      backgroundTexture.tilePosition.x = Canvas.viewport?.x;
-      backgroundTexture.tilePosition.y = Canvas.viewport?.y;
-      if (backgroundTexture && Canvas.viewport?.scale.x) {
-        backgroundTexture.tileScale.x = Canvas.viewport?.scale.x;
-        backgroundTexture.tileScale.y = Canvas.viewport?.scale.y;
+    if (backgroundTexture && CanvasViewport.viewport?.scale.x) {
+      backgroundTexture.tilePosition.x = CanvasViewport.viewport?.x;
+      backgroundTexture.tilePosition.y = CanvasViewport.viewport?.y;
+      if (backgroundTexture && CanvasViewport.viewport?.scale.x) {
+        backgroundTexture.tileScale.x = CanvasViewport.viewport?.scale.x;
+        backgroundTexture.tileScale.y = CanvasViewport.viewport?.scale.y;
       }
     }
   }

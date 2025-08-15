@@ -1,4 +1,5 @@
 import useCanvasStore from "../../data/store/CanvasStore";
+import useSettingsStore from "../../data/store/SettingsStore";
 import CircleTool from "./CircleTool";
 import EraseTools from "./EraseTools";
 import PencileTools from "./PencileTools";
@@ -8,7 +9,7 @@ import TransformTools from "./TransportComponent";
 
 function Tool() {
   const activeTool = useCanvasStore((state) => state.activeTool);
-  const toolButtons = useCanvasStore().canvasSettings.layout.toolButtons;
+  const toolButtons = useSettingsStore().layout.toolButtons;
 
   let activeToolComponent;
   switch (activeTool) {
