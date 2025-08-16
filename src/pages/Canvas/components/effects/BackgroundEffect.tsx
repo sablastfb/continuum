@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { CanvasBacground } from "../service/Background";
+import { CanvasBacground } from "../../features/service/Background";
 import useSettingsStore from "../../data/store/SettingsStore";
 
 function BackgroundEffect() {

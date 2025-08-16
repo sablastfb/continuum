@@ -4,8 +4,8 @@ import SettingsDialog from "./components/dialog/Settings/SettingsDialog/Settings
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
 import { Canvas } from "./features/CanvasApp";
-import CursorEffect from "./features/effects/CursorEffect";
-import BackgroundEffect from "./features/effects/BackgroundEffect";
+import CursorEffect from "./components/effects/CursorEffect";
+import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
 import Tool from "./components/tools/Tool";
 

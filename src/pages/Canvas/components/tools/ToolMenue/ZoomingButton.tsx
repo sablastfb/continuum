@@ -1,13 +1,13 @@
 import { ZoomIn, ZoomOut } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { CanvasResize } from "../../../features/service/Resize";
-import { defaultIconSize } from "../../../data/constants/CanvasConstants";
+import { defaultButtonsBackground, defaultIconSize } from "../../../data/constants/CanvasConstants";
 
 function ZoomingButton() {
   const zoome = useCanvasStore((state) => state.zoome);
   return (
     <>
-        <div className={`p-1 pointer-events-auto rounded-2xl bg-white/10 backdrop-blur-sm flex items-center gap-1`}>
+        <div className={`${defaultButtonsBackground} p-1 pointer-events-auto rounded-2xl flex items-center gap-1`}>
           <ZoomIn
             className="hover:cursor-pointer"
             size={defaultIconSize}

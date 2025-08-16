@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { CanvasCursor } from "../service/Cursor";
+import { CanvasCursor } from "../../features/service/Cursor";
 
 function CursorEffect() {
     const zoom = useCanvasStore().zoome;

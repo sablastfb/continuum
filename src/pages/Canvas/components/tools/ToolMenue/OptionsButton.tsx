@@ -2,7 +2,7 @@ import { Download, Home, Info, Settings } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 import { CanvasViewport } from "../../../features/service/Viewport";
-import { defaultIconSize } from "../../../data/constants/CanvasConstants";
+import { defaultButtonsBackground, defaultIconSize } from "../../../data/constants/CanvasConstants";
 
 function OptionButtons() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -14,7 +14,7 @@ function OptionButtons() {
   return (
     <>
       <div
-        className={`pointer-events-auto rounded-2xl  bg-white/10 backdrop-blur-sm flex items-center h-fit gap-4 ${
+        className={`${defaultButtonsBackground} pointer-events-auto rounded-2xl  bg-white/10 backdrop-blur-sm flex items-center h-fit gap-4 ${
           inline && "flex-col"
         }`}
       >

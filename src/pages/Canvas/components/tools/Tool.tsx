@@ -1,3 +1,4 @@
+import { defaultButtonsBackground } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import CircleTool from "./CircleTool";
@@ -48,7 +49,7 @@ function Tool() {
       `}
       >
         <div
-          className={`flex  items-center gap-4  bg-white/10 backdrop-blur-sm rounded-lg p-1 pointer-events-auto
+          className={`${defaultButtonsBackground} flex  items-center gap-4 rounded-lg p-1 pointer-events-auto
          ${toolButtons === "left" && "flex-col"}
          ${toolButtons === "right" && "flex-col justify-end"}
           ${toolButtons === "bottom" && ""}
