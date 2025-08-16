@@ -6,9 +6,10 @@ import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 
 function DropdownSelector({ options: options }: { options: IconOption[] }) {
-  const position = useSettingsStore().layout.toolMenue;
-  const [isOpen, setIsOpen] = useState(false);
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
+  const position = useSettingsStore().layout.toolMenue;
+
+  const [isOpen, setIsOpen] = useState(false);
   const [ix, setix] = useState(0);
 
   const toggleDropdown = () => {

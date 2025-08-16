@@ -2,6 +2,7 @@ import { Download, Home, Info, Settings } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 import { CanvasViewport } from "../../../features/service/Viewport";
+import { defaultIconSize } from "../../../data/constants/CanvasConstants";
 
 function OptionButtons() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -13,7 +14,7 @@ function OptionButtons() {
   return (
     <>
       <div
-        className={`pointer-events-auto rounded-2xl p-2 bg-white/10 backdrop-blur-sm flex items-center h-fit gap-4 ${
+        className={`pointer-events-auto rounded-2xl  bg-white/10 backdrop-blur-sm flex items-center h-fit gap-4 ${
           inline && "flex-col"
         }`}
       >
@@ -31,24 +32,24 @@ function OptionButtons() {
               });
           }}
         >
-          <Home size={30} className="hover:cursor-pointer" />
+          <Home size={defaultIconSize} className="hover:cursor-pointer" />
         </div>
         <Settings
-          size={30}
+          size={defaultIconSize}
           className="hover:cursor-pointer"
           onClick={() => {
             setSettingVisible(true);
           }}
         />
         <Download
-          size={30}
+          size={defaultIconSize}
           className="hover:cursor-pointer"
           onClick={() => {
             setExportVisible(true);
           }}
         />
         <Info
-          size={30}
+          size={defaultIconSize}
           className="hover:cursor-pointer"
           onClick={() => {
             setInfoVisible(true);

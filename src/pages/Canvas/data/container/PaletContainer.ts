@@ -2,7 +2,6 @@ import { keyBy } from "lodash";
 import { PaletContainer } from "../constants/PaletConstants";
 import useSettingsStore from "../store/SettingsStore";
 
-
 export type Color = string;
 export type ColorId = (typeof PaletContainer)[number]["id"];
 

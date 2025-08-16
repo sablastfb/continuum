@@ -13,9 +13,11 @@ import {
   Undo,
 } from "lucide-react";
 import ArrayDivider from "../../misc/ArrayDivider";
-import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
-import ToolButton from "./ToolButton";
-import { IconOption } from "../../../data/types/CanvasTypes";
+import {
+  defaultButtonsBackground,
+  defaultIconSize,
+} from "../../../data/constants/CanvasConstants";
+import ToolButton, { IconOption } from "./ToolButton";
 import { CanvasPalet } from "../../../data/container/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
@@ -31,19 +33,18 @@ function ToolsButtons() {
       {
         icon: (
           <PenLine
-            strokeWidth={1}
-            size={32}
+            size={defaultIconSize}
             fill={CanvasPalet.getColor(pencil.pencilColorId)}
           />
         ),
         action: "drawing",
       },
       {
-        icon: <Highlighter strokeWidth={1} size={32} />,
+        icon: <Highlighter size={defaultIconSize} />,
         action: "marker",
       },
       {
-        icon: <Eraser size={32} />,
+        icon: <Eraser size={defaultIconSize} />,
         action: "eraser",
       },
     ],
@@ -53,11 +54,11 @@ function ToolsButtons() {
   const SelectionOptions = useMemo<IconOption[]>(
     () => [
       {
-        icon: <MousePointer2 size={32} />,
+        icon: <MousePointer2 size={defaultIconSize} />,
         action: "move",
       },
       {
-        icon: <SquareDashed size={32} />,
+        icon: <SquareDashed size={defaultIconSize} />,
         action: "transform",
       },
     ],
@@ -66,11 +67,11 @@ function ToolsButtons() {
   const ShapesOption = useMemo<IconOption[]>(
     () => [
       {
-        icon: <Square size={32} />,
+        icon: <Square size={defaultIconSize} />,
         action: "square",
       },
       {
-        icon: <Circle size={32} />,
+        icon: <Circle size={defaultIconSize} />,
         action: "circle",
       },
     ],
@@ -89,11 +90,15 @@ function ToolsButtons() {
         <DropdownSelector options={ShapesOption} />
         <ToolButton
           action="image"
-          icon={<Image size={32} className="hover:cursor-pointer" />}
+          icon={
+            <Image size={defaultIconSize} className="hover:cursor-pointer" />
+          }
         />
         <ToolButton
           action="circle"
-          icon={<Type size={32} className="hover:cursor-pointer" />}
+          icon={
+            <Type size={defaultIconSize} className="hover:cursor-pointer" />
+          }
         />
         {inline ? (
           <div className="w-10 h-1">
@@ -106,10 +111,10 @@ function ToolsButtons() {
         )}
 
         <div>
-          <Undo size={32} className="hover:cursor-pointer" />
+          <Undo size={defaultIconSize} className="hover:cursor-pointer" />
         </div>
         <div>
-          <Redo size={32} className="hover:cursor-pointer" />
+          <Redo size={defaultIconSize} className="hover:cursor-pointer" />
         </div>
       </div>
     </>

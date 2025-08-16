@@ -1,6 +1,7 @@
 import { JSX } from "react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { ToolType } from "../../../features/tools/ToolManager";
+import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
 
 
 export type IconOption = {
@@ -16,7 +17,7 @@ function ToolButton({ icon, action }: IconOption) {
     <>
       <div
         className={`flex items-center hover:cursor-pointer p-1 ${
-          action === activeTool ? "outline-2 rounded-xl" : ""
+          action === activeTool ? `${defaultOutlineColor} rounded-xl` : ""
         }`}
         onClick={() => {
           setActiveTool(action);
