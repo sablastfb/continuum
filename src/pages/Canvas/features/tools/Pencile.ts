@@ -8,15 +8,14 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
+import { CanvasCursor } from "../service/Cursor";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;
   private lastPoint: Point = { x: 0, y: 0 };
   private count = 0;
 
-  constructor(
-    private viewport: Viewport,
-  ) {}
+  constructor(private viewport: Viewport) {}
 
   public startDrawing(e: FederatedMouseEvent) {
     const worldPos = this.viewport.toWorld(e.global);
@@ -46,7 +45,8 @@ export class Pencile implements ITool {
 
     this.graphic.lineTo(worldPos.x, worldPos.y);
     this.graphic.stroke({
-      width: ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId)*2,
+      width:
+        ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId) * 2,
       color: "white",
       cap: "round",
       join: "round",
@@ -61,28 +61,36 @@ export class Pencile implements ITool {
     if (this.graphic === null) return;
   }
 
-  public updateCursor(cursor: Graphics) {
-    const outlineWidth = 1;
+  public updateCursor() {
     const lineWidth = 1;
-    const zoom = useCanvasStore.getState().zoome;
-    const thicknes = zoom* ThicknesPalet.getThicknes(
-      usePencileStore.getState().thicknesId
+    const outlineWidth = 1;
+    const color = CanvasPalet.getColor(
+      usePencileStore.getState().pencilColorId
     );
-    const lineDistanceOffset = thicknes;
-    const lineDistance = 20*zoom + lineDistanceOffset;
-    cursor.clear();
-    cursor
-      .circle(0, 0, thicknes)
-      .fill(CanvasPalet.getColor(usePencileStore.getState().pencilColorId))
-      .stroke({ alignment: 0, width: outlineWidth, color: "black" })
+
+    const zoom = useCanvasStore.getState().zoome;
+    const radius =
+      zoom * ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId);
+    const outerRadius = Math.max(radius, 10);
+    const lineDistance = 30 + outerRadius;
+    CanvasCursor.cursor.clear();
+    CanvasCursor.cursor
+      .circle(0, 0, outerRadius)
+      .stroke({
+        alignment: 0,
+        width: outlineWidth,
+        color: CanvasPalet.getColor("c-1"),
+      })
+      .circle(0, 0, radius)
+      .fill(color)
       .moveTo(lineDistance, 0)
-      .lineTo(thicknes + lineDistanceOffset, 0)
+      .lineTo(outerRadius, 0)
       .moveTo(-lineDistance, 0)
-      .lineTo(-thicknes - lineDistanceOffset, 0)
+      .lineTo(-outerRadius, 0)
       .moveTo(0, lineDistance)
-      .lineTo(0, thicknes + lineDistanceOffset)
+      .lineTo(0, outerRadius)
       .moveTo(0, -lineDistance)
-      .lineTo(0, -thicknes - lineDistanceOffset)
+      .lineTo(0, -outerRadius)
       .stroke({ width: lineWidth, color: "gray" });
   }
 }

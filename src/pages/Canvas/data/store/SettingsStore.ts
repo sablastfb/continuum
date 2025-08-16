@@ -88,7 +88,7 @@ export const useSettingsStore = create<SettingsStore>()(
     ...DefaultSettings,
     setBackgroundSettings: (settings) =>
       set((state) => {
-        merge(state.background, settings);
+       state.background = merge({},state.background, settings);
       }),
     setTheme: (theme: Theme) => {
       set((state) => {

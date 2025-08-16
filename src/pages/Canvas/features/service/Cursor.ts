@@ -14,7 +14,7 @@ export namespace CanvasCursor {
 
   export const updateCursor = () => {
     if (Canvas.toolsManager) {
-      Canvas.toolsManager.getCurrentTool()?.updateCursor(CanvasCursor.cursor);
+      Canvas.toolsManager.getCurrentTool()?.updateCursor();
     }
   };
 
@@ -28,5 +28,5 @@ export namespace CanvasCursor {
   export const moveCursor = throttle((e: FederatedPointerEvent) => {
     CanvasCursor.cursor.x = e.global.x;
     CanvasCursor.cursor.y = e.global.y;
-  }, 1);
+  }, 8);
 }
