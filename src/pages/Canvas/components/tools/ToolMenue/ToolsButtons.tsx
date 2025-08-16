@@ -81,7 +81,7 @@ function ToolsButtons() {
   return (
     <>
       <div
-        className={`p-1 flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultButtonsBackground} ${
+        className={` p-1 flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultButtonsBackground} ${
           inline && "flex-col"
         }`}
       >

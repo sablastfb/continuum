@@ -5,68 +5,57 @@ import { ChevronDown } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 
-function DropdownSelector({ options: options }: { options: IconOption[] }) {
+function DropdownSelector({ options }: { options: IconOption[] }) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const position = useSettingsStore().layout.toolMenue;
 
   const [isOpen, setIsOpen] = useState(false);
   const [ix, setix] = useState(0);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <>
+    <div className={`flex items-center gap-0 rounded-2xl relative
+         ${position === "left" && "flex-col"}
+         ${position === "right" && "flex-col"}
+    `}>
+      <ToolButton
+        action={options[ix].action}
+        icon={options[ix].icon}
+      />
+      <button
+        className={`${isOpen && "rotate-180"} ease-in-out transition-all duration-75`}
+        onClick={toggleDropdown}
+      >
+        <div className={`${position === "left" && "rotate-270"} ${position === "right" && "rotate-90"}`}>
+          <ChevronDown size={20} />
+        </div>
+      </button>
+      
       <div
-        className={`flex items-center gap-0  rounded-2xl
-         ${position === "left" && "flex-col "}
-         ${position === "right" && "flex-col "}
+        className={`p-2 absolute gap-2 flex bg-background rounded-lg shadow-lg
+          ${position === "bottom" && "bottom-full flex-col mb-2"}
+          ${position === "top" && "top-full flex-col mt-2"}
+          ${position === "left" && "left-full flex-row ml-2"}
+          ${position === "right" && "right-full flex-row mr-2"}
+          ${!isOpen && "hidden"}
         `}
       >
-        <ToolButton
-          action={options[ix].action}
-          icon={options[ix].icon}
-        />
-        <div
-          className={`
-            ${isOpen && "rotate-180"} ease-in-out transition-all duration-75`}
-          onClick={toggleDropdown}
-        >
+        {options.map((element, index) => (
           <div
-            className={` 
-            ${position === "left" && "rotate-270"}
-            ${position === "right" && "rotate-90"}`}
+            key={index}
+            className={`cursor-pointer rounded-2xl p-2 ${defaultButtonsBackground} hover:bg-opacity-80`}
+            onClick={() => {
+              setActiveTool(element.action);
+              setix(index);
+              setIsOpen(false);
+            }}
           >
-            <ChevronDown size={20} />
+            {element.icon}
           </div>
-        </div>
-        <div
-          className={`p-2 absolute gap-4  flex  -z-1  ease-in-out transition-all duration-75 
-            ${position === "bottom" && "bottom-full flex-col "}
-            ${position === "top" && "top-full flex-col "}
-            ${position === "left" && "left-full"}
-            ${position === "right" && "right-full"}
-        `}
-        >
-          {isOpen &&
-            options.map((element, ix) => (
-              <div>
-                <div
-                  className={`h-full cursor-pointer rounded-2xl p-2 ${defaultButtonsBackground}`}
-                  onClick={() => {
-                    setActiveTool(element.action);
-                    setix(ix);
-                    setIsOpen(false);
-                  }}
-                >
-                  {element.icon}
-                </div>
-              </div>
-            ))}
-        </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 

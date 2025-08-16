@@ -1,4 +1,4 @@
-import { FederatedMouseEvent, Graphics } from "pixi.js";
+import { FederatedMouseEvent } from "pixi.js";
 
 export interface ITool{
     startDrawing(e: FederatedMouseEvent): void;
