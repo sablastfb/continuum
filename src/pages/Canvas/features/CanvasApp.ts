@@ -1,44 +1,45 @@
 import { Viewport } from "pixi-viewport";
-import { Application, FederatedPointerEvent, Graphics } from "pixi.js";
-
-import { ZoomedEvent } from "pixi-viewport/dist/types";
-import { throttle } from "lodash";
-import { ToolType } from "../data/CanvasTypes";
-import useCanvasStore from "../data/CanvasStore";
-import { ToolsManager } from "./tools/ToolManager";
-import { ZoomSensitivity } from "../data/CanvasConstants";
+import { Application, Graphics } from "pixi.js";
+import { ToolsManager, ToolType } from "./tools/ToolManager";
+import { CanvasBacground } from "./service/Background";
+import { CanvasPalet } from "../data/container/PaletContainer";
+import useSettingsStore from "../data/store/SettingsStore";
+import { CanvasResize } from "./service/Resize";
+import { CanvasCursor } from "./service/Cursor";
+import { CanvasViewport } from "./service/Viewport";
 
 export namespace Canvas {
-  let appInstance: Application | null = null;
-  let viewport: Viewport | null = null;
+  export let appInstance: Application | null = null;
   export let toolsManager: ToolsManager;
-  let cursor: Graphics;
-  let drawing = false;
+  export let drawing = false;
 
   export async function getPixiApp() {
     if (appInstance) {
-      updateCursor();
-      updateCursorVisibilty();
+      CanvasCursor.updateCursor();
+      CanvasCursor.updateCursorVisibilty();
       return appInstance;
     }
 
     await setUpAplication();
-    setUpViewportAndEvent();
-    setUpResize();
-    setUpCommandManager();
-    updateCursor();
+    CanvasViewport.setUpViewportAndEvent();
+    CanvasResize.setUpResize();
+    CanvasCursor.updateCursor();
+    CanvasBacground.changeBackground(useSettingsStore.getState().background);
     return appInstance;
   }
 
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
-      background: useCanvasStore.getState().canvasSettings.background.color,
+      background: CanvasPalet.getColor(
+        useSettingsStore.getState().background.color
+      ),
       resizeTo: window,
     });
-    cursor = new Graphics();
 
-    viewport = new Viewport({
+    CanvasCursor.cursor = new Graphics();
+
+    CanvasViewport.viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
       worldWidth: 1024,
@@ -46,91 +47,14 @@ export namespace Canvas {
       events: appInstance.renderer.events,
     });
 
-    appInstance.stage.addChild(viewport);
-    appInstance!.stage.addChild(cursor);
+    appInstance.stage.addChild(CanvasViewport.viewport);
+    appInstance!.stage.addChild(CanvasCursor.cursor);
 
-    toolsManager = new ToolsManager(viewport, useCanvasStore);
-  }
-
-  function setUpCommandManager() {}
-
-  const throttledDraw = throttle((e: FederatedPointerEvent) => {
-    if (drawing && e.buttons == 1) {
-      toolsManager.getCurrentTool()?.draw(e);
-    }
-  }, 16);
-
-  export const updateCursor = () => {
-    if (toolsManager) {
-      toolsManager.getCurrentTool()?.updateCursor(cursor);
-    }
-  };
-
-  export const updateCursorVisibilty = () => {
-    if (cursor) {
-      cursor.visible = useCanvasStore.getState().canvasCursorActive;
-    }
-  };
-
-  export const moveCursor = throttle((e: FederatedPointerEvent) => {
-    cursor.x = e.global.x;
-    cursor.y = e.global.y;
-  }, 1);
-
-  function setUpViewportAndEvent() {
-    if (viewport === null) return;
-    viewport.drag({ mouseButtons: "middle" }).pinch().wheel();
-    viewport
-      .on("zoomed", (e: ZoomedEvent) => {
-        useCanvasStore.getState().setZoom(e?.viewport.scale.x);
-      })
-      .on("mousedown", (e) => {
-        if (drawing) return;
-        drawing = true;
-        toolsManager.getCurrentTool()?.startDrawing(e);
-      })
-      .on("mousemove", (e) => {
-        throttledDraw(e);
-        moveCursor(e);
-      })
-      .on("mouseup", (e) => {
-        if (!drawing) return;
-        drawing = false;
-        toolsManager.getCurrentTool()?.stopDrawing(e);
-      })
-      .on("mouseout", (e) => {
-        cursor.visible = false;
-        if (!drawing) return;
-        drawing = false;
-        toolsManager.getCurrentTool()?.stopDrawing(e);
-      });
-  }
-
-  function setUpResize() {
-    window.addEventListener("resize", handleResize);
-    handleResize();
-  }
-
-  function handleResize() {
-    if (!appInstance || !viewport) return;
-    viewport.resize(window.innerWidth, window.innerHeight, 1024, 1024);
+    toolsManager = new ToolsManager(CanvasViewport.viewport);
   }
 
   export function changeTool(toolType: ToolType) {
     if (toolsManager === null) return;
     toolsManager.setTool(toolType);
-  }
-
-  export function zoom(zoomeDirection: number) {
-    if (viewport === null) return;
-    const zoome = useCanvasStore.getState().zoome;
-    const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
-    useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
-    viewport.setZoom(zomeValue);
-  }
-
-  export function changeBackground(color: string) {
-    if (!appInstance?.renderer?.background) return;
-    appInstance.renderer.background.color = color;
   }
 }

@@ -1,14 +1,28 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { PrimeReactProvider } from "primereact/api";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 import 'primeicons/primeicons.css';
-import 'primereact/resources/primereact.min.css';
-import 'primereact/resources/themes/vela-blue/theme.css'; // Dark blue theme
+import { PrimeReactProvider } from 'primereact/api';
+import { AppConstants } from './pages/Canvas/data/constants/AppConstants';
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+
+const themeLinkId = 'theme-link';
+const createOrUpdateLink = (themePath: string) => {
+  let link = document.getElementById(themeLinkId) as HTMLLinkElement | null;
+  if (!link) {
+    link = document.createElement('link');
+    link.id = themeLinkId;
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }
+  link.href = themePath;
+};
+
+createOrUpdateLink(`/themes/${AppConstants.primeReactDarkModeTheme}/theme.css`); 
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <PrimeReactProvider value={{ unstyled: false, pt: {} }}>
+    <PrimeReactProvider>
       <App />
     </PrimeReactProvider>
   </React.StrictMode>

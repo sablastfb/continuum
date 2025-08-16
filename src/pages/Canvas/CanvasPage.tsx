@@ -1,68 +1,35 @@
 import { useEffect, useRef } from "react";
-import ToolsMenue from "./components/tools/ToolsMenue";
-import SettingsDialog from "./components/dialog/Settings/SettingsDialog";
-import PencileTools from "./features/tools/pencile/PencileTools";
+import ToolsMenue from "./components/tools/ToolMenue/ToolsMenue";
+import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
-import useCanvasStore from "./data/CanvasStore";
-import TransformTools from "./components/tools/TransportComponent";
-import EraseTools from "./components/tools/EraseTools";
-import CircleTool from "./components/tools/CircleTool";
-import SquareTool from "./components/tools/SquareTool";
-import TextTool from "./components/tools/TextTool";
 import { Canvas } from "./features/CanvasApp";
-import Cursor from "./features/utils/Cursor";
-import Background from "./features/utils/Background";
+import CursorEffect from "./features/effects/CursorEffect";
+import BackgroundEffect from "./features/effects/BackgroundEffect";
+import useCanvasStore from "./data/store/CanvasStore";
+import Tool from "./components/tools/Tool";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
-  const activeTool = useCanvasStore((state) => state.activeTool);
   const setCanvasCursorActive = useCanvasStore(
     (state) => state.setCanvasCursorActive
   );
 
   useEffect(() => {
+    document.documentElement.classList.add("dark");
+
     async function SetUpPixi() {
       const app = await Canvas.getPixiApp();
       setCanvasCursorActive(true);
-      if (canvasContainer?.current && app&& app.canvas) {
+      if (canvasContainer?.current && app && app.canvas) {
         canvasContainer.current.appendChild(app?.canvas);
       }
     }
     SetUpPixi();
   }, []);
 
-  let activeToolComponent;
-  switch (activeTool) {
-    case "drawing":
-      activeToolComponent = <PencileTools />;
-      break;
-    case "eraser":
-      activeToolComponent = <EraseTools />;
-      break;
-    case "move":
-      activeToolComponent = <></>;
-      break;
-    case "transform":
-      activeToolComponent = <TransformTools />;
-      break;
-    case "circle":
-      activeToolComponent = <CircleTool />;
-      break;
-    case "square":
-      activeToolComponent = <SquareTool />;
-      break;
-    case "text":
-      activeToolComponent = <TextTool />;
-      break;
-    default:
-      activeToolComponent = <></>;
-  }
-
   return (
     <div className="relative h-screen w-screen">
-      <Cursor />
-      <Background />
       <div
         onMouseEnter={() => {
           setCanvasCursorActive(true);
@@ -77,12 +44,14 @@ function CanvasPage() {
           style={{ cursor: "none" }}
         />
       </div>
-      {activeToolComponent}
 
+      <Tool />
       <ToolsMenue />
       <SettingsDialog />
       <ExportDialog />
       <InfoDialog />
+      <CursorEffect />
+      <BackgroundEffect />
     </div>
   );
 }

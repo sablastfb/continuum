@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function MainMenue() {
   return (
     <>
-      <div>Page 2</div>
+      <div>Yi bi</div>
         <Button >
         <Link className="h-full w-full" to="/">Go to page one</Link>
       </Button>

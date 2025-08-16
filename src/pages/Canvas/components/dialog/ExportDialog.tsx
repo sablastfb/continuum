@@ -1,6 +1,7 @@
 import { Dialog } from "primereact/dialog";
-import useCanvasStore from "../../data/CanvasStore";
 import { X } from "lucide-react";
+import useCanvasStore from "../../data/store/CanvasStore";
+import { defaultDialogBacground } from "../../data/constants/CanvasConstants";
 
 function ExportDialog() {
   const exportVisible = useCanvasStore((state) => state.exportVisible);
@@ -10,7 +11,7 @@ function ExportDialog() {
     <>
       <Dialog
         visible={exportVisible}
-        className="h-[90vh] w-[50vw] bg-white/10 backdrop-blur-sm rounded-l-2xl p-2"
+        className={`${defaultDialogBacground}`}
         onHide={() => {
           if (!exportVisible) return;
           setExportVisible(false);
@@ -18,9 +19,9 @@ function ExportDialog() {
         content={({ hide }) => (
           <div className="flex flex-col p-4 gap-2 h-fit w-full">
             <div className="flex justify-between">
-              <div className="text-5xl text-white ">Export</div>
+              <div className="text-5xl ">Export</div>
               <div  className="hover:cursor-pointer" onClick={(e) => hide(e)}>
-                <X size={32} color="white"/>
+                <X size={32} />
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { Dialog } from "primereact/dialog";
-import useCanvasStore from "../../data/CanvasStore";
 import { X } from "lucide-react";
+import useCanvasStore from "../../data/store/CanvasStore";
+import { defaultDialogBacground } from "../../data/constants/CanvasConstants";
 
 function InfoDialog() {
   const infoVisible = useCanvasStore((state) => state.infoVisible);
@@ -12,7 +13,7 @@ function InfoDialog() {
         modal
         header="Info"
         visible={infoVisible}
-        className="h-[90vh] w-[50vw] bg-white/10 backdrop-blur-sm rounded-l-2xl p-2"
+        className={`${defaultDialogBacground} `}
         onHide={() => {
           if (!infoVisible) return;
           setInfoVisible(false);
@@ -20,9 +21,9 @@ function InfoDialog() {
         content={({ hide }) => (
           <div className="flex flex-col p-4 gap-2 h-fit w-full">
             <div className="flex justify-between">
-              <div className="text-5xl text-white ">Info</div>
+              <div className="text-5xl ">Info</div>
               <div  className="hover:cursor-pointer" onClick={(e) => hide(e)}>
-                <X size={32} color="white"/>
+                <X size={32}/>
               </div>
             </div>
           </div>
