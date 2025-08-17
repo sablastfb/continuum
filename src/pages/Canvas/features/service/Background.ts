@@ -9,6 +9,8 @@ export namespace CanvasBacground {
 
   export function changeBackground(bs: BackgroundSettings) {
     switch (bs.activeBacgroundType) {
+
+      
       case "color":
         SolidColorBacground(bs);
         break;
