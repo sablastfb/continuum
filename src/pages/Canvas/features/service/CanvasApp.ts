@@ -57,19 +57,9 @@ export namespace Canvas {
     ////////////// SHADER TEST
     const quadGeometry = new Geometry({
       attributes: {
-        aPosition: [
-          -100,
-          -100, // x, y
-          100,
-          -100, // x, y
-          100,
-          100, // x, y,
-          -100,
-          100, // x, y,
-        ],
-        aUV: [0, 0, 1, 0, 1, 1, 0, 1],
+        aPosition: [-100, -50, 100, -50, 0, 100],
+        aColor: [1, 0, 0, 0, 1, 0, 0, 0, 1],
       },
-      indexBuffer: [0, 1, 2, 0, 2, 3],
     });
 
     const shader = Shader.from({
