@@ -2,7 +2,7 @@ import { JSX } from "react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { ToolType } from "../../../features/tools/ToolManager";
 import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
-import { Canvas } from "../../../features/CanvasApp";
+import { Canvas } from "../../../features/service/CanvasApp";
 
 
 export type IconOption = {

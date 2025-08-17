@@ -3,7 +3,7 @@ import ToolsMenue from "./components/tools/ToolMenue/ToolsMenue";
 import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
-import { Canvas } from "./features/CanvasApp";
+import { Canvas } from "./features/service/CanvasApp";
 import CursorEffect from "./components/effects/CursorEffect";
 import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";

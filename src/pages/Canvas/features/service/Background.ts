@@ -1,5 +1,5 @@
 import { Graphics, TilingSprite } from "pixi.js";
-import { Canvas } from "../CanvasApp";
+import { Canvas } from "./CanvasApp";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { BackgroundSettings } from "../../data/store/SettingsStore";
 import { CanvasViewport } from "./Viewport";

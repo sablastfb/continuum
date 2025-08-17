@@ -1,5 +1,5 @@
 import { Viewport } from "pixi-viewport";
-import { Canvas } from "../CanvasApp";
+import { Canvas } from "./CanvasApp";
 import { CanvasCursor } from "./Cursor";
 import { CanvasResize } from "./Resize";
 import { CanvasBacground } from "./Background";

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { CanvasBacground } from "../../features/service/Background";
 import useSettingsStore from "../../data/store/SettingsStore";
-import { Canvas } from "../../features/CanvasApp";
+import { Canvas } from "../../features/service/CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { CanvasCursor } from "../../features/service/Cursor";
 

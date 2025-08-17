@@ -1,6 +1,6 @@
 import { throttle } from "lodash";
 import { FederatedPointerEvent, Graphics } from "pixi.js";
-import { Canvas } from "../CanvasApp";
+import { Canvas } from "./CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 
 export namespace CanvasCursor {

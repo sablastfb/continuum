@@ -1,7 +1,7 @@
 import { ZoomedEvent } from "pixi-viewport/dist/types";
 import { ZoomSensitivity } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { Canvas } from "../CanvasApp";
+import { Canvas } from "./CanvasApp";
 import { CanvasBacground } from "./Background";
 import { CanvasViewport } from "./Viewport";
 
