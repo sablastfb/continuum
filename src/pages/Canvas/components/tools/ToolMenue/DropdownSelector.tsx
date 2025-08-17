@@ -20,7 +20,7 @@ function DropdownSelector({ options }: { options: IconOption[] }) {
          ${position === "right" && "flex-col"}
     `}>
       <ToolButton
-        action={options[ix].action}
+        tool={options[ix].tool}
         icon={options[ix].icon}
       />
       <button
@@ -46,7 +46,7 @@ function DropdownSelector({ options }: { options: IconOption[] }) {
             key={index}
             className={`cursor-pointer rounded-2xl p-2 ${defaultButtonsBackground} hover:bg-opacity-80`}
             onClick={() => {
-              setActiveTool(element.action);
+              setActiveTool(element.tool);
               setix(index);
               setIsOpen(false);
             }}

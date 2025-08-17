@@ -37,15 +37,15 @@ function ToolsButtons() {
             fill={CanvasPalet.getColor(pencil.pencilColorId)}
           />
         ),
-        action: "drawing",
+        tool: "drawing",
       },
       {
         icon: <Highlighter size={defaultIconSize} />,
-        action: "marker",
+        tool: "marker",
       },
       {
         icon: <Eraser size={defaultIconSize} />,
-        action: "eraser",
+        tool: "eraser",
       },
     ],
     [pencil]
@@ -55,11 +55,11 @@ function ToolsButtons() {
     () => [
       {
         icon: <MousePointer2 size={defaultIconSize} />,
-        action: "move",
+        tool: "move",
       },
       {
         icon: <SquareDashed size={defaultIconSize} />,
-        action: "transform",
+        tool: "transform",
       },
     ],
     []
@@ -68,11 +68,11 @@ function ToolsButtons() {
     () => [
       {
         icon: <Square size={defaultIconSize} />,
-        action: "square",
+        tool: "square",
       },
       {
         icon: <Circle size={defaultIconSize} />,
-        action: "circle",
+        tool: "circle",
       },
     ],
     []
@@ -89,13 +89,13 @@ function ToolsButtons() {
         <DropdownSelector options={SelectionOptions} />
         <DropdownSelector options={ShapesOption} />
         <ToolButton
-          action="image"
+          tool="image"
           icon={
             <Image size={defaultIconSize} className="hover:cursor-pointer" />
           }
         />
         <ToolButton
-          action="circle"
+          tool="circle"
           icon={
             <Type size={defaultIconSize} className="hover:cursor-pointer" />
           }

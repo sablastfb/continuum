@@ -18,7 +18,7 @@ export type PencilSettings = {
   }) => void;
 };
 
-const allThicknes = ["th-0", "th-1", "th-2", "th-3"];
+const allPencilThicknes = ["th-0", "th-1", "th-2", "th-3"];
 const allPencilColors = ["p-7", "p-1", "p-2", "p-5", "p-4"];
 
 export const usePencileStore = create<PencilSettings>()(
@@ -26,9 +26,9 @@ export const usePencileStore = create<PencilSettings>()(
     pencilColor: "",
     thicknes: 0,
     allPencilColors: allPencilColors,
-    allThicknes: allThicknes,
+    allThicknes: allPencilThicknes,
     pencilColorId: allPencilColors[0],
-    thicknesId: allThicknes[0],
+    thicknesId: allPencilThicknes[0],
     addColor: (color) =>
       set((state) => {
         state.allPencilColors.push(color);

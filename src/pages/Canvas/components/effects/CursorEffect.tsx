@@ -12,11 +12,11 @@ function CursorEffect() {
    const pen = usePencileStore();
     useEffect(() => {
        CanvasCursor.updateCursor();
-    }, [color, activeTool, zoom, pen]);
+    }, [color, zoom, pen]);
 
     useEffect(() => {
        CanvasCursor.updateCursorVisibilty();
-    }, [canvasCursorActive])
+    }, [canvasCursorActive, ])
 
 
   return <></>;

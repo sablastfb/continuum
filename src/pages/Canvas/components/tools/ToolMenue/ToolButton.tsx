@@ -2,14 +2,15 @@ import { JSX } from "react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { ToolType } from "../../../features/tools/ToolManager";
 import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
+import { Canvas } from "../../../features/CanvasApp";
 
 
 export type IconOption = {
   icon: JSX.Element;
-  action: ToolType;
+  tool: ToolType;
 };
 
-function ToolButton({ icon, action }: IconOption) {
+function ToolButton({ icon, tool }: IconOption) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const activeTool = useCanvasStore().activeTool;
 
@@ -17,10 +18,10 @@ function ToolButton({ icon, action }: IconOption) {
     <>
       <div
         className={`flex items-center hover:cursor-pointer p-1 ${
-          action === activeTool ? `${defaultOutlineColor} rounded-xl` : ""
+          tool === activeTool ? `${defaultOutlineColor} rounded-xl` : ""
         }`}
         onClick={() => {
-          setActiveTool(action);
+          setActiveTool(tool);
         }}
       >
         {icon}

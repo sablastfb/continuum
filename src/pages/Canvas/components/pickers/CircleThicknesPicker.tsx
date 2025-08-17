@@ -6,34 +6,25 @@ import {
   ThicknesId,
   ThicknesPalet,
 } from "../../data/container/ThickneContainer";
-import { usePencileStore } from "../../data/store/PencileStore";
 
 const baseSize = 4;
 const sigma = 6;
 const maxSize = 30;
 
-
 export type CircleThicknesPickerParm = {
   thicknesId: ThicknesId;
   selected: boolean;
+  action: () => void
 };
 
 function CircleThicknesPicker({
   thicknesId,
   selected,
+  action,
 }: CircleThicknesPickerParm) {
-  const setPencileThickens = usePencileStore(
-    (state) => state.setPencileThickens
-  );
-
   return (
     <div
-      onClick={() => {
-        setPencileThickens({
-          thicknes: ThicknesPalet.getThicknes(thicknesId),
-          thicknesId: thicknesId,
-        });
-      }}
+      onClick={()=> action()}
       className={` ${circlePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2  ${
         selected ? `${defaultOutlineColor}` : "outline-gray-500"
       }`}

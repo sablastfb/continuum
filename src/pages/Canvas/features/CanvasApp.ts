@@ -47,14 +47,14 @@ export namespace Canvas {
       events: appInstance.renderer.events,
     });
 
-    appInstance.stage.addChild(CanvasViewport.viewport);
+    appInstance!.stage.addChild(CanvasViewport.viewport);
     appInstance!.stage.addChild(CanvasCursor.cursor);
 
-    toolsManager = new ToolsManager(CanvasViewport.viewport);
+    toolsManager = new ToolsManager();
   }
 
   export function changeTool(toolType: ToolType) {
-    if (toolsManager === null) return;
-    toolsManager.setTool(toolType);
+    if (!toolsManager) return;
+    toolsManager?.setTool(toolType);
   }
 }

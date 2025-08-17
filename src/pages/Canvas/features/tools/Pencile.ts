@@ -9,16 +9,18 @@ import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../service/Cursor";
+import { CanvasViewport } from "../service/Viewport";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;
   private lastPoint: Point = { x: 0, y: 0 };
   private count = 0;
 
-  constructor(private viewport: Viewport) {}
+  constructor() {}
 
   public startDrawing(e: FederatedMouseEvent) {
-    const worldPos = this.viewport.toWorld(e.global);
+    if (!CanvasViewport.viewport) return;
+    const worldPos = CanvasViewport.viewport.toWorld(e.global);
     this.graphic = new Graphics();
 
     // const guid: string = uuidv4();
@@ -31,14 +33,16 @@ export class Pencile implements ITool {
       cap: "round",
       join: "round",
     });
-    this.viewport.addChild(this.graphic);
+    CanvasViewport.viewport.addChild(this.graphic);
     this.lastPoint = { x: worldPos.x, y: worldPos.y };
     this.count = 0;
   }
 
   public draw(e: FederatedMouseEvent) {
     if (this.graphic === null) return;
-    const worldPos = this.viewport.toWorld(e.global) as Point;
+    if (!CanvasViewport.viewport) return;
+
+    const worldPos = CanvasViewport.viewport.toWorld(e.global) as Point;
     if (Distance(worldPos, this.lastPoint) < MinimumDistanceToNextLine) {
       return;
     }

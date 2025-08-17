@@ -1,10 +1,31 @@
+import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import { useEraseStore } from "../../data/store/EraseStore";
+import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
+
 function EraseTools() {
+
+  const eraseSettings = useEraseStore();
+  const thicknesId = useEraseStore().thicknesId;
+  const setEraseThickens = useEraseStore(
+    (state) => state.setEraseThickens
+  );
   return (
     <>
-      <div className="absolute right-0 h-full flex justify-center items-center pr-2 pointer-events-none">
-        <div className="flex flex-col justify-center items-center gap-4  bg-white/10 backdrop-blur-sm rounded-lg p-2  min-w-min pointer-events-auto">
-        </div>
-      </div>
+     {eraseSettings.allEraseThicknes.map((id, ix) => {
+        return (
+          <CircleThicknesPicker
+          action={() => {
+            setEraseThickens({
+              thicknes: ThicknesPalet.getThicknes(id),
+              thicknesId: id,
+            })
+          }}
+            thicknesId={id}
+            selected={thicknesId === id}
+            key={ix}
+          />
+        );
+      })}
     </>
   );
 }

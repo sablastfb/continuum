@@ -1,6 +1,7 @@
-import { Viewport } from "pixi-viewport";
 import { ITool } from "./ITool";
 import { Pencile } from "./Pencile";
+import { Erase } from "./Erase";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 export type ToolType =
   | "marker"
@@ -18,15 +19,14 @@ export class ToolsManager {
   private currentTool: ITool | null = null;
 
   constructor(
-    private viewport: Viewport,
-    toolType: ToolType = 'drawing'
   ) {
     this.registerDefaultTools();
-    this.setTool(toolType);
+    this.setTool(useCanvasStore.getState().activeTool);
   }
 
   private registerDefaultTools(){
-    this.registerDefaultTool('drawing', new Pencile(this.viewport));
+    this.registerDefaultTool('drawing', new Pencile());
+    this.registerDefaultTool('eraser', new Erase());
   }
   private registerDefaultTool(toolType: ToolType, tool: ITool){
     this.tools.set(toolType, tool);
@@ -41,6 +41,7 @@ export class ToolsManager {
       throw new Error(`Tool ${toolType} not registered`);
     }
     this.currentTool = this.tools.get(toolType) ?? null;
+    debugger;
     return this.currentTool;
   }
 }
