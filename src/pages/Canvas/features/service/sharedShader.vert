@@ -1,17 +1,27 @@
-in vec2 aPosition;
-in vec3 aColor;
+ in vec2 aPosition;
+  out vec2 vTextureCoord;
 
-out vec3 vColor;
-uniform mat3 uProjectionMatrix;
-uniform mat3 uWorldTransformMatrix;
+  uniform vec4 uInputSize;
+  uniform vec4 uOutputFrame;
+  uniform vec4 uOutputTexture;
 
-uniform mat3 uTransformMatrix;
+  vec4 filterVertexPosition( void )
+  {
+      vec2 position = aPosition * uOutputFrame.zw + uOutputFrame.xy;
 
+      position.x = position.x * (2.0 / uOutputTexture.x) - 1.0;
+      position.y = position.y * (2.0*uOutputTexture.z / uOutputTexture.y) - uOutputTexture.z;
 
-void main() {
+      return vec4(position, 0.0, 1.0);
+  }
 
-    mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
-    gl_Position = vec4((mvp * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
+  vec2 filterTextureCoord( void )
+  {
+      return aPosition * (uOutputFrame.zw * uInputSize.zw);
+  }
 
-    vColor = aColor;
-}
+  void main(void)
+  {
+      gl_Position = filterVertexPosition();
+      vTextureCoord = filterTextureCoord();
+  }
