@@ -1,6 +1,4 @@
-import { Viewport } from "pixi-viewport";
-import { FederatedMouseEvent, Graphics } from "pixi.js";
-import { Point } from "../../data/types/CanvasTypes";
+import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
 import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants";
 import { Distance } from "../utils/CanvasUtils";
 import { ITool } from "./ITool";
@@ -13,7 +11,7 @@ import { CanvasViewport } from "../service/Viewport";
 
 export class Pencile implements ITool {
   private graphic: Graphics | null = null;
-  private lastPoint: Point = { x: 0, y: 0 };
+  private lastPoint= new Point(0,0);
   private count = 0;
 
   constructor() {}
@@ -34,7 +32,8 @@ export class Pencile implements ITool {
       join: "round",
     });
     CanvasViewport.viewport.addChild(this.graphic);
-    this.lastPoint = { x: worldPos.x, y: worldPos.y };
+    this.lastPoint.x = worldPos.x;
+    this.lastPoint.y = worldPos.y;
     this.count = 0;
   }
 
@@ -58,7 +57,9 @@ export class Pencile implements ITool {
     const color = usePencileStore.getState().pencilColorId;
     this.graphic.tint = CanvasPalet.getColor(color);
     this.count++;
-    this.lastPoint = { x: worldPos.x, y: worldPos.y };
+
+    this.lastPoint.x = worldPos.x;
+    this.lastPoint.y = worldPos.y;
   }
 
   public stopDrawing() {
