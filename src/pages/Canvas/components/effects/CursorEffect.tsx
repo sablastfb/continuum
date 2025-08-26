@@ -5,19 +5,20 @@ import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../../features/service/Cursor";
 
 function CursorEffect() {
-    const zoom = useCanvasStore().zoome;
-    const color = useSettingsStore((state) => state);
-    const activeTool = useCanvasStore((state) => state.activeTool);
-    const canvasCursorActive = useCanvasStore((state) => state.canvasCursorActive);
-   const pen = usePencileStore();
-    useEffect(() => {
-       CanvasCursor.updateCursor();
-    }, [color, zoom, pen]);
+  const zoom = useCanvasStore().zoome;
+  const color = useSettingsStore((state) => state);
+  const activeTool = useCanvasStore((state) => state.activeTool);
+  const canvasCursorActive = useCanvasStore(
+    (state) => state.canvasCursorActive
+  );
+  const pen = usePencileStore();
+  useEffect(() => {
+    CanvasCursor.updateCursor();
+  }, [color, zoom, pen]);
 
-    useEffect(() => {
-       CanvasCursor.updateCursorVisibilty();
-    }, [canvasCursorActive, ])
-
+  useEffect(() => {
+    CanvasCursor.updateCursorVisibilty();
+  }, [canvasCursorActive]);
 
   return <></>;
 }
