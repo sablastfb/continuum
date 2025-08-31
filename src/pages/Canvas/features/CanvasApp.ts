@@ -31,6 +31,9 @@ export namespace Canvas {
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
+        antialias: true,  // Enable render-level anti-aliasing
+    resolution: 4,    // Higher resolution for downscaling improvement
+    autoDensity: true ,
       background: CanvasPalet.getColor(
         useSettingsStore.getState().background.color
       ),

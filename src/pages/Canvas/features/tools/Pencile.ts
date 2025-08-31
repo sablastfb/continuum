@@ -14,6 +14,7 @@ import { CanvasViewport } from "../service/Viewport";
 export class Pencile implements ITool {
   private curve: Graphics | null = null;
   private lastPoints: Point[] = [];
+  private count = 0;
 
   constructor() {}
 
@@ -46,6 +47,7 @@ export class Pencile implements ITool {
     this.curve.moveTo(worldPos.x, worldPos.y);
 
     this.curve.tint = CanvasPalet.getColor(color);
+    this.count = 0;
   }
 
   private craeteBezierParameters() {
@@ -68,9 +70,12 @@ export class Pencile implements ITool {
     if (!CanvasViewport.viewport) return;
 
     const worldPos = CanvasViewport.viewport.toWorld(e.global) as Point;
-    if (Distance(worldPos, this.lastPoints[0]) < MinimumDistanceToNextLine) {
+    if (Distance(worldPos, this.lastPoints[3]) < MinimumDistanceToNextLine) {
+      console.log("removeing");
       return;
     }
+          this.lastPoints.push({ x: worldPos.x, y: worldPos.y });
+      while (this.lastPoints.length > 4) this.lastPoints.shift();
     const controlPoints = this.craeteBezierParameters();
     if (this.lastPoints.length === 4) {
       this.curve.bezierCurveTo(
@@ -83,6 +88,8 @@ export class Pencile implements ITool {
         1.0
       );
 
+
+
       this.curve.stroke({
         width:
           ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId) * 2,
@@ -94,12 +101,12 @@ export class Pencile implements ITool {
     const color = usePencileStore.getState().pencilColorId;
 
     this.curve.tint = CanvasPalet.getColor(color);
-
-    this.lastPoints.push({ x: worldPos.x, y: worldPos.y });
-    while (this.lastPoints.length > 4) this.lastPoints.shift();
+    this.count++;
   }
 
-  public stopDrawing() {}
+  public stopDrawing() {
+    console.log(this.count);
+  }
 
   public updateCursor() {
     const lineWidth = 1;
