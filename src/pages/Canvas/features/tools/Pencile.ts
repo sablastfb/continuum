@@ -18,11 +18,11 @@ export class Pencile implements ITool {
   constructor() {}
 
   public startDrawing(e: FederatedMouseEvent) {
+    if (e.button === 1) return;
     if (!CanvasViewport.viewport) return;
     const worldPos = CanvasViewport.viewport.toWorld(e.global);
     this.curve = new Graphics();
 
-    this.curve.moveTo(worldPos.x, worldPos.y);
     this.curve.stroke({
       color: "red",
       cap: "round",
@@ -33,6 +33,19 @@ export class Pencile implements ITool {
       x: worldPos.x,
       y: worldPos.y,
     }));
+
+    const color = usePencileStore.getState().pencilColorId;
+
+    this.curve
+      .circle(
+        worldPos.x,
+        worldPos.y,
+        ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId)
+      )
+      .fill("white");
+    this.curve.moveTo(worldPos.x, worldPos.y);
+
+    this.curve.tint = CanvasPalet.getColor(color);
   }
 
   private craeteBezierParameters() {
@@ -58,8 +71,8 @@ export class Pencile implements ITool {
     if (Distance(worldPos, this.lastPoints[0]) < MinimumDistanceToNextLine) {
       return;
     }
+    const controlPoints = this.craeteBezierParameters();
     if (this.lastPoints.length === 4) {
-      const controlPoints = this.craeteBezierParameters();
       this.curve.bezierCurveTo(
         controlPoints[0],
         controlPoints[1],
@@ -67,17 +80,17 @@ export class Pencile implements ITool {
         controlPoints[3],
         controlPoints[4],
         controlPoints[5],
-        0
+        1.0
       );
-    }
 
-    this.curve.stroke({
-      width:
-        ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId) * 2,
-      color: "white",
-      cap: "round",
-      join: "round",
-    });
+      this.curve.stroke({
+        width:
+          ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId) * 2,
+        color: "white",
+        cap: "round",
+        join: "round",
+      });
+    }
     const color = usePencileStore.getState().pencilColorId;
 
     this.curve.tint = CanvasPalet.getColor(color);

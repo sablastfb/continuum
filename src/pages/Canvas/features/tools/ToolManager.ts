@@ -41,7 +41,6 @@ export class ToolsManager {
       throw new Error(`Tool ${toolType} not registered`);
     }
     this.currentTool = this.tools.get(toolType) ?? null;
-    debugger;
     return this.currentTool;
   }
 }
