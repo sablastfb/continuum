@@ -29,7 +29,7 @@ export class Pencile implements ITool {
       join: "round",
     });
     CanvasViewport.viewport.addChild(this.curve);
-    this.lastPoints = Array.from({ length: 1 }, () => ({
+    this.lastPoints = Array.from({ length: 4 }, () => ({
       x: worldPos.x,
       y: worldPos.y,
     }));
