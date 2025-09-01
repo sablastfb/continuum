@@ -1,6 +1,4 @@
 import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
-import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants";
-import { Distance } from "../utils/CanvasUtils";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
@@ -14,58 +12,66 @@ import { ILine } from "../service/Line/LineStrategyManager";
 export class Pencile implements ITool {
   private curve: Graphics | null = null;
   private lineStrategy: ILine | null = null;
-
-  constructor() {}
+  private activeColor: string | null = null;
+  private activeThicknes: number | null = null;
 
   public startDrawing(e: FederatedMouseEvent) {
     if (e.button === 1) return;
     if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+
     this.curve = new Graphics();
 
-    this.curve.stroke({
-      color: "red",
-      cap: "round",
-      join: "round",
-    });
     CanvasViewport.viewport.addChild(this.curve);
 
-    const color = usePencileStore.getState().pencilColorId;
-
-    this.curve
-      .circle(
-        worldPos.x,
-        worldPos.y,
-        ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId)
-      )
-      .fill("white");
-    this.curve.moveTo(worldPos.x, worldPos.y);
-
-    this.curve.tint = CanvasPalet.getColor(color);
+    this.activeColor = CanvasPalet.getColor(
+      usePencileStore.getState().pencilColorId
+    );
+    this.activeThicknes = ThicknesPalet.getThicknes(
+      usePencileStore.getState().thicknesId
+    );
 
     this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine();
+
+    this.firsDot(e);
+  }
+
+  private firsDot(e: FederatedMouseEvent) {
+    if (this.curve === null) return;
+    if (this.activeColor === null) return;
+    if (this.activeThicknes === null) return;
+    if (!CanvasViewport.viewport) return;
+    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+
+    this.curve
+      .circle(worldPos.x, worldPos.y, this.activeThicknes)
+      .fill("white");
+
+    this.curve.moveTo(worldPos.x, worldPos.y);
+    this.curve.tint = this.activeColor;
   }
 
   public draw(e: FederatedMouseEvent) {
     if (this.curve === null) return;
+    if (this.activeThicknes === null) return;
+    if (this.activeColor === null) return;
     if (!CanvasViewport.viewport) return;
     const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
 
     if (out?.needNew) {
       this.curve.stroke({
-        width:
-          ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId) * 2,
+        width: this.activeThicknes * 2,
         color: "white",
         cap: "round",
         join: "round",
       });
     }
-    const color = usePencileStore.getState().pencilColorId;
-    this.curve.tint = CanvasPalet.getColor(color);
+    this.curve.tint = this.activeColor;
   }
 
-  public stopDrawing() {}
+  public stopDrawing() {
+    if (this.curve === null) return;
+  }
 
   public updateCursor() {
     const lineWidth = 1;
