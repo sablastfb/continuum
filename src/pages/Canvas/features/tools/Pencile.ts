@@ -13,9 +13,7 @@ import { ILine } from "../service/Line/LineStrategyManager";
 
 export class Pencile implements ITool {
   private curve: Graphics | null = null;
-  private curve2: Graphics | null = null;
   private lineStrategy: ILine | null = null;
-  private lineStrategy2: ILine | null = null;
 
   constructor() {}
 
@@ -48,9 +46,6 @@ export class Pencile implements ITool {
 
     this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine();
-
-    this.lineStrategy2 = Canvas.lineStrategy.getActiveStrategy("bezier");
-    this.lineStrategy2?.startNewLine();
   }
 
   public draw(e: FederatedMouseEvent) {
