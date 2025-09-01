@@ -1,7 +1,8 @@
 import { FederatedMouseEvent, Graphics } from "pixi.js";
 import { Bezier } from "./BezierCurv";
+import { SimpleLine } from "./SimpleLine";
 
-export type LineStrategyTypes = "bezier";
+export type LineStrategyTypes = "bezier" | "simple";
 
 export type LineUpdate = {
   needNew: boolean;
@@ -9,6 +10,7 @@ export type LineUpdate = {
 
 export interface ILine {
   startNewLine(): void;
+  startLine(): void;
   updateLinePoistion(e: FederatedMouseEvent, curve: Graphics): LineUpdate;
 }
 
@@ -20,6 +22,7 @@ export class LineStrategyManager {
   }
   private registerDefaulStrategyes() {
     this.registerDefaulStrategye("bezier", new Bezier());
+    this.registerDefaulStrategye("simple", new SimpleLine());
   }
 
   private registerDefaulStrategye(toolType: LineStrategyTypes, tool: ILine) {

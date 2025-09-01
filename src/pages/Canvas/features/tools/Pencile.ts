@@ -13,9 +13,9 @@ import { ILine } from "../service/Line/LineStrategyManager";
 
 export class Pencile implements ITool {
   private curve: Graphics | null = null;
+  private curve2: Graphics | null = null;
   private lineStrategy: ILine | null = null;
-  private lastPoints: Point[] = [];
-  private count = 0;
+  private lineStrategy2: ILine | null = null;
 
   constructor() {}
 
@@ -24,6 +24,7 @@ export class Pencile implements ITool {
     if (!CanvasViewport.viewport) return;
     const worldPos = CanvasViewport.viewport.toWorld(e.global);
     this.curve = new Graphics();
+    this.curve2 = new Graphics();
 
     this.curve.stroke({
       color: "red",
@@ -31,10 +32,6 @@ export class Pencile implements ITool {
       join: "round",
     });
     CanvasViewport.viewport.addChild(this.curve);
-    this.lastPoints = Array.from(
-      { length: 4 },
-      () => new Point(worldPos.x, worldPos.y)
-    );
 
     const color = usePencileStore.getState().pencilColorId;
 
@@ -48,21 +45,17 @@ export class Pencile implements ITool {
     this.curve.moveTo(worldPos.x, worldPos.y);
 
     this.curve.tint = CanvasPalet.getColor(color);
-    this.count = 0;
 
     this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine();
+
+    this.lineStrategy2 = Canvas.lineStrategy.getActiveStrategy("bezier");
+    this.lineStrategy2?.startNewLine();
   }
 
   public draw(e: FederatedMouseEvent) {
     if (this.curve === null) return;
     if (!CanvasViewport.viewport) return;
-
-    const worldPos = CanvasViewport.viewport.toWorld(e.global) as Point;
-    if (Distance(worldPos, this.lastPoints[3]) < MinimumDistanceToNextLine) {
-      console.log("removeing");
-      return;
-    }
     const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
 
     if (out?.needNew) {
@@ -75,14 +68,10 @@ export class Pencile implements ITool {
       });
     }
     const color = usePencileStore.getState().pencilColorId;
-
     this.curve.tint = CanvasPalet.getColor(color);
-    this.count++;
   }
 
-  public stopDrawing() {
-    console.log(this.count);
-  }
+  public stopDrawing() {}
 
   public updateCursor() {
     const lineWidth = 1;

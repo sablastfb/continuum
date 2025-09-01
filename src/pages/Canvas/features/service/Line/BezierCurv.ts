@@ -1,6 +1,8 @@
 import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
 import { CanvasViewport } from "../Viewport";
+import { Distance } from "../../utils/CanvasUtils";
+import { MinimumDistanceToNextLine } from "../../../data/constants/CanvasConstants";
 
 export class Bezier implements ILine {
   private lastPoints: Point[] = [];
@@ -9,11 +11,13 @@ export class Bezier implements ILine {
     this.lastPoints = [];
   }
 
+  startLine() {}
+
   updateLinePoistion(e: FederatedMouseEvent, curve: Graphics): LineUpdate {
     if (!CanvasViewport.viewport) return { needNew: false };
 
     const worldPos = CanvasViewport.viewport.toWorld(e.global);
-    
+
     this.lastPoints.push(new Point(worldPos.x, worldPos.y));
     while (this.lastPoints.length > 4) this.lastPoints.shift();
     const controlPoints = this.craeteBezierParameters();
