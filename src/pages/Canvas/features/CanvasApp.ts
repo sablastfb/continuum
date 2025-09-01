@@ -7,10 +7,12 @@ import useSettingsStore from "../data/store/SettingsStore";
 import { CanvasResize } from "./service/Resize";
 import { CanvasCursor } from "./service/Cursor";
 import { CanvasViewport } from "./service/Viewport";
+import { LineStrategyManager } from "./service/Line/LineStrategyManager";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
   export let toolsManager: ToolsManager;
+  export let lineStrategy: LineStrategyManager;
   export let drawing = false;
 
   export async function getPixiApp() {
@@ -54,6 +56,7 @@ export namespace Canvas {
     appInstance!.stage.addChild(CanvasCursor.cursor);
 
     toolsManager = new ToolsManager();
+    lineStrategy = new LineStrategyManager();
   }
 
   export function changeTool(toolType: ToolType) {

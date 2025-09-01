@@ -1,6 +1,4 @@
-import { Viewport } from "pixi-viewport";
-import { FederatedMouseEvent, Graphics } from "pixi.js";
-import { Point } from "../../data/types/CanvasTypes";
+import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
 import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants";
 import { Distance } from "../utils/CanvasUtils";
 import { CanvasPalet } from "../../data/container/PaletContainer";
@@ -10,9 +8,12 @@ import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasViewport } from "../service/Viewport";
 import { ITool } from "./ToolManager";
+import { Canvas } from "../CanvasApp";
+import { ILine } from "../service/Line/LineStrategyManager";
 
 export class Pencile implements ITool {
   private curve: Graphics | null = null;
+  private lineStrategy: ILine | null = null;
   private lastPoints: Point[] = [];
   private count = 0;
 
@@ -30,10 +31,10 @@ export class Pencile implements ITool {
       join: "round",
     });
     CanvasViewport.viewport.addChild(this.curve);
-    this.lastPoints = Array.from({ length: 4 }, () => ({
-      x: worldPos.x,
-      y: worldPos.y,
-    }));
+    this.lastPoints = Array.from(
+      { length: 4 },
+      () => new Point(worldPos.x, worldPos.y)
+    );
 
     const color = usePencileStore.getState().pencilColorId;
 
@@ -48,21 +49,9 @@ export class Pencile implements ITool {
 
     this.curve.tint = CanvasPalet.getColor(color);
     this.count = 0;
-  }
 
-  private craeteBezierParameters() {
-    const p0 = this.lastPoints[0];
-    const p1 = this.lastPoints[1];
-    const p2 = this.lastPoints[2];
-    const p3 = this.lastPoints[3];
-
-    const cp1x = p1.x + (p2.x - p0.x) / 6;
-    const cp1y = p1.y + (p2.y - p0.y) / 6;
-
-    const cp2x = p2.x - (p3.x - p1.x) / 6;
-    const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-    return [cp1x, cp1y, cp2x, cp2y, p2.x, p2.y];
+    this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
+    this.lineStrategy?.startNewLine();
   }
 
   public draw(e: FederatedMouseEvent) {
@@ -74,22 +63,9 @@ export class Pencile implements ITool {
       console.log("removeing");
       return;
     }
-          this.lastPoints.push({ x: worldPos.x, y: worldPos.y });
-      while (this.lastPoints.length > 4) this.lastPoints.shift();
-    const controlPoints = this.craeteBezierParameters();
-    if (this.lastPoints.length === 4) {
-      this.curve.bezierCurveTo(
-        controlPoints[0],
-        controlPoints[1],
-        controlPoints[2],
-        controlPoints[3],
-        controlPoints[4],
-        controlPoints[5],
-        1.0
-      );
+    const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
 
-
-
+    if (out?.needNew) {
       this.curve.stroke({
         width:
           ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId) * 2,
