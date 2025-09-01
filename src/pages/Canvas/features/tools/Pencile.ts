@@ -22,7 +22,6 @@ export class Pencile implements ITool {
     if (!CanvasViewport.viewport) return;
     const worldPos = CanvasViewport.viewport.toWorld(e.global);
     this.curve = new Graphics();
-    this.curve2 = new Graphics();
 
     this.curve.stroke({
       color: "red",
