@@ -82,13 +82,14 @@ export namespace CanvasBacground {
     graphics
       .rect(0, 0, width, width)
       .stroke({ color: CanvasPalet.getColor(bacground.gridColor), width: 1 })
-      .moveTo(0, 0)
+      .moveTo(0, 0) 
       .lineTo(0, width)
       .moveTo(0, 0)
       .lineTo(width, 0)
       .stroke({
         color: CanvasPalet.getColor(bacground.bacgroundColor),
         width: 1,
+        pixelLine: true
       });
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);

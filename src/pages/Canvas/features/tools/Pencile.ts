@@ -3,13 +3,13 @@ import { FederatedMouseEvent, Graphics } from "pixi.js";
 import { Point } from "../../data/types/CanvasTypes";
 import { MinimumDistanceToNextLine } from "../../data/constants/CanvasConstants";
 import { Distance } from "../utils/CanvasUtils";
-import { ITool } from "./ITool";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasViewport } from "../service/Viewport";
+import { ITool } from "./ToolManager";
 
 export class Pencile implements ITool {
   private curve: Graphics | null = null;

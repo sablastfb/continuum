@@ -1,10 +1,10 @@
 import { FederatedMouseEvent } from "pixi.js";
-import { ITool } from "./ITool";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import { ITool } from "./ToolManager";
 
 export class Erase implements ITool {
     startDrawing(e: FederatedMouseEvent): void {

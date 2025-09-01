@@ -1,7 +1,16 @@
-import { ITool } from "./ITool";
 import { Pencile } from "./Pencile";
 import { Erase } from "./Erase";
 import useCanvasStore from "../../data/store/CanvasStore";
+import { FederatedMouseEvent } from "pixi.js";
+
+
+
+export interface ITool{
+    startDrawing(e: FederatedMouseEvent): void;
+    draw(e: FederatedMouseEvent): void;
+    stopDrawing(e: FederatedMouseEvent): void;
+    updateCursor(): void;
+}
 
 export type ToolType =
   | "marker"
@@ -28,6 +37,7 @@ export class ToolsManager {
     this.registerDefaultTool('drawing', new Pencile());
     this.registerDefaultTool('eraser', new Erase());
   }
+  
   private registerDefaultTool(toolType: ToolType, tool: ITool){
     this.tools.set(toolType, tool);
   }
