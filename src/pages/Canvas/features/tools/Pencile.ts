@@ -31,7 +31,7 @@ export class Pencile implements ITool {
     );
 
     this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
-    this.lineStrategy?.startNewLine();
+    this.lineStrategy?.startNewLine(e);
 
     this.firsDot(e);
   }

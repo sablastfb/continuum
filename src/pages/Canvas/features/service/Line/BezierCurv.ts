@@ -7,8 +7,10 @@ import { MinimumDistanceToNextLine } from "../../../data/constants/CanvasConstan
 export class Bezier implements ILine {
   private lastPoints: Point[] = [];
 
-  startNewLine() {
-    this.lastPoints = [];
+  startNewLine(e: FederatedMouseEvent) {
+    if (!CanvasViewport.viewport) return { needNew: false };
+    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    this.lastPoints = Array(4).fill(new Point(worldPos.x, worldPos.y));
   }
 
   startLine() {}

@@ -9,7 +9,7 @@ export type LineUpdate = {
 };
 
 export interface ILine {
-  startNewLine(): void;
+  startNewLine(e: FederatedMouseEvent): void;
   startLine(): void;
   updateLinePoistion(e: FederatedMouseEvent, curve: Graphics): LineUpdate;
 }
