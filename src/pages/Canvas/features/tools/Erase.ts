@@ -18,15 +18,24 @@ export class Erase implements ITool {
     throw new Error("Method not implemented.");
   }
   updateCursor(): void {
+    const eraseMethod = useEraseStore.getState().eraseMethod;
     const lineWidth = 1;
-
     const zoom = useCanvasStore.getState().zoome;
-    const radius =
-      zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
-    CanvasCursor.cursor.clear();
-    CanvasCursor.cursor
-      .circle(0, 0, radius)
-      .fill({  color: CanvasPalet.getColor("c-1"), alpha: 0.5 })
-      .stroke({ width: 1,  color: CanvasPalet.getColor("c-1") });
+    if (eraseMethod === "soft") {
+      const radius =
+        zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
+      CanvasCursor.cursor.clear();
+      CanvasCursor.cursor
+        .circle(0, 0, radius)
+        .fill({ color: CanvasPalet.getColor("c-1"), alpha: 0.5 })
+        .stroke({ width: 1, color: CanvasPalet.getColor("c-1") });
+    } else if (eraseMethod === "strong") {
+      const radius =
+        zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
+      CanvasCursor.cursor.clear();
+      CanvasCursor.cursor
+        .circle(0, 0, radius)
+        .stroke({ width: 4, color:CanvasPalet.getColor("c-1")});
+    }
   }
 }

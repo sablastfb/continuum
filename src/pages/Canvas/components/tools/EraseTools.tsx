@@ -1,25 +1,45 @@
+import { Circle, LineSquiggle } from "lucide-react";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
+import ArrayDivider from "../misc/ArrayDivider";
 import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
+import { defaultOutlineColor } from "../../data/constants/CanvasConstants";
 
 function EraseTools() {
-
   const eraseSettings = useEraseStore();
+  const eraseMethod = useEraseStore().eraseMethod;
   const thicknesId = useEraseStore().thicknesId;
-  const setEraseThickens = useEraseStore(
-    (state) => state.setEraseThickens
-  );
+  const setEraseMode = useEraseStore().setEraseMode;
+  const setEraseThickens = useEraseStore((state) => state.setEraseThickens);
   return (
     <>
-     {eraseSettings.allEraseThicknes.map((id, ix) => {
+      <LineSquiggle
+        className={`rounded-full w-7 h-7 hover:cursor-pointer ${
+          eraseMethod === "strong" ? defaultOutlineColor : ""
+        }`}
+        onClick={() => {
+          setEraseMode("strong");
+        }}
+      />
+      <Circle
+        className={`rounded-full w-7 h-7 hover:cursor-pointer ${
+          eraseMethod === "soft" ? defaultOutlineColor : ""
+        }`}
+        onClick={() => {
+          setEraseMode("soft");
+        }}
+      />
+
+      <ArrayDivider orjentation="horizontal" />
+      {eraseSettings.allEraseThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker
-          action={() => {
-            setEraseThickens({
-              thicknes: ThicknesPalet.getThicknes(id),
-              thicknesId: id,
-            })
-          }}
+            action={() => {
+              setEraseThickens({
+                thicknes: ThicknesPalet.getThicknes(id),
+                thicknesId: id,
+              });
+            }}
             thicknesId={id}
             selected={thicknesId === id}
             key={ix}
