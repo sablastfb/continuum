@@ -3,6 +3,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../../features/service/Cursor";
+import { useEraseStore } from "../../data/store/EraseStore";
 
 function CursorEffect() {
   const zoom = useCanvasStore().zoome;
@@ -12,9 +13,12 @@ function CursorEffect() {
     (state) => state.canvasCursorActive
   );
   const pen = usePencileStore();
+  const eraser = useEraseStore();
+
   useEffect(() => {
+
     CanvasCursor.updateCursor();
-  }, [color, zoom, pen]);
+  }, [color, zoom, pen, eraser]);
 
   useEffect(() => {
     CanvasCursor.updateCursorVisibilty();
