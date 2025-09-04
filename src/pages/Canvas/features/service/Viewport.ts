@@ -9,36 +9,43 @@ export namespace CanvasViewport {
 
   export function setUpViewportAndEvent() {
     if (viewport === null) return;
-    viewport.drag({ mouseButtons: "middle" }).pinch().wheel();
-    viewport
-      .on("mousedown", (e) => {
-        if (Canvas.drawing) return;
-        Canvas.drawing = true;
-        Canvas.toolsManager.getCurrentTool()?.startDrawing(e);
-      })
-      .on("mousemove", (e) => {
-        CanvasCursor.throttledDraw(e);
-        CanvasCursor.moveCursor(e);
-      })
-      .on("mouseup", (e) => {
-        if (!Canvas.drawing) return;
-        Canvas.drawing = false;
-        Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
-      })
-      .on("mouseout", (e) => {
-        CanvasCursor.cursor.visible = false;
-        if (!Canvas.drawing) return;
-        Canvas.drawing = false;
-        Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
-      })
-      .on("zoomed", (e) => {
-        CanvasResize.viewportZoom(e);
-      })
-      .on("moved", () => {
-        if (CanvasBacground.backgroundTexture && viewport?.scale.x) {
-          CanvasBacground.backgroundTexture.tilePosition.x = viewport?.x;
-          CanvasBacground.backgroundTexture.tilePosition.y = viewport?.y;
-        }
-      });
+    viewport.drag({ mouseButtons: "middle",     }).pinch({
+      noDrag: true
+    }).wheel();
+  viewport
+        .on("pointerdown", (e) => {
+            if (Canvas.drawing) return;
+            Canvas.drawing = true;
+            Canvas.toolsManager.getCurrentTool()?.startDrawing(e);
+        })
+        .on("pointermove", (e) => {
+            CanvasCursor.throttledDraw(e);
+            CanvasCursor.moveCursor(e);
+        })
+        .on("pointerup", (e) => {
+            if (!Canvas.drawing) return;
+            Canvas.drawing = false;
+            Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
+        })
+        .on("pointerupoutside", (e) => { // Handle touch release outside viewport
+            if (!Canvas.drawing) return;
+            Canvas.drawing = false;
+            Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
+        })
+        .on("pointerout", (e) => {
+            CanvasCursor.cursor.visible = false;
+            if (!Canvas.drawing) return;
+            Canvas.drawing = false;
+            Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
+        })
+        .on("zoomed", (e) => {
+            CanvasResize.viewportZoom(e);
+        })
+        .on("moved", () => {
+            if (CanvasBacground.backgroundTexture && viewport?.scale.x) {
+                CanvasBacground.backgroundTexture.tilePosition.x = viewport?.x;
+                CanvasBacground.backgroundTexture.tilePosition.y = viewport?.y;
+            }
+        });
   }
 }

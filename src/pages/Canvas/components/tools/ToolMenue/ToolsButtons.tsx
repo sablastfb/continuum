@@ -22,10 +22,13 @@ import { CanvasPalet } from "../../../data/container/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 import DropdownSelector from "./DropdownSelector";
+import { Canvas } from "../../../features/CanvasApp";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function ToolsButtons() {
   const pencil = usePencileStore();
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
+  const historyPosion = useCanvasStore().historyPosition;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";
   const DrawingOptions = useMemo<IconOption[]>(
@@ -110,10 +113,19 @@ function ToolsButtons() {
           </div>
         )}
 
-        <div>
-          <Undo size={defaultIconSize} className="hover:cursor-pointer" />
+        <div
+          onClick={
+            () => Canvas.commandManage.goBack()
+          }
+          className={
+            historyPosion === -1
+              ? "opacity-50 "
+              : "hover:cursor-pointer"
+          }
+        >
+          <Undo size={defaultIconSize} />
         </div>
-        <div>
+        <div onClick={() => Canvas.commandManage.goInFuture()}>
           <Redo size={defaultIconSize} className="hover:cursor-pointer" />
         </div>
       </div>

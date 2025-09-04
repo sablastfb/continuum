@@ -9,12 +9,15 @@ export interface CanvasStore {
   exportVisible: boolean;
   activeTool: ToolType;
   canvasCursorActive: boolean;
+  historyPosition: number,
+  historyCount: number,
   setZoom: (zoom: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
   setActiveTool: (activeTool: ToolType) => void;
+  setHistoryPosition: (zoome: number) => void;
 }
 
 const useCanvasStore = create<CanvasStore>()(
@@ -25,6 +28,12 @@ const useCanvasStore = create<CanvasStore>()(
     exportVisible: false,
     activeTool: "drawing",
     canvasCursorActive: true,
+    historyPosition: -1,
+    historyCount: 0,
+    setHistoryPosition: (historyPosition) =>
+      set((state) => {
+        state.historyPosition = historyPosition;
+      }),
     setZoom: (zoome) =>
       set((state) => {
         state.zoome = zoome;

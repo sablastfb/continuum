@@ -8,13 +8,14 @@ import { CanvasResize } from "./service/Resize";
 import { CanvasCursor } from "./service/Cursor";
 import { CanvasViewport } from "./service/Viewport";
 import { LineStrategyManager } from "./service/Line/LineStrategyManager";
+import { CommandManager } from "./commands/CommandManager";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
   export let toolsManager: ToolsManager;
   export let lineStrategy: LineStrategyManager;
   export let drawing = false;
-
+  export let commandManage = new CommandManager();
   export async function getPixiApp() {
     if (appInstance) {
       CanvasCursor.updateCursor();
@@ -47,9 +48,9 @@ export namespace Canvas {
     CanvasViewport.viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
-      worldWidth: 1024,
-      worldHeight: 1024,
       events: appInstance.renderer.events,
+      threshold: 5, 
+      passiveWheel: true,
     });
 
     appInstance!.stage.addChild(CanvasViewport.viewport);

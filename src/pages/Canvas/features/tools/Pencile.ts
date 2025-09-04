@@ -8,6 +8,9 @@ import { CanvasViewport } from "../service/Viewport";
 import { ITool } from "./ToolManager";
 import { Canvas } from "../CanvasApp";
 import { ILine } from "../service/Line/LineStrategyManager";
+import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
+import {v4 as uuidv4} from 'uuid';
+import { ICommand } from "../commands/CommandManager";
 
 export class Pencile implements ITool {
   private curve: Graphics | null = null;
@@ -71,7 +74,34 @@ export class Pencile implements ITool {
 
   public stopDrawing() {
     if (this.curve === null) return;
+    const g: GraphicsData = {
+      id: uuidv4(),
+      graph: this.curve,
+      visible: true
+    };
+    graphiMap.set(g.id, g);
+    const customCommand: ICommand = {
+      execute:()  => this.show(g.id),
+      undo: ()  => this.hide(g.id)
+    };
+    Canvas.commandManage.addNewCommand(customCommand);
   }
+
+  private show(id: Id){
+    const g = graphiMap.get(id);
+    if (g){
+      g.graph.visible = true;
+    }
+  }
+
+  private hide(graph: Id){
+    const g = graphiMap.get(graph);
+    if (g){
+      g.graph.visible = false;
+    }
+  }
+
+
 
   public updateCursor() {
     const lineWidth = 1;
@@ -106,3 +136,9 @@ export class Pencile implements ITool {
       .stroke({ width: lineWidth, color: "gray" });
   }
 }
+// fore debug TODO REMOVE THIS 
+const randomColor = (): string => {
+  const randomNum = Math.floor(Math.random() * 16777215);
+  const hexString = randomNum.toString(16).padStart(6, '0');
+  return `#${hexString}`;
+};
