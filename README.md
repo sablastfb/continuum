@@ -17,7 +17,7 @@ Continuum is a free, open-source, and cross-platform drawing app designed for li
 - **Rich Toolset**: Pen, Marker, Pencil, and Eraser.
 - **Shape Tools**: Create rectangles, circles, polygons, and arrows (both filled and hollow).
 - **Precise Editing**: Select, rotate, and scale objects with ease.
-- **Full History**: Unlimited Undo and Redo.
+- **Full History**: Undo and Redo.
 - **Image Integration**: Import and work with images directly on your canvas.
 - **Flexible Export**: Export your entire masterpiece or just a selected area.
 

@@ -28,7 +28,8 @@ import useCanvasStore from "../../../data/store/CanvasStore";
 function ToolsButtons() {
   const pencil = usePencileStore();
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
-  const historyPosion = useCanvasStore().historyPosition;
+  const historyPosition = useCanvasStore().historyPosition;
+  const historyCount = useCanvasStore().historyCount;
   const inline =
     toolButtonPosition === "left" || toolButtonPosition === "right";
   const DrawingOptions = useMemo<IconOption[]>(
@@ -114,18 +115,19 @@ function ToolsButtons() {
         )}
 
         <div
-          onClick={
-            () => Canvas.commandManage.goBack()
-          }
+          onClick={() => Canvas.commandManage.goBack()}
           className={
-            historyPosion === -1
-              ? "opacity-50 "
-              : "hover:cursor-pointer"
+            historyPosition === -1 ? "opacity-50 " : "hover:cursor-pointer"
           }
         >
           <Undo size={defaultIconSize} />
         </div>
-        <div onClick={() => Canvas.commandManage.goInFuture()}>
+        <div
+          onClick={() => Canvas.commandManage.goInFuture()}
+          className={
+            historyPosition >= historyCount-1 ? "opacity-50 " : "hover:cursor-pointer"
+          }
+        >
           <Redo size={defaultIconSize} className="hover:cursor-pointer" />
         </div>
       </div>
