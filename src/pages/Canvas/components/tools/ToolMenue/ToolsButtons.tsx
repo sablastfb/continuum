@@ -128,7 +128,7 @@ function ToolsButtons() {
             historyPosition >= historyCount-1 ? "opacity-50 " : "hover:cursor-pointer"
           }
         >
-          <Redo size={defaultIconSize} className="hover:cursor-pointer" />
+          <Redo size={defaultIconSize} />
         </div>
       </div>
     </>

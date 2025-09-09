@@ -35,7 +35,7 @@ export class Erase implements ITool {
       CanvasCursor.cursor.clear();
       CanvasCursor.cursor
         .circle(0, 0, radius)
-        .stroke({ width: 4, color:CanvasPalet.getColor("c-1")});
+        .fill({ color:CanvasPalet.getColor("c-1")});
     }
   }
 }

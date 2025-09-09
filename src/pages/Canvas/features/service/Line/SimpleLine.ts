@@ -1,8 +1,6 @@
 import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
 import { CanvasViewport } from "../Viewport";
-import { Distance } from "../../utils/CanvasUtils";
-import { MinimumDistanceToNextLine } from "../../../data/constants/CanvasConstants";
 
 export class SimpleLine implements ILine {
   private lastPoint: Point | null = null;

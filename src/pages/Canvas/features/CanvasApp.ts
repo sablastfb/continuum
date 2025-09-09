@@ -34,9 +34,9 @@ export namespace Canvas {
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
-        antialias: true,  // Enable render-level anti-aliasing
-    resolution: 4,    // Higher resolution for downscaling improvement
-    autoDensity: true ,
+      antialias: true,
+      resolution: 4,
+      autoDensity: true,
       background: CanvasPalet.getColor(
         useSettingsStore.getState().background.color
       ),
@@ -49,7 +49,7 @@ export namespace Canvas {
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
       events: appInstance.renderer.events,
-      threshold: 5, 
+      threshold: 5,
       passiveWheel: true,
     });
 
