@@ -1,25 +1,28 @@
-import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
+import { FederatedMouseEvent, Graphics } from "pixi.js";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasViewport } from "../service/Viewport";
-import { ITool } from "./ToolManager";
+import {  ITool, ToolType } from "./ToolManager";
 import { Canvas } from "../CanvasApp";
 import { ILine } from "../service/Line/LineStrategyManager";
 import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
 import {v4 as uuidv4} from 'uuid';
 import { ICommand } from "../commands/CommandManager";
 
-export class Pencile implements ITool {
+
+export class Pencile implements  ITool {
+
+  type: ToolType = 'draw-marker';
   private curve: Graphics | null = null;
   private lineStrategy: ILine | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
 
   public startDrawing(e: FederatedMouseEvent) {
-    if (e.button === 1) return;
+    if (e.button !== 0) return;
     if (!CanvasViewport.viewport) return;
 
     this.curve = new Graphics();
@@ -79,6 +82,7 @@ export class Pencile implements ITool {
       graph: this.curve,
       visible: true
     };
+    
     graphiMap.set(g.id, g);
     const customCommand: ICommand = {
       execute:()  => this.show(g.id),
@@ -100,8 +104,6 @@ export class Pencile implements ITool {
       g.graph.visible = false;
     }
   }
-
-
 
   public updateCursor() {
     const lineWidth = 1;
@@ -136,9 +138,3 @@ export class Pencile implements ITool {
       .stroke({ width: lineWidth, color: "gray" });
   }
 }
-// fore debug TODO REMOVE THIS 
-const randomColor = (): string => {
-  const randomNum = Math.floor(Math.random() * 16777215);
-  const hexString = randomNum.toString(16).padStart(6, '0');
-  return `#${hexString}`;
-};

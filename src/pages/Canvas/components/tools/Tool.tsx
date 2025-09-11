@@ -14,27 +14,27 @@ function Tool() {
 
   let activeToolComponent;
   switch (activeTool) {
-    case "drawing":
+    case "draw-marker":
       activeToolComponent = <PencileTools />;
       break;
-    case "eraser":
+    case "draw-eraser":
       activeToolComponent = <EraseTools />;
       break;
-    case "move":
-      activeToolComponent = <></>;
-      break;
-    case "transform":
-      activeToolComponent = <TransformTools />;
-      break;
-    case "circle":
-      activeToolComponent = <CircleTool />;
-      break;
-    case "square":
-      activeToolComponent = <SquareTool />;
-      break;
-    case "text":
-      activeToolComponent = <TextTool />;
-      break;
+    // case "move":
+    //   activeToolComponent = <></>;
+    //   break;
+    // case "transform":
+    //   activeToolComponent = <TransformTools />;
+    //   break;
+    // case "circle":
+    //   activeToolComponent = <CircleTool />;
+    //   break;
+    // case "square":
+    //   activeToolComponent = <SquareTool />;
+    //   break;
+    // case "text":
+    //   activeToolComponent = <TextTool />;
+    //   break;
     default:
       activeToolComponent = <></>;
   }

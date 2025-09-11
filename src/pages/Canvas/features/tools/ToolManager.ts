@@ -4,22 +4,27 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { FederatedMouseEvent } from "pixi.js";
 
 
-
-export interface ITool{
+export type ITool = Partial<{
+    type:ToolType;
+    initTool(): void;
+    disposeTool(): void;
     startDrawing(e: FederatedMouseEvent): void;
     draw(e: FederatedMouseEvent): void;
     stopDrawing(e: FederatedMouseEvent): void;
-    updateCursor(): void;
-}
+    updateCursor(): 
+    void;
+}>;
+
 
 export type ToolType =
-  | "marker"
-  | "drawing"
-  | "eraser"
-  | "move"
-  | "transform"
-  | "square"
-  | "circle"
+  | 'base'
+  | "draw-marker"
+  | "draw-pen"
+  | "draw-eraser"
+  | "transform-move"
+  | "transform-pan"
+  | "shapes-square"
+  | "shapes-circle"
   | "text"
   | "image";
 
@@ -34,8 +39,8 @@ export class ToolsManager {
   }
 
   private registerDefaultTools(){
-    this.registerDefaultTool('drawing', new Pencile());
-    this.registerDefaultTool('eraser', new Erase());
+    this.registerDefaultTool('draw-marker', new Pencile());
+    this.registerDefaultTool('draw-eraser', new Erase());
   }
   
   private registerDefaultTool(toolType: ToolType, tool: ITool){
@@ -50,7 +55,15 @@ export class ToolsManager {
     if (!this.tools.has(toolType)) {
       throw new Error(`Tool ${toolType} not registered`);
     }
+    if(this.currentTool?.type === toolType) return;
+    if(this.currentTool && this.currentTool.disposeTool){
+      this.currentTool.disposeTool();
+    }
     this.currentTool = this.tools.get(toolType) ?? null;
+    if (this.currentTool?.initTool){
+      this.currentTool.initTool();
+    }
+
     return this.currentTool;
   }
 }

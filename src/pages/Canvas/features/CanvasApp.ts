@@ -16,6 +16,7 @@ export namespace Canvas {
   export let lineStrategy: LineStrategyManager;
   export let drawing = false;
   export let commandManage = new CommandManager();
+
   export async function getPixiApp() {
     if (appInstance) {
       CanvasCursor.updateCursor();

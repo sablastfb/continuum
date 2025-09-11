@@ -27,13 +27,12 @@ export namespace CanvasViewport {
             Canvas.drawing = false;
             Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
         })
-        .on("pointerupoutside", (e) => { // Handle touch release outside viewport
+        .on("pointerupoutside", (e) => { 
             if (!Canvas.drawing) return;
             Canvas.drawing = false;
             Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
         })
         .on("pointerout", (e) => {
-            CanvasCursor.cursor.visible = false;
             if (!Canvas.drawing) return;
             Canvas.drawing = false;
             Canvas.toolsManager.getCurrentTool()?.stopDrawing(e);
