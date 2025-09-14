@@ -18,9 +18,8 @@ export type ITool = Partial<{
 
 export type ToolType =
   | 'base'
-  | "draw-marker"
-  | "draw-pen"
-  | "draw-eraser"
+  | "drawing"
+  | "eraser"
   | "transform-move"
   | "transform-pan"
   | "shapes-square"
@@ -39,8 +38,8 @@ export class ToolsManager {
   }
 
   private registerDefaultTools(){
-    this.registerDefaultTool('draw-marker', new Pencile());
-    this.registerDefaultTool('draw-eraser', new Erase());
+    this.registerDefaultTool('drawing', new Pencile());
+    this.registerDefaultTool('eraser', new Erase());
   }
   
   private registerDefaultTool(toolType: ToolType, tool: ITool){

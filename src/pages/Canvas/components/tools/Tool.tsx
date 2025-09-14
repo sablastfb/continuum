@@ -14,10 +14,10 @@ function Tool() {
 
   let activeToolComponent;
   switch (activeTool) {
-    case "draw-marker":
+    case "drawing":
       activeToolComponent = <PencileTools />;
       break;
-    case "draw-eraser":
+    case "eraser":
       activeToolComponent = <EraseTools />;
       break;
     // case "move":

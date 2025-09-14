@@ -36,13 +36,12 @@ export namespace Canvas {
     appInstance = new Application();
     await appInstance.init({
       antialias: true,
-      resolution: 4,
       autoDensity: true,
       background: CanvasPalet.getColor(
         useSettingsStore.getState().background.color
       ),
-      resizeTo: window,
     });
+    appInstance.renderer.resize(window.innerWidth, window.innerHeight);
 
     CanvasCursor.cursor = new Graphics();
 

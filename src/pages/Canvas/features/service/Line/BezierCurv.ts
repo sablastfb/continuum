@@ -17,8 +17,8 @@ export class Bezier implements ILine {
 
   updateLinePoistion(e: FederatedMouseEvent, curve: Graphics): LineUpdate {
     if (!CanvasViewport.viewport) return { needNew: false };
-
     const worldPos = CanvasViewport.viewport.toWorld(e.global);
+;
 
     this.lastPoints.push(new Point(worldPos.x, worldPos.y));
     while (this.lastPoints.length > 4) this.lastPoints.shift();
