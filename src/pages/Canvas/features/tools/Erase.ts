@@ -29,7 +29,6 @@ export class Erase implements ITool {
     this.curve.blendMode = 'erase';
     
     CanvasViewport.viewport.addChild(this.curve);
-    CanvasViewport.viewport.addChild()
     this.activeColor = CanvasPalet.getColor(
       usePencileStore.getState().pencilColorId
     );
@@ -110,7 +109,7 @@ export class Erase implements ITool {
       CanvasCursor.cursor.clear();
       CanvasCursor.cursor
         .circle(0, 0, radius)
-        .fill({ color: CanvasPalet.getColor("c-1"), alpha: 0.5 })
+        .fill({ color: CanvasPalet.getColor("c-1") })
         .stroke({ width: 1, color: CanvasPalet.getColor("c-1") });
     } else if (eraseMethod === "strong") {
       const radius =

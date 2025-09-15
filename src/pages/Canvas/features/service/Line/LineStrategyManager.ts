@@ -7,11 +7,14 @@ export type LineStrategyTypes = "bezier" | "simple";
 export type LineUpdate = {
   needNew: boolean;
 };
-
+  type SimplePoint = {
+    x: number;
+    y: number;
+  };
 export interface ILine {
-  startNewLine(e: FederatedMouseEvent): void;
+  startNewLine<P extends SimplePoint>(e: P): void;
   startLine(): void;
-  updateLinePoistion(e: FederatedMouseEvent, curve: Graphics): LineUpdate;
+  updateLinePoistion<P extends SimplePoint>(e: P, curve: Graphics): LineUpdate;
 }
 
 export class LineStrategyManager {
@@ -22,7 +25,7 @@ export class LineStrategyManager {
   }
   private registerDefaulStrategyes() {
     this.registerDefaulStrategye("bezier", new Bezier());
-    this.registerDefaulStrategye("simple", new SimpleLine());
+    // this.registerDefaulStrategye("simple", new SimpleLine());
   }
 
   private registerDefaulStrategye(toolType: LineStrategyTypes, tool: ILine) {
