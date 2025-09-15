@@ -4,6 +4,7 @@ import useSettingsStore from "../../data/store/SettingsStore";
 import { Canvas } from "../../features/CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { CanvasCursor } from "../../features/service/Cursor";
+import { Continuum } from "../../features/tools/ToolManager";
 
 function BackgroundEffect() {
   const settings = useSettingsStore(
@@ -18,7 +19,8 @@ function BackgroundEffect() {
 
 
   useEffect(() =>{
-    Canvas.changeTool(activeTool);
+    debugger;
+    Continuum.ToolManager.setTool(activeTool);
     CanvasCursor.updateCursor();
   }, [activeTool]);
   return <></>;

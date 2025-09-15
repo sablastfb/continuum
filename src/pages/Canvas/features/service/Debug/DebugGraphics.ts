@@ -2,7 +2,7 @@ import { Graphics } from "pixi.js";
 import { CanvasViewport } from "../Viewport";
 import { Simplify } from "simplify-ts";
 
-export namespace Continum.Debug {
+export namespace Continuum.Debug {
   type SimplePoint = {
     x: number;
     y: number;

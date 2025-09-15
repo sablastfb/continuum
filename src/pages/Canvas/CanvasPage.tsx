@@ -20,7 +20,7 @@ function CanvasPage() {
 
     async function SetUpPixi() {
       const app = await Canvas.getPixiApp();
-      setCanvasCursorActive(true);
+       setCanvasCursorActive(true);
       if (canvasContainer?.current && app && app.canvas) {
         canvasContainer.current.appendChild(app?.canvas);
       }

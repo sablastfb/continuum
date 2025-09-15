@@ -3,27 +3,19 @@ import { ILine, LineUpdate } from "./LineStrategyManager";
 import { CanvasViewport } from "../Viewport";
 import { Distance } from "../../utils/CanvasUtils";
 import { MinimumDistanceToNextLine } from "../../../data/constants/CanvasConstants";
-  type SimplePoint = {
-    x: number;
-    y: number;
-  };
-export class Bezier implements ILine {
-  
-  private lastPoints: Point[] = [];
+import { SimplePoint } from "../../../Types";
 
+export class Bezier implements ILine {
+  private lastPoints: Point[] = [];
   startNewLine(e: FederatedMouseEvent) {
     if (!CanvasViewport.viewport) return { needNew: false };
     const worldPos = CanvasViewport.viewport.toWorld(e);
     this.lastPoints = Array(4).fill(new Point(worldPos.x, worldPos.y));
   }
 
-  startLine() {}
-
   updateLinePoistion<P extends SimplePoint>(e: P, curve: Graphics): LineUpdate {
     if (!CanvasViewport.viewport) return { needNew: false };
     const worldPos = CanvasViewport.viewport.toWorld(e);
-;
-
     this.lastPoints.push(new Point(worldPos.x, worldPos.y));
     while (this.lastPoints.length > 4) this.lastPoints.shift();
     const controlPoints = this.craeteBezierParameters();

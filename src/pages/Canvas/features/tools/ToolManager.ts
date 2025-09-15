@@ -2,22 +2,20 @@ import { Pencile } from "./Pencile";
 import { Erase } from "./Erase";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { FederatedMouseEvent } from "pixi.js";
-
+import { Exception } from "sass-embedded";
 
 export type ITool = Partial<{
-    type:ToolType;
-    initTool(): void;
-    disposeTool(): void;
-    startDrawing(e: FederatedMouseEvent): void;
-    draw(e: FederatedMouseEvent): void;
-    stopDrawing(e: FederatedMouseEvent): void;
-    updateCursor(): 
-    void;
+  type: ToolType;
+  initTool(): void;
+  disposeTool(): void;
+  startDrawing(e: FederatedMouseEvent): void;
+  draw(e: FederatedMouseEvent): void;
+  stopDrawing(e: FederatedMouseEvent): void;
+  updateCursor(): void;
 }>;
 
-
 export type ToolType =
-  | 'base'
+  | "base"
   | "drawing"
   | "eraser"
   | "transform-move"
@@ -27,42 +25,39 @@ export type ToolType =
   | "text"
   | "image";
 
-export class ToolsManager {
-  private tools: Map<ToolType, ITool> = new Map();
-  private currentTool: ITool | null = null;
+export namespace Continuum.ToolManager {
+  export const tools: Map<ToolType, ITool> = new Map();
+  export let currentTool: ITool | null = null;
 
-  constructor(
-  ) {
-    this.registerDefaultTools();
-    this.setTool(useCanvasStore.getState().activeTool);
+  export function setUpToolManager() {
+    registerDefaultTools();
+    setTool(useCanvasStore.getState().activeTool);
   }
 
-  private registerDefaultTools(){
-    this.registerDefaultTool('drawing', new Pencile());
-    this.registerDefaultTool('eraser', new Erase());
-  }
-  
-  private registerDefaultTool(toolType: ToolType, tool: ITool){
-    this.tools.set(toolType, tool);
+  export function registerDefaultTools() {
+    Continuum.ToolManager.tools.set("drawing", new Pencile());
+    Continuum.ToolManager.tools.set("eraser", new Erase());
   }
 
-  public getCurrentTool(){
-    return this.currentTool; 
+  export function getCurrentTool() {
+    if (currentTool === null)return new Pencile();
+    return currentTool;
   }
 
-  setTool(toolType: ToolType) {
-    if (!this.tools.has(toolType)) {
-      throw new Error(`Tool ${toolType} not registered`);
+  export function setTool(toolType: ToolType) {
+    debugger;
+    if (!Continuum.ToolManager.tools.has(toolType)) {
+      return;
     }
-    if(this.currentTool?.type === toolType) return;
-    if(this.currentTool && this.currentTool.disposeTool){
-      this.currentTool.disposeTool();
+    if (currentTool?.type === toolType) return;
+    if (currentTool && currentTool.disposeTool) {
+      currentTool.disposeTool();
     }
-    this.currentTool = this.tools.get(toolType) ?? null;
-    if (this.currentTool?.initTool){
-      this.currentTool.initTool();
+    currentTool = tools.get(toolType) ?? null;
+    if (currentTool?.initTool) {
+      currentTool.initTool();
     }
 
-    return this.currentTool;
+    return currentTool;
   }
 }

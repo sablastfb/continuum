@@ -3,8 +3,6 @@ import { CanvasCursor } from "./Cursor";
 import { graphiMap } from "../data/GraphicsDataManager";
 import { CanvasViewport } from "./Viewport";
 import { Convexhull } from "./Convex/ConvexHull";
-import SAT from "sat";
-import { Canvas } from "../CanvasApp";
 
 export namespace CollisionDetection {
   let lastPoint: Point[] | null = null;
@@ -64,7 +62,6 @@ export namespace CollisionDetection {
           .fill("blue")
       );
       if (intersection) {
-        debugger;
         g.graph.tint = "red";
         break;
       }

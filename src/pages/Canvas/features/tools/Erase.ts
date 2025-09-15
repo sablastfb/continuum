@@ -6,8 +6,8 @@ import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { ITool, ToolType } from "./ToolManager";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { CanvasViewport } from "../service/Viewport";
-import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
-import { ILine, LineUpdate } from "../service/Line/LineStrategyManager";
+import { graphiMap, Id } from "../data/GraphicsDataManager";
+import { ILine } from "../service/Line/LineStrategyManager";
 import { Canvas } from "../CanvasApp";
 import { usePencileStore } from "../../data/store/PencileStore";
 import {v4 as uuidv4} from 'uuid';
@@ -53,11 +53,11 @@ export class Erase implements ITool {
         zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
     const graphics = CollisionDetection.TestColisionWihtCursor(radius);
     if (!graphics) return;
-    for (const g of graphics){
-      if (g.graph){
-        g.graph.visible = false;
-      }
-    }
+    // for (const g of graphics){
+    //   if (g){
+    //     g.graph.visible = false;
+    //   }
+    // }
   //   const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
 
   //   if (out?.needNew) {

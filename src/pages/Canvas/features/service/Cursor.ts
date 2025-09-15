@@ -1,20 +1,20 @@
 import { throttle } from "lodash";
 import { FederatedPointerEvent, Graphics } from "pixi.js";
 import { Canvas } from "../CanvasApp";
+import useCanvasStore from "../../data/store/CanvasStore";
+import { Continuum } from "../tools/ToolManager";
 
 export namespace CanvasCursor {
   export let cursor: Graphics;
 
   export const throttledDraw = throttle((e: FederatedPointerEvent) => {
     if (Canvas.drawing && e.buttons == 1) {
-      Canvas.toolsManager.getCurrentTool()?.draw(e);
+      Continuum.ToolManager.getCurrentTool()!.draw(e);
     }
   }, 16);
 
   export function updateCursor() {
-    if (Canvas.toolsManager) {
-        Canvas.toolsManager.getCurrentTool()?.updateCursor();
-    }
+        Continuum.ToolManager.getCurrentTool().updateCursor();
   }
 
   export function updateCursorVisibilty() {
@@ -27,4 +27,5 @@ export namespace CanvasCursor {
     CanvasCursor.cursor.x = e.global.x;
     CanvasCursor.cursor.y = e.global.y;
   }, 8);
+
 }

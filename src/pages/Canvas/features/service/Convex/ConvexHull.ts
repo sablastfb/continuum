@@ -19,11 +19,8 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { SimplePoint } from "../../../Types";
 
-interface Point {
-	x: number;
-	y: number;
-}
 
 
 export namespace Convexhull {
@@ -31,7 +28,7 @@ export namespace Convexhull {
 	// Returns a new array of points representing the convex hull of
 	// the given set of points. The convex hull excludes collinear points.
 	// This algorithm runs in O(n log n) time.
-	export function makeHull<P extends Point>(points: Readonly<Array<P>>): Array<P> {
+	export function makeHull<P extends SimplePoint>(points: Readonly<Array<P>>): Array<P> {
 		let newPoints: Array<P> = points.slice();
 		newPoints.sort(Convexhull.POINT_COMPARATOR);
 		return Convexhull.makeHullPresorted(newPoints);
@@ -39,7 +36,7 @@ export namespace Convexhull {
 	
 	
 	// Returns the convex hull, assuming that each points[i] <= points[i + 1]. Runs in O(n) time.
-	export function makeHullPresorted<P extends Point>(points: Readonly<Array<P>>): Array<P> {
+	export function makeHullPresorted<P extends SimplePoint>(points: Readonly<Array<P>>): Array<P> {
 		if (points.length <= 1)
 			return points.slice();
 		
@@ -84,7 +81,7 @@ export namespace Convexhull {
 	}
 	
 	
-	export function POINT_COMPARATOR(a: Point, b: Point): number {
+	export function POINT_COMPARATOR(a: SimplePoint, b: SimplePoint): number {
 		if (a.x < b.x)
 			return -1;
 		else if (a.x > b.x)

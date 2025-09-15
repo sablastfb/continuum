@@ -1,10 +1,4 @@
-import {
-  FederatedMouseEvent,
-  Graphics,
-  NoiseFilter,
-  Point,
-  PointData,
-} from "pixi.js";
+import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
@@ -17,10 +11,7 @@ import { ILine } from "../service/Line/LineStrategyManager";
 import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
 import { ICommand } from "../commands/CommandManager";
-import { CollisionDetection } from "../service/ColisionDetection";
-import { Bodies, World } from "matter-js";
-import { Simplify, ISimplifyObjectPoint } from "simplify-ts";
-import { Continum } from "../service/Debug/DebugGraphics";
+import { Simplify } from "simplify-ts";
 
 export class Pencile implements ITool {
   type: ToolType = "drawing";
@@ -88,32 +79,28 @@ export class Pencile implements ITool {
   }
 
   public stopDrawing(e: FederatedMouseEvent) {
-    
     if (this.activeThicknes === null) return;
 
     if (this.curve === null) return;
     if (!CanvasViewport.viewport) return;
- const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    const worldPos = CanvasViewport.viewport.toWorld(e.global);
     this.path.push(worldPos);
 
     this.lineStrategy?.startNewLine(this.path[0]);
 
     const simplePath = Simplify(this.path, 2, true);
-    
+
     const simpleCurve = new Graphics();
     simpleCurve.moveTo(simplePath[0].x, simplePath[0].y);
     for (const point of simplePath) {
       this.lineStrategy?.updateLinePoistion(point, simpleCurve);
     }
     this.lineStrategy?.updateLinePoistion(e, this.curve);
-    Continum.Debug.PathSimTest(this.path);
-    Continum.Debug.PathCalu(this.path, "yellow");
-    CanvasViewport.viewport.addChild(simpleCurve);
 
     this.path = [];
     const g: GraphicsData = {
       id: uuidv4(),
-      graph: simpleCurve,
+      graph: this.curve,
       path: [...this.path],
       visible: true,
     };
@@ -124,8 +111,7 @@ export class Pencile implements ITool {
       join: "round",
     });
 
-    if (this.activeColor)
-    simpleCurve.tint = this.activeColor;
+    if (this.activeColor) simpleCurve.tint = this.activeColor;
 
     graphiMap.set(g.id, g);
     const customCommand: ICommand = {
@@ -133,9 +119,6 @@ export class Pencile implements ITool {
       undo: () => this.hide(g.id),
     };
     Canvas.commandManage.addNewCommand(customCommand);
-
-    // Bodies.
-    // World.add(Canvas.engine.world, []);
   }
 
   private show(id: Id) {
@@ -152,22 +135,9 @@ export class Pencile implements ITool {
     }
   }
 
-  // debug visualize path
   public updateCursor() {
+    if (    !CanvasCursor.cursor)return;
     CanvasCursor.cursor.clear();
-
-    /// test
-    // const points = CollisionDetection.getCriclePoints(
-    //   20,
-    //   50,
-    //   new Point(CanvasCursor.cursor.x, CanvasCursor.cursor.y)
-    // );
-
-    // for (const point of points) {
-    //   const g = new Graphics().circle(point.x, point.y, 2).fill("red");
-    //   CanvasCursor.cursor.addChild(g);
-    // }
-    ///
     const lineWidth = 1;
     const outlineWidth = 1;
     const color = CanvasPalet.getColor(

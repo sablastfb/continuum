@@ -1,6 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { Application, Graphics } from "pixi.js";
-import { ToolsManager, ToolType } from "./tools/ToolManager";
+import { Continuum, ToolType } from "./tools/ToolManager";
 import { CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
@@ -12,7 +12,6 @@ import { CommandManager } from "./commands/CommandManager";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
-  export let toolsManager: ToolsManager;
   export let lineStrategy: LineStrategyManager;
   export let drawing = false;
   export let commandManage = new CommandManager();
@@ -55,13 +54,8 @@ export namespace Canvas {
 
     appInstance!.stage.addChild(CanvasViewport.viewport);
     appInstance!.stage.addChild(CanvasCursor.cursor);
+    Continuum.ToolManager.setUpToolManager();
 
-    toolsManager = new ToolsManager();
     lineStrategy = new LineStrategyManager();
-  }
-
-  export function changeTool(toolType: ToolType) {
-    if (!toolsManager) return;
-    toolsManager?.setTool(toolType);
   }
 }
