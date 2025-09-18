@@ -76,22 +76,22 @@ export class Pencile implements ITool {
     if (!CanvasViewport.viewport) return;
     const worldPos = CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
-    const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
+    this.curve.lineTo(worldPos.x, worldPos.y);
+    // const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
 
-    if (out?.needNew) {
-      this.curve.stroke({
-        width: this.activeThicknes * 2,
-        color: Continuum.Debug.GetRandomRGBColor(),
-        cap: "round",
-        join: "round",
-      });
-    }
+    this.curve.stroke({
+      width: this.activeThicknes * 2,
+      color: "white",
+      cap: "round",
+      join: "round",
+    });
     this.curve.tint = this.activeColor;
 
     ///
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
+    if (e.button !== 0) return;
     if (this.activeThicknes === null) return;
 
     if (this.curve === null) return;
@@ -118,7 +118,7 @@ export class Pencile implements ITool {
     };
     simpleCurve.stroke({
       width: this.activeThicknes * 2,
-      color: Continuum.Debug.GetRandomRGBColor(),
+      color: "white",
       cap: "round",
       join: "round",
     });
@@ -134,13 +134,20 @@ export class Pencile implements ITool {
 
     this.pathPaper.add(...this.path);
     var segmentCount = this.pathPaper.segments.length;
-    this.pathPaper.simplify(10);
+    this.pathPaper.simplify(5);
 
     var newSegmentCount = this.pathPaper.segments.length;
     var difference = segmentCount - newSegmentCount;
     var percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
     console.log(this.path.length);
-    console.log(difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%');
+    console.log(
+      difference +
+        " of the " +
+        segmentCount +
+        " segments were removed. Saving " +
+        percentage +
+        "%"
+    );
     this.Paper();
 
     this.path = [];
@@ -173,15 +180,17 @@ export class Pencile implements ITool {
         // Draw a straight line
         pixiGraphics.lineTo(seg.point.x, seg.point.y);
       }
-       pixiGraphics.stroke({
-      width: 5 * 2,
-      color: Continuum.Debug.GetRandomRGBColor(),
-      cap: "round",
-      join: "round",
-    });
-    }
 
-   
+      pixiGraphics.stroke({
+        width: this.activeThicknes * 2,
+        color: "white",
+        cap: "round",
+        join: "round",
+      });
+      pixiGraphics.tint = this.activeColor;
+    }
+    CanvasViewport.viewport?.removeChild(this.curve);
+
     CanvasViewport.viewport?.addChild(pixiGraphics);
   }
 
