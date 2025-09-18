@@ -9,8 +9,6 @@ export namespace CanvasBacground {
 
   export function changeBackground(bs: BackgroundSettings) {
     switch (bs.activeBacgroundType) {
-
-      
       case "color":
         SolidColorBacground(bs);
         break;
@@ -64,8 +62,7 @@ export namespace CanvasBacground {
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
     backgroundTexture = tilingSprite;
-   resize();
-
+    resize();
   }
 
   function GridBacground(bs: BackgroundSettings) {
@@ -77,20 +74,11 @@ export namespace CanvasBacground {
     );
 
     const graphics = new Graphics();
-    const width = 100;
+    const width = 70;
 
     graphics
       .rect(0, 0, width, width)
-      .stroke({ color: CanvasPalet.getColor(bacground.gridColor), width: 1 })
-      .moveTo(0, 0) 
-      .lineTo(0, width)
-      .moveTo(0, 0)
-      .lineTo(width, 0)
-      .stroke({
-        color: CanvasPalet.getColor(bacground.bacgroundColor),
-        width: 1,
-        pixelLine: true
-      });
+      .stroke({ color: CanvasPalet.getColor(bacground.gridColor), width: 1});
 
     const texture = Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
@@ -101,8 +89,7 @@ export namespace CanvasBacground {
     tilingSprite.zIndex = -1;
     Canvas.appInstance.stage.addChild(tilingSprite);
     backgroundTexture = tilingSprite;
-   resize();
-
+    resize();
   }
 
   function LineBacground(bs: BackgroundSettings) {
@@ -118,7 +105,7 @@ export namespace CanvasBacground {
     const width = 100;
     graphics
       .rect(0, 0, width, width)
-      .stroke({ color: CanvasPalet.getColor(bacground.lineColor), width: 1 })
+      .stroke({ color: CanvasPalet.getColor(bacground.lineColor), width: 0.5 })
       .moveTo(0, 0)
       .lineTo(0, width)
       .moveTo(0, 0)
@@ -139,9 +126,9 @@ export namespace CanvasBacground {
     Canvas.appInstance.stage.addChild(tilingSprite);
     backgroundTexture = tilingSprite;
 
-   resize();
+    resize();
   }
-  function resize(){
+  function resize() {
     if (backgroundTexture && CanvasViewport.viewport?.scale.x) {
       backgroundTexture.tilePosition.x = CanvasViewport.viewport?.x;
       backgroundTexture.tilePosition.y = CanvasViewport.viewport?.y;

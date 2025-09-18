@@ -1,5 +1,6 @@
-import { FederatedMouseEvent, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 import { Bezier } from "./BezierCurv";
+import { SimplePoint } from "../../../Types";
 import { SimpleLine } from "./SimpleLine";
 
 export type LineStrategyTypes = "bezier" | "simple";
@@ -7,32 +8,24 @@ export type LineStrategyTypes = "bezier" | "simple";
 export type LineUpdate = {
   needNew: boolean;
 };
-  type SimplePoint = {
-    x: number;
-    y: number;
-  };
+
 export interface ILine {
   startNewLine<P extends SimplePoint>(e: P): void;
-  startLine(): void;
   updateLinePoistion<P extends SimplePoint>(e: P, curve: Graphics): LineUpdate;
 }
 
-export class LineStrategyManager {
-  private lineStrategies: Map<LineStrategyTypes, ILine> = new Map();
-
-  constructor() {
-    this.registerDefaulStrategyes();
-  }
-  private registerDefaulStrategyes() {
-    this.registerDefaulStrategye("bezier", new Bezier());
-    // this.registerDefaulStrategye("simple", new SimpleLine());
+export namespace Continuum_LineStrategyManager {
+  export const lineStrategies: Map<LineStrategyTypes, ILine> = new Map();
+  export function registerDefaulStrategyes() {
+    const lineStrategies = Continuum_LineStrategyManager.lineStrategies;
+    lineStrategies.set("simple", new SimpleLine());
+    lineStrategies.set("bezier", new Bezier());
   }
 
-  private registerDefaulStrategye(toolType: LineStrategyTypes, tool: ILine) {
-    this.lineStrategies.set(toolType, tool);
-  }
-
-  public getActiveStrategy(lineStrategyTypes: LineStrategyTypes){
-    return this.lineStrategies.get(lineStrategyTypes) ?? null;
+  export function getActiveStrategy(lineStrategyTypes: LineStrategyTypes) {
+    return (
+      Continuum_LineStrategyManager.lineStrategies.get(lineStrategyTypes) ??
+      null
+    );
   }
 }

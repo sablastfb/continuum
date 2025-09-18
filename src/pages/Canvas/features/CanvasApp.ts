@@ -1,18 +1,17 @@
 import { Viewport } from "pixi-viewport";
 import { Application, Graphics } from "pixi.js";
-import { Continuum, ToolType } from "./tools/ToolManager";
+import { Continuum_ToolManager } from "./tools/ToolManager";
 import { CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
 import { CanvasResize } from "./service/Resize";
 import { CanvasCursor } from "./service/Cursor";
 import { CanvasViewport } from "./service/Viewport";
-import { LineStrategyManager } from "./service/Line/LineStrategyManager";
 import { CommandManager } from "./commands/CommandManager";
+import { Continuum_LineStrategyManager } from "./service/Line/LineStrategyManager";
 
 export namespace Canvas {
   export let appInstance: Application | null = null;
-  export let lineStrategy: LineStrategyManager;
   export let drawing = false;
   export let commandManage = new CommandManager();
 
@@ -41,21 +40,13 @@ export namespace Canvas {
       ),
     });
     appInstance.renderer.resize(window.innerWidth, window.innerHeight);
+    CanvasCursor.init();
+    CanvasViewport.init();
 
-    CanvasCursor.cursor = new Graphics();
-
-    CanvasViewport.viewport = new Viewport({
-      screenWidth: window.innerWidth,
-      screenHeight: window.innerHeight,
-      events: appInstance.renderer.events,
-      threshold: 5,
-      passiveWheel: true,
-    });
-
+    if (!CanvasViewport.viewport) return; 
     appInstance!.stage.addChild(CanvasViewport.viewport);
     appInstance!.stage.addChild(CanvasCursor.cursor);
-    Continuum.ToolManager.setUpToolManager();
-
-    lineStrategy = new LineStrategyManager();
+    Continuum_ToolManager.setUpToolManager();
+    Continuum_LineStrategyManager.registerDefaulStrategyes();
   }
 }

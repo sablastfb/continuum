@@ -3,11 +3,21 @@ import { Canvas } from "../CanvasApp";
 import { CanvasCursor } from "./Cursor";
 import { CanvasResize } from "./Resize";
 import { CanvasBacground } from "./Background";
-import { Continuum } from "../tools/ToolManager";
+import { Continuum_ToolManager } from "../tools/ToolManager";
 
 export namespace CanvasViewport {
   export let viewport: Viewport | null = null;
-
+  
+  export function init() {
+    if (!Canvas.appInstance) return;
+    CanvasViewport.viewport = new Viewport({
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+      events: Canvas.appInstance.renderer.events,
+      threshold: 5,
+      passiveWheel: true,
+    });
+  }
   export function setUpViewportAndEvent() {
     if (viewport === null) return;
     viewport
@@ -18,20 +28,14 @@ export namespace CanvasViewport {
       .wheel();
     viewport
       .on("touchstart", (e) => {
-        const worldPos = e.global;
-
-        console.log(`Finger touch started at: X: ${e.x}, Y: ${e.y}`);
-        console.log(
-          `Finger touch started at: X: ${worldPos.x}, Y: ${worldPos.y}`
-        );
         if (Canvas.drawing) return;
         Canvas.drawing = true;
-        // Canvas.toolsManager.getCurrentTool()?.startDrawing(e);
+        Continuum_ToolManager.startDrawing(e);
       })
       .on("pointerdown", (e) => {
         if (Canvas.drawing) return;
         Canvas.drawing = true;
-        Continuum.ToolManager.getCurrentTool().startDrawing(e);
+        Continuum_ToolManager.startDrawing(e);
       })
       .on("touchmove", (e) => {
         CanvasCursor.throttledDraw(e);
@@ -40,7 +44,7 @@ export namespace CanvasViewport {
       .on("pointerdown", (e) => {
         if (Canvas.drawing) return;
         Canvas.drawing = true;
-        Continuum.ToolManager.getCurrentTool().startDrawing(e);
+        Continuum_ToolManager.startDrawing(e);
       })
       .on("pointermove", (e) => {
         CanvasCursor.throttledDraw(e);
@@ -49,17 +53,17 @@ export namespace CanvasViewport {
       .on("pointerup", (e) => {
         if (!Canvas.drawing) return;
         Canvas.drawing = false;
-        Continuum.ToolManager.getCurrentTool().startDrawing(e);
+        Continuum_ToolManager.startDrawing(e);
       })
       .on("pointerupoutside", (e) => {
         if (!Canvas.drawing) return;
         Canvas.drawing = false;
-        Continuum.ToolManager.getCurrentTool().startDrawing(e);
+        Continuum_ToolManager.startDrawing(e);
       })
       .on("pointerout", (e) => {
         if (!Canvas.drawing) return;
         Canvas.drawing = false;
-        Continuum.ToolManager.getCurrentTool().startDrawing(e);
+        Continuum_ToolManager.startDrawing(e);
       })
       .on("zoomed", (e) => {
         CanvasResize.viewportZoom(e);

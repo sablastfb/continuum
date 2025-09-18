@@ -1,13 +1,12 @@
-import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
+import { Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
 import { CanvasViewport } from "../Viewport";
-import { Distance } from "../../utils/CanvasUtils";
-import { MinimumDistanceToNextLine } from "../../../data/constants/CanvasConstants";
 import { SimplePoint } from "../../../Types";
 
 export class Bezier implements ILine {
   private lastPoints: Point[] = [];
-  startNewLine(e: FederatedMouseEvent) {
+  
+  startNewLine<P extends SimplePoint>(e: P) {
     if (!CanvasViewport.viewport) return { needNew: false };
     const worldPos = CanvasViewport.viewport.toWorld(e);
     this.lastPoints = Array(4).fill(new Point(worldPos.x, worldPos.y));

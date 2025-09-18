@@ -5,23 +5,27 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasViewport } from "../service/Viewport";
-import { ITool, ToolType } from "./ToolManager";
+import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { Canvas } from "../CanvasApp";
-import { ILine } from "../service/Line/LineStrategyManager";
+import {
+  Continuum_LineStrategyManager,
+  ILine,
+} from "../service/Line/LineStrategyManager";
 import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
 import { ICommand } from "../commands/CommandManager";
 import { Simplify } from "simplify-ts";
+import { MouseInputPoint } from "../../Types";
 
 export class Pencile implements ITool {
-  type: ToolType = "drawing";
+  type: Continuum_ToolManager.ToolType = "drawing";
   private curve: Graphics | null = null;
   private lineStrategy: ILine | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
   private path: Point[] = [];
 
-  public startDrawing(e: FederatedMouseEvent) {
+  public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
     if (!CanvasViewport.viewport) return;
 
@@ -36,19 +40,22 @@ export class Pencile implements ITool {
       usePencileStore.getState().thicknesId
     );
 
-    this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
+    this.lineStrategy =
+      Continuum_LineStrategyManager.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine(e);
-    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    const worldPos = CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
+
+    
     this.firsDot(e);
   }
 
-  private firsDot(e: FederatedMouseEvent) {
+  private firsDot<P extends MouseInputPoint>(e: P) {
     if (this.curve === null) return;
     if (this.activeColor === null) return;
     if (this.activeThicknes === null) return;
     if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    const worldPos = CanvasViewport.viewport.toWorld(e);
 
     this.curve
       .circle(worldPos.x, worldPos.y, this.activeThicknes)
@@ -58,12 +65,12 @@ export class Pencile implements ITool {
     this.curve.tint = this.activeColor;
   }
 
-  public draw(e: FederatedMouseEvent) {
+  public draw<P extends MouseInputPoint>(e: P) {
     if (this.curve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    const worldPos = CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
     const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
 
@@ -78,12 +85,12 @@ export class Pencile implements ITool {
     this.curve.tint = this.activeColor;
   }
 
-  public stopDrawing(e: FederatedMouseEvent) {
+  public stopDrawing<P extends MouseInputPoint>(e: P) {
     if (this.activeThicknes === null) return;
 
     if (this.curve === null) return;
     if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    const worldPos = CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
 
     this.lineStrategy?.startNewLine(this.path[0]);
@@ -136,7 +143,7 @@ export class Pencile implements ITool {
   }
 
   public updateCursor() {
-    if (    !CanvasCursor.cursor)return;
+    if (!CanvasCursor.cursor) return;
     CanvasCursor.cursor.clear();
     const lineWidth = 1;
     const outlineWidth = 1;

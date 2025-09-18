@@ -3,29 +3,30 @@ import { Erase } from "./Erase";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { FederatedMouseEvent } from "pixi.js";
 import { Exception } from "sass-embedded";
+import { MouseInputPoint } from "../../Types";
 
 export type ITool = Partial<{
-  type: ToolType;
+  type: Continuum_ToolManager.ToolType;
   initTool(): void;
   disposeTool(): void;
-  startDrawing(e: FederatedMouseEvent): void;
-  draw(e: FederatedMouseEvent): void;
-  stopDrawing(e: FederatedMouseEvent): void;
+  startDrawing<P extends MouseInputPoint>(e: P): void;
+  draw<P extends MouseInputPoint>(e: P): void;
+  stopDrawing<P extends MouseInputPoint>(e: P): void;
   updateCursor(): void;
 }>;
 
-export type ToolType =
-  | "base"
-  | "drawing"
-  | "eraser"
-  | "transform-move"
-  | "transform-pan"
-  | "shapes-square"
-  | "shapes-circle"
-  | "text"
-  | "image";
+export namespace Continuum_ToolManager {
+  export type ToolType =
+    | "base"
+    | "drawing"
+    | "eraser"
+    | "transform-move"
+    | "transform-pan"
+    | "shapes-square"
+    | "shapes-circle"
+    | "text"
+    | "image";
 
-export namespace Continuum.ToolManager {
   export const tools: Map<ToolType, ITool> = new Map();
   export let currentTool: ITool | null = null;
 
@@ -35,18 +36,36 @@ export namespace Continuum.ToolManager {
   }
 
   export function registerDefaultTools() {
-    Continuum.ToolManager.tools.set("drawing", new Pencile());
-    Continuum.ToolManager.tools.set("eraser", new Erase());
+    Continuum_ToolManager.tools.set("drawing", new Pencile());
+    Continuum_ToolManager.tools.set("eraser", new Erase());
+  }
+
+  export function startDrawing<P extends MouseInputPoint>(e: P) {
+    if (currentTool && currentTool.startDrawing) {
+      currentTool.startDrawing(e);
+    }
+  }
+
+    export function draw<P extends MouseInputPoint>(e: P) {
+    if (currentTool && currentTool.draw) {
+      currentTool.draw(e);
+    }
   }
 
   export function getCurrentTool() {
-    if (currentTool === null)return new Pencile();
+    if (currentTool === null) return null;
     return currentTool;
   }
 
+  export function updateCursor() {
+    if (currentTool === null) return null;
+    if (currentTool && currentTool.updateCursor) {
+      currentTool.updateCursor();
+    }
+  }
+
   export function setTool(toolType: ToolType) {
-    debugger;
-    if (!Continuum.ToolManager.tools.has(toolType)) {
+    if (!Continuum_ToolManager.tools.has(toolType)) {
       return;
     }
     if (currentTool?.type === toolType) return;

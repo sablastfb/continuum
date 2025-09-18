@@ -1,27 +1,25 @@
-import { FederatedMouseEvent, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
-import { ITool, ToolType } from "./ToolManager";
+import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { CanvasViewport } from "../service/Viewport";
 import { graphiMap, Id } from "../data/GraphicsDataManager";
-import { ILine } from "../service/Line/LineStrategyManager";
-import { Canvas } from "../CanvasApp";
+import { Continuum_LineStrategyManager, ILine } from "../service/Line/LineStrategyManager";
 import { usePencileStore } from "../../data/store/PencileStore";
-import {v4 as uuidv4} from 'uuid';
-import { ICommand } from "../commands/CommandManager";
 import { CollisionDetection } from "../service/ColisionDetection";
+import { MouseInputPoint } from "../../Types";
 
 export class Erase implements ITool {
-  type: ToolType = "eraser";
+  type: Continuum_ToolManager.ToolType = "eraser";
   private curve: Graphics | null = null;
   private lineStrategy: ILine | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
 
-  public startDrawing(e: FederatedMouseEvent) {
+  public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
     if (!CanvasViewport.viewport) return;
 
@@ -36,7 +34,7 @@ export class Erase implements ITool {
       usePencileStore.getState().thicknesId
     );
 
-    this.lineStrategy = Canvas.lineStrategy.getActiveStrategy("bezier");
+    this.lineStrategy = Continuum_LineStrategyManager.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine(e);
 
     CollisionDetection.Clear();
@@ -44,7 +42,7 @@ export class Erase implements ITool {
   }
 
 
-  public draw(e: FederatedMouseEvent) {
+  public draw<P extends MouseInputPoint>(e: P) {
     // if (this.curve === null) return;
     // if (!CanvasViewport.viewport) return;
         const zoom = useCanvasStore.getState().zoome;

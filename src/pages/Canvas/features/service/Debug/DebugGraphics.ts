@@ -34,7 +34,6 @@ export namespace Continuum.Debug {
     for (let i = 0; i < 10; i += 1) {
       const simplePath = Simplify(path, i*3, false);
       PathCalu(simplePath, getColorFromGradient(i, 0, 10));
-      console.log(i, path.length, simplePath.length);
     }
   }
 

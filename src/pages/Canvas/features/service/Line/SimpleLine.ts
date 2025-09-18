@@ -1,20 +1,19 @@
-import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
+import { Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
 import { CanvasViewport } from "../Viewport";
+import { SimplePoint } from "../../../Types";
 
 export class SimpleLine implements ILine {
   private lastPoint: Point | null = null;
 
-  startNewLine() {
+  startNewLine<P extends SimplePoint>(e: P) {
     this.lastPoint = null;
   }
 
-  startLine() {}
-
-  updateLinePoistion(e: FederatedMouseEvent, curve: Graphics): LineUpdate {
+  updateLinePoistion<P extends SimplePoint>(e: P, curve: Graphics): LineUpdate {
     if (!CanvasViewport.viewport) return { needNew: false };
 
-    const worldPos = CanvasViewport.viewport.toWorld(e.global);
+    const worldPos = CanvasViewport.viewport.toWorld(e);
 
     this.lastPoint = new Point(worldPos.x, worldPos.y);
     curve.lineTo(worldPos.x, worldPos.y);

@@ -16,7 +16,6 @@ function CursorEffect() {
   const eraser = useEraseStore();
 
   useEffect(() => {
-
     CanvasCursor.updateCursor();
   }, [color, zoom, pen, eraser]);
 

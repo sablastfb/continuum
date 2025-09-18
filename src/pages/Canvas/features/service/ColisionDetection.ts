@@ -47,7 +47,6 @@ export namespace CollisionDetection {
       const graph = g.graph;
       if (!graph || g.visible === false) continue;
 
-      // Make sure you're using the same coordinate space
       const globalPosition = CanvasViewport.viewport.toWorld(
         new Point(g.path[0].x, g.path[0].y)
       );
