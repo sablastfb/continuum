@@ -3,12 +3,14 @@ import ToolsMenue from "./components/tools/ToolMenue/ToolsMenue";
 import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
-import { Canvas } from "./features/CanvasApp";
+import { Continuum_Canvas } from "./features/CanvasApp";
 import CursorEffect from "./components/effects/CursorEffect";
 import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
 import Tool from "./components/tools/Tool";
+import { PaperScope } from "paper/dist/paper-core";
 
+export const paperCcc = new PaperScope();
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
   const setCanvasCursorActive = useCanvasStore(
@@ -19,8 +21,11 @@ function CanvasPage() {
     document.documentElement.classList.add("dark");
 
     async function SetUpPixi() {
-      const app = await Canvas.getPixiApp();
-       setCanvasCursorActive(true);
+      const canvas = document.createElement("canvas");
+      paperCcc.setup(canvas);
+
+      const app = await Continuum_Canvas.getPixiApp();
+      setCanvasCursorActive(true);
       if (canvasContainer?.current && app && app?.canvas !== undefined) {
         canvasContainer.current.appendChild(app?.canvas);
       }
@@ -48,8 +53,8 @@ function CanvasPage() {
       <Tool />
       <ToolsMenue />
       <SettingsDialog />
-      <ExportDialog />
       <InfoDialog />
+      <ExportDialog />
       <CursorEffect />
       <BackgroundEffect />
     </div>

@@ -1,5 +1,5 @@
 import { Pencile } from "./Pencile";
-import { Erase } from "./Erase";
+import { Erase } from "../../tools/Erase";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { MouseInputPoint } from "../../Types";
 
@@ -41,12 +41,6 @@ export namespace Continuum_ToolManager {
   export function startDrawing<P extends MouseInputPoint>(e: P) {
     if (currentTool && currentTool.startDrawing) {
       currentTool.startDrawing(e);
-    }
-  }
-
-    export function stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (currentTool && currentTool.stopDrawing) {
-      currentTool.stopDrawing(e);
     }
   }
 

@@ -1,7 +1,7 @@
 import { ZoomedEvent } from "pixi-viewport/dist/types";
 import { ZoomSensitivity } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../CanvasApp";
 import { CanvasBacground } from "./Background";
 import { CanvasViewport } from "./Viewport";
 
@@ -36,7 +36,7 @@ export namespace CanvasResize {
   }
 
   export function handleResize() {
-    if (!Canvas.appInstance || !CanvasViewport.viewport) return;
+    if (!Continuum_Canvas.appInstance || !CanvasViewport.viewport) return;
     CanvasViewport.viewport.resize(
       window.innerWidth,
       window.innerHeight,

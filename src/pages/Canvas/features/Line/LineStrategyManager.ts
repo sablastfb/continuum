@@ -1,6 +1,6 @@
 import { Graphics } from "pixi.js";
 import { Bezier } from "./BezierCurv";
-import { SimplePoint } from "../../../Types";
+import { SimplePoint } from "../../Types";
 import { SimpleLine } from "./SimpleLine";
 
 export type LineStrategyTypes = "bezier" | "simple";

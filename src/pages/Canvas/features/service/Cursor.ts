@@ -1,10 +1,13 @@
 import { throttle } from "lodash";
 import { FederatedPointerEvent, Graphics } from "pixi.js";
-import { Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_ToolManager } from "../tools/ToolManager";
 
 export namespace CanvasCursor {
   export let cursor: Graphics;
+  export function init() {
+    CanvasCursor.cursor = new Graphics();
+  }
 
   export function updateCursor() {
     Continuum_ToolManager.updateCursor();
@@ -17,7 +20,7 @@ export namespace CanvasCursor {
   }
 
   export const throttledDraw = throttle((e: FederatedPointerEvent) => {
-    if (Canvas.drawing && e.buttons == 1) {
+    if (Continuum_Canvas.drawing && e.buttons == 1) {
       Continuum_ToolManager.draw(e);
     }
   }, 16);
@@ -25,5 +28,6 @@ export namespace CanvasCursor {
   export const moveCursor = throttle((e: FederatedPointerEvent) => {
     CanvasCursor.cursor.x = e.global.x;
     CanvasCursor.cursor.y = e.global.y;
-  }, 16);
+  }, 1);
+
 }

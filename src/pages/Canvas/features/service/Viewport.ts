@@ -1,5 +1,5 @@
 import { Viewport } from "pixi-viewport";
-import { Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../CanvasApp";
 import { CanvasCursor } from "./Cursor";
 import { CanvasResize } from "./Resize";
 import { CanvasBacground } from "./Background";
@@ -9,11 +9,11 @@ export namespace CanvasViewport {
   export let viewport: Viewport | null = null;
   
   export function init() {
-    if (!Canvas.appInstance) return;
+    if (!Continuum_Canvas.appInstance) return;
     CanvasViewport.viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
-      events: Canvas.appInstance.renderer.events,
+      events: Continuum_Canvas.appInstance.renderer.events,
       threshold: 5,
       passiveWheel: true,
     });
@@ -28,13 +28,13 @@ export namespace CanvasViewport {
       .wheel();
     viewport
       .on("touchstart", (e) => {
-        if (Canvas.drawing) return;
-        Canvas.drawing = true;
+        if (Continuum_Canvas.drawing) return;
+        Continuum_Canvas.drawing = true;
         Continuum_ToolManager.startDrawing(e);
       })
       .on("pointerdown", (e) => {
-        if (Canvas.drawing) return;
-        Canvas.drawing = true;
+        if (Continuum_Canvas.drawing) return;
+        Continuum_Canvas.drawing = true;
         Continuum_ToolManager.startDrawing(e);
       })
       .on("touchmove", (e) => {
@@ -42,8 +42,8 @@ export namespace CanvasViewport {
         CanvasCursor.moveCursor(e);
       })
       .on("pointerdown", (e) => {
-        if (Canvas.drawing) return;
-        Canvas.drawing = true;
+        if (Continuum_Canvas.drawing) return;
+        Continuum_Canvas.drawing = true;
         Continuum_ToolManager.startDrawing(e);
       })
       .on("pointermove", (e) => {
@@ -51,19 +51,19 @@ export namespace CanvasViewport {
         CanvasCursor.moveCursor(e);
       })
       .on("pointerup", (e) => {
-        if (!Canvas.drawing) return;
-        Canvas.drawing = false;
-        Continuum_ToolManager.startDrawing(e);
+        if (!Continuum_Canvas.drawing) return;
+        Continuum_Canvas.drawing = false;
+        Continuum_ToolManager.stopDrawing(e);
       })
       .on("pointerupoutside", (e) => {
-        if (!Canvas.drawing) return;
-        Canvas.drawing = false;
-        Continuum_ToolManager.startDrawing(e);
+        if (!Continuum_Canvas.drawing) return;
+        Continuum_Canvas.drawing = false;
+        Continuum_ToolManager.stopDrawing(e);
       })
       .on("pointerout", (e) => {
-        if (!Canvas.drawing) return;
-        Canvas.drawing = false;
-        Continuum_ToolManager.startDrawing(e);
+        if (!Continuum_Canvas.drawing) return;
+        Continuum_Canvas.drawing = false;
+        Continuum_ToolManager.stopDrawing(e);
       })
       .on("zoomed", (e) => {
         CanvasResize.viewportZoom(e);

@@ -1,7 +1,7 @@
 import { Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
-import { CanvasViewport } from "../Viewport";
-import { SimplePoint } from "../../../Types";
+import { CanvasViewport } from "../service/Viewport";
+import { SimplePoint } from "../../Types";
 
 export class Bezier implements ILine {
   private lastPoints: Point[] = [];

@@ -1,4 +1,4 @@
-import { FederatedMouseEvent, Graphics, Point } from "pixi.js";
+import { Graphics, Point } from "pixi.js";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
@@ -6,16 +6,19 @@ import { usePencileStore } from "../../data/store/PencileStore";
 import { CanvasCursor } from "../service/Cursor";
 import { CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
-import { Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../CanvasApp";
 import {
   Continuum_LineStrategyManager,
   ILine,
-} from "../service/Line/LineStrategyManager";
+} from "../Line/LineStrategyManager";
 import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
 import { ICommand } from "../commands/CommandManager";
 import { Simplify } from "simplify-ts";
 import { MouseInputPoint } from "../../Types";
+import { PaperScope, Project, Path, Point as PaperPoint } from "paper";
+import { paperCcc } from "../../CanvasPage";
+import { Continuum } from "../service/Debug/DebugGraphics";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
@@ -24,6 +27,7 @@ export class Pencile implements ITool {
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
   private path: Point[] = [];
+  private pathPaper!: paper.Path;
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
@@ -46,8 +50,8 @@ export class Pencile implements ITool {
     const worldPos = CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
 
-    
     this.firsDot(e);
+    this.pathPaper = new paperCcc.Path();
   }
 
   private firsDot<P extends MouseInputPoint>(e: P) {
@@ -77,12 +81,14 @@ export class Pencile implements ITool {
     if (out?.needNew) {
       this.curve.stroke({
         width: this.activeThicknes * 2,
-        color: "white",
+        color: Continuum.Debug.GetRandomRGBColor(),
         cap: "round",
         join: "round",
       });
     }
     this.curve.tint = this.activeColor;
+
+    ///
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
@@ -104,7 +110,6 @@ export class Pencile implements ITool {
     }
     this.lineStrategy?.updateLinePoistion(e, this.curve);
 
-    this.path = [];
     const g: GraphicsData = {
       id: uuidv4(),
       graph: this.curve,
@@ -113,7 +118,7 @@ export class Pencile implements ITool {
     };
     simpleCurve.stroke({
       width: this.activeThicknes * 2,
-      color: "red",
+      color: Continuum.Debug.GetRandomRGBColor(),
       cap: "round",
       join: "round",
     });
@@ -125,7 +130,59 @@ export class Pencile implements ITool {
       execute: () => this.show(g.id),
       undo: () => this.hide(g.id),
     };
-    Canvas.commandManage.addNewCommand(customCommand);
+    Continuum_Canvas.commandManage.addNewCommand(customCommand);
+
+    this.pathPaper.add(...this.path);
+    var segmentCount = this.pathPaper.segments.length;
+    this.pathPaper.simplify(10);
+
+    var newSegmentCount = this.pathPaper.segments.length;
+    var difference = segmentCount - newSegmentCount;
+    var percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
+    console.log(this.path.length);
+    console.log(difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%');
+    this.Paper();
+
+    this.path = [];
+  }
+
+  private Paper() {
+    const pixiGraphics = new Graphics();
+
+    const segments = this.pathPaper.segments;
+    pixiGraphics.moveTo(segments[0].point.x, segments[0].point.y);
+
+    // Iterate through segments to draw lines or curves
+    for (let i = 1; i < segments.length; i++) {
+      const seg = segments[i];
+      const prevSeg = segments[i - 1];
+      const cp1 = prevSeg.point.add(prevSeg.handleOut);
+      const cp2 = seg.point.add(seg.handleIn);
+      // Check if the segment has Bézier handles
+      if (prevSeg.handleOut && seg.handleIn) {
+        // Draw a cubic Bézier curve
+        pixiGraphics.bezierCurveTo(
+          cp1.x,
+          cp1.y,
+          cp2.x,
+          cp2.y,
+          seg.point.x,
+          seg.point.y
+        );
+      } else {
+        // Draw a straight line
+        pixiGraphics.lineTo(seg.point.x, seg.point.y);
+      }
+       pixiGraphics.stroke({
+      width: 5 * 2,
+      color: Continuum.Debug.GetRandomRGBColor(),
+      cap: "round",
+      join: "round",
+    });
+    }
+
+   
+    CanvasViewport.viewport?.addChild(pixiGraphics);
   }
 
   private show(id: Id) {

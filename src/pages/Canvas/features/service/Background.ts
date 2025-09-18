@@ -1,5 +1,5 @@
 import { Graphics, TilingSprite } from "pixi.js";
-import { Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../CanvasApp";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { BackgroundSettings } from "../../data/store/SettingsStore";
 import { CanvasViewport } from "./Viewport";
@@ -27,23 +27,23 @@ export namespace CanvasBacground {
   function ClearBackground() {
     if (!backgroundTexture) return;
 
-    Canvas.appInstance?.stage.removeChild(backgroundTexture);
+    Continuum_Canvas.appInstance?.stage.removeChild(backgroundTexture);
   }
 
   function SolidColorBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance?.renderer?.background) return;
+    if (!Continuum_Canvas.appInstance?.renderer?.background) return;
     ClearBackground();
-    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
+    Continuum_Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bs.color
     );
   }
 
   async function DotsBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
+    if (!Continuum_Canvas.appInstance || !Continuum_Canvas.appInstance.renderer) return;
     ClearBackground();
 
     const bacground = bs.dots;
-    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
+    Continuum_Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bacground.bacgroundColor
     );
 
@@ -53,23 +53,23 @@ export namespace CanvasBacground {
       .circle(0, 0, bacground.radius)
       .fill(CanvasPalet.getColor(bacground.dotColor));
 
-    const texture = Canvas.appInstance.renderer.generateTexture(graphics);
+    const texture = Continuum_Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
       texture: texture,
-      width: Canvas.appInstance.renderer.width,
-      height: Canvas.appInstance.renderer.height,
+      width: Continuum_Canvas.appInstance.renderer.width,
+      height: Continuum_Canvas.appInstance.renderer.height,
     });
     tilingSprite.zIndex = -1;
-    Canvas.appInstance.stage.addChild(tilingSprite);
+    Continuum_Canvas.appInstance.stage.addChild(tilingSprite);
     backgroundTexture = tilingSprite;
     resize();
   }
 
   function GridBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
+    if (!Continuum_Canvas.appInstance || !Continuum_Canvas.appInstance.renderer) return;
     ClearBackground();
     const bacground = bs.grid;
-    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
+    Continuum_Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bacground.bacgroundColor
     );
 
@@ -80,24 +80,24 @@ export namespace CanvasBacground {
       .rect(0, 0, width, width)
       .stroke({ color: CanvasPalet.getColor(bacground.gridColor), width: 1});
 
-    const texture = Canvas.appInstance.renderer.generateTexture(graphics);
+    const texture = Continuum_Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
       texture: texture,
-      width: Canvas.appInstance.renderer.width,
-      height: Canvas.appInstance.renderer.height,
+      width: Continuum_Canvas.appInstance.renderer.width,
+      height: Continuum_Canvas.appInstance.renderer.height,
     });
     tilingSprite.zIndex = -1;
-    Canvas.appInstance.stage.addChild(tilingSprite);
+    Continuum_Canvas.appInstance.stage.addChild(tilingSprite);
     backgroundTexture = tilingSprite;
     resize();
   }
 
   function LineBacground(bs: BackgroundSettings) {
-    if (!Canvas.appInstance || !Canvas.appInstance.renderer) return;
+    if (!Continuum_Canvas.appInstance || !Continuum_Canvas.appInstance.renderer) return;
     ClearBackground();
 
     const bacground = bs.line;
-    Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
+    Continuum_Canvas.appInstance.renderer.background.color = CanvasPalet.getColor(
       bacground.bacgroundColor
     );
 
@@ -116,14 +116,14 @@ export namespace CanvasBacground {
         width: 1,
       });
 
-    const texture = Canvas.appInstance.renderer.generateTexture(graphics);
+    const texture = Continuum_Canvas.appInstance.renderer.generateTexture(graphics);
     const tilingSprite = new TilingSprite({
       texture: texture,
-      width: Canvas.appInstance.renderer.width,
-      height: Canvas.appInstance.renderer.height,
+      width: Continuum_Canvas.appInstance.renderer.width,
+      height: Continuum_Canvas.appInstance.renderer.height,
     });
     tilingSprite.zIndex = -1;
-    Canvas.appInstance.stage.addChild(tilingSprite);
+    Continuum_Canvas.appInstance.stage.addChild(tilingSprite);
     backgroundTexture = tilingSprite;
 
     resize();

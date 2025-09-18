@@ -1,5 +1,4 @@
-import { Viewport } from "pixi-viewport";
-import { Application, Graphics } from "pixi.js";
+import { Application } from "pixi.js";
 import { Continuum_ToolManager } from "./tools/ToolManager";
 import { CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
@@ -8,9 +7,9 @@ import { CanvasResize } from "./service/Resize";
 import { CanvasCursor } from "./service/Cursor";
 import { CanvasViewport } from "./service/Viewport";
 import { CommandManager } from "./commands/CommandManager";
-import { Continuum_LineStrategyManager } from "./service/Line/LineStrategyManager";
+import { Continuum_LineStrategyManager } from "./Line/LineStrategyManager";
 
-export namespace Canvas {
+export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export let drawing = false;
   export let commandManage = new CommandManager();

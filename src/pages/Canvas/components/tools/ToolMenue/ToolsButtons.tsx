@@ -22,7 +22,7 @@ import { CanvasPalet } from "../../../data/container/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 import DropdownSelector from "./DropdownSelector";
-import { Canvas } from "../../../features/CanvasApp";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";
 
 function ToolsButtons() {
@@ -115,7 +115,7 @@ function ToolsButtons() {
         )}
 
         <div
-          onClick={() => Canvas.commandManage.goBack()}
+          onClick={() => Continuum_Canvas.commandManage.goBack()}
           className={
             historyPosition === -1 ? "opacity-50 " : "hover:cursor-pointer"
           }
@@ -123,7 +123,7 @@ function ToolsButtons() {
           <Undo size={defaultIconSize} />
         </div>
         <div
-          onClick={() => Canvas.commandManage.goInFuture()}
+          onClick={() => Continuum_Canvas.commandManage.goInFuture()}
           className={
             historyPosition >= historyCount-1 ? "opacity-50 " : "hover:cursor-pointer"
           }

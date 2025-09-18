@@ -32,7 +32,7 @@ export namespace Continuum.Debug {
 
   export function PathSimTest<P extends SimplePoint>(path: P[]) {
     for (let i = 0; i < 10; i += 1) {
-      const simplePath = Simplify(path, i*3, false);
+      const simplePath = Simplify(path, i * 3, false);
       PathCalu(simplePath, getColorFromGradient(i, 0, 10));
     }
   }
@@ -49,6 +49,13 @@ export namespace Continuum.Debug {
     const g = 0;
     const b = Math.floor(255 * normalized);
 
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  export function GetRandomRGBColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
     return `rgb(${r}, ${g}, ${b})`;
   }
 }
