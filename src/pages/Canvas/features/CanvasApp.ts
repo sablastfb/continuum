@@ -8,6 +8,7 @@ import { CanvasCursor } from "./service/Cursor";
 import { CanvasViewport } from "./service/Viewport";
 import { CommandManager } from "./commands/CommandManager";
 import { Continuum_LineStrategyManager } from "./Line/LineStrategyManager";
+import { CurveService } from "./service/CurveService";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -25,6 +26,7 @@ export namespace Continuum_Canvas {
     CanvasViewport.setUpViewportAndEvent();
     CanvasResize.setUpResize();
     CanvasCursor.updateCursor();
+    CurveService.init();
     CanvasBacground.changeBackground(useSettingsStore.getState().background);
     return appInstance;
   }

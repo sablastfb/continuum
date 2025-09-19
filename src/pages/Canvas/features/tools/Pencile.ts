@@ -16,9 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ICommand } from "../commands/CommandManager";
 import { Simplify } from "simplify-ts";
 import { MouseInputPoint } from "../../Types";
-import { PaperScope, Project, Path, Point as PaperPoint } from "paper";
-import { paperCcc } from "../../CanvasPage";
-import { Continuum } from "../service/Debug/DebugGraphics";
+import { CurveService } from "../service/CurveService";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
@@ -27,7 +25,6 @@ export class Pencile implements ITool {
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
   private path: Point[] = [];
-  private pathPaper!: paper.Path;
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
@@ -51,7 +48,6 @@ export class Pencile implements ITool {
     this.path.push(worldPos);
 
     this.firsDot(e);
-    this.pathPaper = new paperCcc.Path();
   }
 
   private firsDot<P extends MouseInputPoint>(e: P) {
@@ -131,67 +127,20 @@ export class Pencile implements ITool {
       undo: () => this.hide(g.id),
     };
     Continuum_Canvas.commandManage.addNewCommand(customCommand);
+    const c = CurveService.ConverLineToPath(this.path);
+    const graph = CurveService.CreatGrahicPath(c);
+    graph.stroke({
+      width: this.activeThicknes * 2,
+      color: "white",
+      cap: "round",
+      join: "round",
+    });
 
-    this.pathPaper.add(...this.path);
-    var segmentCount = this.pathPaper.segments.length;
-    this.pathPaper.simplify(5);
-
-    var newSegmentCount = this.pathPaper.segments.length;
-    var difference = segmentCount - newSegmentCount;
-    var percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
-    console.log(this.path.length);
-    console.log(
-      difference +
-        " of the " +
-        segmentCount +
-        " segments were removed. Saving " +
-        percentage +
-        "%"
-    );
-    this.Paper();
-
-    this.path = [];
-  }
-
-  private Paper() {
-    const pixiGraphics = new Graphics();
-
-    const segments = this.pathPaper.segments;
-    pixiGraphics.moveTo(segments[0].point.x, segments[0].point.y);
-
-    // Iterate through segments to draw lines or curves
-    for (let i = 1; i < segments.length; i++) {
-      const seg = segments[i];
-      const prevSeg = segments[i - 1];
-      const cp1 = prevSeg.point.add(prevSeg.handleOut);
-      const cp2 = seg.point.add(seg.handleIn);
-      // Check if the segment has Bézier handles
-      if (prevSeg.handleOut && seg.handleIn) {
-        // Draw a cubic Bézier curve
-        pixiGraphics.bezierCurveTo(
-          cp1.x,
-          cp1.y,
-          cp2.x,
-          cp2.y,
-          seg.point.x,
-          seg.point.y
-        );
-      } else {
-        // Draw a straight line
-        pixiGraphics.lineTo(seg.point.x, seg.point.y);
-      }
-
-      pixiGraphics.stroke({
-        width: this.activeThicknes * 2,
-        color: "white",
-        cap: "round",
-        join: "round",
-      });
-      pixiGraphics.tint = this.activeColor;
-    }
+    if (!this.activeColor) return;
+    graph.tint = this.activeColor;
     CanvasViewport.viewport?.removeChild(this.curve);
-
-    CanvasViewport.viewport?.addChild(pixiGraphics);
+    CanvasViewport.viewport?.addChild(graph);
+    this.path = [];
   }
 
   private show(id: Id) {

@@ -8,9 +8,7 @@ import CursorEffect from "./components/effects/CursorEffect";
 import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
 import Tool from "./components/tools/Tool";
-import { PaperScope } from "paper/dist/paper-core";
 
-export const paperCcc = new PaperScope();
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
   const setCanvasCursorActive = useCanvasStore(
@@ -21,9 +19,6 @@ function CanvasPage() {
     document.documentElement.classList.add("dark");
 
     async function SetUpPixi() {
-      const canvas = document.createElement("canvas");
-      paperCcc.setup(canvas);
-
       const app = await Continuum_Canvas.getPixiApp();
       setCanvasCursorActive(true);
       if (canvasContainer?.current && app && app?.canvas !== undefined) {
