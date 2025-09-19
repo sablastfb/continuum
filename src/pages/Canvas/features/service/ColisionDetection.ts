@@ -2,7 +2,6 @@ import { Graphics, Point } from "pixi.js";
 import { Continuum_CanvasCursor } from "./Cursor";
 import { graphiMap } from "../data/GraphicsDataManager";
 import { Continuum_CanvasViewport } from "./Viewport";
-import { Convexhull } from "./Convex/ConvexHull";
 
 export namespace CollisionDetection {
   let lastPoint: Point[] | null = null;
@@ -15,84 +14,84 @@ export namespace CollisionDetection {
    *  Returns all graphic that are in contact with cursor
    */
   export function TestColisionWihtCursor(radius: number) {
-    if (!Continuum_CanvasViewport.viewport) return [];
+    // if (!Continuum_CanvasViewport.viewport) return [];
 
-    if (lastPoint === null) {
-      const circlePosition = new Point(
-        Continuum_CanvasCursor.cursor.x,
-        Continuum_CanvasCursor.cursor.y
-      );
-      lastPoint = getCriclePoints({
-        radius,
-        circlePosition,
-        numberOfPoints: 6,
-      });
-      return;
-    }
-    const circlePosition = Continuum_CanvasViewport.viewport.toWorld(
-      new Point(Continuum_CanvasCursor.cursor.x, Continuum_CanvasCursor.cursor.y)
-    );
+    // if (lastPoint === null) {
+    //   const circlePosition = new Point(
+    //     Continuum_CanvasCursor.cursor.x,
+    //     Continuum_CanvasCursor.cursor.y
+    //   );
+    //   lastPoint = getCriclePoints({
+    //     radius,
+    //     circlePosition,
+    //     numberOfPoints: 6,
+    //   });
+    //   return;
+    // }
+    // const circlePosition = Continuum_CanvasViewport.viewport.toWorld(
+    //   new Point(Continuum_CanvasCursor.cursor.x, Continuum_CanvasCursor.cursor.y)
+    // );
 
-    const testPoints = getCriclePoints({
-      radius,
-      circlePosition,
-      numberOfPoints: 6,
-    });
-    const graphis: Graphics[] = [];
+    // const testPoints = getCriclePoints({
+    //   radius,
+    //   circlePosition,
+    //   numberOfPoints: 6,
+    // });
+    // const graphis: Graphics[] = [];
 
-    const dragedCircle = Convexhull.makeHull([...testPoints, ...lastPoint]);
-    // const dragedCircle = testPoints;
+    // const dragedCircle = Convexhull.makeHull([...testPoints, ...lastPoint]);
+    // // const dragedCircle = testPoints;
 
-    for (let g of graphiMap.values()) {
-      const graph = g.graph;
-      if (!graph || g.visible === false) continue;
+    // for (let g of graphiMap.values()) {
+    //   const graph = g.graph;
+    //   if (!graph || g.visible === false) continue;
 
-      const globalPosition = Continuum_CanvasViewport.viewport.toWorld(
-        new Point(g.path[0].x, g.path[0].y)
-      );
-      const intersection = Continuum_CanvasCursor.cursor.containsPoint(globalPosition);
+    //   const globalPosition = Continuum_CanvasViewport.viewport.toWorld(
+    //     new Point(g.path[0].x, g.path[0].y)
+    //   );
+    //   const intersection = Continuum_CanvasCursor.cursor.containsPoint(globalPosition);
 
-      Continuum_CanvasViewport.viewport.addChild(
-        new Graphics().circle(g.path[0].x, g.path[0].y, 1).fill("blue")
-      );
-      Continuum_CanvasViewport.viewport.addChild(
-        new Graphics()
-          .circle(globalPosition.x, globalPosition.y, 1)
-          .fill("blue")
-      );
-      if (intersection) {
-        g.graph.tint = "red";
-        break;
-      }
+    //   Continuum_CanvasViewport.viewport.addChild(
+    //     new Graphics().circle(g.path[0].x, g.path[0].y, 1).fill("blue")
+    //   );
+    //   Continuum_CanvasViewport.viewport.addChild(
+    //     new Graphics()
+    //       .circle(globalPosition.x, globalPosition.y, 1)
+    //       .fill("blue")
+    //   );
+    //   if (intersection) {
+    //     g.graph.tint = "red";
+    //     break;
+    //   }
 
-      for (let i = 0; i < g.path.length - 1; i += 1) {
-        const p1 = g.path[i];
-        const p2 = g.path[i + 1];
-        for (let j = 0; j < dragedCircle.length - 1; j += 1) {
-          const p3 = dragedCircle[j];
-          const p4 = dragedCircle[j + 1];
-          const intersection = getLineIntersection(
-            p1.x,
-            p1.y,
-            p2.x,
-            p2.y,
-            p3.x,
-            p3.y,
-            p4.x,
-            p4.y
-          );
+    //   for (let i = 0; i < g.path.length - 1; i += 1) {
+    //     const p1 = g.path[i];
+    //     const p2 = g.path[i + 1];
+    //     for (let j = 0; j < dragedCircle.length - 1; j += 1) {
+    //       const p3 = dragedCircle[j];
+    //       const p4 = dragedCircle[j + 1];
+    //       const intersection = getLineIntersection(
+    //         p1.x,
+    //         p1.y,
+    //         p2.x,
+    //         p2.y,
+    //         p3.x,
+    //         p3.y,
+    //         p4.x,
+    //         p4.y
+    //       );
 
-          if (intersection) {
-            //graphis.push(g);
-            g.graph.tint = "red";
-            break;
-          }
-        }
-      }
-    }
+    //       if (intersection) {
+    //         //graphis.push(g);
+    //         g.graph.tint = "red";
+    //         break;
+    //       }
+    //     }
+    //   }
+    // }
 
-    lastPoint = [...testPoints];
-    return graphis;
+    // lastPoint = [...testPoints];
+    // return graphis;
   }
 
   function getLineIntersection(

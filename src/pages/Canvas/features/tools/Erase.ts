@@ -3,14 +3,18 @@ import { Continuum_CanvasCursor } from "../service/Cursor";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
-import { Continuum_ToolManager, ITool } from "../service/tools/ToolManager";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { Continuum_CanvasViewport } from "../service/Viewport";
-import { graphiMap, Id } from "../data/GraphicsDataManager";
-import { Continuum_LineStrategyManager, ILine } from "../Line/LineStrategyManager";
+import {
+  Continuum_LineStrategyManager,
+  ILine,
+} from "../Line/LineStrategyManager";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { CollisionDetection } from "../service/ColisionDetection";
 import { MouseInputPoint } from "../../Types";
+import { Continuum_ToolManager, ITool } from "./ToolManager";
+import { graphiMap } from "../data/GraphicsDataManager";
+import { Continuum_Math } from "../service/utils/CanvasUtils";
 
 export class Erase implements ITool {
   type: Continuum_ToolManager.ToolType = "eraser";
@@ -24,8 +28,8 @@ export class Erase implements ITool {
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.curve = new Graphics();
-    this.curve.blendMode = 'erase';
-    
+    this.curve.blendMode = "erase";
+
     Continuum_CanvasViewport.viewport.addChild(this.curve);
     this.activeColor = CanvasPalet.getColor(
       usePencileStore.getState().pencilColorId
@@ -34,67 +38,34 @@ export class Erase implements ITool {
       usePencileStore.getState().thicknesId
     );
 
-    this.lineStrategy = Continuum_LineStrategyManager.getActiveStrategy("bezier");
+    this.lineStrategy =
+      Continuum_LineStrategyManager.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine(e);
 
     CollisionDetection.Clear();
     // this.firsDot(e);
   }
 
-
-  public draw<P extends MouseInputPoint>(e: P) {
+  public draw<P extends MouseInputPoint>(domo: P) {
     // if (this.curve === null) return;
     // if (!CanvasViewport.viewport) return;
-        const zoom = useCanvasStore.getState().zoome;
+    const zoom = useCanvasStore.getState().zoome;
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(domo);
+    if (!activePoint) return;
+    const radius = zoom*ThicknesPalet.getThicknes(
+      useEraseStore.getState().thicknesId
+    );
 
-   const radius =
-        zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
-    const graphics = CollisionDetection.TestColisionWihtCursor(radius);
-    if (!graphics) return;
-    // for (const g of graphics){
-    //   if (g){
-    //     g.graph.visible = false;
-    //   }
-    // }
-  //   const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
-
-  //   if (out?.needNew) {
-  //     this.curve.stroke({
-  //       width: this.activeThicknes * 2,
-  //       color: "white",
-  //       cap: "round",
-  //       join: "round",
-  //     });
-  //   }
-  //   this.curve.tint = this.activeColor;
-  // }
-
-  // public stopDrawing() {
-  //   if (this.curve === null) return;
-  //   const g: GraphicsData = {
-  //     id: uuidv4(),
-  //     graph: this.curve,
-  //   };
-
-  //   graphiMap.set(g.id, g);
-  //   const customCommand: ICommand = {
-  //     execute: () => this.show(g.id),
-  //     undo: () => this.hide(g.id),
-  //   };
-  //   Canvas.commandManage.addNewCommand(customCommand);
-  }
-
-  private show(id: Id) {
-    const g = graphiMap.get(id);
-    if (g) {
-      g.graph.visible = true;
-    }
-  }
-
-  private hide(graph: Id) {
-    const g = graphiMap.get(graph);
-    if (g) {
-      g.graph.visible = false;
+    for (const g of graphiMap.values()){
+      if (g.visible === false) continue;
+      const pointOfCurve = g.path.getNearestPoint(activePoint);
+      console.log(pointOfCurve);
+      const c= {x:pointOfCurve.x, y: pointOfCurve.y}
+      const dist = Continuum_Math.Distance(activePoint, c);
+      if (dist <= radius + g.graphicInfo.thicknes/2 ){
+        g.visible = false;
+        g.graph.visible = false;
+      }
     }
   }
 

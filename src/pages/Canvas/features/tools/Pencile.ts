@@ -106,11 +106,24 @@ export class Pencile implements ITool {
     }
     this.lineStrategy?.updateLinePoistion(e, this.curve);
 
+    const optimizedPath = Continuum_CurveService.ConverLineToPath(this.path);
+    const optimizedCruveGraphics =
+      Continuum_CurveService.CreatGrahicPath(optimizedPath);
+    optimizedCruveGraphics.stroke({
+      width: this.activeThicknes * 2,
+      color: "white",
+      cap: "round",
+      join: "round",
+    });
+
     const g: GraphicsData = {
       id: uuidv4(),
-      graph: this.curve,
-      path: [...this.path],
+      graph: optimizedCruveGraphics,
+      path: optimizedPath,
       visible: true,
+      graphicInfo: {
+        thicknes: this.activeThicknes * 2,
+      },
     };
     simpleCurve.stroke({
       width: this.activeThicknes * 2,
@@ -126,20 +139,13 @@ export class Pencile implements ITool {
       execute: () => this.show(g.id),
       undo: () => this.hide(g.id),
     };
+
     Continuum_Canvas.commandManage.addNewCommand(customCommand);
-    const c = Continuum_CurveService.ConverLineToPath(this.path);
-    const graph = Continuum_CurveService.CreatGrahicPath(c);
-    graph.stroke({
-      width: this.activeThicknes * 2,
-      color: "white",
-      cap: "round",
-      join: "round",
-    });
 
     if (!this.activeColor) return;
-    graph.tint = this.activeColor;
+    optimizedCruveGraphics.tint = this.activeColor;
     Continuum_CanvasViewport.viewport?.removeChild(this.curve);
-    Continuum_CanvasViewport.viewport?.addChild(graph);
+    Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
     this.path = [];
   }
 

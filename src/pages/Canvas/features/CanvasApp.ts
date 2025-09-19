@@ -6,14 +6,14 @@ import useSettingsStore from "../data/store/SettingsStore";
 import { Continuum_ResizeService } from "./service/Resize";
 import { Continuum_CanvasCursor } from "./service/Cursor";
 import { Continuum_CanvasViewport } from "./service/Viewport";
-import { CommandManager } from "./commands/CommandManager";
+import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_LineStrategyManager } from "./Line/LineStrategyManager";
 import { Continuum_CurveService } from "./service/CurveService";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export let drawing = false;
-  export let commandManage = new CommandManager();
+  export let commandManage = new Continuum_CommandManager();
 
   export async function creatPixiApp() {
     if (appInstance) {

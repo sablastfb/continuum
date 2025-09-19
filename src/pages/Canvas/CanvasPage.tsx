@@ -20,7 +20,6 @@ function CanvasPage() {
 
     async function SetUpPixi() {
       const app = await Continuum_Canvas.creatPixiApp();
-      setCanvasCursorActive(true);
       if (canvasContainer?.current && app && app?.canvas !== undefined) {
         canvasContainer.current.appendChild(app?.canvas);
       }

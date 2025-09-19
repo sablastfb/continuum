@@ -25,7 +25,7 @@ export namespace Continuum_ToolManager {
     | "text"
     | "image";
 
-  export const tools: Map<ToolType, ITool> = new Map();
+    export const tools: Map<ToolType, ITool> = new Map();
   export let currentTool: ITool | null = null;
 
   export function init() {

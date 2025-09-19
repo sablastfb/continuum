@@ -1,19 +1,35 @@
 import { Graphics } from "pixi.js";
 import { Continuum_CanvasViewport } from "../Viewport";
 import { Simplify } from "simplify-ts";
+import { SimplePoint } from "../../../Types";
 
-export namespace Continuum.Debug {
-  type SimplePoint = {
-    x: number;
-    y: number;
-  };
+
+/**
+ * 
+ */
+
+
+export namespace Continuum._Debug {
+  export function DrawLine<P extends SimplePoint>(pointX: P, pointY: P) {
+    const line = new Graphics();
+    line
+      .circle(pointX.x, pointX.y, 5)
+      .fill("red")
+      .circle(pointY.x, pointY.y, 5)
+      .fill("blue")
+      .moveTo(pointX.x, pointX.y)
+      .lineTo(pointY.x, pointY.y)
+      .stroke({ color: "green" });
+    Continuum_CanvasViewport.viewport?.addChild(line);
+  }
+
   /**
    *  Draws path to viewport
    *
    * @param path list of points
    * @param color color of  line
    */
-  export function PathCalu<P extends SimplePoint>(
+  export function DrawPath<P extends SimplePoint>(
     path: P[],
     color: string = "red"
   ) {
@@ -30,10 +46,10 @@ export namespace Continuum.Debug {
     Continuum_CanvasViewport.viewport?.addChild(g);
   }
 
-  export function PathSimTest<P extends SimplePoint>(path: P[]) {
+  export function SimplePathOptmizationTest<P extends SimplePoint>(path: P[]) {
     for (let i = 0; i < 10; i += 1) {
       const simplePath = Simplify(path, i * 3, false);
-      PathCalu(simplePath, getColorFromGradient(i, 0, 10));
+      DrawPath(simplePath, getColorFromGradient(i, 0, 10));
     }
   }
 

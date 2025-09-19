@@ -1,5 +1,3 @@
-// import { ICommand } from "./ICommand";
-
 import useCanvasStore from "../../data/store/CanvasStore";
 
 export interface ICommand {
@@ -7,7 +5,7 @@ export interface ICommand {
   undo(): void;
 }
 
-export class CommandManager {
+export class Continuum_CommandManager {
   public history: ICommand[] = [];
 
   public addNewCommand(customCommand: ICommand) {
