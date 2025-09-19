@@ -1,16 +1,16 @@
 import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
-import { CanvasCursor } from "./Cursor";
-import { CanvasResize } from "./Resize";
-import { CanvasBacground } from "./Background";
+import { Continuum_CanvasCursor } from "./Cursor";
+import { Continuum_ResizeService } from "./Resize";
+import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_ToolManager } from "../tools/ToolManager";
 
-export namespace CanvasViewport {
+export namespace Continuum_CanvasViewport {
   export let viewport: Viewport | null = null;
   
   export function init() {
     if (!Continuum_Canvas.appInstance) return;
-    CanvasViewport.viewport = new Viewport({
+    Continuum_CanvasViewport.viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
       events: Continuum_Canvas.appInstance.renderer.events,
@@ -18,6 +18,7 @@ export namespace CanvasViewport {
       passiveWheel: true,
     });
   }
+
   export function setUpViewportAndEvent() {
     if (viewport === null) return;
     viewport
@@ -38,8 +39,8 @@ export namespace CanvasViewport {
         Continuum_ToolManager.startDrawing(e);
       })
       .on("touchmove", (e) => {
-        CanvasCursor.throttledDraw(e);
-        CanvasCursor.moveCursor(e);
+        Continuum_CanvasCursor.throttledDraw(e);
+        Continuum_CanvasCursor.moveCursor(e);
       })
       .on("pointerdown", (e) => {
         if (Continuum_Canvas.drawing) return;
@@ -47,8 +48,8 @@ export namespace CanvasViewport {
         Continuum_ToolManager.startDrawing(e);
       })
       .on("pointermove", (e) => {
-        CanvasCursor.throttledDraw(e);
-        CanvasCursor.moveCursor(e);
+        Continuum_CanvasCursor.throttledDraw(e);
+        Continuum_CanvasCursor.moveCursor(e);
       })
       .on("pointerup", (e) => {
         if (!Continuum_Canvas.drawing) return;
@@ -66,12 +67,12 @@ export namespace CanvasViewport {
         Continuum_ToolManager.stopDrawing(e);
       })
       .on("zoomed", (e) => {
-        CanvasResize.viewportZoom(e);
+        Continuum_ResizeService.viewportZoom(e);
       })
       .on("moved", () => {
-        if (CanvasBacground.backgroundTexture && viewport?.scale.x) {
-          CanvasBacground.backgroundTexture.tilePosition.x = viewport?.x;
-          CanvasBacground.backgroundTexture.tilePosition.y = viewport?.y;
+        if (Continuum_CanvasBacground.backgroundTexture && viewport?.scale.x) {
+          Continuum_CanvasBacground.backgroundTexture.tilePosition.x = viewport?.x;
+          Continuum_CanvasBacground.backgroundTexture.tilePosition.y = viewport?.y;
         }
       });
   }

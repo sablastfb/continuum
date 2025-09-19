@@ -1,11 +1,11 @@
 import { Graphics } from "pixi.js";
-import { CanvasCursor } from "../service/Cursor";
+import { Continuum_CanvasCursor } from "../service/Cursor";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { Continuum_ToolManager, ITool } from "../service/tools/ToolManager";
 import { useEraseStore } from "../../data/store/EraseStore";
-import { CanvasViewport } from "../service/Viewport";
+import { Continuum_CanvasViewport } from "../service/Viewport";
 import { graphiMap, Id } from "../data/GraphicsDataManager";
 import { Continuum_LineStrategyManager, ILine } from "../Line/LineStrategyManager";
 import { usePencileStore } from "../../data/store/PencileStore";
@@ -21,12 +21,12 @@ export class Erase implements ITool {
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
-    if (!CanvasViewport.viewport) return;
+    if (!Continuum_CanvasViewport.viewport) return;
 
     this.curve = new Graphics();
     this.curve.blendMode = 'erase';
     
-    CanvasViewport.viewport.addChild(this.curve);
+    Continuum_CanvasViewport.viewport.addChild(this.curve);
     this.activeColor = CanvasPalet.getColor(
       usePencileStore.getState().pencilColorId
     );
@@ -104,16 +104,16 @@ export class Erase implements ITool {
     if (eraseMethod === "soft") {
       const radius =
         zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
-      CanvasCursor.cursor.clear();
-      CanvasCursor.cursor
+      Continuum_CanvasCursor.cursor.clear();
+      Continuum_CanvasCursor.cursor
         .circle(0, 0, radius)
         .fill({ color: CanvasPalet.getColor("c-1") })
         .stroke({ width: 1, color: CanvasPalet.getColor("c-1") });
     } else if (eraseMethod === "strong") {
       const radius =
         zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
-      CanvasCursor.cursor.clear();
-      CanvasCursor.cursor
+      Continuum_CanvasCursor.cursor.clear();
+      Continuum_CanvasCursor.cursor
         .circle(0, 0, radius)
         .fill({ color: CanvasPalet.getColor("c-1") });
     }

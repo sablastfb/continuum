@@ -1,36 +1,35 @@
 import { Application } from "pixi.js";
 import { Continuum_ToolManager } from "./tools/ToolManager";
-import { CanvasBacground } from "./service/Background";
+import { Continuum_CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
-import { CanvasResize } from "./service/Resize";
-import { CanvasCursor } from "./service/Cursor";
-import { CanvasViewport } from "./service/Viewport";
+import { Continuum_ResizeService } from "./service/Resize";
+import { Continuum_CanvasCursor } from "./service/Cursor";
+import { Continuum_CanvasViewport } from "./service/Viewport";
 import { CommandManager } from "./commands/CommandManager";
 import { Continuum_LineStrategyManager } from "./Line/LineStrategyManager";
-import { CurveService } from "./service/CurveService";
+import { Continuum_CurveService } from "./service/CurveService";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export let drawing = false;
   export let commandManage = new CommandManager();
 
-  export async function getPixiApp() {
+  export async function creatPixiApp() {
     if (appInstance) {
-      CanvasCursor.updateCursor();
-      CanvasCursor.updateCursorVisibilty();
+      Continuum_CanvasCursor.updateCursor();
+      Continuum_CanvasCursor.updateCursorVisibilty();
       return appInstance;
     }
 
     await setUpAplication();
-    CanvasViewport.setUpViewportAndEvent();
-    CanvasResize.setUpResize();
-    CanvasCursor.updateCursor();
-    CurveService.init();
-    CanvasBacground.changeBackground(useSettingsStore.getState().background);
+    Continuum_CanvasViewport.setUpViewportAndEvent();
+    Continuum_ResizeService.setUpResize();
+    Continuum_CanvasCursor.updateCursor();
+    Continuum_CanvasBacground.changeBackground(useSettingsStore.getState().background);
     return appInstance;
   }
-
+  
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
@@ -41,13 +40,14 @@ export namespace Continuum_Canvas {
       ),
     });
     appInstance.renderer.resize(window.innerWidth, window.innerHeight);
-    CanvasCursor.init();
-    CanvasViewport.init();
+    Continuum_CanvasCursor.init();
+    Continuum_CanvasViewport.init();
+    Continuum_CurveService.init();
+    Continuum_ToolManager.init();
+    Continuum_LineStrategyManager.init();
 
-    if (!CanvasViewport.viewport) return; 
-    appInstance!.stage.addChild(CanvasViewport.viewport);
-    appInstance!.stage.addChild(CanvasCursor.cursor);
-    Continuum_ToolManager.setUpToolManager();
-    Continuum_LineStrategyManager.registerDefaulStrategyes();
+    if (!Continuum_CanvasViewport.viewport) return; 
+    appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
+    appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
   }
 }

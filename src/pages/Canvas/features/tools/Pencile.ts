@@ -3,8 +3,8 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { CanvasCursor } from "../service/Cursor";
-import { CanvasViewport } from "../service/Viewport";
+import { Continuum_CanvasCursor } from "../service/Cursor";
+import { Continuum_CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 import {
@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ICommand } from "../commands/CommandManager";
 import { Simplify } from "simplify-ts";
 import { MouseInputPoint } from "../../Types";
-import { CurveService } from "../service/CurveService";
+import { Continuum_CurveService } from "../service/CurveService";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
@@ -28,11 +28,11 @@ export class Pencile implements ITool {
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
-    if (!CanvasViewport.viewport) return;
+    if (!Continuum_CanvasViewport.viewport) return;
 
     this.curve = new Graphics();
 
-    CanvasViewport.viewport.addChild(this.curve);
+    Continuum_CanvasViewport.viewport.addChild(this.curve);
 
     this.activeColor = CanvasPalet.getColor(
       usePencileStore.getState().pencilColorId
@@ -44,7 +44,7 @@ export class Pencile implements ITool {
     this.lineStrategy =
       Continuum_LineStrategyManager.getActiveStrategy("bezier");
     this.lineStrategy?.startNewLine(e);
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
 
     this.firsDot(e);
@@ -54,8 +54,8 @@ export class Pencile implements ITool {
     if (this.curve === null) return;
     if (this.activeColor === null) return;
     if (this.activeThicknes === null) return;
-    if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    if (!Continuum_CanvasViewport.viewport) return;
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
 
     this.curve
       .circle(worldPos.x, worldPos.y, this.activeThicknes)
@@ -69,8 +69,8 @@ export class Pencile implements ITool {
     if (this.curve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
-    if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    if (!Continuum_CanvasViewport.viewport) return;
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
     this.curve.lineTo(worldPos.x, worldPos.y);
     // const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
@@ -91,8 +91,8 @@ export class Pencile implements ITool {
     if (this.activeThicknes === null) return;
 
     if (this.curve === null) return;
-    if (!CanvasViewport.viewport) return;
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    if (!Continuum_CanvasViewport.viewport) return;
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
 
     this.lineStrategy?.startNewLine(this.path[0]);
@@ -127,8 +127,8 @@ export class Pencile implements ITool {
       undo: () => this.hide(g.id),
     };
     Continuum_Canvas.commandManage.addNewCommand(customCommand);
-    const c = CurveService.ConverLineToPath(this.path);
-    const graph = CurveService.CreatGrahicPath(c);
+    const c = Continuum_CurveService.ConverLineToPath(this.path);
+    const graph = Continuum_CurveService.CreatGrahicPath(c);
     graph.stroke({
       width: this.activeThicknes * 2,
       color: "white",
@@ -138,8 +138,8 @@ export class Pencile implements ITool {
 
     if (!this.activeColor) return;
     graph.tint = this.activeColor;
-    CanvasViewport.viewport?.removeChild(this.curve);
-    CanvasViewport.viewport?.addChild(graph);
+    Continuum_CanvasViewport.viewport?.removeChild(this.curve);
+    Continuum_CanvasViewport.viewport?.addChild(graph);
     this.path = [];
   }
 
@@ -158,8 +158,8 @@ export class Pencile implements ITool {
   }
 
   public updateCursor() {
-    if (!CanvasCursor.cursor) return;
-    CanvasCursor.cursor.clear();
+    if (!Continuum_CanvasCursor.cursor) return;
+    Continuum_CanvasCursor.cursor.clear();
     const lineWidth = 1;
     const outlineWidth = 1;
     const color = CanvasPalet.getColor(
@@ -171,7 +171,7 @@ export class Pencile implements ITool {
       zoom * ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId);
     const outerRadius = Math.max(radius, 10);
     const lineDistance = 30 + outerRadius;
-    CanvasCursor.cursor
+    Continuum_CanvasCursor.cursor
       .circle(0, 0, outerRadius)
       .stroke({
         alignment: 0,

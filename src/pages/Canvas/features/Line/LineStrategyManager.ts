@@ -16,7 +16,7 @@ export interface ILine {
 
 export namespace Continuum_LineStrategyManager {
   export const lineStrategies: Map<LineStrategyTypes, ILine> = new Map();
-  export function registerDefaulStrategyes() {
+  export function init() {
     const lineStrategies = Continuum_LineStrategyManager.lineStrategies;
     lineStrategies.set("simple", new SimpleLine());
     lineStrategies.set("bezier", new Bezier());

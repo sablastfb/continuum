@@ -28,7 +28,7 @@ export namespace Continuum_ToolManager {
   export const tools: Map<ToolType, ITool> = new Map();
   export let currentTool: ITool | null = null;
 
-  export function setUpToolManager() {
+  export function init() {
     registerDefaultTools();
     setTool(useCanvasStore.getState().activeTool);
   }

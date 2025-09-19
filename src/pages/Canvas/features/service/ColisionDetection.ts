@@ -1,7 +1,7 @@
 import { Graphics, Point } from "pixi.js";
-import { CanvasCursor } from "./Cursor";
+import { Continuum_CanvasCursor } from "./Cursor";
 import { graphiMap } from "../data/GraphicsDataManager";
-import { CanvasViewport } from "./Viewport";
+import { Continuum_CanvasViewport } from "./Viewport";
 import { Convexhull } from "./Convex/ConvexHull";
 
 export namespace CollisionDetection {
@@ -15,12 +15,12 @@ export namespace CollisionDetection {
    *  Returns all graphic that are in contact with cursor
    */
   export function TestColisionWihtCursor(radius: number) {
-    if (!CanvasViewport.viewport) return [];
+    if (!Continuum_CanvasViewport.viewport) return [];
 
     if (lastPoint === null) {
       const circlePosition = new Point(
-        CanvasCursor.cursor.x,
-        CanvasCursor.cursor.y
+        Continuum_CanvasCursor.cursor.x,
+        Continuum_CanvasCursor.cursor.y
       );
       lastPoint = getCriclePoints({
         radius,
@@ -29,8 +29,8 @@ export namespace CollisionDetection {
       });
       return;
     }
-    const circlePosition = CanvasViewport.viewport.toWorld(
-      new Point(CanvasCursor.cursor.x, CanvasCursor.cursor.y)
+    const circlePosition = Continuum_CanvasViewport.viewport.toWorld(
+      new Point(Continuum_CanvasCursor.cursor.x, Continuum_CanvasCursor.cursor.y)
     );
 
     const testPoints = getCriclePoints({
@@ -47,15 +47,15 @@ export namespace CollisionDetection {
       const graph = g.graph;
       if (!graph || g.visible === false) continue;
 
-      const globalPosition = CanvasViewport.viewport.toWorld(
+      const globalPosition = Continuum_CanvasViewport.viewport.toWorld(
         new Point(g.path[0].x, g.path[0].y)
       );
-      const intersection = CanvasCursor.cursor.containsPoint(globalPosition);
+      const intersection = Continuum_CanvasCursor.cursor.containsPoint(globalPosition);
 
-      CanvasViewport.viewport.addChild(
+      Continuum_CanvasViewport.viewport.addChild(
         new Graphics().circle(g.path[0].x, g.path[0].y, 1).fill("blue")
       );
-      CanvasViewport.viewport.addChild(
+      Continuum_CanvasViewport.viewport.addChild(
         new Graphics()
           .circle(globalPosition.x, globalPosition.y, 1)
           .fill("blue")

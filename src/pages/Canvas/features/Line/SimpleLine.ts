@@ -1,6 +1,6 @@
 import { Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
-import { CanvasViewport } from "../service/Viewport";
+import { Continuum_CanvasViewport } from "../service/Viewport";
 import { SimplePoint } from "../../Types";
 
 export class SimpleLine implements ILine {
@@ -11,9 +11,9 @@ export class SimpleLine implements ILine {
   }
 
   updateLinePoistion<P extends SimplePoint>(e: P, curve: Graphics): LineUpdate {
-    if (!CanvasViewport.viewport) return { needNew: false };
+    if (!Continuum_CanvasViewport.viewport) return { needNew: false };
 
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
 
     this.lastPoint = new Point(worldPos.x, worldPos.y);
     curve.lineTo(worldPos.x, worldPos.y);

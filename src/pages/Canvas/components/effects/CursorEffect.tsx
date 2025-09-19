@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { CanvasCursor } from "../../features/service/Cursor";
+import { Continuum_CanvasCursor } from "../../features/service/Cursor";
 import { useEraseStore } from "../../data/store/EraseStore";
 
 function CursorEffect() {
@@ -16,11 +16,11 @@ function CursorEffect() {
   const eraser = useEraseStore();
 
   useEffect(() => {
-    CanvasCursor.updateCursor();
+    Continuum_CanvasCursor.updateCursor();
   }, [color, zoom, pen, eraser]);
 
   useEffect(() => {
-    CanvasCursor.updateCursorVisibilty();
+    Continuum_CanvasCursor.updateCursorVisibilty();
   }, [canvasCursorActive]);
 
   return <></>;

@@ -3,10 +3,10 @@ import { FederatedPointerEvent, Graphics } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_ToolManager } from "../tools/ToolManager";
 
-export namespace CanvasCursor {
+export namespace Continuum_CanvasCursor {
   export let cursor: Graphics;
   export function init() {
-    CanvasCursor.cursor = new Graphics();
+    Continuum_CanvasCursor.cursor = new Graphics();
   }
 
   export function updateCursor() {
@@ -14,8 +14,8 @@ export namespace CanvasCursor {
   }
 
   export function updateCursorVisibilty() {
-    if (CanvasCursor.cursor) {
-      CanvasCursor.cursor.visible = true;
+    if (Continuum_CanvasCursor.cursor) {
+      Continuum_CanvasCursor.cursor.visible = true;
     }
   }
 
@@ -26,8 +26,8 @@ export namespace CanvasCursor {
   }, 16);
 
   export const moveCursor = throttle((e: FederatedPointerEvent) => {
-    CanvasCursor.cursor.x = e.global.x;
-    CanvasCursor.cursor.y = e.global.y;
+    Continuum_CanvasCursor.cursor.x = e.global.x;
+    Continuum_CanvasCursor.cursor.y = e.global.y;
   }, 1);
 
 }

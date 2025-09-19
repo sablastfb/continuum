@@ -7,19 +7,17 @@ import { PaperScope } from "paper/dist/paper-core";
 import { SimplePoint } from "../../Types";
 import { Graphics } from "pixi.js";
 
-export namespace CurveService {
+export namespace Continuum_CurveService {
   export const paperScope = new PaperScope();
 
   export async function init() {
     const canvas = document.createElement("canvas");
     paperScope.setup(canvas);
   }
-  /**
-   *
-   */
+ 
   export function ConverLineToPath<P extends SimplePoint>(line: P[]) {
-    const path = new CurveService.paperScope.Path([...line]);
-    path.simplify(1);
+    const path = new Continuum_CurveService.paperScope.Path([...line]);
+    path.simplify(0.1);
     return path;
   }
 

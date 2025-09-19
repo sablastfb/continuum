@@ -1,5 +1,5 @@
 import { Graphics } from "pixi.js";
-import { CanvasViewport } from "../Viewport";
+import { Continuum_CanvasViewport } from "../Viewport";
 import { Simplify } from "simplify-ts";
 
 export namespace Continuum.Debug {
@@ -27,7 +27,7 @@ export namespace Continuum.Debug {
       g.lineTo(currentPoint.x, currentPoint.y);
     }
     g.stroke({ color, width: 1 });
-    CanvasViewport.viewport?.addChild(g);
+    Continuum_CanvasViewport.viewport?.addChild(g);
   }
 
   export function PathSimTest<P extends SimplePoint>(path: P[]) {

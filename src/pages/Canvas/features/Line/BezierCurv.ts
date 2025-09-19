@@ -1,20 +1,20 @@
 import { Graphics, Point } from "pixi.js";
 import { ILine, LineUpdate } from "./LineStrategyManager";
-import { CanvasViewport } from "../service/Viewport";
+import { Continuum_CanvasViewport } from "../service/Viewport";
 import { SimplePoint } from "../../Types";
 
 export class Bezier implements ILine {
   private lastPoints: Point[] = [];
   
   startNewLine<P extends SimplePoint>(e: P) {
-    if (!CanvasViewport.viewport) return { needNew: false };
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    if (!Continuum_CanvasViewport.viewport) return { needNew: false };
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.lastPoints = Array(4).fill(new Point(worldPos.x, worldPos.y));
   }
 
   updateLinePoistion<P extends SimplePoint>(e: P, curve: Graphics): LineUpdate {
-    if (!CanvasViewport.viewport) return { needNew: false };
-    const worldPos = CanvasViewport.viewport.toWorld(e);
+    if (!Continuum_CanvasViewport.viewport) return { needNew: false };
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.lastPoints.push(new Point(worldPos.x, worldPos.y));
     while (this.lastPoints.length > 4) this.lastPoints.shift();
     const controlPoints = this.craeteBezierParameters();

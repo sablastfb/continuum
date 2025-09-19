@@ -2,9 +2,9 @@ import { Graphics, TilingSprite } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { BackgroundSettings } from "../../data/store/SettingsStore";
-import { CanvasViewport } from "./Viewport";
+import { Continuum_CanvasViewport } from "./Viewport";
 
-export namespace CanvasBacground {
+export namespace Continuum_CanvasBacground {
   export let backgroundTexture: TilingSprite;
 
   export function changeBackground(bs: BackgroundSettings) {
@@ -129,12 +129,12 @@ export namespace CanvasBacground {
     resize();
   }
   function resize() {
-    if (backgroundTexture && CanvasViewport.viewport?.scale.x) {
-      backgroundTexture.tilePosition.x = CanvasViewport.viewport?.x;
-      backgroundTexture.tilePosition.y = CanvasViewport.viewport?.y;
-      if (backgroundTexture && CanvasViewport.viewport?.scale.x) {
-        backgroundTexture.tileScale.x = CanvasViewport.viewport?.scale.x;
-        backgroundTexture.tileScale.y = CanvasViewport.viewport?.scale.y;
+    if (backgroundTexture && Continuum_CanvasViewport.viewport?.scale.x) {
+      backgroundTexture.tilePosition.x = Continuum_CanvasViewport.viewport?.x;
+      backgroundTexture.tilePosition.y = Continuum_CanvasViewport.viewport?.y;
+      if (backgroundTexture && Continuum_CanvasViewport.viewport?.scale.x) {
+        backgroundTexture.tileScale.x = Continuum_CanvasViewport.viewport?.scale.x;
+        backgroundTexture.tileScale.y = Continuum_CanvasViewport.viewport?.scale.y;
       }
     }
   }
