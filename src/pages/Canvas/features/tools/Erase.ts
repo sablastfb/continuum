@@ -1,26 +1,21 @@
-import { Graphics } from "pixi.js";
-import { Continuum_CanvasCursor } from "../service/Cursor";
+import { DEG_TO_RAD, Graphics } from "pixi.js";
+import { Continuum_CanvasCursor } from "../cursor/Cursor";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { Continuum_CanvasViewport } from "../service/Viewport";
-import {
-  Continuum_LineStrategyManager,
-  ILine,
-} from "../Line/LineStrategyManager";
+
 import { usePencileStore } from "../../data/store/PencileStore";
-import { CollisionDetection } from "../service/ColisionDetection";
-import { MouseInputPoint } from "../../Types";
+import { MouseInputPoint, SimplePoint } from "../../Types";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { graphiMap } from "../data/GraphicsDataManager";
-import { Continuum_Math } from "../service/utils/CanvasUtils";
+import { Continuum_Math } from "../service/CanvasUtils";
+import { Continuum_CurveService } from "../service/CurveService";
 
 export class Erase implements ITool {
   type: Continuum_ToolManager.ToolType = "eraser";
   private curve: Graphics | null = null;
-  private lineStrategy: ILine | null = null;
-  private activeColor: string | null = null;
   private activeThicknes: number | null = null;
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
@@ -31,42 +26,53 @@ export class Erase implements ITool {
     this.curve.blendMode = "erase";
 
     Continuum_CanvasViewport.viewport.addChild(this.curve);
-    this.activeColor = CanvasPalet.getColor(
-      usePencileStore.getState().pencilColorId
-    );
     this.activeThicknes = ThicknesPalet.getThicknes(
       usePencileStore.getState().thicknesId
     );
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
 
-    this.lineStrategy =
-      Continuum_LineStrategyManager.getActiveStrategy("bezier");
-    this.lineStrategy?.startNewLine(e);
-
-    CollisionDetection.Clear();
+    this.lastPoint = activePoint;
     // this.firsDot(e);
   }
+  lastPoint!: SimplePoint;
 
-  public draw<P extends MouseInputPoint>(domo: P) {
+  public draw<P extends MouseInputPoint>(e: P) {
     // if (this.curve === null) return;
     // if (!CanvasViewport.viewport) return;
     const zoom = useCanvasStore.getState().zoome;
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(domo);
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
     if (!activePoint) return;
-    const radius = zoom*ThicknesPalet.getThicknes(
-      useEraseStore.getState().thicknesId
-    );
+    const radius =
+      zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
 
-    for (const g of graphiMap.values()){
+    for (const g of graphiMap.values()) {
       if (g.visible === false) continue;
-      const pointOfCurve = g.path.getNearestPoint(activePoint);
-      console.log(pointOfCurve);
-      const c= {x:pointOfCurve.x, y: pointOfCurve.y}
+      const pointOfCurve = g.graphicInfo.path.getNearestPoint(activePoint);
+      if (!pointOfCurve) continue;
+
+      const c = { x: pointOfCurve.x, y: pointOfCurve.y };
       const dist = Continuum_Math.Distance(activePoint, c);
-      if (dist <= radius + g.graphicInfo.thicknes/2 ){
+      if (dist <= radius + g.graphicInfo.thicknes / 2) {
+        g.visible = false;
+        g.graph.visible = false;
+
+      }
+    }
+
+    const diffPath = Continuum_CurveService.ConverLineToPath([
+      this.lastPoint,
+      activePoint,
+    ]);
+    for (const g of graphiMap.values()) {
+      if (g.visible === false) continue;
+      const pointOfCurve = g.graphicInfo.path.getIntersections(diffPath);
+      if (pointOfCurve.length >0) {
         g.visible = false;
         g.graph.visible = false;
       }
     }
+     this.lastPoint = activePoint;
+    //
   }
 
   updateCursor(): void {

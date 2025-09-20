@@ -4,10 +4,9 @@ import { Continuum_CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
 import { Continuum_ResizeService } from "./service/Resize";
-import { Continuum_CanvasCursor } from "./service/Cursor";
+import { Continuum_CanvasCursor } from "./cursor/Cursor";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
-import { Continuum_LineStrategyManager } from "./Line/LineStrategyManager";
 import { Continuum_CurveService } from "./service/CurveService";
 
 export namespace Continuum_Canvas {
@@ -39,12 +38,10 @@ export namespace Continuum_Canvas {
         useSettingsStore.getState().background.color
       ),
     });
-    appInstance.renderer.resize(window.innerWidth, window.innerHeight);
     Continuum_CanvasCursor.init();
     Continuum_CanvasViewport.init();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
-    Continuum_LineStrategyManager.init();
 
     if (!Continuum_CanvasViewport.viewport) return; 
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);

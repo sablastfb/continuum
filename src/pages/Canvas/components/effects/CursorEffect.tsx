@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { Continuum_CanvasCursor } from "../../features/service/Cursor";
+import { Continuum_CanvasCursor } from "../../features/cursor/Cursor";
 import { useEraseStore } from "../../data/store/EraseStore";
 
 function CursorEffect() {

@@ -27,15 +27,12 @@ export namespace Continuum_CurveService {
     const segments = paperPath.segments;
     pathGraphics.moveTo(segments[0].point.x, segments[0].point.y);
 
-    // Iterate through segments to draw lines or curves
     for (let i = 1; i < segments.length; i++) {
       const seg = segments[i];
       const prevSeg = segments[i - 1];
       const cp1 = prevSeg.point.add(prevSeg.handleOut);
       const cp2 = seg.point.add(seg.handleIn);
-      // Check if the segment has Bézier handles
       if (prevSeg.handleOut && seg.handleIn) {
-        // Draw a cubic Bézier curve
         pathGraphics.bezierCurveTo(
           cp1.x,
           cp1.y,
@@ -45,7 +42,6 @@ export namespace Continuum_CurveService {
           seg.point.y
         );
       } else {
-        // Draw a straight line
         pathGraphics.lineTo(seg.point.x, seg.point.y);
       }
     }

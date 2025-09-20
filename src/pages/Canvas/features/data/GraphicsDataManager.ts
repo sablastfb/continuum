@@ -1,11 +1,12 @@
 import { Graphics } from "pixi.js";
+import { CurveGraphicInfo } from "./CurveGraphicInfo";
 
 export type Id = string;
 
 export type GraphicsData = {
   id: Id;
+  type: GraphicType;
   graph: Graphics;
-  path: paper.Path;
   visible: boolean;
   graphicInfo: GraphicInfo
 };
@@ -14,7 +15,5 @@ export type GraphicsData = {
 export const graphiMap = new Map<Id, GraphicsData>();
 
 
-export type GraphicInfo = {
-  thicknes: number
-
-}
+export type GraphicInfo = CurveGraphicInfo;
+export type GraphicType = 'cruve';

@@ -1,14 +1,12 @@
 import { Graphics } from "pixi.js";
-import { Continuum_CanvasViewport } from "../Viewport";
 import { Simplify } from "simplify-ts";
-import { SimplePoint } from "../../../Types";
+import { SimplePoint } from "../../Types";
+import { Continuum_CanvasViewport } from "./Viewport";
 
 
 /**
  * 
  */
-
-
 export namespace Continuum._Debug {
   export function DrawLine<P extends SimplePoint>(pointX: P, pointY: P) {
     const line = new Graphics();

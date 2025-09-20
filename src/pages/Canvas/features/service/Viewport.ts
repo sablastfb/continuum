@@ -1,6 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
-import { Continuum_CanvasCursor } from "./Cursor";
+import { Continuum_CanvasCursor } from "../cursor/Cursor";
 import { Continuum_ResizeService } from "./Resize";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_ToolManager } from "../tools/ToolManager";
@@ -14,7 +14,6 @@ export namespace Continuum_CanvasViewport {
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
       events: Continuum_Canvas.appInstance.renderer.events,
-      threshold: 5,
       passiveWheel: true,
     });
   }

@@ -12,7 +12,10 @@ export namespace Continuum_ResizeService {
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
     Continuum_CanvasViewport.viewport.setZoom(zomeValue);
-    if (Continuum_CanvasBacground.backgroundTexture && Continuum_CanvasViewport.viewport?.scale.x) {
+    if (
+      Continuum_CanvasBacground.backgroundTexture &&
+      Continuum_CanvasViewport.viewport?.scale.x
+    ) {
       Continuum_CanvasBacground.backgroundTexture.tileScale.x =
         Continuum_CanvasViewport.viewport?.scale.x;
       Continuum_CanvasBacground.backgroundTexture.tileScale.y =
@@ -22,7 +25,10 @@ export namespace Continuum_ResizeService {
 
   export function viewportZoom(e: ZoomedEvent) {
     useCanvasStore.getState().setZoom(e?.viewport.scale.x);
-    if (Continuum_CanvasBacground.backgroundTexture && Continuum_CanvasViewport.viewport?.scale.x) {
+    if (
+      Continuum_CanvasBacground.backgroundTexture &&
+      Continuum_CanvasViewport.viewport?.scale.x
+    ) {
       Continuum_CanvasBacground.backgroundTexture.tileScale.x =
         Continuum_CanvasViewport.viewport?.scale.x;
       Continuum_CanvasBacground.backgroundTexture.tileScale.y =
@@ -36,13 +42,19 @@ export namespace Continuum_ResizeService {
   }
 
   export function handleResize() {
-    if (!Continuum_Canvas.appInstance || !Continuum_CanvasViewport.viewport) return;
+    if (!Continuum_Canvas.appInstance || !Continuum_CanvasViewport.viewport)
+      return;
     Continuum_CanvasViewport.viewport.resize(
       window.innerWidth,
       window.innerHeight,
       1024,
       1024
     );
+    Continuum_Canvas.appInstance.renderer.resize(
+      window.innerWidth,
+      window.innerHeight
+    );
+
     if (Continuum_CanvasBacground.backgroundTexture) {
       Continuum_CanvasBacground.backgroundTexture.width = window.innerWidth;
       Continuum_CanvasBacground.backgroundTexture.height = window.innerHeight;
