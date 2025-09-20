@@ -17,7 +17,7 @@ export namespace Continuum_CurveService {
  
   export function ConverLineToPath<P extends SimplePoint>(line: P[]) {
     const path = new Continuum_CurveService.paperScope.Path([...line]);
-    path.simplify(0.1);
+    path.simplify(10);
     return path;
   }
 

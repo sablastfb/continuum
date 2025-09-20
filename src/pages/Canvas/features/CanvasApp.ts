@@ -4,7 +4,7 @@ import { Continuum_CanvasBacground } from "./service/Background";
 import { CanvasPalet } from "../data/container/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
 import { Continuum_ResizeService } from "./service/Resize";
-import { Continuum_CanvasCursor } from "./cursor/Cursor";
+import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";

@@ -1,20 +1,18 @@
 import { Graphics, Point } from "pixi.js";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
-import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { Continuum_CanvasCursor } from "../cursor/Cursor";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 
-import { GraphicsData, graphiMap, Id } from "../data/GraphicsDataManager";
+import { GraphicsData, graphicOnCanvas, Id } from "../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
 import { ICommand } from "../commands/CommandManager";
 import { Simplify } from "simplify-ts";
 import { MouseInputPoint } from "../../Types";
 import { Continuum_CurveService } from "../service/CurveService";
-import { PencileCursor } from "../cursor/Pencile";
+import { CrossHairCursor } from "../cursor/CrossHair";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
@@ -39,6 +37,7 @@ export class Pencile implements ITool {
     );
     const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.path.push(worldPos);
+    this.curve.moveTo(worldPos.x, worldPos.y);
 
     // this.firsDot(e);
   }
@@ -119,7 +118,7 @@ export class Pencile implements ITool {
 
     if (this.activeColor) simpleCurve.tint = this.activeColor;
 
-    graphiMap.set(g.id, g);
+    graphicOnCanvas.set(g.id, g);
     const customCommand: ICommand = {
       execute: () => this.show(g.id),
       undo: () => this.hide(g.id),
@@ -135,20 +134,20 @@ export class Pencile implements ITool {
   }
 
   private show(id: Id) {
-    const g = graphiMap.get(id);
+    const g = graphicOnCanvas.get(id);
     if (g) {
       g.graph.visible = true;
     }
   }
 
   private hide(graph: Id) {
-    const g = graphiMap.get(graph);
+    const g = graphicOnCanvas.get(graph);
     if (g) {
       g.graph.visible = false;
     }
   }
 
   public updateCursor() {
-    PencileCursor();
+    CrossHairCursor.draw();
   }
 }

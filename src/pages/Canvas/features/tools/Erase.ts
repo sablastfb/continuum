@@ -1,6 +1,4 @@
-import { DEG_TO_RAD, Graphics } from "pixi.js";
-import { Continuum_CanvasCursor } from "../cursor/Cursor";
-import { CanvasPalet } from "../../data/container/PaletContainer";
+import { Graphics } from "pixi.js";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
@@ -9,9 +7,10 @@ import { Continuum_CanvasViewport } from "../service/Viewport";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { MouseInputPoint, SimplePoint } from "../../Types";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
-import { graphiMap } from "../data/GraphicsDataManager";
-import { Continuum_Math } from "../service/CanvasUtils";
+import { graphicOnCanvas } from "../data/GraphicsDataManager";
 import { Continuum_CurveService } from "../service/CurveService";
+import { Continuum_Math } from "../service/MathUtils";
+import { CircleCursor } from "../cursor/Circle";
 
 export class Erase implements ITool {
   type: Continuum_ToolManager.ToolType = "eraser";
@@ -43,9 +42,9 @@ export class Erase implements ITool {
     const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
     if (!activePoint) return;
     const radius =
-      zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
+       ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
 
-    for (const g of graphiMap.values()) {
+    for (const g of graphicOnCanvas.values()) {
       if (g.visible === false) continue;
       const pointOfCurve = g.graphicInfo.path.getNearestPoint(activePoint);
       if (!pointOfCurve) continue;
@@ -63,7 +62,7 @@ export class Erase implements ITool {
       this.lastPoint,
       activePoint,
     ]);
-    for (const g of graphiMap.values()) {
+    for (const g of graphicOnCanvas.values()) {
       if (g.visible === false) continue;
       const pointOfCurve = g.graphicInfo.path.getIntersections(diffPath);
       if (pointOfCurve.length >0) {
@@ -72,27 +71,9 @@ export class Erase implements ITool {
       }
     }
      this.lastPoint = activePoint;
-    //
   }
 
   updateCursor(): void {
-    const eraseMethod = useEraseStore.getState().eraseMethod;
-    const zoom = useCanvasStore.getState().zoome;
-    if (eraseMethod === "soft") {
-      const radius =
-        zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
-      Continuum_CanvasCursor.cursor.clear();
-      Continuum_CanvasCursor.cursor
-        .circle(0, 0, radius)
-        .fill({ color: CanvasPalet.getColor("c-1") })
-        .stroke({ width: 1, color: CanvasPalet.getColor("c-1") });
-    } else if (eraseMethod === "strong") {
-      const radius =
-        zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
-      Continuum_CanvasCursor.cursor.clear();
-      Continuum_CanvasCursor.cursor
-        .circle(0, 0, radius)
-        .fill({ color: CanvasPalet.getColor("c-1") });
-    }
+    CircleCursor.draw();
   }
 }

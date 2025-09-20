@@ -12,7 +12,7 @@ export type GraphicsData = {
 };
 
 
-export const graphiMap = new Map<Id, GraphicsData>();
+export const graphicOnCanvas = new Map<Id, GraphicsData>();
 
 
 export type GraphicInfo = CurveGraphicInfo;
