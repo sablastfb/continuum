@@ -25,7 +25,7 @@ export namespace Continuum_ToolManager {
     | "text"
     | "image";
 
-    export const tools: Map<ToolType, ITool> = new Map();
+  export const tools: Map<ToolType, ITool> = new Map();
   export let currentTool: ITool | null = null;
 
   export function init() {
@@ -44,13 +44,13 @@ export namespace Continuum_ToolManager {
     }
   }
 
-    export function stopDrawing<P extends MouseInputPoint>(e: P) {
+  export function stopDrawing<P extends MouseInputPoint>(e: P) {
     if (currentTool && currentTool.stopDrawing) {
       currentTool.stopDrawing(e);
     }
   }
 
-    export function draw<P extends MouseInputPoint>(e: P) {
+  export function draw<P extends MouseInputPoint>(e: P) {
     if (currentTool && currentTool.draw) {
       currentTool.draw(e);
     }

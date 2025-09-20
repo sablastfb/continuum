@@ -4,30 +4,27 @@ import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
-import { Continuum_Canvas } from "../CanvasApp";
-
-import { GraphicsData, graphicOnCanvas, Id } from "../data/GraphicsDataManager";
+import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import { ICommand } from "../commands/CommandManager";
-import { Simplify } from "simplify-ts";
 import { MouseInputPoint } from "../../Types";
 import { Continuum_CurveService } from "../service/CurveService";
 import { CrossHairCursor } from "../cursor/CrossHair";
+import { GraphicsCommand } from "../commands/AddGraphics";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
-  private curve: Graphics | null = null;
+  private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
-  private path: Point[] = [];
+  private line: Point[] = [];
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (e.button !== 0) return;
     if (!Continuum_CanvasViewport.viewport) return;
 
-    this.curve = new Graphics();
+    this.activeCurve = new Graphics();
 
-    Continuum_CanvasViewport.viewport.addChild(this.curve);
+    Continuum_CanvasViewport.viewport.addChild(this.activeCurve);
 
     this.activeColor = CanvasPalet.getColor(
       usePencileStore.getState().pencilColorId
@@ -36,60 +33,37 @@ export class Pencile implements ITool {
       usePencileStore.getState().thicknesId
     );
     const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
-    this.path.push(worldPos);
-    this.curve.moveTo(worldPos.x, worldPos.y);
-
-    // this.firsDot(e);
-  }
-
-  private firsDot<P extends MouseInputPoint>(e: P) {
-    if (this.curve === null) return;
-    if (this.activeColor === null) return;
-    if (this.activeThicknes === null) return;
-    if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
-
-    this.curve
-      .circle(worldPos.x, worldPos.y, this.activeThicknes)
-      .fill("white");
-
-    this.curve.moveTo(worldPos.x, worldPos.y);
-    this.curve.tint = this.activeColor;
+    this.line.push(worldPos);
+    this.activeCurve.moveTo(worldPos.x, worldPos.y);
   }
 
   public draw<P extends MouseInputPoint>(e: P) {
-    if (this.curve === null) return;
+    if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_CanvasViewport.viewport) return;
     const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
-    this.path.push(worldPos);
-    this.curve.lineTo(worldPos.x, worldPos.y);
-    // const out = this.lineStrategy?.updateLinePoistion(e, this.curve);
+    this.line.push(worldPos);
+    this.activeCurve.lineTo(worldPos.x, worldPos.y);
 
-    this.curve.stroke({
+    this.activeCurve.stroke({
       width: this.activeThicknes * 2,
       color: "white",
       cap: "round",
       join: "round",
     });
-    this.curve.tint = this.activeColor;
+    this.activeCurve.tint = this.activeColor;
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0) return;
+    if (e.button !== 0 && e.button !== -1) return;
     if (this.activeThicknes === null) return;
-
-    if (this.curve === null) return;
+    if (this.activeCurve === null) return;
+    if (!this.activeColor) return;
     if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
-    this.path.push(worldPos);
+    this.line.push(this.line[this.line.length - 1]);
 
-    const simplePath = Simplify(this.path, 2, true);
-
-    const simpleCurve = new Graphics();
-    simpleCurve.moveTo(simplePath[0].x, simplePath[0].y);
-    const optimizedPath = Continuum_CurveService.ConverLineToPath(this.path);
+    const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
     const optimizedCruveGraphics =
       Continuum_CurveService.CreatGrahicPath(optimizedPath);
     optimizedCruveGraphics.stroke({
@@ -109,42 +83,23 @@ export class Pencile implements ITool {
         thicknes: this.activeThicknes * 2,
       },
     };
-    simpleCurve.stroke({
-      width: this.activeThicknes * 2,
-      color: "white",
-      cap: "round",
-      join: "round",
-    });
-
-    if (this.activeColor) simpleCurve.tint = this.activeColor;
 
     graphicOnCanvas.set(g.id, g);
-    const customCommand: ICommand = {
-      execute: () => this.show(g.id),
-      undo: () => this.hide(g.id),
-    };
+    GraphicsCommand.addNew(g);
 
-    Continuum_Canvas.commandManage.addNewCommand(customCommand);
-
-    if (!this.activeColor) return;
+    if (this.line.length == 2) {
+      const firstCurve = optimizedPath.curves[0];
+      const firstPoint = firstCurve.point1;
+      if (firstPoint) {
+        optimizedCruveGraphics
+          .circle(firstPoint.x, firstPoint.y, this.activeThicknes)
+          .fill("white");
+      }
+    }
     optimizedCruveGraphics.tint = this.activeColor;
-    Continuum_CanvasViewport.viewport?.removeChild(this.curve);
+    Continuum_CanvasViewport.viewport?.removeChild(this.activeCurve);
     Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
-    this.path = [];
-  }
-
-  private show(id: Id) {
-    const g = graphicOnCanvas.get(id);
-    if (g) {
-      g.graph.visible = true;
-    }
-  }
-
-  private hide(graph: Id) {
-    const g = graphicOnCanvas.get(graph);
-    if (g) {
-      g.graph.visible = false;
-    }
+    this.line = [];
   }
 
   public updateCursor() {

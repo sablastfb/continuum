@@ -14,11 +14,28 @@ export namespace Continuum_CurveService {
     const canvas = document.createElement("canvas");
     paperScope.setup(canvas);
   }
- 
+
   export function ConverLineToPath<P extends SimplePoint>(line: P[]) {
     const path = new Continuum_CurveService.paperScope.Path([...line]);
-    path.simplify(10);
+    if (line.length > 2)
+    path.simplify(2);
+    // PrintDiff(line, path);
     return path;
+  }
+
+  function PrintDiff<P extends SimplePoint>(line: P[], path: paper.Path) {
+    const newSegmentCount = path.segments.length;
+    const segmentCount = line.length;
+    const difference = segmentCount - newSegmentCount;
+    const percentage = 100 - Math.round((newSegmentCount / segmentCount) * 100);
+    console.log(
+      difference +
+        " of the " +
+        segmentCount +
+        " segments were removed. Saving " +
+        percentage +
+        "%"
+    );
   }
 
   export function CreatGrahicPath(paperPath: paper.Path) {
