@@ -3,13 +3,22 @@ import { graphicOnCanvas, GraphicsData, Id } from "../data/GraphicsDataManager";
 import { ICommand } from "./CommandManager";
 
 export class GraphicsCommand {
-  static addNew(g: GraphicsData) {
+  static addNew(graphic: GraphicsData) {
     const customCommand: ICommand = {
-      execute: () => this.show(g.id),
-      undo: () => this.hide(g.id),
+      execute: () => this.show(graphic.id),
+      undo: () => this.hide(graphic.id),
     };
     Continuum_Canvas.commandManage.addNewCommand(customCommand);
   }
+
+  static removeGraphics(graphics: GraphicsData[]){
+      const customCommand: ICommand = {
+      execute: () => graphics.forEach((g) => this.hide(g.id)),
+      undo: () => graphics.forEach((g) => this.show(g.id))
+    };
+    Continuum_Canvas.commandManage.addNewCommand(customCommand);
+  }
+
 
   static show(id: Id) {
     const g = graphicOnCanvas.get(id);
