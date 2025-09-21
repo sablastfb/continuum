@@ -55,7 +55,7 @@ const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const DefaultSettings: SettingsData = {
   background: {
-    activeBacgroundType: "grid",
+    activeBacgroundType: "color",
     color: backgroundColors[0],
     grid: {
       bacgroundColor: backgroundColors[3],

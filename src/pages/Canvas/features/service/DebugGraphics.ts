@@ -4,10 +4,7 @@ import { SimplePoint } from "../../Types";
 import { Continuum_CanvasViewport } from "./Viewport";
 
 
-/**
- * 
- */
-export namespace Continuum._Debug {
+export namespace Continuum_Debug {
   export function DrawLine<P extends SimplePoint>(pointX: P, pointY: P) {
     const line = new Graphics();
     line
@@ -21,12 +18,6 @@ export namespace Continuum._Debug {
     Continuum_CanvasViewport.viewport?.addChild(line);
   }
 
-  /**
-   *  Draws path to viewport
-   *
-   * @param path list of points
-   * @param color color of  line
-   */
   export function DrawPath<P extends SimplePoint>(
     path: P[],
     color: string = "red"

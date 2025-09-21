@@ -26,7 +26,6 @@ export namespace Continuum_CanvasBacground {
 
   function ClearBackground() {
     if (!backgroundTexture) return;
-
     Continuum_Canvas.appInstance?.stage.removeChild(backgroundTexture);
   }
 
@@ -128,6 +127,7 @@ export namespace Continuum_CanvasBacground {
 
     resize();
   }
+
   function resize() {
     if (backgroundTexture && Continuum_CanvasViewport.viewport?.scale.x) {
       backgroundTexture.tilePosition.x = Continuum_CanvasViewport.viewport?.x;

@@ -25,6 +25,7 @@ export namespace Continuum_CanvasViewport {
       .pinch({
         noDrag: true,
       })
+      .clampZoom({maxScale: 10.0, minScale: 0.25})
       .wheel();
     viewport
       .on("touchstart", (e) => {

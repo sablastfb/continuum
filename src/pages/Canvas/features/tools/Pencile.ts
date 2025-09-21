@@ -1,4 +1,4 @@
-import { Graphics, Point } from "pixi.js";
+import {  Graphics, Point } from "pixi.js";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
@@ -20,7 +20,7 @@ export class Pencile implements ITool {
   private line: Point[] = [];
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0) return;
+    if (e.button !== 0 && e.button !== -1) return;
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.activeCurve = new Graphics();
@@ -39,7 +39,11 @@ export class Pencile implements ITool {
   }
 
   public draw<P extends MouseInputPoint>(e: P) {
-    if (Continuum_Canvas.drawing === false || e.button !== -1) return;
+    if (
+      Continuum_Canvas.drawing === false ||
+      (e.button !== -1 && e.button !== 0)
+    )
+      return;
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
@@ -58,7 +62,7 @@ export class Pencile implements ITool {
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0 && e.button !== -1) return;
+    if (e.button !== 0 ) return;
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
