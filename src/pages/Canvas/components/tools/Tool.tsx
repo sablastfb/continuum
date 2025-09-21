@@ -14,7 +14,7 @@ function Tool() {
 
   let activeToolComponent;
   switch (activeTool) {
-    case "drawing":
+    case "pencile":
       activeToolComponent = <PencileTools />;
       break;
     case "eraser":

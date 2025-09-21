@@ -1,4 +1,4 @@
-import { Pencile } from "./Pencile";
+import { Curve } from "./Curve/Curve";
 import { Erase } from "./Erase";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { MouseInputPoint } from "../../Types";
@@ -18,8 +18,10 @@ export type ITool = Partial<{
 
 export namespace Continuum_ToolManager {
   export type ToolType =
+    | "pencile"
+    | "pen"
+    | "marker"
     | "base"
-    | "drawing"
     | "eraser"
     | "transform-move"
     | "transform-pan"
@@ -36,7 +38,9 @@ export namespace Continuum_ToolManager {
   }
 
   export function registerDefaultTools() {
-    Continuum_ToolManager.tools.set("drawing", new Pencile());
+    Continuum_ToolManager.tools.set("pen", new Curve('pen'));
+    Continuum_ToolManager.tools.set("pencile", new Curve('pencile'));
+    Continuum_ToolManager.tools.set("marker", new Curve('marker'));
     Continuum_ToolManager.tools.set("eraser", new Erase());
     Continuum_ToolManager.tools.set("shape", new Shape());
   }

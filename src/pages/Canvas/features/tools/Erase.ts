@@ -60,7 +60,6 @@ export class Erase implements ITool {
     }
     GraphicsCommand.removeGraphics(this.delteGraphics);
     this.delteGraphics = [];
-    debugger;
   }
 
   updateCursor(): void {

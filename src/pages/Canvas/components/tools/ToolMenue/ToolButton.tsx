@@ -1,12 +1,12 @@
 import { JSX } from "react";
 import useCanvasStore from "../../../data/store/CanvasStore";
-import { ToolType } from "../../../features/tools/ToolManager";
+import { Continuum_ToolManager } from "../../../features/tools/ToolManager";
 import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
 
 
 export type IconOption = {
   icon: JSX.Element;
-  tool: ToolType;
+  tool: Continuum_ToolManager.ToolType;
 };
 
 function ToolButton({ icon, tool }: IconOption) {

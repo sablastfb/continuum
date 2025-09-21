@@ -1,24 +1,51 @@
 import { Graphics, Point } from "pixi.js";
-import { CanvasPalet } from "../../data/container/PaletContainer";
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
-import { usePencileStore } from "../../data/store/PencileStore";
-import { Continuum_CanvasViewport } from "../service/Viewport";
-import { Continuum_ToolManager, ITool } from "./ToolManager";
-import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
+import { CanvasPalet } from "../../../data/container/PaletContainer";
+import { ThicknesPalet } from "../../../data/container/ThickneContainer";
+import { usePencileStore } from "../../../data/store/PencileStore";
+import { Continuum_CanvasViewport } from "../../service/Viewport";
+import { Continuum_ToolManager, ITool } from "../ToolManager";
+import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import { MouseInputPoint } from "../../Types";
-import { Continuum_CurveService } from "../service/CurveService";
-import { CrossHairCursor } from "../cursor/CrossHair";
-import { GraphicsCommand } from "../commands/Graphics";
-import { Continuum_Canvas } from "../CanvasApp";
-import { MouseButton, Continuum_MouseService } from "../service/MouseService";
+import { MouseInputPoint } from "../../../Types";
+import { Continuum_CurveService } from "../../service/CurveService";
+import { CrossHairCursor } from "../../cursor/CrossHair";
+import { GraphicsCommand } from "../../commands/Graphics";
+import { Continuum_Canvas } from "../../CanvasApp";
+import {
+  MouseButton,
+  Continuum_MouseService,
+} from "../../service/MouseService";
+import { PenStyle } from "./Pen";
+import { PencileStyle } from "./Pencile";
+import { MarkerStyle } from "./Marker";
 
-export class Pencile implements ITool {
-  type: Continuum_ToolManager.ToolType = "drawing";
+export type CruveStyle = "pen" | "pencile" | "marker";
+
+export interface ICurveStyle {
+  draw(info: any): void;
+  stopDrawingStyle(info: any): void;
+}
+
+export class Curve implements ITool {
+  type: Continuum_ToolManager.ToolType = "pencile";
   private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
   private line: Point[] = [];
+  private curveStyle!: ICurveStyle;
+  constructor(private curveStyleType: CruveStyle) {
+    switch (curveStyleType) {
+      case "pen":
+        this.curveStyle = new PenStyle();
+        break;
+      case "pencile":
+        this.curveStyle = new PencileStyle();
+        break;
+      case "marker":
+        this.curveStyle = new MarkerStyle();
+        break;
+    }
+  }
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
@@ -42,7 +69,7 @@ export class Pencile implements ITool {
   }
 
   public draw<P extends MouseInputPoint>(e: P) {
-    if (Continuum_Canvas.drawing === false ) return;
+    if (Continuum_Canvas.drawing === false) return;
     if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
@@ -51,21 +78,24 @@ export class Pencile implements ITool {
     const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.line.push(worldPos);
     this.activeCurve.lineTo(worldPos.x, worldPos.y);
-
-    this.activeCurve.stroke({
-      width: this.activeThicknes * 2,
-      color: "white",
-      cap: "round",
-      join: "round",
-    });
     this.activeCurve.tint = this.activeColor;
+
+    this.curveStyle.draw({
+      activeCurve: this.activeCurve,
+      line: this.line,
+      activeThicknes: this.activeThicknes,
+      activeColor: this.activeColor,
+    });
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
+    if (
+      !Continuum_MouseService.isButtonReleased(e, MouseButton.Left) &&
+      Continuum_Canvas.drawing === true
+    ) {
       return;
     }
-    
+
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
@@ -75,13 +105,6 @@ export class Pencile implements ITool {
     const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
     const optimizedCruveGraphics =
       Continuum_CurveService.CreatGrahicPath(optimizedPath);
-    optimizedCruveGraphics.stroke({
-      width: this.activeThicknes * 2,
-      color: "white",
-      cap: "round",
-      join: "round",
-    });
-
     const g: GraphicsData = {
       id: uuidv4(),
       type: "cruve",
@@ -92,22 +115,19 @@ export class Pencile implements ITool {
         thicknes: this.activeThicknes * 2,
       },
     };
-
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
 
-    if (this.line.length == 2) {
-      const firstCurve = optimizedPath.curves[0];
-      const firstPoint = firstCurve.point1;
-      if (firstPoint) {
-        optimizedCruveGraphics
-          .circle(firstPoint.x, firstPoint.y, this.activeThicknes)
-          .fill("white");
-      }
-    }
-    optimizedCruveGraphics.tint = this.activeColor;
     Continuum_CanvasViewport.viewport?.removeChild(this.activeCurve);
     Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
+
+    this.curveStyle.stopDrawingStyle({
+      optimizedCruveGraphics,
+      optimizedPath,
+      line: this.line,
+      activeThicknes: this.activeThicknes,
+      activeColor: this.activeColor,
+    });
     this.line = [];
   }
 

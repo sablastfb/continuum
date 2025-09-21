@@ -27,7 +27,7 @@ const useCanvasStore = create<CanvasStore>()(
     settingVisible: false,
     infoVisible: false,
     exportVisible: false,
-    activeTool: "drawing",
+    activeTool: "pencile",
     canvasCursorActive: true,
     historyPosition: -1,
     historyCount: 0,

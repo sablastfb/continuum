@@ -41,7 +41,7 @@ function ToolsButtons() {
             fill={CanvasPalet.getColor(pencil.pencilColorId)}
           />
         ),
-        tool: "drawing",
+        tool: "pencile",
       },
       {
         icon: <Highlighter size={defaultIconSize} />,
