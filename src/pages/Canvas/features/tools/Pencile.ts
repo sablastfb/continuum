@@ -1,4 +1,4 @@
-import {  Graphics, Point } from "pixi.js";
+import { Graphics, Point } from "pixi.js";
 import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
@@ -11,6 +11,7 @@ import { Continuum_CurveService } from "../service/CurveService";
 import { CrossHairCursor } from "../cursor/CrossHair";
 import { GraphicsCommand } from "../commands/Graphics";
 import { Continuum_Canvas } from "../CanvasApp";
+import { MouseButton, Continuum_MouseService } from "../service/MouseService";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
@@ -20,7 +21,9 @@ export class Pencile implements ITool {
   private line: Point[] = [];
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0 && e.button !== -1) return;
+    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
+      return;
+    }
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.activeCurve = new Graphics();
@@ -39,11 +42,8 @@ export class Pencile implements ITool {
   }
 
   public draw<P extends MouseInputPoint>(e: P) {
-    if (
-      Continuum_Canvas.drawing === false ||
-      (e.button !== -1 && e.button !== 0)
-    )
-      return;
+    if (Continuum_Canvas.drawing === false ) return;
+    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
@@ -62,7 +62,10 @@ export class Pencile implements ITool {
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0 ) return;
+    if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
+      return;
+    }
+    
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;

@@ -8,23 +8,27 @@ import { Continuum_CollisionService } from "../service/ColisionDetection";
 import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
 import { Continuum_Canvas } from "../CanvasApp";
+import { MouseButton, Continuum_MouseService } from "../service/MouseService";
 
 export class Erase implements ITool {
   type: Continuum_ToolManager.ToolType = "eraser";
   delteGraphics: GraphicsData[] = [];
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0) return;
+    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
+      return;
+    }
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.delteGraphics = [];
     const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
     Continuum_CollisionService.StartContinouseColison(activePoint);
   }
-  
+
   public draw<P extends MouseInputPoint>(e: P) {
-    if (Continuum_Canvas.drawing === false || e.button !== -1) return;
-    
+    if (Continuum_Canvas.drawing === false) return;
+    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
+
     const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
     if (!activePoint) return;
     const radius = ThicknesPalet.getThicknes(
@@ -51,11 +55,14 @@ export class Erase implements ITool {
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (e.button !== 0 && e.button !== -1) return;
-    GraphicsCommand.removeGraphics( this.delteGraphics);
+    if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
+      return;
+    }
+    GraphicsCommand.removeGraphics(this.delteGraphics);
     this.delteGraphics = [];
+    debugger;
   }
-  
+
   updateCursor(): void {
     CircleCursor.draw();
   }

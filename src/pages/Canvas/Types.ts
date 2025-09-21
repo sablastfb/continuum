@@ -5,4 +5,10 @@ export type SimplePoint = {
 
 export type MouseInputPoint = {
   button: number;
+  buttons: number;
+  movementX: number;
+  movementY: number;
+  globalX: number;
+  globalY: number;
+  pointerId: number;
 } & SimplePoint;

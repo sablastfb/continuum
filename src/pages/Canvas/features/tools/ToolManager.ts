@@ -4,6 +4,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { MouseInputPoint } from "../../Types";
 import { FederatedPointerEvent } from "pixi.js";
 import { throttle } from "lodash";
+import { Shape } from "./Shape";
 
 export type ITool = Partial<{
   type: Continuum_ToolManager.ToolType;
@@ -22,8 +23,7 @@ export namespace Continuum_ToolManager {
     | "eraser"
     | "transform-move"
     | "transform-pan"
-    | "shapes-square"
-    | "shapes-circle"
+    | "shape"
     | "text"
     | "image";
 
@@ -38,6 +38,7 @@ export namespace Continuum_ToolManager {
   export function registerDefaultTools() {
     Continuum_ToolManager.tools.set("drawing", new Pencile());
     Continuum_ToolManager.tools.set("eraser", new Erase());
+    Continuum_ToolManager.tools.set("shape", new Shape());
   }
 
   export function startDrawing<P extends MouseInputPoint>(e: P) {
