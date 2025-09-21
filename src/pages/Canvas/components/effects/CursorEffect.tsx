@@ -8,7 +8,6 @@ import { useEraseStore } from "../../data/store/EraseStore";
 function CursorEffect() {
   const zoom = useCanvasStore().zoome;
   const color = useSettingsStore((state) => state);
-  const activeTool = useCanvasStore((state) => state.activeTool);
   const canvasCursorActive = useCanvasStore(
     (state) => state.canvasCursorActive
   );
@@ -20,7 +19,7 @@ function CursorEffect() {
   }, [color, zoom, pen, eraser]);
 
   useEffect(() => {
-    Continuum_CanvasCursor.updateCursorVisibilty();
+    Continuum_CanvasCursor.updateCursorVisibilty(canvasCursorActive);
   }, [canvasCursorActive]);
 
   return <></>;

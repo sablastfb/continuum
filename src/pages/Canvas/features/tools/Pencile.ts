@@ -10,6 +10,7 @@ import { MouseInputPoint } from "../../Types";
 import { Continuum_CurveService } from "../service/CurveService";
 import { CrossHairCursor } from "../cursor/CrossHair";
 import { GraphicsCommand } from "../commands/Graphics";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export class Pencile implements ITool {
   type: Continuum_ToolManager.ToolType = "drawing";
@@ -38,6 +39,7 @@ export class Pencile implements ITool {
   }
 
   public draw<P extends MouseInputPoint>(e: P) {
+    if (Continuum_Canvas.drawing === false || e.button !== -1) return;
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;

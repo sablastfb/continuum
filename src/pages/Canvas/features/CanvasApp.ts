@@ -17,7 +17,7 @@ export namespace Continuum_Canvas {
   export async function creatPixiApp() {
     if (appInstance) {
       Continuum_CanvasCursor.updateCursor();
-      Continuum_CanvasCursor.updateCursorVisibilty();
+      Continuum_CanvasCursor.updateCursorVisibilty(true);
       return appInstance;
     }
 

@@ -11,14 +11,14 @@ export class GraphicsCommand {
     Continuum_Canvas.commandManage.addNewCommand(customCommand);
   }
 
-  static removeGraphics(graphics: GraphicsData[]){
-      const customCommand: ICommand = {
+  static removeGraphics(graphics: GraphicsData[]) {
+    if (graphics.length === 0) return;
+    const customCommand: ICommand = {
       execute: () => graphics.forEach((g) => this.hide(g.id)),
-      undo: () => graphics.forEach((g) => this.show(g.id))
+      undo: () => graphics.forEach((g) => this.show(g.id)),
     };
     Continuum_Canvas.commandManage.addNewCommand(customCommand);
   }
-
 
   static show(id: Id) {
     const g = graphicOnCanvas.get(id);

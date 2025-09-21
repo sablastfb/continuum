@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { ToolType } from "../../features/tools/ToolManager";
+import { Continuum_ToolManager } from "../../features/tools/ToolManager";
 
 export interface CanvasStore {
   zoome: number;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
-  activeTool: ToolType;
+  activeTool: Continuum_ToolManager.ToolType;
   canvasCursorActive: boolean;
   historyPosition: number;
   historyCount: number;
@@ -16,7 +16,7 @@ export interface CanvasStore {
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
-  setActiveTool: (activeTool: ToolType) => void;
+  setActiveTool: (activeTool: Continuum_ToolManager.ToolType) => void;
   setHistoryPosition: (historyCount: number) => void;
   setHistoryCount: (historyPosition: number) => void;
 }

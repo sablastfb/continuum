@@ -2,6 +2,8 @@ import { Pencile } from "./Pencile";
 import { Erase } from "./Erase";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { MouseInputPoint } from "../../Types";
+import { FederatedPointerEvent } from "pixi.js";
+import { throttle } from "lodash";
 
 export type ITool = Partial<{
   type: Continuum_ToolManager.ToolType;
@@ -50,12 +52,6 @@ export namespace Continuum_ToolManager {
     }
   }
 
-  export function draw<P extends MouseInputPoint>(e: P) {
-    if (currentTool && currentTool.draw) {
-      currentTool.draw(e);
-    }
-  }
-
   export function getCurrentTool() {
     if (currentTool === null) return null;
     return currentTool;
@@ -83,4 +79,10 @@ export namespace Continuum_ToolManager {
 
     return currentTool;
   }
+
+  export const draw = throttle((e: FederatedPointerEvent) => {
+    if (currentTool && currentTool.draw) {
+      currentTool.draw(e);
+    }
+  }, 8);
 }

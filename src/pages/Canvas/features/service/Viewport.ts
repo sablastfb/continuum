@@ -38,7 +38,7 @@ export namespace Continuum_CanvasViewport {
         Continuum_ToolManager.startDrawing(e);
       })
       .on("touchmove", (e) => {
-        Continuum_CanvasCursor.throttledDraw(e);
+        Continuum_ToolManager.draw(e);
         Continuum_CanvasCursor.moveCursor(e);
       })
       .on("pointerdown", (e) => {
@@ -47,7 +47,7 @@ export namespace Continuum_CanvasViewport {
         Continuum_ToolManager.startDrawing(e);
       })
       .on("pointermove", (e) => {
-        Continuum_CanvasCursor.throttledDraw(e);
+        Continuum_ToolManager.draw(e);
         Continuum_CanvasCursor.moveCursor(e);
       })
       .on("pointerup", (e) => {
@@ -56,12 +56,10 @@ export namespace Continuum_CanvasViewport {
         Continuum_ToolManager.stopDrawing(e);
       })
       .on("pointerupoutside", (e) => {
-        if (!Continuum_Canvas.drawing) return;
         Continuum_Canvas.drawing = false;
         Continuum_ToolManager.stopDrawing(e);
       })
       .on("pointerout", (e) => {
-        if (!Continuum_Canvas.drawing) return;
         Continuum_Canvas.drawing = false;
         Continuum_ToolManager.stopDrawing(e);
       })

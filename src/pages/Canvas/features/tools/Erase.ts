@@ -7,6 +7,7 @@ import { CircleCursor } from "../cursor/Circle";
 import { Continuum_CollisionService } from "../service/ColisionDetection";
 import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export class Erase implements ITool {
   type: Continuum_ToolManager.ToolType = "eraser";
@@ -22,6 +23,8 @@ export class Erase implements ITool {
   }
   
   public draw<P extends MouseInputPoint>(e: P) {
+    if (Continuum_Canvas.drawing === false || e.button !== -1) return;
+    
     const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
     if (!activePoint) return;
     const radius = ThicknesPalet.getThicknes(
@@ -48,12 +51,11 @@ export class Erase implements ITool {
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    debugger;
     if (e.button !== 0 && e.button !== -1) return;
-
     GraphicsCommand.removeGraphics( this.delteGraphics);
     this.delteGraphics = [];
   }
+  
   updateCursor(): void {
     CircleCursor.draw();
   }
