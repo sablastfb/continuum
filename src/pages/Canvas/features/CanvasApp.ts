@@ -25,14 +25,17 @@ export namespace Continuum_Canvas {
     Continuum_CanvasViewport.setUpViewportAndEvent();
     Continuum_ResizeService.setUpResize();
     Continuum_CanvasCursor.updateCursor();
-    Continuum_CanvasBacground.changeBackground(useSettingsStore.getState().background);
+    Continuum_CanvasBacground.changeBackground(
+      useSettingsStore.getState().background
+    );
     return appInstance;
   }
-  
+
   async function setUpAplication() {
     appInstance = new Application();
     await appInstance.init({
       antialias: true,
+      resolution: window.devicePixelRatio || 1,
       autoDensity: true,
       background: CanvasPalet.getColor(
         useSettingsStore.getState().background.color
@@ -42,9 +45,16 @@ export namespace Continuum_Canvas {
     Continuum_CanvasViewport.init();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
+    Continuum_CanvasBacground.init();
 
-    if (!Continuum_CanvasViewport.viewport) return; 
+    if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
     appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
+  }
+
+  export function IsCanvasReady() {
+    return (
+      Continuum_Canvas.appInstance && Continuum_Canvas.appInstance.renderer
+    );
   }
 }

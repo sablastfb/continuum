@@ -11,6 +11,8 @@ import {
   SquareDashed,
   Type,
   Undo,
+  Hexagon,
+  Octagon,
 } from "lucide-react";
 import ArrayDivider from "../../misc/ArrayDivider";
 import {
@@ -77,6 +79,14 @@ function ToolsButtons() {
       {
         icon: <Circle size={defaultIconSize} />,
         tool: "circle",
+      },
+      {
+        icon: <Hexagon size={defaultIconSize} />,
+        tool: "hexagon",
+      },
+      {
+        icon: <Octagon size={defaultIconSize} />,
+        tool: "poligon",
       },
     ],
     []

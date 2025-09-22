@@ -13,12 +13,12 @@ export namespace Continuum_ResizeService {
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
     Continuum_CanvasViewport.viewport.setZoom(zomeValue);
     if (
-      Continuum_CanvasBacground.backgroundTexture &&
+      Continuum_CanvasBacground.backgroundTilingSprite &&
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
-      Continuum_CanvasBacground.backgroundTexture.tileScale.x =
+      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
         Continuum_CanvasViewport.viewport?.scale.x;
-      Continuum_CanvasBacground.backgroundTexture.tileScale.y =
+      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
         Continuum_CanvasViewport.viewport?.scale.y;
     }
   }
@@ -26,12 +26,12 @@ export namespace Continuum_ResizeService {
   export function viewportZoom(e: ZoomedEvent) {
     useCanvasStore.getState().setZoom(e?.viewport.scale.x);
     if (
-      Continuum_CanvasBacground.backgroundTexture &&
+      Continuum_CanvasBacground.backgroundTilingSprite &&
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
-      Continuum_CanvasBacground.backgroundTexture.tileScale.x =
+      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
         Continuum_CanvasViewport.viewport?.scale.x;
-      Continuum_CanvasBacground.backgroundTexture.tileScale.y =
+      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
         Continuum_CanvasViewport.viewport?.scale.y;
     }
   }
@@ -55,9 +55,9 @@ export namespace Continuum_ResizeService {
       window.innerHeight
     );
 
-    if (Continuum_CanvasBacground.backgroundTexture) {
-      Continuum_CanvasBacground.backgroundTexture.width = window.innerWidth;
-      Continuum_CanvasBacground.backgroundTexture.height = window.innerHeight;
+    if (Continuum_CanvasBacground.backgroundTilingSprite) {
+      Continuum_CanvasBacground.backgroundTilingSprite.width = window.innerWidth;
+      Continuum_CanvasBacground.backgroundTilingSprite.height = window.innerHeight;
     }
   }
 }

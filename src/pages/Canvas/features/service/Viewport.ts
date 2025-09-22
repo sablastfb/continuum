@@ -68,9 +68,9 @@ export namespace Continuum_CanvasViewport {
         Continuum_ResizeService.viewportZoom(e);
       })
       .on("moved", () => {
-        if (Continuum_CanvasBacground.backgroundTexture && viewport?.scale.x) {
-          Continuum_CanvasBacground.backgroundTexture.tilePosition.x = viewport?.x;
-          Continuum_CanvasBacground.backgroundTexture.tilePosition.y = viewport?.y;
+        if (Continuum_CanvasBacground.backgroundTilingSprite && viewport?.scale.x) {
+          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.x = viewport?.x;
+          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.y = viewport?.y;
         }
       });
   }

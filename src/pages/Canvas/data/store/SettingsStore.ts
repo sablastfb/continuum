@@ -3,33 +3,10 @@ import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
 import { ColorId } from "../container/PaletContainer";
 import { DeepPartial } from "../types/UtilTypes";
+import { DotBackground, GridBackground, LineBackground, SolidColorBackground, TileBacgroundSettings } from "../../features/service/TailBackground";
 
 export type Theme = "dark" | "light";
-export type BackgroundTypes = "color" | "grid" | "dots" | "line";
 export type LayoutPositon = "top" | "bottom" | "left" | "right";
-
-export type BackgroundSettings = {
-  activeBacgroundType: BackgroundTypes;
-  color: ColorId;
-  grid: {
-    bacgroundColor: ColorId;
-    gridColor: ColorId;
-    size: number;
-    width: number;
-  };
-  dots: {
-    bacgroundColor: ColorId;
-    dotColor: ColorId;
-    radius: number;
-    width: number;
-  };
-  line: {
-    bacgroundColor: ColorId;
-    lineColor: ColorId;
-    width: number;
-  };
-  backgroundColors: ColorId[];
-};
 
 export interface SettingsData {
   layout: {
@@ -37,13 +14,13 @@ export interface SettingsData {
     toolMenue: LayoutPositon;
   };
   theme: Theme;
-  background: BackgroundSettings;
+  background: TileBacgroundSettings;
 }
 
 export interface SettingsStore extends SettingsData {
   discardSettings: (settings: SettingsData) => void;
   setBackgroundSettings: (
-    bacgroundSettings: DeepPartial<BackgroundSettings>
+    bacgroundSettings: DeepPartial<TileBacgroundSettings>
   ) => void;
   reserToDefaultSettings: () => void;
   setLayoutToolsMenue: (positon: LayoutPositon) => void;
@@ -55,24 +32,24 @@ const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const DefaultSettings: SettingsData = {
   background: {
-    activeBacgroundType: "color",
+    activeBacgroundType: "dots",
     color: backgroundColors[0],
     grid: {
-      bacgroundColor: backgroundColors[3],
-      gridColor: "bgt-1",
-      size: 5,
-      width: 10,
+      bacgroundColor: backgroundColors[0],
+      gridBorderColor: "bgt-1",
+      sizeOfGrid: 50,
+      widthOfGridLine: 0.5,
     },
     dots: {
       bacgroundColor: backgroundColors[0],
       dotColor: "bgt-1",
-      radius: 1.5,
-      width: 25,
+      dotRadius: 2,
+      tileWidth: 50,
     },
     line: {
       bacgroundColor: backgroundColors[0],
       lineColor: "bgt-1",
-      width: 25,
+      spaceBetween: 50,
     },
     backgroundColors: backgroundColors,
   },

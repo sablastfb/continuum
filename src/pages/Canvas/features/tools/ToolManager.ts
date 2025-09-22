@@ -25,9 +25,12 @@ export namespace Continuum_ToolManager {
     | "eraser"
     | "transform-move"
     | "transform-pan"
-    | "shape"
     | "text"
-    | "image";
+    | "image"
+    | "circle"
+    | "square"
+    | "hexagon"
+    | "poligon";
 
   export const tools: Map<ToolType, ITool> = new Map();
   export let currentTool: ITool | null = null;
@@ -42,7 +45,10 @@ export namespace Continuum_ToolManager {
     Continuum_ToolManager.tools.set("pencile", new Curve('pencile'));
     Continuum_ToolManager.tools.set("marker", new Curve('marker'));
     Continuum_ToolManager.tools.set("eraser", new Erase());
-    Continuum_ToolManager.tools.set("shape", new Shape());
+    Continuum_ToolManager.tools.set("circle", new Shape('circle'));
+    Continuum_ToolManager.tools.set("square", new Shape('square'));
+    Continuum_ToolManager.tools.set("hexagon", new Shape('hexagon'));
+    Continuum_ToolManager.tools.set("poligon", new Shape('poligon'));
   }
 
   export function startDrawing<P extends MouseInputPoint>(e: P) {
