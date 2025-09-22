@@ -8,6 +8,8 @@ export class PencileStyle implements ICurveStyle {
       cap: "round",
       join: "round",
     });
+        info.activeCurve.tint = info.activeColor;
+
   }
   stopDrawingStyle(info: any): void {
     if (info.line.length == 2) {

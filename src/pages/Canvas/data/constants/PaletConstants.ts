@@ -45,8 +45,30 @@ export const PaletContainer = [
     light: "rgb(253, 246, 227)",
     dark: "rgb(30, 25, 15)",
   },
-  // 
+  //
   { id: "bgt-1", light: "rgb(123, 123, 123)", dark: "rgb(123, 123, 123)" },
   { id: "c-1", light: "rgb(0, 0, 0)", dark: "rgb(255, 255, 255)" },
   { id: "c-2", light: "rgb(125, 125, 125)", dark: "rgb(125, 125, 125)" },
+
+  // marker
+  {
+    id: "marker-yellow",
+    light: "rgba(255, 247, 0, 0.4)",
+    dark: "rgba(255, 247, 0, 0.8)",
+  },
+  {
+    id: "marker-orange",
+    light: "rgba(255, 200, 0, 0.4)",
+    dark: "rgba(255, 200, 0, 0.8)",
+  },
+  {
+    id: "marker-green",
+    light: "rgba(128, 255, 0, 0.4)",
+    dark: "rgba(128, 255, 0, 0.8)",
+  },
+  {
+    id: "marker-pink",
+    light: "rgba(255, 105, 180, 0.4)",
+    dark: "rgba(255, 105, 180, 0.8)",
+  },
 ];

@@ -8,6 +8,7 @@ export class PenStyle implements ICurveStyle {
       cap: "round",
       join: "round",
     });
+    info.activeCurve.tint = info.activeColor;
   }
 
 

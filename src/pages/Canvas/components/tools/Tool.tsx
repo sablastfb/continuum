@@ -3,6 +3,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 import CircleTool from "./CircleTool";
 import EraseTools from "./EraseTools";
+import MarkerTools from "./MarkerTool";
 import PencileTools from "./PencileTools";
 import SquareTool from "./SquareTool";
 import TextTool from "./TextTool";
@@ -20,7 +21,10 @@ function Tool() {
     case "eraser":
       activeToolComponent = <EraseTools />;
       break;
-    // case "move":
+      case "marker":
+        activeToolComponent = <MarkerTools/>
+        break;
+        // case "move":
     //   activeToolComponent = <></>;
     //   break;
     // case "transform":

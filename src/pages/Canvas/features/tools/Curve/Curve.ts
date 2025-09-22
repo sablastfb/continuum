@@ -18,6 +18,8 @@ import {
 import { PenStyle } from "./Pen";
 import { PencileStyle } from "./Pencile";
 import { MarkerStyle } from "./Marker";
+import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { SquareCursor } from "../../cursor/Square";
 
 export type CruveStyle = "pen" | "pencile" | "marker";
 
@@ -27,7 +29,7 @@ export interface ICurveStyle {
 }
 
 export class Curve implements ITool {
-  type: Continuum_ToolManager.ToolType = "pencile";
+  type: Continuum_ToolManager.ToolType = "base";
   private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
@@ -36,12 +38,15 @@ export class Curve implements ITool {
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
+        this.type = 'pen';
         this.curveStyle = new PenStyle();
         break;
       case "pencile":
+        this.type = 'pencile';
         this.curveStyle = new PencileStyle();
         break;
       case "marker":
+        this.type = 'marker';
         this.curveStyle = new MarkerStyle();
         break;
     }
@@ -56,13 +61,32 @@ export class Curve implements ITool {
     this.activeCurve = new Graphics();
 
     Continuum_CanvasViewport.viewport.addChild(this.activeCurve);
-
-    this.activeColor = CanvasPalet.getColor(
-      usePencileStore.getState().pencilColorId
-    );
-    this.activeThicknes = ThicknesPalet.getThicknes(
-      usePencileStore.getState().thicknesId
-    );
+    switch (this.curveStyleType) {
+      case "pen":
+        this.activeColor = CanvasPalet.getColor(
+          usePencileStore.getState().pencilColorId
+        );
+        this.activeThicknes = ThicknesPalet.getThicknes(
+          usePencileStore.getState().thicknesId
+        );
+        break;
+      case "pencile":
+         this.activeColor = CanvasPalet.getColor(
+          usePencileStore.getState().pencilColorId
+        );
+        this.activeThicknes = ThicknesPalet.getThicknes(
+          usePencileStore.getState().thicknesId
+        );
+        break;
+      case "marker":
+        this.activeColor = CanvasPalet.getColor(
+          useMarkerStore.getState().markerColorId
+        );
+        this.activeThicknes = ThicknesPalet.getThicknes(
+          useMarkerStore.getState().thicknesId
+        );
+        break;
+    }
     const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.line.push(worldPos);
     this.activeCurve.moveTo(worldPos.x, worldPos.y);
@@ -78,7 +102,6 @@ export class Curve implements ITool {
     const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
     this.line.push(worldPos);
     this.activeCurve.lineTo(worldPos.x, worldPos.y);
-    this.activeCurve.tint = this.activeColor;
 
     this.curveStyle.draw({
       activeCurve: this.activeCurve,
@@ -86,6 +109,7 @@ export class Curve implements ITool {
       activeThicknes: this.activeThicknes,
       activeColor: this.activeColor,
     });
+
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
@@ -100,7 +124,7 @@ export class Curve implements ITool {
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
     if (!Continuum_CanvasViewport.viewport) return;
-    this.line.push(this.line[this.line.length - 1]);
+    
 
     const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
     const optimizedCruveGraphics =
@@ -117,7 +141,6 @@ export class Curve implements ITool {
     };
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
-
     Continuum_CanvasViewport.viewport?.removeChild(this.activeCurve);
     Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
 
@@ -132,6 +155,12 @@ export class Curve implements ITool {
   }
 
   public updateCursor() {
-    CrossHairCursor.draw();
+    switch (this.type){
+      case "pencile":
+        CrossHairCursor.draw();
+        break;
+      case "marker":
+        CrossHairCursor.draw();
+    }
   }
 }

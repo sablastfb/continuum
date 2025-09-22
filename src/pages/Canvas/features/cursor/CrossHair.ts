@@ -2,12 +2,12 @@ import { CanvasPalet } from "../../data/container/PaletContainer";
 import { ThicknesPalet } from "../../data/container/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { Continuum_CanvasCursor as CCC } from "./CursorManager";
+import { Continuum_CanvasCursor  } from "./CursorManager";
 
 export class CrossHairCursor  {
   static draw() {
-    if (!CCC.cursor) return;
-    CCC.cursor.clear();
+    if (!Continuum_CanvasCursor.cursor) return;
+    Continuum_CanvasCursor.cursor.clear();
     const lineWidth = 1;
     const outlineWidth = 1;
     const color = CanvasPalet.getColor(
@@ -19,7 +19,7 @@ export class CrossHairCursor  {
       zoom * ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId);
     const outerRadius = Math.max(radius, 10);
     const lineDistance = 30 + outerRadius;
-    CCC.cursor
+    Continuum_CanvasCursor.cursor
       .circle(0, 0, outerRadius)
       .stroke({
         alignment: 0,

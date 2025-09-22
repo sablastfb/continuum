@@ -99,7 +99,7 @@ function ToolsButtons() {
           }
         />
         <ToolButton
-          tool="circle"
+          tool="shape"
           icon={
             <Type size={defaultIconSize} className="hover:cursor-pointer" />
           }
