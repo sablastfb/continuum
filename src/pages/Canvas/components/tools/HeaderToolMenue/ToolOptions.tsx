@@ -1,15 +1,11 @@
-import { defaultButtonsBackground } from "../../data/constants/CanvasConstants";
-import useCanvasStore from "../../data/store/CanvasStore";
-import useSettingsStore from "../../data/store/SettingsStore";
-import CircleTool from "./CircleTool";
-import EraseTools from "./EraseTools";
-import MarkerTools from "./MarkerTool";
-import PencileTools from "./PencileTools";
-import SquareTool from "./SquareTool";
-import TextTool from "./TextTool";
-import TransformTools from "./TransportComponent";
+import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import useSettingsStore from "../../../data/store/SettingsStore";
+import EraseTools from "../ToolOptions/EraseTools";
+import MarkerTools from "../ToolOptions/MarkerTool";
+import PencileTools from "../ToolOptions/PencileTools";
 
-function Tool() {
+function ToolOptions() {
   const activeTool = useCanvasStore((state) => state.activeTool);
   const toolButtons = useSettingsStore().layout.toolButtons;
 
@@ -67,4 +63,4 @@ function Tool() {
   );
 }
 
-export default Tool;
+export default ToolOptions;

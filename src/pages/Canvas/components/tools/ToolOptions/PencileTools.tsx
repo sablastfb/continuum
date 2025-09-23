@@ -1,8 +1,8 @@
-import CircleColorPicker from "../pickers/CircleColorPicker";
-import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
-import { usePencileStore } from "../../data/store/PencileStore";
-import CustomColorPicker from "../pickers/CustomColorPicker";
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import { ThicknesPalet } from "../../../data/container/ThickneContainer";
+import { usePencileStore } from "../../../data/store/PencileStore";
+import CircleColorPicker from "../../pickers/CircleColorPicker";
+import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
+import CustomColorPicker from "../../pickers/CustomColorPicker";
 
 function PencileTools() {
   const pencileSettings = usePencileStore();

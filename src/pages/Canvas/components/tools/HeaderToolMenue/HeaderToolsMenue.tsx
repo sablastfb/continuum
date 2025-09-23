@@ -1,8 +1,8 @@
 import ZoomingButton from "./ZoomingButton";
 import OptionButtons from "./OptionsButton";
-import ToolsButtons from "./ToolsButtons";
+import ToolsMenue from "./ToolsMenue";
 import useSettingsStore from "../../../data/store/SettingsStore";
-function ToolsMenue() {
+function HeaderToolsMenue() {
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
 
   return (
@@ -22,10 +22,10 @@ function ToolsMenue() {
         `}
     >
       <OptionButtons />
-      <ToolsButtons />
+      <ToolsMenue />
       <ZoomingButton/>
     </div>
   );
 }
 
-export default ToolsMenue;
+export default HeaderToolsMenue;

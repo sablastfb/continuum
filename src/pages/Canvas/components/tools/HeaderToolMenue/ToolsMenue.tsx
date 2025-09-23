@@ -23,11 +23,11 @@ import ToolButton, { IconOption } from "./ToolButton";
 import { CanvasPalet } from "../../../data/container/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
-import DropdownSelector from "./DropdownSelector";
+import DropdownSelector from "../../misc/DropdownSelector";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";
 
-function ToolsButtons() {
+function ToolsMenue() {
   const pencil = usePencileStore();
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
   const historyPosition = useCanvasStore().historyPosition;
@@ -61,11 +61,11 @@ function ToolsButtons() {
     () => [
       {
         icon: <MousePointer2 size={defaultIconSize} />,
-        tool: "move",
+        tool: "transform-move",
       },
       {
         icon: <SquareDashed size={defaultIconSize} />,
-        tool: "transform",
+        tool: "transform-move",
       },
     ],
     []
@@ -102,18 +102,7 @@ function ToolsButtons() {
         <DropdownSelector options={DrawingOptions} />
         <DropdownSelector options={SelectionOptions} />
         <DropdownSelector options={ShapesOption} />
-        <ToolButton
-          tool="image"
-          icon={
-            <Image size={defaultIconSize} className="hover:cursor-pointer" />
-          }
-        />
-        <ToolButton
-          tool="shape"
-          icon={
-            <Type size={defaultIconSize} className="hover:cursor-pointer" />
-          }
-        />
+       
         {inline ? (
           <div className="w-10 h-1">
             <ArrayDivider orjentation="horizontal" />
@@ -145,4 +134,4 @@ function ToolsButtons() {
   );
 }
 
-export default ToolsButtons;
+export default ToolsMenue;

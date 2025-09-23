@@ -1,9 +1,9 @@
 import { Circle, LineSquiggle } from "lucide-react";
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
-import { useEraseStore } from "../../data/store/EraseStore";
-import ArrayDivider from "../misc/ArrayDivider";
-import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
-import { defaultOutlineColor } from "../../data/constants/CanvasConstants";
+import { useEraseStore } from "../../../data/store/EraseStore";
+import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
+import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
+import ArrayDivider from "../../misc/ArrayDivider";
+import { ThicknesPalet } from "../../../data/container/ThickneContainer";
 
 function EraseTools() {
   const eraseSettings = useEraseStore();

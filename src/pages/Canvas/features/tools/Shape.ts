@@ -16,11 +16,13 @@ import { TailBacground } from "../service/TailBackground";
 export type ShapeType = "circle" | "square" | "hexagon" | "poligon";
 
 export class Shape implements ITool {
-  type: Continuum_ToolManager.ToolType = "circle";
+  type: Continuum_ToolManager.ToolType = "base";
   firstPosition!: SimplePoint;
   lastPosition!: SimplePoint;
   shape!: Graphics;
-  constructor(private shapeType: ShapeType) {}
+  constructor(private shapeType: ShapeType) {
+    this.type = this.shapeType;
+  }
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
     if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
@@ -48,45 +50,37 @@ export class Shape implements ITool {
         this.square(this.firstPosition, this.lastPosition);
         break;
       case "hexagon":
-        this.poligon(this.firstPosition, this.lastPosition, 6);
+        this.poligon(this.firstPosition, this.lastPosition, 12);
         break;
     }
-    const graph = TailBacground.GrindTile({
-      bacgroundColor: "bg-1",
-      gridBorderColor: "bgt-1",
-      sizeOfGrid: 50,
-      widthOfGridLine: 0.5,
-    });
+    // const w = Math.abs(this.firstPosition.x - this.lastPosition.x);
+    // const h = Math.abs(this.firstPosition.y - this.lastPosition.y);
+    // const tilingSprite = new TilingSprite({
+    //   width: w,
+    //   height: h,
+    //   texture: graph,
+    // });
+    // tilingSprite.x = this.firstPosition.x;
+    // tilingSprite.y = this.firstPosition.y;
 
-    
-    const w = Math.abs(this.firstPosition.x - this.lastPosition.x);
-    const h = Math.abs(this.firstPosition.y - this.lastPosition.y);
-    const tilingSprite = new TilingSprite({
-      width: w,
-      height: h,
-      texture: graph,
-    });
-    tilingSprite.x = this.firstPosition.x;
-    tilingSprite.y = this.firstPosition.y;
-
-    tilingSprite.mask = this.shape;
-    Continuum_CanvasViewport.viewport.addChild(tilingSprite);
+    // tilingSprite.mask = this.shape;
+    Continuum_CanvasViewport.viewport.addChild(this.shape);
 
     this.shape.fill("red");
   }
 
   private poligon(p1: SimplePoint, p2: SimplePoint, n: number) {
     const points = [];
-    const w = Math.abs(p1.x - p2.x);
-    const h = Math.abs(p1.y - p2.y);
+    const w = Math.abs(p1.x - p2.x)/2;
+    const h = Math.abs(p1.y - p2.y)/2;
     for (let i = 0; i < n; i += 1) {
       const x = w * Math.cos((2 * Math.PI * i) / n);
       const y = h * Math.sin((2 * Math.PI * i) / n);
       points.push(x, y);
     }
     this.shape.poly(points);
-    this.shape.x = p1.x;
-    this.shape.y = p1.y;
+    this.shape.x = p1.x + w;
+    this.shape.y = p1.y + h;
   }
 
   private square(p1: SimplePoint, p2: SimplePoint) {
