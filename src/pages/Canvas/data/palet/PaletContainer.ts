@@ -1,11 +1,11 @@
 import { keyBy } from "lodash";
-import { PaletContainer } from "../constants/PaletConstants";
+import { PaletContainer } from "./PaletConstants";
 import useSettingsStore from "../store/SettingsStore";
 
 export type Color = string;
 export type ColorId = (typeof PaletContainer)[number]["id"];
 
-export namespace CanvasPalet {
+export namespace Continuum_CanvasPalet {
   export const colorContainer = keyBy(PaletContainer, "id");
 
   export function getColor(colorId: ColorId) {

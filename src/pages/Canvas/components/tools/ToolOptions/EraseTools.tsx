@@ -3,7 +3,7 @@ import { useEraseStore } from "../../../data/store/EraseStore";
 import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import ArrayDivider from "../../misc/ArrayDivider";
-import { ThicknesPalet } from "../../../data/container/ThickneContainer";
+import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 
 function EraseTools() {
   const eraseSettings = useEraseStore();

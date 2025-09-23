@@ -1,6 +1,6 @@
 import { Graphics, Point } from "pixi.js";
-import { CanvasPalet } from "../../../data/container/PaletContainer";
-import { ThicknesPalet } from "../../../data/container/ThickneContainer";
+import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
+import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import { Continuum_CanvasViewport } from "../../service/Viewport";
 import { Continuum_ToolManager, ITool } from "../ToolManager";
@@ -63,7 +63,7 @@ export class Curve implements ITool {
     Continuum_CanvasViewport.viewport.addChild(this.activeCurve);
     switch (this.curveStyleType) {
       case "pen":
-        this.activeColor = CanvasPalet.getColor(
+        this.activeColor = Continuum_CanvasPalet.getColor(
           usePencileStore.getState().pencilColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(
@@ -71,7 +71,7 @@ export class Curve implements ITool {
         );
         break;
       case "pencile":
-         this.activeColor = CanvasPalet.getColor(
+         this.activeColor = Continuum_CanvasPalet.getColor(
           usePencileStore.getState().pencilColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(
@@ -79,7 +79,7 @@ export class Curve implements ITool {
         );
         break;
       case "marker":
-        this.activeColor = CanvasPalet.getColor(
+        this.activeColor = Continuum_CanvasPalet.getColor(
           useMarkerStore.getState().markerColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(

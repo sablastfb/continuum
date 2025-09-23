@@ -1,4 +1,4 @@
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 import { MouseInputPoint } from "../../Types";

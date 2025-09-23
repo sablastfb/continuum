@@ -1,7 +1,7 @@
 import { Texture, TilingSprite } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { TailBacground, TileBacgroundSettings } from "./TailBackground";
-import { CanvasPalet, ColorId } from "../../data/container/PaletContainer";
+import { Continuum_CanvasPalet, ColorId } from "../../data/palet/PaletContainer";
 
 export namespace Continuum_CanvasBacground {
   export let backgroundTilingSprite: TilingSprite;
@@ -51,6 +51,6 @@ export namespace Continuum_CanvasBacground {
   function setBacgroundColor(colorID: ColorId) {
     if (!Continuum_Canvas.appInstance || !Continuum_Canvas.appInstance.renderer) return;
     Continuum_Canvas.appInstance.renderer.background.color =
-      CanvasPalet.getColor(colorID);
+      Continuum_CanvasPalet.getColor(colorID);
   }
 }

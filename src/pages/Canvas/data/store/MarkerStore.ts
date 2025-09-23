@@ -1,7 +1,7 @@
 import { create } from "zustand/react";
 import { immer } from "zustand/middleware/immer";
-import { Color, ColorId } from "../container/PaletContainer";
-import { Thicknes, ThicknesId } from "../container/ThickneContainer";
+import { Color, ColorId } from "../palet/PaletContainer";
+import { Thicknes, ThicknesId } from "../thicknes/ThickneContainer";
 
 export type MarkerSettings = {
   markerColorId: ColorId;

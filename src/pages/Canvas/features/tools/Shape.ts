@@ -10,7 +10,8 @@ import { Continuum_MouseService, MouseButton } from "../service/MouseService";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { CircleCursor } from "../cursor/Circle";
-import { TailBacground } from "../service/TailBackground";
+import { ShapeData, useShapeStore } from "../../data/store/ShapeStore";
+import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
 
 /// FIX this so i can change type
 export type ShapeType = "circle" | "square" | "hexagon" | "poligon";
@@ -41,54 +42,71 @@ export class Shape implements ITool {
     if (!Continuum_CanvasViewport.viewport) return;
     this.shape.clear();
     this.lastPosition = Continuum_CanvasViewport.viewport.toWorld(e);
+    let shapeData!: ShapeData;
 
     switch (this.shapeType) {
       case "circle":
         this.circle(this.firstPosition, this.lastPosition);
+        shapeData = useShapeStore.getState().circle;
         break;
       case "square":
         this.square(this.firstPosition, this.lastPosition);
+        shapeData = useShapeStore.getState().square;
         break;
       case "hexagon":
-        this.poligon(this.firstPosition, this.lastPosition, 12);
+        this.poligon(this.firstPosition, this.lastPosition, 6);
+        shapeData = useShapeStore.getState().hexagon;
         break;
     }
-    // const w = Math.abs(this.firstPosition.x - this.lastPosition.x);
-    // const h = Math.abs(this.firstPosition.y - this.lastPosition.y);
-    // const tilingSprite = new TilingSprite({
-    //   width: w,
-    //   height: h,
-    //   texture: graph,
-    // });
-    // tilingSprite.x = this.firstPosition.x;
-    // tilingSprite.y = this.firstPosition.y;
 
-    // tilingSprite.mask = this.shape;
-    Continuum_CanvasViewport.viewport.addChild(this.shape);
-
-    this.shape.fill("red");
+    const fillTyle = shapeData.fillType;
+    if (fillTyle === "fill-only" || fillTyle === "outline-fill") {
+      this.fillPolygon(shapeData);
+    }
+    if (fillTyle === "outline-only" || fillTyle === "outline-fill") {
+      this.outlineOnly(shapeData);
+    }
   }
 
+  private outlineOnly(shapeData: ShapeData) {
+    this.shape.stroke({
+      color: Continuum_CanvasPalet.getColor(shapeData.outlineColor),
+      width: shapeData.outlineWidth,
+    });
+  }
+
+  private fillPolygon(shapeData: ShapeData) {
+    switch (shapeData.activeBacgroundType) {
+      case "color":
+        this.shape.fill("white");
+        this.shape.tint = Continuum_CanvasPalet.getColor(shapeData.color);
+    }
+  }
+
+  // TODO update to rounder poligon
   private poligon(p1: SimplePoint, p2: SimplePoint, n: number) {
     const points = [];
-    const w = Math.abs(p1.x - p2.x)/2;
-    const h = Math.abs(p1.y - p2.y)/2;
+    const w = Math.abs(p1.x - p2.x) / 2;
+    const h = Math.abs(p1.y - p2.y) / 2;
     for (let i = 0; i < n; i += 1) {
       const x = w * Math.cos((2 * Math.PI * i) / n);
       const y = h * Math.sin((2 * Math.PI * i) / n);
       points.push(x, y);
     }
     this.shape.poly(points);
-    this.shape.x = p1.x + w;
-    this.shape.y = p1.y + h;
+    const ww = (-p1.x + p2.x) / 2;
+    const hh = (-p1.y + p2.y) / 2;
+    this.shape.x = p1.x + ww;
+    this.shape.y = p1.y + hh;
   }
 
   private square(p1: SimplePoint, p2: SimplePoint) {
-    this.shape.rect(
+    this.shape.roundRect(
       Math.min(p1.x, p2.x),
       Math.min(p1.y, p2.y),
       Math.abs(p1.x - p2.x),
-      Math.abs(p1.y - p2.y)
+      Math.abs(p1.y - p2.y),
+      50
     );
   }
 

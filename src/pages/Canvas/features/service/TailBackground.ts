@@ -3,7 +3,7 @@
  */
 
 import { Graphics } from "pixi.js";
-import { CanvasPalet, ColorId } from "../../data/container/PaletContainer";
+import { Continuum_CanvasPalet, ColorId } from "../../data/palet/PaletContainer";
 import { Continuum_Canvas } from "../CanvasApp";
 
 export type BackgroundTypes = "color" | "grid" | "dots" | "line";
@@ -48,7 +48,7 @@ export namespace TailBacground {
     const width = grid.sizeOfGrid;
 
     graphics.rect(0, 0, width, width).stroke({
-      color: CanvasPalet.getColor(grid.gridBorderColor),
+      color: Continuum_CanvasPalet.getColor(grid.gridBorderColor),
       width: grid.widthOfGridLine,
       cap: "round",
       alpha: 0.7,
@@ -63,7 +63,7 @@ export namespace TailBacground {
       .rect(0, 0, dots.tileWidth, dots.tileWidth)
       .fill({ alpha: 0 })
       .circle(0, 0, dots.dotRadius)
-      .fill({ color: CanvasPalet.getColor(dots.dotColor), alpha: 0.7 });
+      .fill({ color: Continuum_CanvasPalet.getColor(dots.dotColor), alpha: 0.7 });
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
   }
 
@@ -78,14 +78,14 @@ export namespace TailBacground {
       .lineTo(height, 0)
       .stroke({
         width: 1,
-        color: CanvasPalet.getColor(line.lineColor),
+        color: Continuum_CanvasPalet.getColor(line.lineColor),
         alpha: 0.7,
       })
       .moveTo(0, height)
       .lineTo(height, height)
       .stroke({
          width: 1,
-        color: CanvasPalet.getColor(line.lineColor),
+        color: Continuum_CanvasPalet.getColor(line.lineColor),
         alpha: 0.7,
       });
 

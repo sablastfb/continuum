@@ -20,7 +20,7 @@ import {
   defaultIconSize,
 } from "../../../data/constants/CanvasConstants";
 import ToolButton, { IconOption } from "./ToolButton";
-import { CanvasPalet } from "../../../data/container/PaletContainer";
+import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
 import DropdownSelector from "../../misc/DropdownSelector";
@@ -40,7 +40,7 @@ function ToolsMenue() {
         icon: (
           <PenLine
             size={defaultIconSize}
-            fill={CanvasPalet.getColor(pencil.pencilColorId)}
+            fill={Continuum_CanvasPalet.getColor(pencil.pencilColorId)}
           />
         ),
         tool: "pencile",

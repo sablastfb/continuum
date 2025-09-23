@@ -1,7 +1,7 @@
 import { Application } from "pixi.js";
 import { Continuum_ToolManager } from "./tools/ToolManager";
 import { Continuum_CanvasBacground } from "./service/Background";
-import { CanvasPalet } from "../data/container/PaletContainer";
+import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
 import useSettingsStore from "../data/store/SettingsStore";
 import { Continuum_ResizeService } from "./service/Resize";
 import { Continuum_CanvasCursor } from "./cursor/CursorManager";
@@ -37,7 +37,7 @@ export namespace Continuum_Canvas {
       antialias: true,
       resolution: window.devicePixelRatio || 1,
       autoDensity: true,
-      background: CanvasPalet.getColor(
+      background: Continuum_CanvasPalet.getColor(
         useSettingsStore.getState().background.color
       ),
     });

@@ -1,6 +1,7 @@
 import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
+import ShapeTool from "../ToolOptions/CircleTool";
 import EraseTools from "../ToolOptions/EraseTools";
 import MarkerTools from "../ToolOptions/MarkerTool";
 import PencileTools from "../ToolOptions/PencileTools";
@@ -17,24 +18,18 @@ function ToolOptions() {
     case "eraser":
       activeToolComponent = <EraseTools />;
       break;
-      case "marker":
-        activeToolComponent = <MarkerTools/>
-        break;
-        // case "move":
-    //   activeToolComponent = <></>;
-    //   break;
-    // case "transform":
-    //   activeToolComponent = <TransformTools />;
-    //   break;
-    // case "circle":
-    //   activeToolComponent = <CircleTool />;
-    //   break;
-    // case "square":
-    //   activeToolComponent = <SquareTool />;
-    //   break;
-    // case "text":
-    //   activeToolComponent = <TextTool />;
-    //   break;
+    case "marker":
+      activeToolComponent = <MarkerTools />;
+      break;
+    case "square":
+      activeToolComponent = <ShapeTool shapeType={'square'} />;
+      break;
+    case "circle":
+      activeToolComponent = <ShapeTool shapeType={'circle'} />;
+      break;
+    case "hexagon":
+      activeToolComponent = <ShapeTool shapeType={'hexagon'} />;
+      break;
     default:
       activeToolComponent = <></>;
   }

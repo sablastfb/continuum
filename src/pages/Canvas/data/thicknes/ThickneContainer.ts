@@ -1,5 +1,5 @@
 import { keyBy } from "lodash";
-import { ThicknesConstants } from "../constants/ThicknesConstants";
+import { ThicknesConstants } from "./ThicknesConstants";
 
 export type Thicknes = number;
 export type ThicknesId = (typeof ThicknesConstants)[number]["id"];

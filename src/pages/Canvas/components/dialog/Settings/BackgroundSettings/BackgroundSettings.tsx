@@ -1,5 +1,5 @@
 import "./BackgroundSettings.css";
-import { CanvasPalet } from "../../../../data/container/PaletContainer";
+import { Continuum_CanvasPalet } from "../../../../data/palet/PaletContainer";
 import CircleColorPicker from "../../../pickers/CircleColorPicker";
 import { defaultOutlineColor } from "../../../../data/constants/CanvasConstants";
 import useSettingsStore from "../../../../data/store/SettingsStore";
@@ -13,7 +13,7 @@ function BacgroundPickerColor({ selected }: { selected: boolean }) {
         className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer line-pattern ${
           selected ? `${defaultOutlineColor}` : "outline-gray-800"
         }`}
-        style={{ backgroundColor: CanvasPalet.getColor(background.color) }}
+        style={{ backgroundColor: Continuum_CanvasPalet.getColor(background.color) }}
         onClick={() => setBackgroundSettings({ activeBacgroundType: "color" })}
       />
     </>
@@ -29,9 +29,9 @@ function BacgroundPickerGrid({ selected }: { selected: boolean }) {
         selected ? `${defaultOutlineColor}` : "outline-gray-800"
       }`}
       style={{
-        backgroundColor: CanvasPalet.getColor(background.grid.bacgroundColor),
+        backgroundColor: Continuum_CanvasPalet.getColor(background.grid.bacgroundColor),
         //@ts-ignore
-        "--grid-color": CanvasPalet.getColor(background.grid.gridColor),
+        "--grid-color": Continuum_CanvasPalet.getColor(background.grid.gridColor),
       }}
       onClick={() => setBackgroundSettings({ activeBacgroundType: "grid" })}
     />
@@ -47,9 +47,9 @@ function BacgroundPickerDots({ selected }: { selected: boolean }) {
         selected ? `${defaultOutlineColor} ` : "outline-gray-800"
       }`}
       style={{
-        backgroundColor: CanvasPalet.getColor(background.dots.bacgroundColor),
+        backgroundColor: Continuum_CanvasPalet.getColor(background.dots.bacgroundColor),
         //@ts-ignore
-        "--dot-color": CanvasPalet.getColor(background.dots.dotColor),
+        "--dot-color": Continuum_CanvasPalet.getColor(background.dots.dotColor),
       }}
       onClick={() =>
         setBackgroundSettings({
@@ -69,9 +69,9 @@ function BacgroundPickerLine({ selected }: { selected: boolean }) {
         selected ? `${defaultOutlineColor} ` : "outline-gray-800"
       }`}
       style={{
-        backgroundColor: CanvasPalet.getColor(background.line.bacgroundColor),
+        backgroundColor: Continuum_CanvasPalet.getColor(background.line.bacgroundColor),
         //@ts-ignore
-        "--line-color": CanvasPalet.getColor(background.line.lineColor),
+        "--line-color": Continuum_CanvasPalet.getColor(background.line.lineColor),
       }}
       onClick={() => setBackgroundSettings({ activeBacgroundType: "line" })}
     />

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
-import { ColorId } from "../container/PaletContainer";
+import { ColorId } from "../palet/PaletContainer";
 import { DeepPartial } from "../types/UtilTypes";
 import { DotBackground, GridBackground, LineBackground, SolidColorBackground, TileBacgroundSettings } from "../../features/service/TailBackground";
 
