@@ -3,14 +3,19 @@
  * It also fill them wiht textuer
  */
 
-import { Graphics,  } from "pixi.js";
+import { Graphics } from "pixi.js";
+import { OutlineFilter } from "pixi-filters";
 import { MouseInputPoint, SimplePoint } from "../../Types";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_MouseService, MouseButton } from "../service/MouseService";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { CircleCursor } from "../cursor/Circle";
-import { ShapeData, ShapeTypes, useShapesStore } from "../../data/store/ShapeStore";
+import {
+  ShapeData,
+  ShapeTypes,
+  useShapesStore,
+} from "../../data/store/ShapeStore";
 import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
 
 export class Shape implements ITool {
@@ -54,12 +59,13 @@ export class Shape implements ITool {
     }
 
     const fillTyle = shapeData.fillType;
-    if (fillTyle === "fill-only" || fillTyle === "outline-fill") {
-      this.fillPolygon(shapeData);
-    }
-    if (fillTyle === "outline-only" || fillTyle === "outline-fill") {
-      this.outlineOnly(shapeData);
-    }
+    this.fillPolygon(shapeData);
+    // if (fillTyle === "fill-only" || fillTyle === "outline-fill") {
+    //   this.fillPolygon(shapeData);
+    // }
+    // if (fillTyle === "outline-only" || fillTyle === "outline-fill") {
+    //   this.outlineOnly(shapeData);
+    // }
   }
 
   private outlineOnly(shapeData: ShapeData) {
@@ -74,6 +80,11 @@ export class Shape implements ITool {
       case "color":
         this.shape.fill("white");
         this.shape.tint = Continuum_CanvasPalet.getColor(shapeData.color);
+        const myOutlineFilter = new OutlineFilter({
+          thickness: shapeData.outlineWidth,
+          color: Continuum_CanvasPalet.getColor(shapeData.outlineColor),
+        }); // Black outline
+        this.shape.filters = [myOutlineFilter];
     }
   }
 

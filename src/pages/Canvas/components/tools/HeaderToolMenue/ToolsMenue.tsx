@@ -26,9 +26,13 @@ import useSettingsStore from "../../../data/store/SettingsStore";
 import DropdownSelector from "../../misc/DropdownSelector";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";
+import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { useShapesStore } from "../../../data/store/ShapeStore";
 
 function ToolsMenue() {
   const pencil = usePencileStore();
+  const markerStore = useMarkerStore();
+  const shapeStore = useShapesStore();
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
   const historyPosition = useCanvasStore().historyPosition;
   const historyCount = useCanvasStore().historyCount;
@@ -46,7 +50,12 @@ function ToolsMenue() {
         tool: "pencile",
       },
       {
-        icon: <Highlighter size={defaultIconSize} />,
+        icon: (
+          <Highlighter
+            size={defaultIconSize}
+            fill={Continuum_CanvasPalet.getColor(markerStore.markerColorId)}
+          />
+        ),
         tool: "marker",
       },
       {
@@ -54,7 +63,7 @@ function ToolsMenue() {
         tool: "eraser",
       },
     ],
-    [pencil]
+    [pencil, markerStore]
   );
 
   const SelectionOptions = useMemo<IconOption[]>(
@@ -73,23 +82,57 @@ function ToolsMenue() {
   const ShapesOption = useMemo<IconOption[]>(
     () => [
       {
-        icon: <Square size={defaultIconSize} />,
+        icon: (
+          <Square
+            size={defaultIconSize}
+            fill={Continuum_CanvasPalet.getColor(
+              shapeStore.shapes.square.color
+            )}
+            stroke={Continuum_CanvasPalet.getColor(
+              shapeStore.shapes.square.outlineColor
+            )}
+          />
+        ),
         tool: "square",
       },
       {
-        icon: <Circle size={defaultIconSize} />,
+        icon: (
+          <Circle
+            size={defaultIconSize}
+            fill={Continuum_CanvasPalet.getColor(
+              shapeStore.shapes.circle.color
+            )}
+            stroke={Continuum_CanvasPalet.getColor(
+              shapeStore.shapes.circle.outlineColor
+            )}
+          />
+        ),
         tool: "circle",
       },
       {
-        icon: <Hexagon size={defaultIconSize} />,
+        icon: (
+          <Hexagon
+            size={defaultIconSize}
+            fill={Continuum_CanvasPalet.getColor(
+              shapeStore.shapes.hexagon.color
+            )}
+            stroke={Continuum_CanvasPalet.getColor(
+              shapeStore.shapes.hexagon.outlineColor
+            )}
+          />
+        ),
         tool: "hexagon",
       },
       {
-        icon: <Octagon size={defaultIconSize} />,
+        icon: (
+          <Octagon
+            size={defaultIconSize}
+          />
+        ),
         tool: "poligon",
       },
     ],
-    []
+    [shapeStore]
   );
 
   return (
@@ -102,7 +145,7 @@ function ToolsMenue() {
         <DropdownSelector options={DrawingOptions} />
         <DropdownSelector options={SelectionOptions} />
         <DropdownSelector options={ShapesOption} />
-       
+
         {inline ? (
           <div className="w-10 h-1">
             <ArrayDivider orjentation="horizontal" />
@@ -124,7 +167,9 @@ function ToolsMenue() {
         <div
           onClick={() => Continuum_Canvas.commandManage.goInFuture()}
           className={
-            historyPosition >= historyCount-1 ? "opacity-50 " : "hover:cursor-pointer"
+            historyPosition >= historyCount - 1
+              ? "opacity-50 "
+              : "hover:cursor-pointer"
           }
         >
           <Redo size={defaultIconSize} />
