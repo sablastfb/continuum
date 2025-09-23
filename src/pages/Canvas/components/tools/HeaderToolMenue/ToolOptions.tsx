@@ -1,7 +1,7 @@
 import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
-import ShapeTool from "../ToolOptions/CircleTool";
+import ShapeTool from "../ToolOptions/ShapeTool";
 import EraseTools from "../ToolOptions/EraseTools";
 import MarkerTools from "../ToolOptions/MarkerTool";
 import PencileTools from "../ToolOptions/PencileTools";

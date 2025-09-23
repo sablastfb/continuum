@@ -3,25 +3,22 @@
  * It also fill them wiht textuer
  */
 
-import { Graphics, TilingSprite } from "pixi.js";
+import { Graphics,  } from "pixi.js";
 import { MouseInputPoint, SimplePoint } from "../../Types";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_MouseService, MouseButton } from "../service/MouseService";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 import { Continuum_ToolManager, ITool } from "./ToolManager";
 import { CircleCursor } from "../cursor/Circle";
-import { ShapeData, useShapeStore } from "../../data/store/ShapeStore";
+import { ShapeData, ShapeTypes, useShapesStore } from "../../data/store/ShapeStore";
 import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
-
-/// FIX this so i can change type
-export type ShapeType = "circle" | "square" | "hexagon" | "poligon";
 
 export class Shape implements ITool {
   type: Continuum_ToolManager.ToolType = "base";
   firstPosition!: SimplePoint;
   lastPosition!: SimplePoint;
   shape!: Graphics;
-  constructor(private shapeType: ShapeType) {
+  constructor(private shapeType: ShapeTypes) {
     this.type = this.shapeType;
   }
 
@@ -42,20 +39,17 @@ export class Shape implements ITool {
     if (!Continuum_CanvasViewport.viewport) return;
     this.shape.clear();
     this.lastPosition = Continuum_CanvasViewport.viewport.toWorld(e);
-    let shapeData!: ShapeData;
+    let shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
 
     switch (this.shapeType) {
       case "circle":
         this.circle(this.firstPosition, this.lastPosition);
-        shapeData = useShapeStore.getState().circle;
         break;
       case "square":
         this.square(this.firstPosition, this.lastPosition);
-        shapeData = useShapeStore.getState().square;
         break;
       case "hexagon":
         this.poligon(this.firstPosition, this.lastPosition, 6);
-        shapeData = useShapeStore.getState().hexagon;
         break;
     }
 

@@ -44,12 +44,14 @@ export const DefaultShapeSettings: ShapeData = {
   },
 };
 
+export type ShapeTypes =  keyof ShapesStore["shapes"];
+
 export interface ShapesStore {
   shapes: {
     square: ShapeData;
     circle: ShapeData;
     hexagon: ShapeData;
-    plygon: ShapeData;
+    poligon: ShapeData;
   };
   updateShape: (
     shapeType: keyof ShapesStore["shapes"],
@@ -62,7 +64,7 @@ export const useShapesStore = create<ShapesStore>()(
       square: { ...DefaultShapeSettings },
       circle: { ...DefaultShapeSettings },
       hexagon: { ...DefaultShapeSettings },
-      plygon: { ...DefaultShapeSettings },
+      poligon: { ...DefaultShapeSettings },
     },
     updateShape: (shapeType, newData) =>
       set((state) => {
