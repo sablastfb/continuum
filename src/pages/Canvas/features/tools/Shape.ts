@@ -4,7 +4,7 @@
  */
 
 import { Graphics } from "pixi.js";
-import { OutlineFilter } from "pixi-filters";
+import { GlowFilter, OutlineFilter } from "pixi-filters";
 import { MouseInputPoint, SimplePoint } from "../../Types";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_MouseService, MouseButton } from "../service/MouseService";
@@ -59,20 +59,24 @@ export class Shape implements ITool {
     }
 
     const fillTyle = shapeData.fillType;
-    this.fillPolygon(shapeData);
-    // if (fillTyle === "fill-only" || fillTyle === "outline-fill") {
-    //   this.fillPolygon(shapeData);
-    // }
-    // if (fillTyle === "outline-only" || fillTyle === "outline-fill") {
-    //   this.outlineOnly(shapeData);
-    // }
+    if (fillTyle === "fill-only" || fillTyle === "outline-fill") {
+      this.fillPolygon(shapeData);
+    }
+    if (fillTyle === "outline-only" || fillTyle === "outline-fill") {
+      this.outlineOnly(shapeData);
+    }
   }
 
+
+  // TODO FIX THIS 
   private outlineOnly(shapeData: ShapeData) {
-    this.shape.stroke({
+    const myOutlineFilter = new GlowFilter({
+      distance: 20,
+      innerStrength: 5,
+      outerStrength: 5,
       color: Continuum_CanvasPalet.getColor(shapeData.outlineColor),
-      width: shapeData.outlineWidth,
-    });
+    }); // Black outline
+    this.shape.filters = [myOutlineFilter];
   }
 
   private fillPolygon(shapeData: ShapeData) {
@@ -80,11 +84,6 @@ export class Shape implements ITool {
       case "color":
         this.shape.fill("white");
         this.shape.tint = Continuum_CanvasPalet.getColor(shapeData.color);
-        const myOutlineFilter = new OutlineFilter({
-          thickness: shapeData.outlineWidth,
-          color: Continuum_CanvasPalet.getColor(shapeData.outlineColor),
-        }); // Black outline
-        this.shape.filters = [myOutlineFilter];
     }
   }
 
