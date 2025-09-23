@@ -16,7 +16,10 @@ const shapeBackgroundColors = [
   "shape-background-blush-pink",
 ];
 
-const shapeOutlineColors = ["shape-outline-rose-pink"];
+const shapeOutlineColors = [
+  "shape-outline-rose-pink",
+  "shape-outline-turquoise-teal",
+];
 export const DefaultShapeSettings: ShapeData = {
   fillType: "outline-fill",
   outlineColors: shapeOutlineColors,
@@ -44,7 +47,7 @@ export const DefaultShapeSettings: ShapeData = {
   },
 };
 
-export type ShapeTypes =  keyof ShapesStore["shapes"];
+export type ShapeTypes = keyof ShapesStore["shapes"];
 
 export interface ShapesStore {
   shapes: {
