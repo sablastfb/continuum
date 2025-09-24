@@ -14,8 +14,11 @@ export namespace Continuum_Bookmark {
     if (!Continuum_CanvasViewport.viewport) return;
     const bookmakr: Bookmark = {
       id: uuidv4(),
-      position: Continuum_CanvasViewport.viewport.position,
-      scale: Continuum_CanvasViewport.viewport?.scale.x,
+      position: {
+        x: Continuum_CanvasViewport.viewport.center.x,
+        y: Continuum_CanvasViewport.viewport.center.y,
+      },
+      scale: Continuum_CanvasViewport.viewport.scale.x,
     };
     useBookmark.getState().addBookmark(bookmakr);
   }
@@ -38,13 +41,3 @@ export namespace Continuum_Bookmark {
     });
   }
 }
-
-//  Continuum_CanvasViewport.viewport.animate({
-//                 time: 500,
-//                 position: {
-//                   x: window.innerWidth / 2,
-//                   y: window.innerHeight / 2,
-//                 },
-//                 scale: 1,
-//                 ease: "easeInOutQuad",
-//               });
