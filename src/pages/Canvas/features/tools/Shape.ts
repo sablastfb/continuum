@@ -4,7 +4,6 @@
  */
 
 import { Graphics } from "pixi.js";
-import { GlowFilter, OutlineFilter } from "pixi-filters";
 import { MouseInputPoint, SimplePoint } from "../../Types";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_MouseService, MouseButton } from "../service/MouseService";
@@ -67,23 +66,17 @@ export class Shape implements ITool {
     }
   }
 
-
-  // TODO FIX THIS 
   private outlineOnly(shapeData: ShapeData) {
-    const myOutlineFilter = new GlowFilter({
-      distance: 20,
-      innerStrength: 5,
-      outerStrength: 5,
+     this.shape.stroke({
       color: Continuum_CanvasPalet.getColor(shapeData.outlineColor),
-    }); // Black outline
-    this.shape.filters = [myOutlineFilter];
+      width: shapeData.outlineWidth, 
+     });
   }
 
   private fillPolygon(shapeData: ShapeData) {
     switch (shapeData.activeBacgroundType) {
       case "color":
-        this.shape.fill("white");
-        this.shape.tint = Continuum_CanvasPalet.getColor(shapeData.color);
+        this.shape.fill(Continuum_CanvasPalet.getColor(shapeData.color));
     }
   }
 

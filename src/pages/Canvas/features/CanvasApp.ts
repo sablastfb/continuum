@@ -8,6 +8,7 @@ import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
+import { Continuum_CollisionService } from "./service/ColisionDetection";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -46,7 +47,8 @@ export namespace Continuum_Canvas {
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
     Continuum_CanvasBacground.init();
-
+    Continuum_CollisionService.init();
+    
     if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
     appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);

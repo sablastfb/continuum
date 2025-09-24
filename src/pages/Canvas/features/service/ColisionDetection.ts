@@ -1,3 +1,4 @@
+import { Polygon, System } from "detect-collisions";
 import { SimplePoint } from "../../Types";
 import {
   GraphicInfo,
@@ -8,6 +9,8 @@ import { Continuum_CurveService } from "./CurveService";
 import { Continuum_Math } from "./MathUtils";
 
 export namespace Continuum_CollisionService {
+  export const colisionSystem = new System();
+
   /**
    *  Track colsion detecton for fast moving object.
    *  Check if path betwen last and current point hit graphics

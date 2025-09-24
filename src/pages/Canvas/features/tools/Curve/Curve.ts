@@ -141,6 +141,7 @@ export class Curve implements ITool {
     };
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
+
     Continuum_CanvasViewport.viewport?.removeChild(this.activeCurve);
     Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
 
