@@ -4,6 +4,7 @@ import { ICommand } from "./CommandManager";
 
 export class GraphicsCommand {
   static addNew(graphic: GraphicsData) {
+    console.log("domo");
     const customCommand: ICommand = {
       execute: () => this.show(graphic.id),
       undo: () => this.hide(graphic.id),

@@ -47,7 +47,6 @@ export namespace Continuum_Canvas {
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
     Continuum_CanvasBacground.init();
-    Continuum_CollisionService.init();
     
     if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
