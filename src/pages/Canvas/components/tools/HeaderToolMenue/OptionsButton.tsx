@@ -1,9 +1,9 @@
-import { Download, Home, Info, Plus, Settings } from "lucide-react";
+import { Download, Home, Info, Settings } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
-import { Continuum_CanvasViewport } from "../../../features/service/Viewport";
 import { defaultButtonsBackground, defaultIconSize } from "../../../data/constants/CanvasConstants";
-import { Continuum_Bookmark } from "../../../features/service/BookMark";
+import { Continuum_Bookmark } from "../../../features/service/Bookmark";
+import BookmakrComponent from "../../bookmark/BookMarkComponent";
 
 function OptionButtons() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -19,16 +19,11 @@ function OptionButtons() {
           inline && "flex-col"
         }`}
       >
-        <div onClick={()=> Continuum_Bookmark.moveToLast()}>
-          <Plus/>
-        </div>
-         <div onClick={()=> Continuum_Bookmark.addBookmark()}>
-          <Plus/>
-        </div>
-        <div
+  
+        {/* <div
         onClick={()=> Continuum_Bookmark.moveHome()}>
           <Home size={defaultIconSize} className="hover:cursor-pointer" />
-        </div>
+        </div> */}
         <Settings
           size={defaultIconSize}
           className="hover:cursor-pointer"
@@ -50,6 +45,8 @@ function OptionButtons() {
             setInfoVisible(true);
           }}
         />
+
+        <BookmakrComponent/>
       </div>
     </>
   );
