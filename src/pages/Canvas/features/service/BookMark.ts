@@ -19,6 +19,11 @@ export namespace Continuum_Bookmark {
     useBookmark.getState().addBookmark(bookmakr);
   }
 
+  export function moveToBookmarkId(id: string) {
+    const bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
+    if (bookmark) moveToBookmark(bookmark);
+  }
+
   export function moveToBookmark(bookmark: Bookmark) {
     if (!Continuum_CanvasViewport.viewport) return;
     Continuum_CanvasViewport.viewport.animate({
@@ -29,8 +34,9 @@ export namespace Continuum_Bookmark {
     });
   }
 
-  export function removeBookmark(bookmakr: Bookmark) {
-    if (bookmakr.id === "home") return;
-    useBookmark.getState().removeBookmark(bookmakr.id);
+  export function removeBookmark(id: string | null) {
+    if (!id) return;
+    if (id === "home") return;
+    useBookmark.getState().removeBookmark(id);
   }
 }
