@@ -39,4 +39,11 @@ export namespace Continuum_Bookmark {
     if (id === "home") return;
     useBookmark.getState().removeBookmark(id);
   }
+
+  export function renameBookmark(id: string, name: string) {
+    let bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
+    if (!bookmark) return;
+    const updatedBookmark: Bookmark = { ...bookmark, name};
+    useBookmark.getState().update(updatedBookmark);
+  }
 }

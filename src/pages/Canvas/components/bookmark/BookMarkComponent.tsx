@@ -27,7 +27,7 @@ function BookmakrComponent() {
           <div className="cursor-pointer bg-green-300 dark:bg-green-500 rounded-full">
             <Home
               size={defaultIconSize}
-              onClick={() =>  Continuum_Bookmark.moveToBookmarkId('home')}
+              onClick={() => Continuum_Bookmark.moveToBookmarkId("home")}
             />
           </div>
           <div className="cursor-pointer bg-green-300 dark:bg-green-500 rounded-full">
@@ -44,6 +44,7 @@ function BookmakrComponent() {
         </div>
         {bookmarks.map((bookmark, i) => (
           <div
+            key={bookmark.id}
             className="flex"
             onClick={() => {
               Continuum_Bookmark.moveToBookmark(bookmark);
@@ -59,6 +60,12 @@ function BookmakrComponent() {
                   type="text"
                   className="p-inputtext-sm"
                   value={bookmark.name}
+                  onChange={(e) => {
+                    Continuum_Bookmark.renameBookmark(
+                      bookmark.id,
+                      e.target.value
+                    );
+                  }}
                 />
                 <Check />
                 <X />
