@@ -8,7 +8,6 @@ import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
-import { Continuum_CollisionService } from "./service/ColisionDetection";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;

@@ -19,7 +19,6 @@ import { PenStyle } from "./Pen";
 import { PencileStyle } from "./Pencile";
 import { MarkerStyle } from "./Marker";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
-import { SquareCursor } from "../../cursor/Square";
 
 export type CruveStyle = "pen" | "pencile" | "marker";
 

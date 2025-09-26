@@ -1,4 +1,4 @@
-import { Polygon, System } from "detect-collisions";
+import { System } from "detect-collisions";
 import { SimplePoint } from "../../Types";
 import {
   GraphicInfo,

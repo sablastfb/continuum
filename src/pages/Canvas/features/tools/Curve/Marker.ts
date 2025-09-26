@@ -1,4 +1,3 @@
-import { join } from "lodash";
 import { ICurveStyle } from "./Curve";
 
 export class MarkerStyle implements ICurveStyle {

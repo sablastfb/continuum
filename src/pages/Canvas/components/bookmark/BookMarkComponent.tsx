@@ -1,18 +1,15 @@
-import { Bookmark, Check, Delete, Home, Plus, Trash, X } from "lucide-react";
+import { Bookmark, Check, Home, Plus, Trash, X } from "lucide-react";
 import { Continuum_Bookmark } from "../../features/service/Bookmark";
 import { defaultIconSize } from "../../data/constants/CanvasConstants";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef, useState } from "react";
 import { useBookmark } from "../../data/store/BookmarkStore";
 import { InputText } from "primereact/inputtext";
-import { Toast } from "primereact/toast";
 
 function BookmakrComponent() {
-  const toast = useRef(null);
-
   const [editingId, seteditingId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const op = useRef(null);
+  const op = useRef<OverlayPanel>(null);
   const bookmarks = useBookmark().bookmarks;
   return (
     <>
@@ -42,7 +39,7 @@ function BookmakrComponent() {
             />
           </div>
         </div>
-        {bookmarks.map((bookmark, i) => (
+        {bookmarks.map((bookmark) => (
           <div
             key={bookmark.id}
             className="flex"
@@ -79,7 +76,12 @@ function BookmakrComponent() {
           </div>
         ))}
       </OverlayPanel>
-      <div onClick={(e) => op.current.toggle(e)} className="cursor-pointer">
+      <div
+        onClick={(e) => {
+          op.current!.toggle(e);
+        }}
+        className="cursor-pointer"
+      >
         <Bookmark size={defaultIconSize} />
       </div>
     </>

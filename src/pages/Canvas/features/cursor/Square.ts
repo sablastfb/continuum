@@ -1,4 +1,3 @@
-import useCanvasStore from "../../data/store/CanvasStore";
 
 export class SquareCursor  {
   //   static draw(color: string){

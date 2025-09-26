@@ -5,11 +5,9 @@ import {
   Highlighter,
   MousePointer2,
   PenLine,
-  Image,
   Redo,
   Square,
   SquareDashed,
-  Type,
   Undo,
   Hexagon,
   Octagon,
@@ -19,7 +17,7 @@ import {
   defaultButtonsBackground,
   defaultIconSize,
 } from "../../../data/constants/CanvasConstants";
-import ToolButton, { IconOption } from "./ToolButton";
+import  { IconOption } from "./ToolButton";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";

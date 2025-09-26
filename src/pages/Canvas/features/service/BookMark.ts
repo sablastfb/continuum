@@ -1,4 +1,3 @@
-import { Scale } from "lucide-react";
 import { Bookmark, useBookmark } from "../../data/store/BookmarkStore";
 import { Continuum_CanvasViewport } from "./Viewport";
 import { v4 as uuidv4 } from "uuid";
