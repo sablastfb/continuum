@@ -7,7 +7,7 @@ import { Continuum_ToolManager } from "../tools/ToolManager";
 
 export namespace Continuum_CanvasViewport {
   export let viewport: Viewport | null = null;
-  
+
   export function init() {
     if (!Continuum_Canvas.appInstance) return;
     Continuum_CanvasViewport.viewport = new Viewport({
@@ -25,7 +25,7 @@ export namespace Continuum_CanvasViewport {
       .pinch({
         noDrag: true,
       })
-      .clampZoom({maxScale: 10.0, minScale: 0.25})
+      .clampZoom({ maxScale: 10.0, minScale: 0.25 })
       .wheel();
     viewport
       .on("touchstart", (e) => {
@@ -57,6 +57,7 @@ export namespace Continuum_CanvasViewport {
         Continuum_ToolManager.stopDrawing(e);
       })
       .on("pointerupoutside", (e) => {
+        debugger;
         Continuum_Canvas.drawing = false;
         Continuum_ToolManager.stopDrawing(e);
       })
@@ -68,9 +69,14 @@ export namespace Continuum_CanvasViewport {
         Continuum_ResizeService.viewportZoom(e);
       })
       .on("moved", () => {
-        if (Continuum_CanvasBacground.backgroundTilingSprite && viewport?.scale.x) {
-          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.x = viewport?.x;
-          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.y = viewport?.y;
+        if (
+          Continuum_CanvasBacground.backgroundTilingSprite &&
+          viewport?.scale.x
+        ) {
+          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.x =
+            viewport?.x;
+          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.y =
+            viewport?.y;
         }
       });
   }

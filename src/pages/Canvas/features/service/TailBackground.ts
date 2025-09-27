@@ -3,7 +3,10 @@
  */
 
 import { Graphics } from "pixi.js";
-import { Continuum_CanvasPalet, ColorId } from "../../data/palet/PaletContainer";
+import {
+  Continuum_CanvasPalet,
+  ColorId,
+} from "../../data/palet/PaletContainer";
 import { Continuum_Canvas } from "../CanvasApp";
 
 export type BackgroundTypes = "color" | "grid" | "dots" | "line";
@@ -63,7 +66,10 @@ export namespace TailBacground {
       .rect(0, 0, dots.tileWidth, dots.tileWidth)
       .fill({ alpha: 0 })
       .circle(0, 0, dots.dotRadius)
-      .fill({ color: Continuum_CanvasPalet.getColor(dots.dotColor), alpha: 0.7 });
+      .fill({
+        color: Continuum_CanvasPalet.getColor(dots.dotColor),
+        alpha: 0.7,
+      });
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
   }
 
@@ -72,22 +78,13 @@ export namespace TailBacground {
 
     const graphics = new Graphics();
     const height = line.spaceBetween;
+    const color = line.lineColor;
     // Draw horizontal line at the bottom of the tile
     graphics
-      .moveTo(0, 0)
-      .lineTo(height, 0)
-      .stroke({
-        width: 1,
-        color: Continuum_CanvasPalet.getColor(line.lineColor),
-        alpha: 0.7,
-      })
-      .moveTo(0, height)
-      .lineTo(height, height)
-      .stroke({
-         width: 1,
-        color: Continuum_CanvasPalet.getColor(line.lineColor),
-        alpha: 0.7,
-      });
+      .rect(0, 0, 100, 1)
+      .rect(0, height, 100, 0.5)
+      // .fill(Continuum_CanvasPalet.getColor(color));
+      .fill('blue');
 
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
   }

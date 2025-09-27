@@ -113,8 +113,8 @@ export class Curve implements ITool {
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
     if (
-      !Continuum_MouseService.isButtonReleased(e, MouseButton.Left) &&
-      Continuum_Canvas.drawing === true
+      Continuum_Canvas.drawing === true &&
+      !Continuum_MouseService.isButtonReleased(e, MouseButton.Left)
     ) {
       return;
     }
