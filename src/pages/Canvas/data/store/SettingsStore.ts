@@ -31,13 +31,13 @@ const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const DefaultSettings: SettingsData = {
   background: {
-    activeBacgroundType: "line",
+    activeBacgroundType: "dots",
     color: backgroundColors[0],
     grid: {
       bacgroundColor: backgroundColors[0],
       gridBorderColor: "bgt-1",
       sizeOfGrid: 50,
-      widthOfGridLine: 0.5,
+      widthOfGridLine: 1,
     },
     dots: {
       bacgroundColor: backgroundColors[0],

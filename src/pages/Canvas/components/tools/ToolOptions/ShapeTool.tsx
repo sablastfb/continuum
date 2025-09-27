@@ -1,49 +1,25 @@
-import { Square, SquareDashed } from "lucide-react";
-import { ShapesStore, useShapesStore } from "../../../data/store/ShapeStore";
+import { Square } from "lucide-react";
+import {
+  ShapeFillType,
+  ShapesStore,
+  useShapesStore,
+} from "../../../data/store/ShapeStore";
 import ArrayDivider from "../../misc/ArrayDivider";
 import CircleColorPicker from "../../pickers/CircleColorPicker";
-import {
-  defaultIconSize,
-  defaultOutlineColor,
-} from "../../../data/constants/CanvasConstants";
+import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
+import { BackgroundTypes } from "../../../features/service/TailBackground";
 
 interface ShapeToolProps {
   shapeType: keyof ShapesStore["shapes"];
+  fillType?: ShapeFillType;
+  bacgroundType?: BackgroundTypes;
 }
 
-function ShapeTool({ shapeType }: ShapeToolProps) {
-  const shapeData = useShapesStore((state) => state.shapes[shapeType]);
+export function SahpeColorPicker({ shapeType }: ShapeToolProps) {
   const updateShape = useShapesStore((state) => state.updateShape);
+  const shapeData = useShapesStore((state) => state.shapes[shapeType]);
   return (
     <>
-      <div className="flex flex-col gap-3">
-        <div
-          onClick={() => updateShape(shapeType, { fillType: "outline-fill" })}
-          className={`rounded-full w-7 h-7 hover:cursor-pointer ${
-            shapeData.fillType === "fill-only" ? defaultOutlineColor : ""
-          }`}
-        >
-          <Square fill="white" size={defaultIconSize} />
-        </div>
-        <div
-          onClick={() => updateShape(shapeType, { fillType: "fill-only" })}
-          className={`rounded-full w-7 h-7 hover:cursor-pointer ${
-            shapeData.fillType === "fill-only" ? defaultOutlineColor : ""
-          }`}
-        >
-          <Square size={defaultIconSize} />
-        </div>
-        <div
-          onClick={() => updateShape(shapeType, { fillType: "outline-only" })}
-          className={`rounded-full w-7 h-7 hover:cursor-pointer ${
-            shapeData.fillType === "fill-only" ? defaultOutlineColor : ""
-          }`}
-        >
-          <SquareDashed size={defaultIconSize} />
-        </div>
-      </div>
-
-      <ArrayDivider orjentation="horizontal" />
       {shapeData.backgroundColors.map((colorId, ix) => {
         return (
           <CircleColorPicker
@@ -54,6 +30,60 @@ function ShapeTool({ shapeType }: ShapeToolProps) {
           />
         );
       })}
+    </>
+  );
+}
+
+export function ShapeTypeBacground({
+  shapeType,
+  bacgroundType,
+}: ShapeToolProps) {
+  const updateShape = useShapesStore((state) => state.updateShape);
+
+  return (
+    <div
+      onClick={() => {
+        updateShape(shapeType, { activeBacgroundType: bacgroundType });
+      }}
+    >
+      {bacgroundType}
+    </div>
+  );
+}
+
+export function ShapeToolFill({ shapeType, fillType }: ShapeToolProps) {
+  const updateShape = useShapesStore((state) => state.updateShape);
+  const shapeData = useShapesStore((state) => state.shapes[shapeType]);
+  return (
+    <div
+      onClick={() => updateShape(shapeType, { fillType })}
+      className={`rounded-full w-7 h-7 hover:cursor-pointer flex justify-center items-center ${
+        shapeData.fillType === fillType ? defaultOutlineColor : ""
+      }`}
+    >
+      {fillType === "outline-fill" && (
+        <Square className="fill-gray-100  stroke-black stroke-4" />
+      )}
+      {fillType === "fill-only" && (
+        <Square size={18} fill="white" className="fill-gray-100 " />
+      )}
+      {fillType === "outline-only" && (
+        <Square fill="none" stroke="currentColor" strokeWidth={2} />
+      )}
+    </div>
+  );
+}
+
+function ShapeTool({ shapeType }: ShapeToolProps) {
+  const shapeData = useShapesStore((state) => state.shapes[shapeType]);
+  const updateShape = useShapesStore((state) => state.updateShape);
+  return (
+    <>
+      <div className="flex flex-col gap-3">
+        <ShapeToolFill shapeType={shapeType} fillType="outline-fill" />
+        <ShapeToolFill shapeType={shapeType} fillType="fill-only" />
+        <ShapeToolFill shapeType={shapeType} fillType="outline-only" />
+      </div>
       <ArrayDivider orjentation="horizontal" />
       {shapeData.outlineColors.map((colorId, ix) => {
         return (
@@ -65,6 +95,33 @@ function ShapeTool({ shapeType }: ShapeToolProps) {
           />
         );
       })}
+
+      <ArrayDivider orjentation="horizontal" />
+      <div>
+        <ShapeTypeBacground
+          shapeType={shapeType}
+          bacgroundType="color"
+        ></ShapeTypeBacground>
+        <ShapeTypeBacground
+          shapeType={shapeType}
+          bacgroundType="dots"
+        ></ShapeTypeBacground>
+        <ShapeTypeBacground
+          shapeType={shapeType}
+          bacgroundType="grid"
+        ></ShapeTypeBacground>
+        <ShapeTypeBacground
+          shapeType={shapeType}
+          bacgroundType="line"
+        ></ShapeTypeBacground>
+      </div>
+
+      <ArrayDivider orjentation="horizontal" />
+      {shapeData.activeBacgroundType === "color" && (
+        <>
+          <SahpeColorPicker shapeType={shapeType} />
+        </>
+      )}
     </>
   );
 }

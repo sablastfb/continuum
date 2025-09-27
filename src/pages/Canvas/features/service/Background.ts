@@ -1,6 +1,6 @@
 import { Texture, TilingSprite } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
-import { TailBacground, TileBacgroundSettings } from "./TailBackground";
+import { Continuum_TailBacground, TileBacgroundSettings } from "./TailBackground";
 import { Continuum_CanvasPalet, ColorId } from "../../data/palet/PaletContainer";
 
 export namespace Continuum_CanvasBacground {
@@ -25,15 +25,15 @@ export namespace Continuum_CanvasBacground {
         colorId = bs.color;
         break;
       case "dots":
-        texture = TailBacground.DotBacground(bs.dots);
+        texture = Continuum_TailBacground.DotBacground(bs.dots);
         colorId = bs.dots.bacgroundColor;
         break;
       case "grid":
-        texture = TailBacground.GrindTile(bs.grid);
+        texture = Continuum_TailBacground.GrindTile(bs.grid);
         colorId = bs.grid.bacgroundColor;
         break;
       case "line":
-        texture = TailBacground.HorizonalLineBacground(bs.line);
+        texture = Continuum_TailBacground.HorizonalLineBacground(bs.line);
         colorId = bs.line.bacgroundColor;
         break;
     }

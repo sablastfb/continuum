@@ -43,14 +43,15 @@ export type TileBacgroundSettings = {
   backgroundColors: ColorId[];
 };
 
-export namespace TailBacground {
+export namespace Continuum_TailBacground {
   export function GrindTile(grid: GridBackground) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
 
     const graphics = new Graphics();
     const width = grid.sizeOfGrid;
 
-    graphics.rect(0, 0, width, width).stroke({
+    graphics.rect(0, 0, width, width)
+    .fill({color: Continuum_CanvasPalet.getColor(grid.bacgroundColor)}).stroke({
       color: Continuum_CanvasPalet.getColor(grid.gridBorderColor),
       width: grid.widthOfGridLine,
       cap: "round",
@@ -64,8 +65,9 @@ export namespace TailBacground {
     if (!Continuum_Canvas.IsCanvasReady()) return;
     const graphics = new Graphics()
       .rect(0, 0, dots.tileWidth, dots.tileWidth)
-      .fill({ alpha: 0 })
-      .circle(0, 0, dots.dotRadius)
+      .fill({ color:Continuum_CanvasPalet.getColor(dots.bacgroundColor)  })
+      .stroke({color:Continuum_CanvasPalet.getColor(dots.bacgroundColor), width:1})
+      .circle(dots.tileWidth/2, dots.tileWidth/2, dots.dotRadius)
       .fill({
         color: Continuum_CanvasPalet.getColor(dots.dotColor),
         alpha: 0.7,
@@ -81,8 +83,11 @@ export namespace TailBacground {
     const color = line.lineColor;
     // Draw horizontal line at the bottom of the tile
     graphics
+      .rect(0,0, 100, 95)
+      .fill(Continuum_CanvasPalet.getColor(line.bacgroundColor))
+      .fill()
       .rect(0, 0, 100, 1)
-      .rect(0, height, 100, 0.5)
+      .rect(0, height, 100,1)
       .fill(Continuum_CanvasPalet.getColor(color));
 
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);

@@ -21,7 +21,7 @@ import  { IconOption } from "./ToolButton";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import useSettingsStore from "../../../data/store/SettingsStore";
-import DropdownSelector from "../../misc/DropdownSelector";
+import DropdownToolSelector from "../../misc/DropdownSelector";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
@@ -140,9 +140,9 @@ function ToolsMenue() {
           inline && "flex-col"
         }`}
       >
-        <DropdownSelector options={DrawingOptions} />
-        <DropdownSelector options={SelectionOptions} />
-        <DropdownSelector options={ShapesOption} />
+        <DropdownToolSelector options={DrawingOptions} />
+        <DropdownToolSelector options={SelectionOptions} />
+        <DropdownToolSelector options={ShapesOption} />
 
         {inline ? (
           <div className="w-10 h-1">

@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/SettingsStore";
 
-function DropdownSelector({ options }: { options: IconOption[] }) {
+function DropdownToolSelector({ options }: { options: IconOption[] }) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
   const position = useSettingsStore().layout.toolMenue;
 
@@ -59,4 +59,4 @@ function DropdownSelector({ options }: { options: IconOption[] }) {
   );
 }
 
-export default DropdownSelector;
+export default DropdownToolSelector;

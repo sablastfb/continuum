@@ -3,20 +3,25 @@ import { immer } from "zustand/middleware/immer";
 import { TileBacgroundSettings } from "../../features/service/TailBackground";
 import { ColorId } from "../palet/PaletContainer";
 
+export type ShapeFillType = "outline-only" | "fill-only" | "outline-fill";
+
 export type ShapeData = TileBacgroundSettings & {
   outlineColors: ColorId[];
   outlineColor: ColorId;
   outlineWidth: number;
-  fillType: "outline-only" | "fill-only" | "outline-fill";
+  fillType: ShapeFillType;
 };
 
 const shapeBackgroundColors = [
+  "bg-1",
+  "bg-2",
   "shape-background-cornflower-blue",
   "shape-background-mint-green",
   "shape-background-blush-pink",
 ];
 
 const shapeOutlineColors = [
+  "bg-7",
   "shape-outline-rose-pink",
   "shape-outline-turquoise-teal",
 ];
