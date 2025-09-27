@@ -83,8 +83,7 @@ export namespace TailBacground {
     graphics
       .rect(0, 0, 100, 1)
       .rect(0, height, 100, 0.5)
-      // .fill(Continuum_CanvasPalet.getColor(color));
-      .fill('blue');
+      .fill(Continuum_CanvasPalet.getColor(color));
 
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
   }
