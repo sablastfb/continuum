@@ -51,7 +51,7 @@ function OptionButtons() {
           <OptionButton />
       </OverlayPanel>
       <div
-        className={`  xs:hidden flex  ${defaultButtonsBackground} pointer-events-auto rounded-md `}
+        className={`  xl:hidden absolute  flex  left-10 ${defaultButtonsBackground} pointer-events-auto rounded-md `}
        onClick={(e) => {
             op.current!.toggle(e);
           }}
@@ -62,7 +62,7 @@ function OptionButtons() {
         />
       </div>
       <div
-        className={` hidden xs:flex  ${defaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center h-fit gap-4 `}
+        className={` hidden xl:flex  ${defaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center h-fit gap-4 `}
       >
         <OptionButton />
       </div>

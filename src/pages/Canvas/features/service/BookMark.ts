@@ -18,6 +18,11 @@ export namespace Continuum_Bookmark {
     useBookmark.getState().addBookmark(bookmakr);
   }
 
+  export function moveToBookmarkHome() {
+    const bookmark = useBookmark.getState().homeBookmakrs
+    if (bookmark) moveToBookmark(bookmark);
+  }
+
   export function moveToBookmarkId(id: string) {
     const bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
     if (bookmark) moveToBookmark(bookmark);

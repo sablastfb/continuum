@@ -11,6 +11,7 @@ export type Bookmark = {
   scale: number;
 };
 export interface BookmarkStore {
+  homeBookmakrs: Bookmark;
   bookmarks: Bookmark[];
   addBookmark: (bookmark: Bookmark) => void;
   update: (bookmark: Bookmark) => void;
@@ -19,17 +20,16 @@ export interface BookmarkStore {
 
 export const useBookmark = create<BookmarkStore>()(
   immer((set) => ({
-    bookmarks: [
-      {
-        id: "home",
-        name: "home",
-        position: {
-          x: window.innerWidth / 2,
-          y: window.innerHeight / 2,
-        },
-        scale: 1,
+    homeBookmakrs: {
+      id: "home",
+      name: "home",
+      position: {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
       },
-    ],
+      scale: 1,
+    },
+    bookmarks: [],
     addBookmark: (bookmark) =>
       set((state) => {
         state.bookmarks.push(bookmark);
