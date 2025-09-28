@@ -49,26 +49,25 @@ export namespace Continuum_TailBacground {
 
     const graphics = new Graphics();
     const width = grid.sizeOfGrid;
-    // const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor)  ;
-    const color = 'gray' ;
-    const line = grid.widthOfGridLine*2;
-    
+
+    const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor)  ;
+    const bacground =  Continuum_CanvasPalet.getColor(grid.bacgroundColor);
+    const line = grid.widthOfGridLine;
    graphics
-      .rect(0, 0, 100, 95)
-      .fill(Continuum_CanvasPalet.getColor(grid.bacgroundColor))
+      .rect(0, 0, width, width)
+      .fill(bacground)
       .fill()
-      .rect(0, 0, 100, line)
-      .rect(0, 100, 100, line)
-      .rect(0, 0, line, 100)
-      .rect(100, 0, line, 100)
+      .rect(0, 0, width, line)
+      .rect(0, width, width, line)
+      .rect(0, 0, line, width)
+      .rect(width, 0, line, width)
       .fill(color);
 
     const renderTexture = RenderTexture.create({
       width: width,
       height: width,
-      scaleMode: 'linear',
-      format: 'bc2-rgba-unorm-srgb',
-      antialias: true,
+      antialias: false,
+      alphaMode: "premultiplied-alpha",
     });
 
     Continuum_Canvas.appInstance!.renderer.render({

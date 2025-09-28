@@ -34,12 +34,9 @@ export namespace Continuum_CanvasBacground {
         texture = Continuum_TailBacground.HorizonalLineBacground(bs.line);
         break;
     }
-
-    if (texture) {
-      backgroundTilingSprite.texture = texture;
-    } else if (backgroundTilingSprite) {
-      backgroundTilingSprite.texture = Texture.EMPTY;
-    }
+    if (backgroundTilingSprite)
+    backgroundTilingSprite.texture = texture ??  Texture.EMPTY;
+   
     if (colorId) {
       setBacgroundColor(colorId);
     }
