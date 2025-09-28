@@ -48,10 +48,12 @@ function BookmakrComponent() {
                   Add bookmark
                 </div>
               )}
-              {bookmarks.map((bookmark) => (
+              {bookmarks.map((bookmark, ix) => (
                 <div
                   key={bookmark.id}
-                  className="flex w-full cursor-pointer border-stone-500  border-b-1"
+                  className={`flex w-full cursor-pointer border-stone-500  ${
+                    ix !== bookmarks.length - 1 && "border-b-1"
+                  }`}
                   onClick={() => {
                     Continuum_Bookmark.moveToBookmark(bookmark);
                     setSelectedId(bookmark.id);
@@ -84,18 +86,19 @@ function BookmakrComponent() {
                   )}
                   {editingId !== bookmark.id && (
                     <div
-                      className={`flex flex-row justify-between px-2 w-full text-right`}
+                      className={`flex flex-row justify-between items-center px-2 w-full text-right`}
                     >
                       <div
-                        className={`text-center  ${
+                        className={`text-center select-none  ${
                           selectedId === bookmark.id && `text-amber-200`
                         }`}
                       >
                         {bookmark.name}
                       </div>
-                      <div className="cursor-pointer ">
+                      <div className="cursor-pointer flex justify-center">
                         {bookmark.id === selectedId && (
                           <Trash
+                            className=" hover:fill-amber-900"
                             size={20}
                             onClick={() => {
                               if (selectedId) {
