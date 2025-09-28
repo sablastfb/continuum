@@ -15,7 +15,7 @@ function DropdownToolSelector({ options }: { options: IconOption[] }) {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <div className={`flex items-center gap-0 rounded-2xl relative
+    <div className={`flex items-center gap-0 rounded-2xl relative z-50
          ${position === "left" && "flex-col"}
          ${position === "right" && "flex-col"}
     `}>
@@ -33,18 +33,15 @@ function DropdownToolSelector({ options }: { options: IconOption[] }) {
       </button>
       
       <div
-        className={`p-2 absolute gap-2 flex bg-background rounded-lg shadow-lg
-          ${position === "bottom" && "bottom-full flex-col mb-2"}
-          ${position === "top" && "top-full flex-col mt-2"}
-          ${position === "left" && "left-full flex-row ml-2"}
-          ${position === "right" && "right-full flex-row mr-2"}
+        className={`p-2 absolute gap-2 flex bg-background rounded-lg shadow-lg top-full flex-col mt-1 z-50
+          dark:bg-stone-800 bg-stone-100  backdrop-blur-sm
           ${!isOpen && "hidden"}
         `}
       >
         {options.map((element, index) => (
           <div
             key={index}
-            className={`cursor-pointer rounded-2xl p-2 ${defaultButtonsBackground} hover:bg-opacity-80`}
+            className={`cursor-pointer rounded-2xl p-2 `}
             onClick={() => {
               setActiveTool(element.tool);
               setix(index);

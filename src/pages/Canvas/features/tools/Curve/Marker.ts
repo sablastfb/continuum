@@ -4,8 +4,6 @@ export class MarkerStyle implements ICurveStyle {
   draw(info: any): void {
     info.activeCurve.stroke({
       width: info.activeThicknes * 10,
-       join: 'miter',
-    miterLimit: 1,
     });
     info.activeCurve.tint = info.activeColor;
     info.activeCurve.alpha = 0.5;
@@ -23,10 +21,10 @@ export class MarkerStyle implements ICurveStyle {
     }
     info.optimizedCruveGraphics.stroke({
       width: info.activeThicknes * 10,
-            join: 'round',
+      join: "round",
     });
 
-      info.optimizedCruveGraphics.alpha =  0.5;
+    info.optimizedCruveGraphics.alpha = 0.5;
     info.optimizedCruveGraphics.tint = info.activeColor;
   }
 }

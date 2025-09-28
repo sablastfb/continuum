@@ -1,7 +1,10 @@
 import { Download, Info, Settings } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import useSettingsStore from "../../../data/store/BacgroundStore";
-import { defaultButtonsBackground, defaultIconSize } from "../../../data/constants/CanvasConstants";
+import {
+  defaultButtonsBackground,
+  defaultIconSize,
+} from "../../../data/constants/CanvasConstants";
 import BookmakrComponent from "../../bookmark/BookMarkComponent";
 
 function OptionButtons() {
@@ -18,11 +21,7 @@ function OptionButtons() {
           inline && "flex-col"
         }`}
       >
-  
-        {/* <div
-        onClick={()=> Continuum_Bookmark.moveHome()}>
-          <Home size={defaultIconSize} className="hover:cursor-pointer" />
-        </div> */}
+
         <Settings
           size={defaultIconSize}
           className="hover:cursor-pointer"
@@ -45,7 +44,7 @@ function OptionButtons() {
           }}
         />
 
-        <BookmakrComponent/>
+        <BookmakrComponent />
       </div>
     </>
   );

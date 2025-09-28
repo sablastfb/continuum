@@ -20,7 +20,6 @@ import {
 import  { IconOption } from "./ToolButton";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
-import useSettingsStore from "../../../data/store/BacgroundStore";
 import DropdownToolSelector from "../../misc/DropdownSelector";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";
@@ -31,11 +30,8 @@ function ToolsMenue() {
   const pencil = usePencileStore();
   const markerStore = useMarkerStore();
   const shapeStore = useShapesStore();
-  const toolButtonPosition = useSettingsStore().layout.toolMenue;
   const historyPosition = useCanvasStore().historyPosition;
   const historyCount = useCanvasStore().historyCount;
-  const inline =
-    toolButtonPosition === "left" || toolButtonPosition === "right";
   const DrawingOptions = useMemo<IconOption[]>(
     () => [
       {
@@ -136,23 +132,15 @@ function ToolsMenue() {
   return (
     <>
       <div
-        className={` p-1 flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultButtonsBackground} ${
-          inline && "flex-col"
-        }`}
-      >
+        className={`w-fit flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultButtonsBackground} relative  z-50`}>
         <DropdownToolSelector options={DrawingOptions} />
         <DropdownToolSelector options={SelectionOptions} />
         <DropdownToolSelector options={ShapesOption} />
 
-        {inline ? (
-          <div className="w-10 h-1">
-            <ArrayDivider orjentation="horizontal" />
-          </div>
-        ) : (
+    
           <div className="w-1 h-10">
             <ArrayDivider orjentation="vertical" />
           </div>
-        )}
 
         <div
           onClick={() => Continuum_Canvas.commandManage.goBack()}

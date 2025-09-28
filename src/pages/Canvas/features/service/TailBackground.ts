@@ -61,13 +61,12 @@ export namespace Continuum_TailBacground {
       .rect(0, width, width, line)
       .rect(0, 0, line, width)
       .rect(width, 0, line, width)
-      .fill(color);
+      .fill(color)
+      .stroke({width: 1, color});
 
     const renderTexture = RenderTexture.create({
       width: width,
       height: width,
-      antialias: false,
-      alphaMode: "premultiplied-alpha",
     });
 
     Continuum_Canvas.appInstance!.renderer.render({

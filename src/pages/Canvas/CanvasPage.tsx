@@ -44,7 +44,6 @@ function CanvasPage() {
         />
       </div>
 
-      <ToolOptions />
       <HeaderToolsMenue />
       <SettingsDialog />
       <InfoDialog />
