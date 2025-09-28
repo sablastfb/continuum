@@ -7,7 +7,7 @@ import { TileBacgroundSettings } from "../../features/service/TailBackground";
 export type Theme = "dark" | "light";
 export type LayoutPositon = "top" | "bottom" | "left" | "right";
 
-export interface SettingsData {
+export interface BacgroundData {
   layout: {
     toolButtons: LayoutPositon;
     toolMenue: LayoutPositon;
@@ -16,8 +16,8 @@ export interface SettingsData {
   background: TileBacgroundSettings;
 }
 
-export interface SettingsStore extends SettingsData {
-  discardSettings: (settings: SettingsData) => void;
+export interface BacgroundStore extends BacgroundData {
+  discardSettings: (settings: BacgroundData) => void;
   setBackgroundSettings: (
     bacgroundSettings: DeepPartial<TileBacgroundSettings>
   ) => void;
@@ -29,9 +29,9 @@ export interface SettingsStore extends SettingsData {
 
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
-export const DefaultSettings: SettingsData = {
+export const BacgroundDefault: BacgroundData = {
   background: {
-    activeBacgroundType: "dots",
+    activeBacgroundType: "grid",
     color: backgroundColors[0],
     grid: {
       bacgroundColor: backgroundColors[0],
@@ -59,9 +59,9 @@ export const DefaultSettings: SettingsData = {
   },
 };
 
-export const useSettingsStore = create<SettingsStore>()(
+export const useSettingsStore = create<BacgroundStore>()(
   immer((set) => ({
-    ...DefaultSettings,
+    ...BacgroundDefault,
     setBackgroundSettings: (settings) =>
       set((state) => {
        state.background = merge({},state.background, settings);
@@ -88,7 +88,7 @@ export const useSettingsStore = create<SettingsStore>()(
     },
     reserToDefaultSettings: () =>
       set((state) => {
-        merge(state, DefaultSettings);
+        merge(state, BacgroundDefault);
       }),
   }))
 );

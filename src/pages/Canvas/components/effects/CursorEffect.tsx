@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
-import useSettingsStore from "../../data/store/SettingsStore";
+import useSettingsStore from "../../data/store/BacgroundStore";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
 import { useEraseStore } from "../../data/store/EraseStore";

@@ -2,7 +2,7 @@
  *  Create TilingSprite for bacground and shapes
  */
 
-import { Graphics } from "pixi.js";
+import { Graphics, RenderTexture } from "pixi.js";
 import {
   Continuum_CanvasPalet,
   ColorId,
@@ -44,33 +44,54 @@ export type TileBacgroundSettings = {
 };
 
 export namespace Continuum_TailBacground {
-  export function GrindTile(grid: GridBackground) {
+   export function GrindTile(grid: GridBackground) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
 
     const graphics = new Graphics();
     const width = grid.sizeOfGrid;
+    // const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor)  ;
+    const color = 'gray' ;
+    const line = grid.widthOfGridLine*2;
+    
+   graphics
+      .rect(0, 0, 100, 95)
+      .fill(Continuum_CanvasPalet.getColor(grid.bacgroundColor))
+      .fill()
+      .rect(0, 0, 100, line)
+      .rect(0, 100, 100, line)
+      .rect(0, 0, line, 100)
+      .rect(100, 0, line, 100)
+      .fill(color);
 
-    graphics.rect(0, 0, width, width)
-    .fill({color: Continuum_CanvasPalet.getColor(grid.bacgroundColor)}).stroke({
-      color: Continuum_CanvasPalet.getColor(grid.gridBorderColor),
-      width: grid.widthOfGridLine,
-      cap: "round",
-      alpha: 0.7,
+    const renderTexture = RenderTexture.create({
+      width: width,
+      height: width,
+      scaleMode: 'linear',
+      format: 'bc2-rgba-unorm-srgb',
+      antialias: true,
     });
 
-    return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
+    Continuum_Canvas.appInstance!.renderer.render({
+      container: graphics,
+      target: renderTexture,
+      clear: true,
+    });
+
+    return renderTexture;
   }
 
   export function DotBacground(dots: DotBackground) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
     const graphics = new Graphics()
       .rect(0, 0, dots.tileWidth, dots.tileWidth)
-      .fill({ color:Continuum_CanvasPalet.getColor(dots.bacgroundColor)  })
-      .stroke({color:Continuum_CanvasPalet.getColor(dots.bacgroundColor), width:1})
-      .circle(dots.tileWidth/2, dots.tileWidth/2, dots.dotRadius)
+      .fill({ color: Continuum_CanvasPalet.getColor(dots.bacgroundColor) })
+      .stroke({
+        color: Continuum_CanvasPalet.getColor(dots.bacgroundColor),
+        width: 1,
+      })
+      .circle(dots.tileWidth / 2, dots.tileWidth / 2, dots.dotRadius)
       .fill({
         color: Continuum_CanvasPalet.getColor(dots.dotColor),
-        alpha: 0.7,
       });
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
   }
@@ -83,11 +104,11 @@ export namespace Continuum_TailBacground {
     const color = line.lineColor;
     // Draw horizontal line at the bottom of the tile
     graphics
-      .rect(0,0, 100, 95)
+      .rect(0, 0, 100, 95)
       .fill(Continuum_CanvasPalet.getColor(line.bacgroundColor))
       .fill()
       .rect(0, 0, 100, 1)
-      .rect(0, height, 100,1)
+      .rect(0, height, 100, 1)
       .fill(Continuum_CanvasPalet.getColor(color));
 
     return Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);

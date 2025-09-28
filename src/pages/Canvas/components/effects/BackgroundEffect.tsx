@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Continuum_CanvasBacground } from "../../features/service/Background";
-import useSettingsStore from "../../data/store/SettingsStore";
+import useSettingsStore from "../../data/store/BacgroundStore";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
 import { Continuum_ToolManager } from "../../features/tools/ToolManager";

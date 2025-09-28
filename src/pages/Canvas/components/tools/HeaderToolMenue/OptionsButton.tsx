@@ -1,6 +1,6 @@
 import { Download, Info, Settings } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
-import useSettingsStore from "../../../data/store/SettingsStore";
+import useSettingsStore from "../../../data/store/BacgroundStore";
 import { defaultButtonsBackground, defaultIconSize } from "../../../data/constants/CanvasConstants";
 import BookmakrComponent from "../../bookmark/BookMarkComponent";
 

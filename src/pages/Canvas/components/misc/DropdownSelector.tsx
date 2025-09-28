@@ -3,7 +3,7 @@ import ToolButton, { IconOption } from "../tools/HeaderToolMenue/ToolButton";
 import { defaultButtonsBackground } from "../../data/constants/CanvasConstants";
 import { ChevronDown } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
-import useSettingsStore from "../../data/store/SettingsStore";
+import useSettingsStore from "../../data/store/BacgroundStore";
 
 function DropdownToolSelector({ options }: { options: IconOption[] }) {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);

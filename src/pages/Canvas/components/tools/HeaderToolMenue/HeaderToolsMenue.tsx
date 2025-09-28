@@ -1,7 +1,7 @@
 import ZoomingButton from "./ZoomingButton";
 import OptionButtons from "./OptionsButton";
 import ToolsMenue from "./ToolsMenue";
-import useSettingsStore from "../../../data/store/SettingsStore";
+import useSettingsStore from "../../../data/store/BacgroundStore";
 function HeaderToolsMenue() {
   const toolButtonPosition = useSettingsStore().layout.toolMenue;
 

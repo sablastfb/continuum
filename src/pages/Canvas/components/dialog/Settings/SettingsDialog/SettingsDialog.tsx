@@ -10,7 +10,7 @@ import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
-import useSettingsStore, { DefaultSettings, SettingsData } from "../../../../data/store/SettingsStore";
+import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
 import { defaultDialogBacground } from "../../../../data/constants/CanvasConstants";
 
 function SettingsDialog() {
@@ -19,7 +19,7 @@ function SettingsDialog() {
   const canvasSettings = useSettingsStore((state) => state);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const [currentCanvasSettings, setCurrentCanvasSettings] =
-    useState<SettingsData>(DefaultSettings);
+    useState<BacgroundData>(BacgroundDefault);
 
   const [settingActiveTab, setSettingActiveTab] =
     useState<SettingTabs>("background");
@@ -97,7 +97,7 @@ function SettingsDialog() {
               message="Are you sure you want to proceed?"
               icon="pi pi-exclamation-triangle"
               accept={() => {
-                setTheme(DefaultSettings.theme);
+                setTheme(BacgroundDefault.theme);
                 reserToDefaultSettings();
                 hide({
                   preventDefault: () => {},

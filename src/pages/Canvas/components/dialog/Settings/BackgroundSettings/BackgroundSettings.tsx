@@ -2,7 +2,7 @@ import "./BackgroundSettings.css";
 import { Continuum_CanvasPalet } from "../../../../data/palet/PaletContainer";
 import CircleColorPicker from "../../../pickers/CircleColorPicker";
 import { defaultOutlineColor } from "../../../../data/constants/CanvasConstants";
-import useSettingsStore from "../../../../data/store/SettingsStore";
+import useSettingsStore from "../../../../data/store/BacgroundStore";
 
 function BacgroundPickerColor({ selected }: { selected: boolean }) {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;

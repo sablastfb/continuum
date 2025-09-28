@@ -57,7 +57,6 @@ export namespace Continuum_CanvasViewport {
         Continuum_ToolManager.stopDrawing(e);
       })
       .on("pointerupoutside", (e) => {
-        debugger;
         Continuum_Canvas.drawing = false;
         Continuum_ToolManager.stopDrawing(e);
       })

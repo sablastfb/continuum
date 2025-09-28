@@ -13,6 +13,7 @@ export namespace Continuum_CanvasBacground {
       width: Continuum_Canvas.appInstance.renderer.width,
       height: Continuum_Canvas.appInstance.renderer.height,
     });
+
     Continuum_Canvas.appInstance.stage.addChild(backgroundTilingSprite);
   }
 
@@ -21,20 +22,16 @@ export namespace Continuum_CanvasBacground {
     let colorId = null;
     switch (bs.activeBacgroundType) {
       case "color":
-        texture = null;
         colorId = bs.color;
         break;
       case "dots":
         texture = Continuum_TailBacground.DotBacground(bs.dots);
-        colorId = bs.dots.bacgroundColor;
         break;
       case "grid":
         texture = Continuum_TailBacground.GrindTile(bs.grid);
-        colorId = bs.grid.bacgroundColor;
         break;
       case "line":
         texture = Continuum_TailBacground.HorizonalLineBacground(bs.line);
-        colorId = bs.line.bacgroundColor;
         break;
     }
 

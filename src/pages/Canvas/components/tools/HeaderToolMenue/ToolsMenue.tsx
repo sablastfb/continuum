@@ -20,7 +20,7 @@ import {
 import  { IconOption } from "./ToolButton";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
-import useSettingsStore from "../../../data/store/SettingsStore";
+import useSettingsStore from "../../../data/store/BacgroundStore";
 import DropdownToolSelector from "../../misc/DropdownSelector";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";

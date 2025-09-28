@@ -40,12 +40,12 @@ export class Shape implements ITool {
     this.outlineShape = new Graphics();
 
     let shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
+    Continuum_CanvasViewport.viewport.addChild(this.shape);
     if (shapeData.activeBacgroundType !== "color") {
       this.tilingSprite = new TilingSprite();
+      Continuum_CanvasViewport.viewport.addChild(this.tilingSprite);
     }
 
-    Continuum_CanvasViewport.viewport.addChild(this.shape);
-    Continuum_CanvasViewport.viewport.addChild(this.tilingSprite);
     Continuum_CanvasViewport.viewport.addChild(this.outlineShape);
   }
 
@@ -55,7 +55,7 @@ export class Shape implements ITool {
     if (!Continuum_CanvasViewport.viewport) return;
     this.shape.clear();
     this.outlineShape.clear();
-    
+
     this.lastPosition = Continuum_CanvasViewport.viewport.toWorld(e);
     let shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
 
@@ -73,14 +73,18 @@ export class Shape implements ITool {
         this.square(this.shape, this.firstPosition, this.lastPosition);
         break;
       case "hexagon":
-        this.poligon(this.outlineShape, this.firstPosition, this.lastPosition, 6);
+        this.poligon(
+          this.outlineShape,
+          this.firstPosition,
+          this.lastPosition,
+          6
+        );
         this.poligon(this.shape, this.firstPosition, this.lastPosition, 6);
         break;
     }
 
     const fillTyle = shapeData.fillType;
     if (fillTyle === "outline-only" || fillTyle === "outline-fill") {
-      this.outline(this.shape, shapeData);
       this.outline(this.outlineShape, shapeData);
     }
     if (fillTyle === "fill-only" || fillTyle === "outline-fill") {
@@ -95,8 +99,7 @@ export class Shape implements ITool {
     this.tilingSprite.height = Math.abs(p1.y - p2.y);
   }
 
-  
-  private outline(graphic: Graphics,shapeData: ShapeData) {
+  private outline(graphic: Graphics, shapeData: ShapeData) {
     graphic.stroke({
       color: Continuum_CanvasPalet.getColor(shapeData.outlineColor),
       width: shapeData.outlineWidth,
@@ -113,7 +116,6 @@ export class Shape implements ITool {
   }
 
   private fillPolygon(shapeData: ShapeData) {
-    
     switch (shapeData.activeBacgroundType) {
       case "color":
         this.shape.fill(Continuum_CanvasPalet.getColor(shapeData.color));
@@ -136,7 +138,12 @@ export class Shape implements ITool {
   }
 
   // TODO update to rounder poligon
-  private poligon(graphic: Graphics, p1: SimplePoint, p2: SimplePoint, n: number) {
+  private poligon(
+    graphic: Graphics,
+    p1: SimplePoint,
+    p2: SimplePoint,
+    n: number
+  ) {
     const points = [];
     const w = Math.abs(p1.x - p2.x) / 2;
     const h = Math.abs(p1.y - p2.y) / 2;
@@ -162,7 +169,7 @@ export class Shape implements ITool {
     );
   }
 
-  private circle(graphic: Graphics,p1: SimplePoint, p2: SimplePoint) {
+  private circle(graphic: Graphics, p1: SimplePoint, p2: SimplePoint) {
     const w = Math.abs(p1.x - p2.x) / 2;
     const h = Math.abs(p1.y - p2.y) / 2;
     const center = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
@@ -173,6 +180,10 @@ export class Shape implements ITool {
     if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
       return;
     }
+    /// 
+    this.shape.visible = false;
+    this.outlineShape.visible = false;
+    this.tilingSprite.visible = false;
   }
 
   updateCursor(): void {

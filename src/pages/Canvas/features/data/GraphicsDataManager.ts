@@ -1,5 +1,4 @@
 import { Graphics } from "pixi.js";
-import { CurveGraphicInfo } from "./CurveGraphicInfo";
 // import { Continuum_Canvas } from "../CanvasApp";
 // import { v4 as uuidv4 } from "uuid";
 
@@ -24,3 +23,7 @@ export namespace Continuum_Data {
     
   // }
 }
+export type CurveGraphicInfo = {
+  thicknes: number;
+  path: paper.Path;
+};

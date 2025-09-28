@@ -2,7 +2,7 @@ import { Application } from "pixi.js";
 import { Continuum_ToolManager } from "./tools/ToolManager";
 import { Continuum_CanvasBacground } from "./service/Background";
 import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
-import useSettingsStore from "../data/store/SettingsStore";
+import useSettingsStore from "../data/store/BacgroundStore";
 import { Continuum_ResizeService } from "./service/Resize";
 import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
@@ -46,7 +46,7 @@ export namespace Continuum_Canvas {
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
     Continuum_CanvasBacground.init();
-    
+
     if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
     appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
