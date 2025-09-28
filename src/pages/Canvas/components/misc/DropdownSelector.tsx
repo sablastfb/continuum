@@ -33,7 +33,7 @@ function DropdownToolSelector({ options }: { options: IconOption[] }) {
       </button>
       
       <div
-        className={`p-2 absolute gap-2 flex bg-background rounded-lg shadow-lg top-full flex-col mt-1 z-50
+        className={`p-1 absolute gap-2 flex bg-background rounded-lg shadow-lg top-full flex-col mt-1 z-50
           dark:bg-stone-800 bg-stone-100  backdrop-blur-sm
           ${!isOpen && "hidden"}
         `}
@@ -41,7 +41,7 @@ function DropdownToolSelector({ options }: { options: IconOption[] }) {
         {options.map((element, index) => (
           <div
             key={index}
-            className={`cursor-pointer rounded-2xl p-2 `}
+            className={`cursor-pointer rounded-2xl p-1 `}
             onClick={() => {
               setActiveTool(element.tool);
               setix(index);

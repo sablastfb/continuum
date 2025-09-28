@@ -11,7 +11,9 @@ function HeaderToolsMenue() {
       className={`
         absolute
         flex 
-        justify-between
+        flex-wrap
+        justify-around
+        xl:justify-between
         p-2
         pointer-events-none
         ${toolButtonPosition === "top" && "top-0 left-0 right-0 items-start"}
@@ -30,10 +32,11 @@ function HeaderToolsMenue() {
         `}
     >
       <OptionButtons />
-      <div className="flex flex-col items-center justify-center align-middle gap-1.5">
+      <div className="hidden xl:flex   items-center justify-center align-middle gap-1.5   flex-wrap">
         <ToolsMenue />
         <ToolOptions />
       </div>
+
       <ZoomingButton />
     </div>
   );

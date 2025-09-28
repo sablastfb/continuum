@@ -13,7 +13,7 @@ function BookmakrComponent() {
   const bookmarks = useBookmark().bookmarks;
   return (
     <>
-      <OverlayPanel ref={op} className="" showCloseIcon>
+      <OverlayPanel ref={op}  showCloseIcon>
         <div className="flex">
           <div className="cursor-pointer bg-green-300 dark:bg-green-500 rounded-full">
             <Plus

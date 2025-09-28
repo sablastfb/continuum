@@ -11,6 +11,8 @@ import {
   Undo,
   Hexagon,
   Octagon,
+  Pen,
+  Pencil,
 } from "lucide-react";
 import ArrayDivider from "../../misc/ArrayDivider";
 import {
@@ -36,12 +38,16 @@ function ToolsMenue() {
     () => [
       {
         icon: (
-          <PenLine
+          <Pen
             size={defaultIconSize}
             fill={Continuum_CanvasPalet.getColor(pencil.pencilColorId)}
           />
         ),
         tool: "pencile",
+      },
+      {
+        icon: <Pencil size={defaultIconSize} />,
+        tool: "eraser",
       },
       {
         icon: (
@@ -132,7 +138,7 @@ function ToolsMenue() {
   return (
     <>
       <div
-        className={`w-fit flex pointer-events-auto justify-center items-center gap-4 rounded-2xl  ${defaultButtonsBackground} relative  z-50`}>
+        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-md  ${defaultButtonsBackground} relative  z-50`}>
         <DropdownToolSelector options={DrawingOptions} />
         <DropdownToolSelector options={SelectionOptions} />
         <DropdownToolSelector options={ShapesOption} />
