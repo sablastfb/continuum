@@ -3,7 +3,7 @@ import { ICurveStyle } from "./Curve";
 export class MarkerStyle implements ICurveStyle {
   draw(info: any): void {
     info.activeCurve.stroke({
-      width: info.activeThicknes * 10,
+      width: info.activeThicknes*2 ,
     });
     info.activeCurve.tint = info.activeColor;
     info.activeCurve.alpha = 0.5;
@@ -20,7 +20,7 @@ export class MarkerStyle implements ICurveStyle {
       }
     }
     info.optimizedCruveGraphics.stroke({
-      width: info.activeThicknes * 10,
+      width: info.activeThicknes *2,
       join: "round",
     });
 

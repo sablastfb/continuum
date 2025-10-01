@@ -22,6 +22,7 @@ function DropdownToolSelector({ options }: { options: IconOption[] }) {
       <ToolButton
         tool={options[ix].tool}
         icon={options[ix].icon}
+        toolOptionComponent={options[ix].toolOptionComponent}
       />
       <button
         className={`${isOpen && "rotate-180"} ease-in-out transition-all duration-75`}

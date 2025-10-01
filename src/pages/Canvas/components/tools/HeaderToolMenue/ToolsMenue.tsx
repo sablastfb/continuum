@@ -44,6 +44,7 @@ function ToolsMenue() {
           />
         ),
         tool: "pencile",
+        toolOptionComponent: <div>xxx</div>
       },
       {
         icon: <Pencil size={defaultIconSize} />,

@@ -181,9 +181,9 @@ export class Shape implements ITool {
       return;
     }
     /// 
-    this.shape.visible = false;
-    this.outlineShape.visible = false;
-    this.tilingSprite.visible = false;
+    // this.shape.visible = false;
+    // this.outlineShape.visible = false;
+    // this.tilingSprite.visible = false;
   }
 
   updateCursor(): void {
