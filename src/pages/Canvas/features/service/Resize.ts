@@ -4,6 +4,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_CanvasViewport } from "./Viewport";
+import useSettingsStore from "../../data/store/BacgroundStore";
 
 export namespace Continuum_ResizeService {
   export function manualZoom(zoomeDirection: number) {
@@ -29,10 +30,14 @@ export namespace Continuum_ResizeService {
       Continuum_CanvasBacground.backgroundTilingSprite &&
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
-      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
-        Continuum_CanvasViewport.viewport?.scale.x;
-      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
-        Continuum_CanvasViewport.viewport?.scale.y;
+        Continuum_CanvasBacground.changeBackground(
+          useSettingsStore.getState().background
+        );
+
+      // Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
+      //   Continuum_CanvasViewport.viewport?.scale.x;
+      // Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
+      //   Continuum_CanvasViewport.viewport?.scale.y;
     }
   }
 

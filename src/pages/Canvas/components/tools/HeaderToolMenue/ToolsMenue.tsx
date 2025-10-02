@@ -27,6 +27,9 @@ import { Continuum_Canvas } from "../../../features/CanvasApp";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { useShapesStore } from "../../../data/store/ShapeStore";
+import PencileTools from "../ToolOptions/PencileTools";
+import MarkerTools from "../ToolOptions/MarkerTool";
+import ShapeTool from "../ToolOptions/ShapeTool";
 
 function ToolsMenue() {
   const pencil = usePencileStore();
@@ -44,7 +47,7 @@ function ToolsMenue() {
           />
         ),
         tool: "pencile",
-        toolOptionComponent: <div>xxx</div>
+        toolOptionComponent: <PencileTools/>
       },
       {
         icon: <Pencil size={defaultIconSize} />,
@@ -58,6 +61,8 @@ function ToolsMenue() {
           />
         ),
         tool: "marker",
+                toolOptionComponent: <MarkerTools/>
+
       },
       {
         icon: <Eraser size={defaultIconSize} />,
@@ -95,6 +100,7 @@ function ToolsMenue() {
           />
         ),
         tool: "square",
+        toolOptionComponent: <ShapeTool shapeType={"square"}/>
       },
       {
         icon: (

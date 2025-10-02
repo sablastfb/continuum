@@ -34,7 +34,6 @@ function HeaderToolsMenue() {
       <OptionButtons />
       <div className="hidden sm:flex   items-center justify-center align-middle gap-1.5   flex-wrap">
         <ToolsMenue />
-        <ToolOptions />
       </div>
 
       <ZoomingButton />

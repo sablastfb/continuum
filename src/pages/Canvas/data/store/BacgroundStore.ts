@@ -31,7 +31,7 @@ const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const BacgroundDefault: BacgroundData = {
   background: {
-    activeBacgroundType: "color",
+    activeBacgroundType: "grid",
     color: backgroundColors[0],
     grid: {
       bacgroundColor: backgroundColors[0],
