@@ -46,6 +46,7 @@ export type TileBacgroundSettings = {
 };
 
 export namespace Continuum_TailBacground {
+  
    export function GrindTile(grid: GridBackground) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
 

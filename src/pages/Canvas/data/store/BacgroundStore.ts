@@ -27,11 +27,11 @@ export interface BacgroundStore extends BacgroundData {
   setTheme: (theme: Theme) => void;
 }
 
-const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
+const backgroundColors = ["bg-3", "bg-2", "bg-3", "bg-5"];
 
 export const BacgroundDefault: BacgroundData = {
   background: {
-    activeBacgroundType: "grid",
+    activeBacgroundType: "color",
     color: backgroundColors[0],
     grid: {
       bacgroundColor: backgroundColors[0],

@@ -180,10 +180,6 @@ export class Shape implements ITool {
     if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
       return;
     }
-    /// 
-    // this.shape.visible = false;
-    // this.outlineShape.visible = false;
-    // this.tilingSprite.visible = false;
   }
 
   updateCursor(): void {

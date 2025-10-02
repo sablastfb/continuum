@@ -30,14 +30,9 @@ export namespace Continuum_ResizeService {
       Continuum_CanvasBacground.backgroundTilingSprite &&
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
-        Continuum_CanvasBacground.changeBackground(
-          useSettingsStore.getState().background
-        );
-
-      // Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
-      //   Continuum_CanvasViewport.viewport?.scale.x;
-      // Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
-      //   Continuum_CanvasViewport.viewport?.scale.y;
+      Continuum_CanvasBacground.changeBackground(
+        useSettingsStore.getState().background
+      );
     }
   }
 
@@ -61,8 +56,10 @@ export namespace Continuum_ResizeService {
     );
 
     if (Continuum_CanvasBacground.backgroundTilingSprite) {
-      Continuum_CanvasBacground.backgroundTilingSprite.width = window.innerWidth;
-      Continuum_CanvasBacground.backgroundTilingSprite.height = window.innerHeight;
+      Continuum_CanvasBacground.backgroundTilingSprite.width =
+        window.innerWidth;
+      Continuum_CanvasBacground.backgroundTilingSprite.height =
+        window.innerHeight;
     }
   }
 }
