@@ -5,6 +5,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_CanvasViewport } from "./Viewport";
 import useSettingsStore from "../../data/store/BacgroundStore";
+import { Continuum_TailBacground } from "./TailBackground";
 
 export namespace Continuum_ResizeService {
   export function manualZoom(zoomeDirection: number) {
@@ -30,10 +31,22 @@ export namespace Continuum_ResizeService {
       Continuum_CanvasBacground.backgroundTilingSprite &&
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
-      Continuum_CanvasBacground.changeBackground(
-        useSettingsStore.getState().background
-      );
+       Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
+        Continuum_CanvasViewport.viewport?.scale.x;
+      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
+        Continuum_CanvasViewport.viewport?.scale.y;
     }
+  }
+  export function move(){
+        if (
+          Continuum_CanvasBacground.backgroundTilingSprite &&
+          Continuum_CanvasViewport.viewport?.scale.x
+        ) {
+          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.x =
+            Continuum_CanvasViewport.viewport?.x;
+          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.y =
+            Continuum_CanvasViewport.viewport?.y;
+        }
   }
 
   export function setUpResize() {

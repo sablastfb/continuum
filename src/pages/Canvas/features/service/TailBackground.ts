@@ -56,7 +56,7 @@ export namespace Continuum_TailBacground {
 
     const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor)  ;
     const bacground =  Continuum_CanvasPalet.getColor(grid.bacgroundColor);
-    const line = grid.widthOfGridLine;
+    const line = grid.widthOfGridLine*zoom;
    graphics
       .rect(0, 0, width, width)
       .fill(bacground)
@@ -69,12 +69,14 @@ export namespace Continuum_TailBacground {
     const renderTexture = RenderTexture.create({
       width: width,
       height: width,
+      scaleMode: 'nearest'
     });
 
     Continuum_Canvas.appInstance!.renderer.render({
       container: graphics,
       target: renderTexture,
       clear: true,
+    
     });
 
     return renderTexture;
