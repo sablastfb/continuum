@@ -5,6 +5,7 @@ import {
   Highlighter,
   MousePointer2,
   PenLine,
+  Clipboard,
   Redo,
   Square,
   SquareDashed,
@@ -12,7 +13,14 @@ import {
   Hexagon,
   Octagon,
   Pen,
+  Image,
   Pencil,
+  Type,
+  Link,
+  Lasso,
+  Ruler,
+  LayoutDashboard,
+  Camera,
 } from "lucide-react";
 import ArrayDivider from "../../misc/ArrayDivider";
 import {
@@ -149,8 +157,14 @@ function ToolsMenue() {
         <DropdownToolSelector options={DrawingOptions} />
         <DropdownToolSelector options={SelectionOptions} />
         <DropdownToolSelector options={ShapesOption} />
-
-    
+            <Image  size={defaultIconSize}/>
+            <Lasso size={defaultIconSize}/>
+        <Ruler size={defaultIconSize}/>
+        <LayoutDashboard />
+        <Camera />
+       <Type  size={defaultIconSize}/>
+        <Link  size={defaultIconSize} />
+     <Clipboard  size={defaultIconSize}/>
           <div className="w-1 h-10">
             <ArrayDivider orjentation="vertical" />
           </div>
