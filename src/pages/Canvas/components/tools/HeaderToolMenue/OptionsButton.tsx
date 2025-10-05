@@ -1,4 +1,4 @@
-import { Download, Info, Menu, Settings } from "lucide-react";
+import { Download, Eye, Info, Menu, NotebookPen, Settings } from "lucide-react";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import {
   defaultButtonsBackground,
@@ -15,6 +15,10 @@ function OptionButton() {
 
   return (
     <>
+    <NotebookPen 
+        size={defaultIconSize}
+    />
+    <Eye></Eye>
       <Settings
         size={defaultIconSize}
         className="hover:cursor-pointer"

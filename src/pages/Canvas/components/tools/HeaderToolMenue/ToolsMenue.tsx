@@ -21,13 +21,16 @@ import {
   Ruler,
   LayoutDashboard,
   Camera,
+  ChevronRight,
+  ChevronDown,
+  CircleChevronDown,
 } from "lucide-react";
 import ArrayDivider from "../../misc/ArrayDivider";
 import {
   defaultButtonsBackground,
   defaultIconSize,
 } from "../../../data/constants/CanvasConstants";
-import  { IconOption } from "./ToolButton";
+import { IconOption } from "./ToolButton";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { usePencileStore } from "../../../data/store/PencileStore";
 import DropdownToolSelector from "../../misc/DropdownSelector";
@@ -55,7 +58,7 @@ function ToolsMenue() {
           />
         ),
         tool: "pencile",
-        toolOptionComponent: <PencileTools/>
+        toolOptionComponent: <PencileTools />,
       },
       {
         icon: <Pencil size={defaultIconSize} />,
@@ -69,8 +72,7 @@ function ToolsMenue() {
           />
         ),
         tool: "marker",
-                toolOptionComponent: <MarkerTools/>
-
+        toolOptionComponent: <MarkerTools />,
       },
       {
         icon: <Eraser size={defaultIconSize} />,
@@ -108,7 +110,7 @@ function ToolsMenue() {
           />
         ),
         tool: "square",
-        toolOptionComponent: <ShapeTool shapeType={"square"}/>
+        toolOptionComponent: <ShapeTool shapeType={"square"} />,
       },
       {
         icon: (
@@ -139,11 +141,7 @@ function ToolsMenue() {
         tool: "hexagon",
       },
       {
-        icon: (
-          <Octagon
-            size={defaultIconSize}
-          />
-        ),
+        icon: <Octagon size={defaultIconSize} />,
         tool: "poligon",
       },
     ],
@@ -153,21 +151,27 @@ function ToolsMenue() {
   return (
     <>
       <div
-        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-md  ${defaultButtonsBackground} relative  z-50`}>
+        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-md  ${defaultButtonsBackground} relative  z-50`}
+      >
+        <ChevronDown size={defaultIconSize} />
+        <div className="w-1 h-10">
+          <ArrayDivider orjentation="vertical" />
+        </div>
         <DropdownToolSelector options={DrawingOptions} />
+        <Eraser size={defaultIconSize} />
         <DropdownToolSelector options={SelectionOptions} />
         <DropdownToolSelector options={ShapesOption} />
-            <Image  size={defaultIconSize}/>
-            <Lasso size={defaultIconSize}/>
-        <Ruler size={defaultIconSize}/>
+        <Image size={defaultIconSize} />
+        <Lasso size={defaultIconSize} />
+        <Ruler size={defaultIconSize} />
         <LayoutDashboard />
         <Camera />
-       <Type  size={defaultIconSize}/>
-        <Link  size={defaultIconSize} />
-     <Clipboard  size={defaultIconSize}/>
-          <div className="w-1 h-10">
-            <ArrayDivider orjentation="vertical" />
-          </div>
+        <Type size={defaultIconSize} />
+        <Link size={defaultIconSize} />
+        <Clipboard size={defaultIconSize} />
+        <div className="w-1 h-10">
+          <ArrayDivider orjentation="vertical" />
+        </div>
 
         <div
           onClick={() => Continuum_Canvas.commandManage.goBack()}
