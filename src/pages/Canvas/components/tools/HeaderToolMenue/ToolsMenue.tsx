@@ -151,24 +151,28 @@ function ToolsMenue() {
   return (
     <>
       <div
-        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-md  ${defaultButtonsBackground} relative  z-50`}
+        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-md  ${defaultButtonsBackground} relative  z-50 `}
       >
         <ChevronDown size={defaultIconSize} />
         <div className="w-1 h-10">
           <ArrayDivider orjentation="vertical" />
         </div>
-        <DropdownToolSelector options={DrawingOptions} />
-        <Eraser size={defaultIconSize} />
-        <DropdownToolSelector options={SelectionOptions} />
-        <DropdownToolSelector options={ShapesOption} />
-        <Image size={defaultIconSize} />
-        <Lasso size={defaultIconSize} />
-        <Ruler size={defaultIconSize} />
-        <LayoutDashboard />
-        <Camera />
-        <Type size={defaultIconSize} />
-        <Link size={defaultIconSize} />
-        <Clipboard size={defaultIconSize} />
+
+        {/* <DropdownToolSelector options={DrawingOptions} /> */}
+
+        <div> <Pen size={defaultIconSize} /></div>
+        <div><Eraser size={defaultIconSize} /></div>
+        <div><DropdownToolSelector options={SelectionOptions} /></div>
+        <div><DropdownToolSelector options={ShapesOption} /></div>
+        <div><Image size={defaultIconSize} /></div>
+        <div><Lasso size={defaultIconSize} /></div>
+        <div><Ruler size={defaultIconSize} /></div>
+        <div><LayoutDashboard /></div>
+        <div><Camera /></div>
+        <div><Type size={defaultIconSize} /></div>
+        <div><Link size={defaultIconSize} /></div>
+        <div><Clipboard size={defaultIconSize} /></div>
+
         <div className="w-1 h-10">
           <ArrayDivider orjentation="vertical" />
         </div>
