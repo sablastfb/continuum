@@ -35,8 +35,6 @@ export namespace Continuum_ResizeService {
         Continuum_CanvasViewport.viewport?.scale.x*Continuum_TailBacground.tailScale;
       Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
         Continuum_CanvasViewport.viewport?.scale.y*Continuum_TailBacground.tailScale;
-        debugger;
-
     }
   }
   export function move(){
