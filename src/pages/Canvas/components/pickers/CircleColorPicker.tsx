@@ -1,5 +1,5 @@
 import { defaultOutlineColor } from "../../data/constants/CanvasConstants";
-import { CanvasPalet, ColorId } from "../../data/container/PaletContainer";
+import { Continuum_CanvasPalet, ColorId } from "../../data/palet/PaletContainer";
 
 export type CircleColorPickerParm = {
   colorId: ColorId;
@@ -17,7 +17,7 @@ function CircleColorPicker({
       onClick={() => {
         action();
       }}
-      style={{ backgroundColor: CanvasPalet.getColor(colorId) }}
+      style={{ backgroundColor: Continuum_CanvasPalet.getColor(colorId) }}
       className={`rounded-full w-7 h-7 hover:cursor-pointer ${
         selected ? defaultOutlineColor : ""
       } `}

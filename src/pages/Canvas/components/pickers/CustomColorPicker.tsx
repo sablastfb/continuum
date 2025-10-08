@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CanvasPalet } from "../../data/container/PaletContainer";
+import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
 import { circlePickeSize, defaultOutlineColor } from "../../data/constants/CanvasConstants";
 
@@ -25,7 +25,7 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
     const rgbString = `rgb(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`;
 
     setColor(hexColor);
-    CanvasPalet.setColor(customColorId, rgbString);
+    Continuum_CanvasPalet.setColor(customColorId, rgbString);
     setPencileColor({ colorId: customColorId, color: rgbString });
   };
 
@@ -43,7 +43,7 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
         onDoubleClick={(e) => {
           e.preventDefault();
           const rgbObj = hexToRgb(color);
-          CanvasPalet.setColor(
+          Continuum_CanvasPalet.setColor(
             customColorId,
             `rgb(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`
           );

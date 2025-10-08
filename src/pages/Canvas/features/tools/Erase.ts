@@ -1,50 +1,68 @@
-import { FederatedMouseEvent } from "pixi.js";
-import { ITool } from "./ITool";
-import { CanvasCursor } from "../service/Cursor";
-import { CanvasPalet } from "../../data/container/PaletContainer";
-import { usePencileStore } from "../../data/store/PencileStore";
-import useCanvasStore from "../../data/store/CanvasStore";
-import { ThicknesPalet } from "../../data/container/ThickneContainer";
+import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
+import { useEraseStore } from "../../data/store/EraseStore";
+import { Continuum_CanvasViewport } from "../service/Viewport";
+import { MouseInputPoint } from "../../Types";
+import { Continuum_ToolManager, ITool } from "./ToolManager";
+import { CircleCursor } from "../cursor/Circle";
+import { Continuum_CollisionService } from "../service/ColisionDetection";
+import { GraphicsData } from "../data/GraphicsDataManager";
+import { GraphicsCommand } from "../commands/Graphics";
+import { Continuum_Canvas } from "../CanvasApp";
+import { MouseButton, Continuum_MouseService } from "../service/MouseService";
 
 export class Erase implements ITool {
-    startDrawing(e: FederatedMouseEvent): void {
-        throw new Error("Method not implemented.");
+  type: Continuum_ToolManager.ToolType = "eraser";
+  delteGraphics: GraphicsData[] = [];
+
+  public startDrawing<P extends MouseInputPoint>(e: P) {
+    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
+      return;
     }
-    draw(e: FederatedMouseEvent): void {
-        throw new Error("Method not implemented.");
-    }
-    stopDrawing(e: FederatedMouseEvent): void {
-        throw new Error("Method not implemented.");
-    }
-    updateCursor(): void {
-        const lineWidth = 1;
-        const outlineWidth = 1;
-        const color = "red";
-    
-        const zoom = useCanvasStore.getState().zoome;
-        const radius =
-          zoom * ThicknesPalet.getThicknes(usePencileStore.getState().thicknesId);
-        const outerRadius = Math.max(radius, 10);
-        const lineDistance = 30 + outerRadius;
-        CanvasCursor.cursor.clear();
-        CanvasCursor.cursor
-          .circle(0, 0, outerRadius)
-          .stroke({
-            alignment: 0,
-            width: outlineWidth,
-            color: CanvasPalet.getColor("c-1"),
-          })
-          .circle(0, 0, radius)
-          .fill(color)
-          .moveTo(lineDistance, 0)
-          .lineTo(outerRadius, 0)
-          .moveTo(-lineDistance, 0)
-          .lineTo(-outerRadius, 0)
-          .moveTo(0, lineDistance)
-          .lineTo(0, outerRadius)
-          .moveTo(0, -lineDistance)
-          .lineTo(0, -outerRadius)
-          .stroke({ width: lineWidth, color: "gray" });
+    if (!Continuum_CanvasViewport.viewport) return;
+
+    this.delteGraphics = [];
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
+    Continuum_CollisionService.StartContinouseColison(activePoint);
+  }
+
+  public draw<P extends MouseInputPoint>(e: P) {
+    if (Continuum_Canvas.drawing === false) return;
+    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
+
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
+    if (!activePoint) return;
+    const radius = ThicknesPalet.getThicknes(
+      useEraseStore.getState().thicknesId
+    );
+
+    const slowDetectionGraphics =
+      Continuum_CollisionService.GetAllGraphicAroundPoint(radius, activePoint);
+
+    for (const g of slowDetectionGraphics) {
+      g.visible = false;
+      g.graph.visible = false;
+      this.delteGraphics.push(g);
     }
 
+    const fastDetectionGraphics =
+      Continuum_CollisionService.GetContinouseColison(activePoint);
+
+    for (const g of fastDetectionGraphics) {
+      g.visible = false;
+      g.graph.visible = false;
+      this.delteGraphics.push(g);
+    }
+  }
+
+  public stopDrawing<P extends MouseInputPoint>(e: P) {
+    if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
+      return;
+    }
+    GraphicsCommand.removeGraphics(this.delteGraphics);
+    this.delteGraphics = [];
+  }
+
+  updateCursor(): void {
+    CircleCursor.draw();
+  }
 }

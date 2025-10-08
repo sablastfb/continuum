@@ -1,20 +1,24 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { ToolType } from "../../features/tools/ToolManager";
+import { Continuum_ToolManager } from "../../features/tools/ToolManager";
 
 export interface CanvasStore {
   zoome: number;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
-  activeTool: ToolType;
+  activeTool: Continuum_ToolManager.ToolType;
   canvasCursorActive: boolean;
+  historyPosition: number;
+  historyCount: number;
   setZoom: (zoom: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
-  setActiveTool: (activeTool: ToolType) => void;
+  setActiveTool: (activeTool: Continuum_ToolManager.ToolType) => void;
+  setHistoryPosition: (historyCount: number) => void;
+  setHistoryCount: (historyPosition: number) => void;
 }
 
 const useCanvasStore = create<CanvasStore>()(
@@ -23,8 +27,18 @@ const useCanvasStore = create<CanvasStore>()(
     settingVisible: false,
     infoVisible: false,
     exportVisible: false,
-    activeTool: "drawing",
+    activeTool: "pencile",
     canvasCursorActive: true,
+    historyPosition: -1,
+    historyCount: 0,
+    setHistoryCount: (historyCount) =>
+      set((state) => {
+        state.historyCount = historyCount;
+      }),
+    setHistoryPosition: (historyPosition) =>
+      set((state) => {
+        state.historyPosition = historyPosition;
+      }),
     setZoom: (zoome) =>
       set((state) => {
         state.zoome = zoome;

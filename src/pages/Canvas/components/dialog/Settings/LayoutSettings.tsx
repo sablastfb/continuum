@@ -1,5 +1,5 @@
 import { Dropdown } from "primereact/dropdown";
-import useSettingsStore from "../../../data/store/SettingsStore";
+import useSettingsStore from "../../../data/store/BacgroundStore";
 
 function LayoutSettings() {
   const toolButtonPosition = useSettingsStore().layout.toolMenue;

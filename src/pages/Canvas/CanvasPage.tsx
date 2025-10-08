@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
-import ToolsMenue from "./components/tools/ToolMenue/ToolsMenue";
+import HeaderToolsMenue from "./components/tools/HeaderToolMenue/HeaderToolsMenue";
 import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
 import ExportDialog from "./components/dialog/ExportDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
-import { Canvas } from "./features/CanvasApp";
+import { Continuum_Canvas } from "./features/CanvasApp";
 import CursorEffect from "./components/effects/CursorEffect";
 import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
-import Tool from "./components/tools/Tool";
+import ToolOptions from "./components/tools/HeaderToolMenue/ToolOptions";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -19,9 +19,8 @@ function CanvasPage() {
     document.documentElement.classList.add("dark");
 
     async function SetUpPixi() {
-      const app = await Canvas.getPixiApp();
-      setCanvasCursorActive(true);
-      if (canvasContainer?.current && app && app.canvas) {
+      const app = await Continuum_Canvas.creatPixiApp();
+      if (canvasContainer?.current && app && app?.canvas !== undefined) {
         canvasContainer.current.appendChild(app?.canvas);
       }
     }
@@ -45,11 +44,10 @@ function CanvasPage() {
         />
       </div>
 
-      <Tool />
-      <ToolsMenue />
+      <HeaderToolsMenue />
       <SettingsDialog />
-      <ExportDialog />
       <InfoDialog />
+      <ExportDialog />
       <CursorEffect />
       <BackgroundEffect />
     </div>

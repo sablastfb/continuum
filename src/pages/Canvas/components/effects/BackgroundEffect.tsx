@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { CanvasBacground } from "../../features/service/Background";
-import useSettingsStore from "../../data/store/SettingsStore";
-import { Canvas } from "../../features/CanvasApp";
+import { Continuum_CanvasBacground } from "../../features/service/Background";
+import useSettingsStore from "../../data/store/BacgroundStore";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { CanvasCursor } from "../../features/service/Cursor";
+import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
+import { Continuum_ToolManager } from "../../features/tools/ToolManager";
 
 function BackgroundEffect() {
   const settings = useSettingsStore(
@@ -13,13 +13,13 @@ function BackgroundEffect() {
   const activeTool = useCanvasStore().activeTool;
 
   useEffect(() => {
-    CanvasBacground.changeBackground(settings.background);
+    Continuum_CanvasBacground.changeBackground(settings.background);
   }, [settings]);
 
 
   useEffect(() =>{
-    Canvas.changeTool(activeTool);
-    CanvasCursor.updateCursor();
+    Continuum_ToolManager.setTool(activeTool);
+    Continuum_CanvasCursor.updateCursor();
   }, [activeTool]);
   return <></>;
 }

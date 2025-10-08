@@ -5,7 +5,7 @@ import {
 import {
   ThicknesId,
   ThicknesPalet,
-} from "../../data/container/ThickneContainer";
+} from "../../data/thicknes/ThickneContainer";
 
 const baseSize = 4;
 const sigma = 6;
