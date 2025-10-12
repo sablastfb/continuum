@@ -1,9 +1,9 @@
 import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import useCanvasStore from "../../../data/store/CanvasStore";
-import ShapeTool from "../ToolOptions/ShapeTool";
-import EraseTools from "../ToolOptions/EraseTools";
-import MarkerTools from "../ToolOptions/MarkerTool";
-import PencileTools from "../ToolOptions/PencileTools";
+import ShapeTool from "./ShapeTool";
+import EraseTools from "./EraseTools";
+import MarkerTools from "./MarkerTool";
+import PencileTools from "./PencileTools";
 
 function ToolOptions() {
   const activeTool = useCanvasStore((state) => state.activeTool);

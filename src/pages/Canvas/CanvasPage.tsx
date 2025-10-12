@@ -1,13 +1,11 @@
 import { useEffect, useRef } from "react";
-import HeaderToolsMenue from "./components/tools/HeaderToolMenue/HeaderToolsMenue";
-import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
-import ExportDialog from "./components/dialog/ExportDialog";
-import InfoDialog from "./components/dialog/InfoDialog";
+import ToolLayout from "./components/tools/HeaderToolMenue/ToolLayout";
 import { Continuum_Canvas } from "./features/CanvasApp";
 import CursorEffect from "./components/effects/CursorEffect";
 import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
-import ToolOptions from "./components/tools/HeaderToolMenue/ToolOptions";
+import CanvasDialogs from "./components/dialog/CanvasDialogs";
+import CanvasEffect from "./components/effects/CanvasEffect";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -44,12 +42,9 @@ function CanvasPage() {
         />
       </div>
 
-      <HeaderToolsMenue />
-      <SettingsDialog />
-      <InfoDialog />
-      <ExportDialog />
-      <CursorEffect />
-      <BackgroundEffect />
+      <ToolLayout />
+      <CanvasDialogs/>
+      <CanvasEffect />
     </div>
   );
 }
