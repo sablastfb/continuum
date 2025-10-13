@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   Circle,
   Eraser,
@@ -24,6 +24,7 @@ import {
   ChevronRight,
   ChevronDown,
   CircleChevronDown,
+  ChevronLeft,
 } from "lucide-react";
 import ArrayDivider from "../../misc/ArrayDivider";
 import {
@@ -150,58 +151,86 @@ function ToolsMenue() {
     [shapeStore]
   );
 
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const scrollAmount = 100;
+    const newScrollLeft =
+      container.scrollLeft +
+      (direction === "left" ? -scrollAmount : scrollAmount);
+
+    container.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth",
+    });
+  };
+
+  const handleScroll = (): void => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setShowLeftArrow(scrollLeft > 0);
+    setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1); // -1 for floating point precision
+  };
+
   return (
     <>
       <div
-        className={`flex pointer-events-auto justify-center items-center gap-4 rounded-md  ${defaultButtonsBackground}   z-50 `}
+        className={`flex pointer-events-auto justify-center items-center  rounded-md  ${defaultButtonsBackground}   `}
       >
-        <ChevronDown size={defaultIconSize} />
-        <div className="w-1 h-10">
-          <ArrayDivider orjentation="vertical" />
+        <div className="cursor-pointer" onClick={() => scroll("left")}>
+          <ChevronLeft size={20} />
+        </div>
+        <div
+          className="flex pointer-events-auto justify-start items-center gap-4 rounded-md max-w-[20vw] overflow-hidden "
+          ref={scrollContainerRef}
+          onScroll={()=>{console.log("dddddddddd");}}
+        >
+          <div>
+            <Pen size={defaultIconSize} />
+          </div>
+          <div>
+            <Eraser size={defaultIconSize} />
+          </div>
+
+          <div>
+            <Image size={defaultIconSize} />
+          </div>
+          <div>
+            <Lasso size={defaultIconSize} />
+          </div>
+          <div>
+            <Ruler size={defaultIconSize} />
+          </div>
+          <div>
+            <LayoutDashboard />
+          </div>
+          <div>
+            <Camera />
+          </div>
+          <div>
+            <Type size={defaultIconSize} />
+          </div>
+          <div>
+            <Link size={defaultIconSize} />
+          </div>
+          <div>
+            <Clipboard size={defaultIconSize} />
+          </div>
+          <div>
+            <BookmankrButton />
+          </div>
+        </div>
+        <div onClick={() => scroll("right")}>
+          <ChevronRight size={20} />
         </div>
 
-        {/* <DropdownToolSelector options={DrawingOptions} /> */}
-
-        <div>
-          {" "}
-          <Pen size={defaultIconSize} />
-        </div>
-        <div>
-          <Eraser size={defaultIconSize} />
-        </div>
-        <div>
-          <DropdownToolSelector options={SelectionOptions} />
-        </div>
-        <div>
-          <DropdownToolSelector options={ShapesOption} />
-        </div>
-        <div>
-          <Image size={defaultIconSize} />
-        </div>
-        <div>
-          <Lasso size={defaultIconSize} />
-        </div>
-        <div>
-          <Ruler size={defaultIconSize} />
-        </div>
-        <div>
-          <LayoutDashboard />
-        </div>
-        <div>
-          <Camera />
-        </div>
-        <div>
-          <Type size={defaultIconSize} />
-        </div>
-        <div>
-          <Link size={defaultIconSize} />
-        </div>
-        <div>
-          <Clipboard size={defaultIconSize} />
-        </div>
-        <div>
-          <BookmankrButton />
-        </div>
         <div className="w-1 h-10">
           <ArrayDivider orjentation="vertical" />
         </div>

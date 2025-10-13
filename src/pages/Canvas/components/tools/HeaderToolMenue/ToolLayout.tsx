@@ -4,7 +4,6 @@ import ToolsMenue from "./ToolsMenue";
 import ToolOptions from "../ToolOptions/ToolOptions";
 import BookmakrContainer from "../../bookmark/BookMarkComponent";
 function ToolLayout() {
-
   return (
     <div
       className={`
@@ -21,10 +20,10 @@ function ToolLayout() {
       <OptionButtons />
       <div className="hidden sm:flex flex-col  items-center justify-center align-middle gap-1.5   flex-wrap">
         <ToolsMenue />
-        <ToolOptions/>
+        <ToolOptions />
       </div>
 
-      <BookmakrContainer/>
+      <BookmakrContainer />
       <ZoomingButton />
     </div>
   );

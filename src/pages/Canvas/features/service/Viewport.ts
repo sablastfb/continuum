@@ -22,7 +22,7 @@ export namespace Continuum_CanvasViewport {
       passiveWheel: true,
     });
 
-    test();
+    // test();
   }
   export let shader: Shader;
   export function test() {
