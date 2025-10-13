@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, WheelEventHandler } from "react";
 import {
   Circle,
   Eraser,
@@ -155,11 +155,10 @@ function ToolsMenue() {
   const [showRightArrow, setShowRightArrow] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = (direction: "left" | "right", scrollAmount = 100) => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollAmount = 100;
     const newScrollLeft =
       container.scrollLeft +
       (direction === "left" ? -scrollAmount : scrollAmount);
@@ -170,27 +169,34 @@ function ToolsMenue() {
     });
   };
 
-  const handleScroll = (): void => {
+  const handleScroll = (e: {deltaY: number}): void => {
     const container = scrollContainerRef.current;
     if (!container) return;
+    scroll('left', e.deltaY);
+    const newScrollLeft =
+      container.scrollLeft +e.deltaY;
 
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    setShowLeftArrow(scrollLeft > 0);
-    setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1); // -1 for floating point precision
+     container.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth",
+    });
   };
+
+  const [leftArrow, setLeftArrow] = useState(false);
+  const [rightArror, setRightArror] = useState(false);
 
   return (
     <>
       <div
-        className={`flex pointer-events-auto justify-center items-center  rounded-md  ${defaultButtonsBackground}   `}
+        className={`flex pointer-events-auto justify-center items-center rounded-md h-10   ${defaultButtonsBackground}   `}
       >
-        <div className="cursor-pointer" onClick={() => scroll("left")}>
+        <div className={`cursor-pointer h-full  flex justify-center items-center bg-white/10`} onClick={() => scroll("left")}>
           <ChevronLeft size={20} />
         </div>
         <div
           className="flex pointer-events-auto justify-start items-center gap-4 rounded-md max-w-[20vw] overflow-hidden "
           ref={scrollContainerRef}
-          onScroll={()=>{console.log("dddddddddd");}}
+           onWheel={handleScroll}
         >
           <div>
             <Pen size={defaultIconSize} />
@@ -227,7 +233,7 @@ function ToolsMenue() {
             <BookmankrButton />
           </div>
         </div>
-        <div onClick={() => scroll("right")}>
+        <div className={`cursor-pointer h-full  flex justify-center items-center bg-white/10`} onClick={() => scroll("right")}>
           <ChevronRight size={20} />
         </div>
 
