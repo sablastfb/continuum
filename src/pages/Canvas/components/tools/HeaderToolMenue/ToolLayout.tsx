@@ -2,6 +2,7 @@ import ZoomingButton from "./ZoomingButton";
 import OptionButtons from "./OptionsButton";
 import ToolsMenue from "./ToolsMenue";
 import ToolOptions from "../ToolOptions/ToolOptions";
+import BookmakrContainer from "../../bookmark/BookMarkComponent";
 function ToolLayout() {
 
   return (
@@ -23,6 +24,7 @@ function ToolLayout() {
         <ToolOptions/>
       </div>
 
+      <BookmakrContainer/>
       <ZoomingButton />
     </div>
   );

@@ -32,16 +32,7 @@ export namespace Continuum_CanvasViewport {
     const geometry = new Geometry({
       attributes: {
         aVertexPosition: {
-          buffer: new Float32Array([
-            -1,
-            -1, 
-            1,
-            -1,
-            1,
-            1,
-            -1,
-            1,
-          ]),
+          buffer: new Float32Array([-1, -1, 1, -1, 1, 1, -1, 1]),
           size: 2,
         },
       },
@@ -57,8 +48,8 @@ export namespace Continuum_CanvasViewport {
       glProgram: program,
       resources: {
         uniforms: {
-          resolution: { value: [100,100], type: "vec2<f32>" },
-          cursor: { value: [400.0,100.0], type: "vec2<f32>" },
+          resolution: { value: [100, 100], type: "vec2<f32>" },
+          cursor: { value: [400.0, 100.0], type: "vec2<f32>" },
         },
       },
     });
@@ -72,8 +63,7 @@ export namespace Continuum_CanvasViewport {
     viewport?.addChild(redSquare);
   }
 
-  export function testZoom(zoom: number) {
-  }
+  export function testZoom(zoom: number) {}
 
   export function setUpViewportAndEvent() {
     if (viewport === null) return;

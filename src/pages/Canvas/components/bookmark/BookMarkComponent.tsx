@@ -1,26 +1,26 @@
 import { Bookmark, Home, Plus, Trash, X } from "lucide-react";
-import { Continuum_Bookmark } from "../../features/service/Bookmark";
 import {
   defaultButtonsBackground,
   defaultIconSize,
 } from "../../data/constants/CanvasConstants";
 import { useState } from "react";
 import { useBookmark } from "../../data/store/BookmarkStore";
+import { Continuum_Bookmark } from "../../features/service/BookMark";
 
-function BookmakrComponent() {
+function BookmakrContainer() {
   const [editingId, seteditingId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [visible, setVisible] = useState(false);
+  const visible = useBookmark().containerVisible;
+  const setVisible = useBookmark().setContainerVisible;
+
   const bookmarks = useBookmark().bookmarks;
   return (
     <>
       {visible && (
         <>
           <div
-            className={`p-1 absolute left-0 top-20
-              flex flex-col
+            className={`p-1 absolute left-0 top-[10vh]  pointer-events-auto
               w-[250px]
-              max-h-[200px]
               gap-2
             rounded-md ${defaultButtonsBackground}`}
           >
@@ -42,7 +42,7 @@ function BookmakrComponent() {
                 <X size={25} onClick={() => setVisible(!visible)} />
               </div>
             </div>
-            <div className="overflow-auto flex flex-col ">
+            <div className="overflow-auto flex flex-col max-h-[200px] ">
               {bookmarks.length === 0 && (
                 <div className="flex justify-center font-bold text-amber-200 ">
                   Add bookmark
@@ -117,20 +117,8 @@ function BookmakrComponent() {
           </div>
         </>
       )}
-
-      <div
-        onClick={() => {
-          setVisible(!visible);
-        }}
-        className="cursor-pointer"
-      >
-        <Bookmark
-          size={defaultIconSize}
-          className={`${visible && `fill-amber-300`} `}
-        />
-      </div>
     </>
   );
 }
 
-export default BookmakrComponent;
+export default BookmakrContainer;

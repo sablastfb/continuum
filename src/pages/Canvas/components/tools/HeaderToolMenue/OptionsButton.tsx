@@ -4,7 +4,7 @@ import {
   defaultButtonsBackground,
   defaultIconSize,
 } from "../../../data/constants/CanvasConstants";
-import BookmakrComponent from "../../bookmark/BookMarkComponent";
+import BookmakrContainer from "../../bookmark/BookMarkComponent";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 
@@ -41,7 +41,7 @@ function OptionButton() {
         }}
       />
 
-      <BookmakrComponent />
+     
     </>
   );
 }

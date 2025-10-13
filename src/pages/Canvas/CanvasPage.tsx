@@ -26,7 +26,7 @@ function CanvasPage() {
   }, []);
 
   return (
-    <div className="relative h-screen w-screen">
+    <div className=" h-screen w-screen">
       <div
         onMouseEnter={() => {
           setCanvasCursorActive(true);

@@ -15,7 +15,7 @@ function DropdownToolSelector({ options }: { options: IconOption[] }) {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <div className={`flex items-center gap-0 rounded-2xl relative z-50
+    <div className={`flex items-center gap-0 rounded-2xl  z-50
          ${position === "left" && "flex-col"}
          ${position === "right" && "flex-col"}
     `}>

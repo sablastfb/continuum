@@ -11,15 +11,18 @@ export type Bookmark = {
   scale: number;
 };
 export interface BookmarkStore {
+  containerVisible: boolean;
   homeBookmakrs: Bookmark;
   bookmarks: Bookmark[];
   addBookmark: (bookmark: Bookmark) => void;
   update: (bookmark: Bookmark) => void;
   removeBookmark: (id: string) => void;
+  setContainerVisible: (containerVisible: boolean) => void;
 }
 
 export const useBookmark = create<BookmarkStore>()(
   immer((set) => ({
+    containerVisible: false,
     homeBookmakrs: {
       id: "home",
       name: "home",
@@ -43,6 +46,10 @@ export const useBookmark = create<BookmarkStore>()(
       set((state) => {
         if (id === "home") return;
         state.bookmarks = state.bookmarks.filter((x) => x.id !== id);
+      }),
+    setContainerVisible: (containerVisible: boolean) =>
+      set((state) => {
+        state.containerVisible = containerVisible;
       }),
   }))
 );
