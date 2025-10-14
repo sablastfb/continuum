@@ -1,8 +1,8 @@
 export type DividerParameters = {
-    orjentation: "vertical" | "horizontal"
+    direction: "vertical" | "horizontal"
 };
 
-function ArrayDivider({orjentation = 'vertical'}: DividerParameters) {
+function ArrayDivider({direction: orjentation = 'vertical'}: DividerParameters) {
     if (orjentation === 'vertical'){
         return <div className="w-full h-0.5 bg-gray-200 " />;
     } else {

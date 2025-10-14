@@ -11,6 +11,7 @@ function EraseTools() {
   const thicknesId = useEraseStore().thicknesId;
   const setEraseMode = useEraseStore().setEraseMode;
   const setEraseThickens = useEraseStore((state) => state.setEraseThickens);
+  
   return (
     <>
       <LineSquiggle
@@ -30,7 +31,7 @@ function EraseTools() {
         }}
       />
 
-      <ArrayDivider orjentation="vertical" />
+      <ArrayDivider direction="vertical" />
       
       {eraseSettings.allEraseThicknes.map((id, ix) => {
         return (

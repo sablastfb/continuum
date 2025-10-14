@@ -1,9 +1,12 @@
-import ZoomingButton from "./ZoomingButton";
 import OptionButtons from "./OptionsButton";
 import ToolsMenue from "./ToolsMenue";
 import ToolOptions from "../ToolOptions/ToolOptions";
+import useLayoutStore from "../../../data/store/LayoutStore";
+import ZoomingButton from "./ZoomingButton";
 import BookmakrContainer from "../../bookmark/BookMarkComponent";
 function ToolLayout() {
+  const layoutStore = useLayoutStore();
+
   return (
     <div
       className={`
@@ -19,37 +22,45 @@ function ToolLayout() {
         `}
     >
       {/* LEFT */}
-      <div className="bg-amber-100 h-full  absolute left-0">
-
-
+      <div className="p-1 h-full  absolute left-0 flex  items-center gap-1">
+        {layoutStore.toolOptionsPosition === "left" && (
+          <ToolOptions direction="vertical" />
+        )}
+        {layoutStore.toolMenuePosition === "left" && (
+          <ToolsMenue direction="vertical" />
+        )}
       </div>
       {/* RIGT */}
-      <div className="h-full absolute right-0 flex  items-center gap-1">
-        <ToolOptions direction="vertical" />
+      <div className="p-1 h-full absolute right-0 flex  items-center gap-1">
+        {layoutStore.toolOptionsPosition === "right" && (
+          <ToolOptions direction="vertical" />
+        )}
+        {layoutStore.toolMenuePosition === "right" && (
+          <ToolsMenue direction="vertical" />
+        )}
       </div>
 
       {/* TOP */}
       <div className="p-1 w-full absolute top-0 flex flex-col items-center gap-1">
-        <ToolsMenue direction="horizontal"/>
-        <ToolOptions direction="horizontal" />
+        {layoutStore.toolMenuePosition === "top" && (
+          <ToolsMenue direction="horizontal" />
+        )}
+        {layoutStore.toolOptionsPosition === "top" && (
+          <ToolOptions direction="horizontal" />
+        )}
       </div>
       {/*BOTOM */}
       <div className="p-1 w-full absolute bottom-0 flex flex-col items-center gap-1">
-        <ToolOptions direction="horizontal" />
-        <ToolsMenue direction="horizontal" />
+        {layoutStore.toolOptionsPosition === "bottom" && (
+          <ToolOptions direction="horizontal" />
+        )}
+        {layoutStore.toolMenuePosition === "bottom" && (
+          <ToolsMenue direction="horizontal" />
+        )}
       </div>
-      {/* <OptionButtons />
-      <div className="hidden sm:flex flex-col  items-center justify-center align-middle gap-1.5   flex-wrap">
-        <ToolsMenue />
-      <ToolOptions />
-      </div>
-
-        <div className="bg-red-500">
-          xx
-        </div>
-
-      <BookmakrContainer/>
-      <ZoomingButton /> */}
+      <OptionButtons />
+      <ZoomingButton />
+      <BookmakrContainer />
     </div>
   );
 }

@@ -13,10 +13,11 @@ export interface LayoutData {
 }
 
 export const LayoutDefault: LayoutData = {
-  toolOptionsPosition: "top",
   toolMenuePosition: "top",
-  toolOptionsDirection: "horizontal",
   toolMenuesDirection: "horizontal",
+
+  toolOptionsPosition: "bottom",
+  toolOptionsDirection: "horizontal",
 };
 
 export interface LayoutStore extends LayoutData {
@@ -26,11 +27,23 @@ export interface LayoutStore extends LayoutData {
 export const useLayoutStore = create<LayoutStore>()(
   immer((set) => ({
     ...LayoutDefault,
-    setLayoutOptions: (partialstate) =>
+    setLayoutOptions: (partialState) =>
       set((state) => {
-        state = { ...state, ...partialstate };
+        Object.assign(state, partialState);
+        
+        // Auto-correct directions based on positions
+        if (partialState.toolMenuePosition !== undefined) {
+          state.toolMenuesDirection = (partialState.toolMenuePosition === 'left' || partialState.toolMenuePosition === 'right') 
+            ? 'vertical' 
+            : 'horizontal';
+        }
+        
+        if (partialState.toolOptionsPosition !== undefined) {
+          state.toolOptionsDirection = (partialState.toolOptionsPosition === 'left' || partialState.toolOptionsPosition === 'right') 
+            ? 'vertical' 
+            : 'horizontal';
+        }
       }),
   }))
 );
-
 export default useLayoutStore;

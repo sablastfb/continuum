@@ -102,7 +102,7 @@ function ToolsMenue({ direction }: ToolsMenueParameter) {
             <ChevronRight size={20} />
           </div>
         </div>
-        <ArrayDivider orjentation="horizontal"/>
+        <ArrayDivider direction="horizontal"/>
         <DoUnDoComponent />
       </div>
     </>

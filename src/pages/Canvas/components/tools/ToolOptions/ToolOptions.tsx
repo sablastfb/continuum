@@ -51,7 +51,7 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
           directin === "vertical" && `flex-col ${defaultToolBarVPadding}` 
         } 
         ${
-          directin === 'horizontal' && defaultToolBarHeight
+          directin === 'horizontal' && `${defaultToolBarHeight} ${defaultToolBarPadding}`
         }
         
         items-center gap-4 rounded-lg  pointer-events-auto 
