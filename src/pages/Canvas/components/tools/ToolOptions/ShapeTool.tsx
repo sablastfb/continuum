@@ -95,9 +95,7 @@ function ShapeTool({ shapeType }: ShapeToolProps) {
         );
       })}
 
-      <div className="w-1 h-10">
-        <ArrayDivider orjentation="vertical" />
-      </div>
+      <ArrayDivider orjentation="vertical" />
       <div className="flex gap-4">
         <ShapeTypeBacground
           shapeType={shapeType}

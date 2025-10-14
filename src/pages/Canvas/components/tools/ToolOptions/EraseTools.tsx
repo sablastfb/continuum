@@ -30,9 +30,8 @@ function EraseTools() {
         }}
       />
 
-      <div className="w-1 h-10">
-        <ArrayDivider orjentation="vertical" />
-      </div>
+      <ArrayDivider orjentation="vertical" />
+      
       {eraseSettings.allEraseThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker

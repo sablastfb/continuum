@@ -1,11 +1,21 @@
-import { defaultButtonsBackground } from "../../../data/constants/CanvasConstants";
+import {
+  defaultButtonsBackground,
+  defaultToolBarHeight,
+  defaultToolBarPadding,
+  defaultToolBarVPadding,
+} from "../../../data/constants/CanvasConstants";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import ShapeTool from "./ShapeTool";
 import EraseTools from "./EraseTools";
 import MarkerTools from "./MarkerTool";
 import PencileTools from "./PencileTools";
+import { Direction } from "../../../data/store/LayoutStore";
 
-function ToolOptions() {
+export interface ToolOptionParameters {
+  direction: Direction;
+}
+
+function ToolOptions({ direction: directin }: ToolOptionParameters) {
   const activeTool = useCanvasStore((state) => state.activeTool);
 
   let activeToolComponent;
@@ -35,7 +45,17 @@ function ToolOptions() {
   return (
     <>
       <div
-        className={`${defaultButtonsBackground} flex  items-center gap-4 rounded-lg p-1 pointer-events-auto `}
+        className={`
+        ${defaultButtonsBackground} 
+        flex  ${
+          directin === "vertical" && `flex-col ${defaultToolBarVPadding}` 
+        } 
+        ${
+          directin === 'horizontal' && defaultToolBarHeight
+        }
+        
+        items-center gap-4 rounded-lg  pointer-events-auto 
+        `}
       >
         {activeToolComponent}
       </div>

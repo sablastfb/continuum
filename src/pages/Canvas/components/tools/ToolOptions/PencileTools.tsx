@@ -4,7 +4,7 @@ import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
 import ArrayDivider from "../../misc/ArrayDivider";
-import { EllipsisVertical, Highlighter, Pen, Pencil } from "lucide-react";
+import { Ellipsis, EllipsisVertical, Highlighter, Pen, Pencil } from "lucide-react";
 import { defaultIconSize } from "../../../data/constants/CanvasConstants";
 
 function PencileTools() {
@@ -18,17 +18,13 @@ function PencileTools() {
 
   return (
     <>
-      <EllipsisVertical size={defaultIconSize} />
-      <div className="w-1 h-10">
-        <ArrayDivider orjentation="vertical" />
-      </div>
+      <Ellipsis size={defaultIconSize} />
+      {/* <ArrayDivider orjentation="horizontal" /> */}
+      <ArrayDivider orjentation="vertical" />
       <Pen size={defaultIconSize} />
       <Pencil size={defaultIconSize} />
       <Highlighter size={defaultIconSize} />
-
-      <div className="w-1 h-10">
-        <ArrayDivider orjentation="vertical" />
-      </div>
+      <ArrayDivider orjentation="horizontal" />
       {pencileSettings.allThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker
@@ -44,9 +40,7 @@ function PencileTools() {
           />
         );
       })}
-      <div className="w-1 h-10">
-        <ArrayDivider orjentation="vertical" />
-      </div>
+      <ArrayDivider orjentation="horizontal" />
       {pencileSettings.allPencilColors.map((colorId, ix) => {
         return (
           <CircleColorPicker
