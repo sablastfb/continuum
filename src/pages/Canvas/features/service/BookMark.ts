@@ -45,7 +45,7 @@ export namespace Continuum_Bookmark {
   }
 
   export function renameBookmark(id: string, name: string) {
-    let bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
+    const bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
     if (!bookmark) return;
     const updatedBookmark: Bookmark = { ...bookmark, name};
     useBookmark.getState().update(updatedBookmark);

@@ -1,4 +1,4 @@
-import { Circle, HexagonIcon, Pen, Square } from "lucide-react";
+import { Circle, HexagonIcon, Square } from "lucide-react";
 import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_ToolManager } from "../../features/tools/ToolManager";

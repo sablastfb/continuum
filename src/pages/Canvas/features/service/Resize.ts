@@ -4,7 +4,6 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_CanvasViewport } from "./Viewport";
-import useSettingsStore from "../../data/store/BacgroundStore";
 import { Continuum_TailBacground } from "./TailBackground";
 
 export namespace Continuum_ResizeService {

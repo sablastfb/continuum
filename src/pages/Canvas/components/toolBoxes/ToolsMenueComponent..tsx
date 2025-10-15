@@ -1,18 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
-  Eraser,
   Clipboard,
-  Pen,
   Image,
   Type,
   Link,
-  Lasso,
   Ruler,
-  LayoutDashboard,
-  Camera,
-  ChevronRight,
-  ChevronLeft,
-  Square,
 } from "lucide-react";
 import {
   DefaultButtonsBackground,

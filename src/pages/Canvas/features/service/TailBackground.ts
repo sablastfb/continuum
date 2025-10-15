@@ -8,7 +8,6 @@ import {
   ColorId,
 } from "../../data/palet/PaletContainer";
 import { Continuum_Canvas } from "../CanvasApp";
-import useSettingsStore from "../../data/store/BacgroundStore";
 import useCanvasStore from "../../data/store/CanvasStore";
 
 export type BackgroundTypes = "color" | "grid" | "dots" | "line";

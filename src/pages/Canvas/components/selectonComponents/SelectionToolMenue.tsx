@@ -2,8 +2,6 @@ import {
   Camera,
   Lasso,
   MousePointer2,
-  Pen,
-  Square,
   SquareDashed,
 } from "lucide-react";
 

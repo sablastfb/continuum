@@ -39,7 +39,7 @@ export class Shape implements ITool {
     this.shape = new Graphics();
     this.outlineShape = new Graphics();
 
-    let shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
+    const shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
     Continuum_CanvasViewport.viewport.addChild(this.shape);
     if (shapeData.activeBacgroundType !== "color") {
       this.tilingSprite = new TilingSprite();
@@ -57,7 +57,7 @@ export class Shape implements ITool {
     this.outlineShape.clear();
 
     this.lastPosition = Continuum_CanvasViewport.viewport.toWorld(e);
-    let shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
+    const shapeData: ShapeData = useShapesStore.getState().shapes[this.shapeType];
 
     if (shapeData.activeBacgroundType !== "color") {
       this.setTailSpritePosition(this.firstPosition, this.lastPosition);

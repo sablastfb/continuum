@@ -4,14 +4,13 @@ import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 import { Continuum_ResizeService } from "./Resize";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_ToolManager } from "../tools/ToolManager";
-import { Geometry, GlProgram, Mesh, Shader, uniformParsers } from "pixi.js";
+import { Geometry, GlProgram, Mesh, Shader } from "pixi.js";
 
 import fragment from "./../shaders/shader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
-import { values } from "lodash";
 
 export namespace Continuum_CanvasViewport {
-  export let viewport: Viewport | null = null;
+  export const viewport: Viewport | null = null;
 
   export function init() {
     if (!Continuum_Canvas.appInstance) return;

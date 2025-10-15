@@ -1,16 +1,10 @@
 import {
-  Camera,
-  Eraser,
-  Lasso,
-  MousePointer2,
-  Pen,
-  Square,
-  SquareDashed,
+  Eraser
 } from "lucide-react";
 import { useState } from "react";
+import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_ToolManager } from "../../features/tools/ToolManager";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 
 function EraserToolMenue() {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);

@@ -1,6 +1,5 @@
 import { Download, Eye, Info, Menu, NotebookPen, Settings } from "lucide-react";
 
-import BookmakrContainer from "../../bookmarkComponents/BookMarkComponent";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";

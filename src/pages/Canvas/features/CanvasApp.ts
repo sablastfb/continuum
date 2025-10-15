@@ -11,8 +11,8 @@ import { Continuum_CurveService } from "./service/CurveService";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
-  export let drawing = false;
-  export let commandManage = new Continuum_CommandManager();
+  export const drawing = false;
+  export const commandManage = new Continuum_CommandManager();
 
   export async function creatPixiApp() {
     if (appInstance) {

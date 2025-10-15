@@ -1,7 +1,6 @@
-import { Bookmark, Home, Plus, Trash, X } from "lucide-react";
+import { Home, Plus, Trash, X } from "lucide-react";
 import {
   DefaultButtonsBackground,
-  DefaultIconSize,
 } from "../../data/constants/CanvasConstants";
 import { useState } from "react";
 import { useBookmark } from "../../data/store/BookmarkStore";
