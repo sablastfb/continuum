@@ -1,7 +1,7 @@
 import BackgroundEffect from "./BackgroundEffect";
 import CursorEffect from "./CursorEffect";
 
-function CanvasEffect() {
+function BarrelEffect() {
   return (
     <>
       <CursorEffect />
@@ -10,4 +10,4 @@ function CanvasEffect() {
   );
 }
 
-export default CanvasEffect;
+export default BarrelEffect;

@@ -1,8 +1,8 @@
-import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
-import { useMarkerStore } from "../../../data/store/MarkerStore";
-import CircleColorPicker from "../../pickers/CircleColorPicker";
-import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
-import CustomColorPicker from "../../pickers/CustomColorPicker";
+import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
+import { useMarkerStore } from "../../data/store/MarkerStore";
+import CircleColorPicker from "../pickers/CircleColorPicker";
+import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
+import CustomColorPicker from "../pickers/CustomColorPicker";
 
 
 function MarkerTools() {

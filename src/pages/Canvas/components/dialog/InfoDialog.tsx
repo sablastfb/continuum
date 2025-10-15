@@ -1,7 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import { X } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { defaultDialogBacground } from "../../data/constants/CanvasConstants";
+import { DefaultDialogBacground } from "../../data/constants/CanvasConstants";
 
 function InfoDialog() {
   const infoVisible = useCanvasStore((state) => state.infoVisible);
@@ -13,7 +13,7 @@ function InfoDialog() {
         modal
         header="Info"
         visible={infoVisible}
-        className={`${defaultDialogBacground} `}
+        className={`${DefaultDialogBacground} `}
         onHide={() => {
           if (!infoVisible) return;
           setInfoVisible(false);

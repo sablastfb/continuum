@@ -2,7 +2,7 @@ import ExportDialog from "./ExportDialog";
 import InfoDialog from "./InfoDialog";
 import SettingsDialog from "./Settings/SettingsDialog/SettingsDialog";
 
-function CanvasDialogs() {
+function BarrelDialogs() {
   return (
     <>
       <SettingsDialog />
@@ -12,4 +12,4 @@ function CanvasDialogs() {
   );
 }
 
-export default CanvasDialogs;
+export default BarrelDialogs;

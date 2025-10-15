@@ -1,12 +1,10 @@
 import { Download, Eye, Info, Menu, NotebookPen, Settings } from "lucide-react";
-import useCanvasStore from "../../../data/store/CanvasStore";
-import {
-  defaultButtonsBackground,
-  defaultIconSize,
-} from "../../../data/constants/CanvasConstants";
-import BookmakrContainer from "../../bookmark/BookMarkComponent";
+
+import BookmakrContainer from "../../bookmarkComponents/BookMarkComponent";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
+import useCanvasStore from "../../data/store/CanvasStore";
+import { DefaultButtonsBackground, DefaultIconSize } from "../../data/constants/CanvasConstants";
 
 function OptionButton() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
@@ -16,25 +14,25 @@ function OptionButton() {
   return (
     <>
     <NotebookPen 
-        size={defaultIconSize}
+        size={DefaultIconSize}
     />
     <Eye></Eye>
       <Settings
-        size={defaultIconSize}
+        size={DefaultIconSize}
         className="hover:cursor-pointer"
         onClick={() => {
           setSettingVisible(true);
         }}
       />
       <Download
-        size={defaultIconSize}
+        size={DefaultIconSize}
         className="hover:cursor-pointer"
         onClick={() => {
           setExportVisible(true);
         }}
       />
       <Info
-        size={defaultIconSize}
+        size={DefaultIconSize}
         className="hover:cursor-pointer"
         onClick={() => {
           setInfoVisible(true);
@@ -55,18 +53,18 @@ function OptionButtons() {
           <OptionButton />
       </OverlayPanel>
       <div
-        className={`  xl:hidden absolute  flex  left-10 ${defaultButtonsBackground} pointer-events-auto rounded-md `}
+        className={`  xl:hidden absolute  flex  left-10 ${DefaultButtonsBackground} pointer-events-auto rounded-md `}
        onClick={(e) => {
             op.current!.toggle(e);
           }}
       >
         <Menu
-          size={defaultIconSize}
+          size={DefaultIconSize}
           className="hover:cursor-pointer"
         />
       </div>
       <div
-        className={` hidden xl:flex  ${defaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center h-fit gap-4 `}
+        className={` hidden xl:flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center h-fit gap-4 `}
       >
         <OptionButton />
       </div>

@@ -11,7 +11,7 @@ import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
 import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
-import { defaultDialogBacground } from "../../../../data/constants/CanvasConstants";
+import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
 
 function SettingsDialog() {
   const setTheme = useSettingsStore().setTheme;
@@ -54,7 +54,7 @@ function SettingsDialog() {
       modal
       header="Settings"
       visible={settingVisible}
-      className={`${defaultDialogBacground} settings`}
+      className={`${DefaultDialogBacground} settings`}
       onShow={() => {
         setCurrentCanvasSettings(canvasSettings);
       }}

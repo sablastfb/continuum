@@ -1,15 +1,15 @@
 import {
-  defaultButtonsBackground,
-  defaultToolBarHeight,
-  defaultToolBarPadding,
-  defaultToolBarVPadding,
-} from "../../../data/constants/CanvasConstants";
-import useCanvasStore from "../../../data/store/CanvasStore";
-import ShapeTool from "./ShapeTool";
-import EraseTools from "./EraseTools";
-import MarkerTools from "./MarkerTool";
-import PencileTools from "./PencileTools";
-import { Direction } from "../../../data/store/LayoutStore";
+  DefaultButtonsBackground,
+  DefaultToolBarHeight,
+  DefaultToolBarPadding,
+  DefaultToolBarVPadding,
+} from "../../data/constants/CanvasConstants";
+import useCanvasStore from "../../data/store/CanvasStore";
+import MarkerTools from "../curveComponents/MarkerOptionsTool";
+import { Direction } from "../../data/store/LayoutStore";
+import PenToolOptions from "../curveComponents/PenToolsOptions";
+import EraseTools from "../eraseComponents/EraseTools";
+import ShapeTool from "../shapesComponents/ShapeToolOptions";
 
 export interface ToolOptionParameters {
   direction: Direction;
@@ -21,7 +21,7 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
   let activeToolComponent;
   switch (activeTool) {
     case "pencile":
-      activeToolComponent = <PencileTools />;
+      activeToolComponent = <PenToolOptions />;
       break;
     case "eraser":
       activeToolComponent = <EraseTools />;
@@ -46,12 +46,12 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
     <>
       <div
         className={`
-        ${defaultButtonsBackground} 
+        ${DefaultButtonsBackground} 
         flex  ${
-          directin === "vertical" && `flex-col ${defaultToolBarVPadding}` 
+          directin === "vertical" && `flex-col ${DefaultToolBarVPadding}` 
         } 
         ${
-          directin === 'horizontal' && `${defaultToolBarHeight} ${defaultToolBarPadding}`
+          directin === 'horizontal' && `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
         }
         
         items-center gap-4 rounded-lg  pointer-events-auto 

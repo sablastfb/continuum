@@ -1,8 +1,8 @@
 import { Redo, Undo } from "lucide-react";
-import { defaultIconSize } from "../../../data/constants/CanvasConstants";
-import useCanvasStore from "../../../data/store/CanvasStore";
-import { Continuum_Canvas } from "../../../features/CanvasApp";
-import useLayoutStore from "../../../data/store/LayoutStore";
+import useCanvasStore from "../../data/store/CanvasStore";
+import useLayoutStore from "../../data/store/LayoutStore";
+import { Continuum_Canvas } from "../../features/CanvasApp";
+import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 
 function DoUnDoComponent() {
   const historyPosition = useCanvasStore().historyPosition;
@@ -18,7 +18,7 @@ function DoUnDoComponent() {
             historyPosition === -1 ? "opacity-50 " : "hover:cursor-pointer"
           }
         >
-          <Undo size={defaultIconSize} />
+          <Undo size={DefaultIconSize} />
         </div>
         <div
           onClick={() => Continuum_Canvas.commandManage.goInFuture()}
@@ -28,7 +28,7 @@ function DoUnDoComponent() {
               : "hover:cursor-pointer"
           }
         >
-          <Redo size={defaultIconSize} />
+          <Redo size={DefaultIconSize} />
         </div>
       </div>
     </>

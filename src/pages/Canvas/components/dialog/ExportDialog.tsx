@@ -1,7 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import { X } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { defaultDialogBacground } from "../../data/constants/CanvasConstants";
+import { DefaultDialogBacground } from "../../data/constants/CanvasConstants";
 
 function ExportDialog() {
   const exportVisible = useCanvasStore((state) => state.exportVisible);
@@ -11,7 +11,7 @@ function ExportDialog() {
     <>
       <Dialog
         visible={exportVisible}
-        className={`${defaultDialogBacground}`}
+        className={`${DefaultDialogBacground}`}
         onHide={() => {
           if (!exportVisible) return;
           setExportVisible(false);

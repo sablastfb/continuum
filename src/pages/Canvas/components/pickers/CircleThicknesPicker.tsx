@@ -1,6 +1,6 @@
 import {
-  circlePickeSize,
-  defaultOutlineColor,
+  CirclePickeSize,
+  DefaultOutlineColor,
 } from "../../data/constants/CanvasConstants";
 import {
   ThicknesId,
@@ -25,8 +25,8 @@ function CircleThicknesPicker({
   return (
     <div
       onClick={()=> action()}
-      className={` ${circlePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2  ${
-        selected ? `${defaultOutlineColor}` : "outline-gray-500"
+      className={` ${CirclePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2  ${
+        selected ? `${DefaultOutlineColor}` : "outline-gray-500"
       }`}
     >
       <div

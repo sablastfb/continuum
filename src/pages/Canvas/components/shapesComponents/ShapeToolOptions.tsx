@@ -1,13 +1,10 @@
 import { Square } from "lucide-react";
-import {
-  ShapeFillType,
-  ShapesStore,
-  useShapesStore,
-} from "../../../data/store/ShapeStore";
-import ArrayDivider from "../../misc/ArrayDivider";
-import CircleColorPicker from "../../pickers/CircleColorPicker";
-import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
-import { BackgroundTypes } from "../../../features/service/TailBackground";
+import { ShapeFillType, ShapesStore, useShapesStore } from "../../data/store/ShapeStore";
+import { BackgroundTypes } from "../../features/service/TailBackground";
+import CircleColorPicker from "../pickers/CircleColorPicker";
+import { DefaultOutlineColor } from "../../data/constants/CanvasConstants";
+import ArrayDivider from "../misc/ArrayDivider";
+
 
 interface ShapeToolProps {
   shapeType: keyof ShapesStore["shapes"];
@@ -58,7 +55,7 @@ export function ShapeToolFill({ shapeType, fillType }: ShapeToolProps) {
     <div
       onClick={() => updateShape(shapeType, { fillType })}
       className={`rounded-full w-7 h-7 hover:cursor-pointer flex justify-center items-center ${
-        shapeData.fillType === fillType ? defaultOutlineColor : ""
+        shapeData.fillType === fillType ? DefaultOutlineColor : ""
       }`}
     >
       {fillType === "outline-fill" && (

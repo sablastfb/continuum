@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
-import ToolLayout from "./components/tools/HeaderToolMenue/ToolLayout";
 import { Continuum_Canvas } from "./features/CanvasApp";
-import CursorEffect from "./components/effects/CursorEffect";
-import BackgroundEffect from "./components/effects/BackgroundEffect";
 import useCanvasStore from "./data/store/CanvasStore";
-import CanvasDialogs from "./components/dialog/CanvasDialogs";
-import CanvasEffect from "./components/effects/CanvasEffect";
+import BarrelDialogs from "./components/dialog/BarrelDialogs";
+import BarrelEffect from "./components/effects/BarrelEffect";
+import ToolLayout from "./components/toolBoxes/ToolLayout";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -43,8 +41,8 @@ function CanvasPage() {
       </div>
 
       <ToolLayout />
-      <CanvasDialogs/>
-      <CanvasEffect />
+      <BarrelDialogs/>
+      <BarrelEffect />
     </div>
   );
 }

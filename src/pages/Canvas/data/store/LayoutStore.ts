@@ -16,8 +16,8 @@ export const LayoutDefault: LayoutData = {
   toolMenuePosition: "top",
   toolMenuesDirection: "horizontal",
 
-  toolOptionsPosition: "bottom",
-  toolOptionsDirection: "horizontal",
+  toolOptionsPosition: "right",
+  toolOptionsDirection: "vertical",
 };
 
 export interface LayoutStore extends LayoutData {

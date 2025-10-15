@@ -1,9 +1,9 @@
+import useLayoutStore from "../../data/store/LayoutStore";
+import BookmakrContainer from "../bookmarkComponents/BookMarkComponent";
 import OptionButtons from "./OptionsButton";
-import ToolsMenue from "./ToolsMenue";
-import ToolOptions from "../ToolOptions/ToolOptions";
-import useLayoutStore from "../../../data/store/LayoutStore";
-import ZoomingButton from "./ZoomingButton";
-import BookmakrContainer from "../../bookmark/BookMarkComponent";
+import ToolOptions from "./ToolOptionsComponent";
+import ToolsMenue from "./ToolsMenueComponent.";
+import ZoomingButton from "./ZoomingComponent";
 function ToolLayout() {
   const layoutStore = useLayoutStore();
 

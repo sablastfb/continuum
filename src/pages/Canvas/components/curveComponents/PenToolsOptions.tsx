@@ -1,9 +1,9 @@
-import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
-import { usePencileStore } from "../../../data/store/PencileStore";
-import CircleColorPicker from "../../pickers/CircleColorPicker";
-import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
-import CustomColorPicker from "../../pickers/CustomColorPicker";
-import ArrayDivider from "../../misc/ArrayDivider";
+import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
+import { usePencileStore } from "../../data/store/PencileStore";
+import CircleColorPicker from "../pickers/CircleColorPicker";
+import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
+import CustomColorPicker from "../pickers/CustomColorPicker";
+import ArrayDivider from "../misc/ArrayDivider";
 import {
   Ellipsis,
   EllipsisVertical,
@@ -11,10 +11,10 @@ import {
   Pen,
   Pencil,
 } from "lucide-react";
-import { defaultIconSize } from "../../../data/constants/CanvasConstants";
-import useLayoutStore from "../../../data/store/LayoutStore";
+import { DefaultIconSize } from "../../data/constants/CanvasConstants";
+import useLayoutStore from "../../data/store/LayoutStore";
 
-function PencileTools() {
+function PenToolOptions() {
   const pencileSettings = usePencileStore();
   const pencilColorId = usePencileStore().pencilColorId;
   const thicknesId = usePencileStore().thicknesId;
@@ -27,14 +27,14 @@ function PencileTools() {
   return (
     <>
       {toolOptionsDirection === "horizontal" ? (
-        <EllipsisVertical size={defaultIconSize} />
+        <EllipsisVertical size={DefaultIconSize} />
       ) : (
-        <Ellipsis size={defaultIconSize} />
+        <Ellipsis size={DefaultIconSize} />
       )}
       <ArrayDivider direction={toolOptionsDirection} />
-      <Pen size={defaultIconSize} />
-      <Pencil size={defaultIconSize} />
-      <Highlighter size={defaultIconSize} />
+      <Pen size={DefaultIconSize} />
+      <Pencil size={DefaultIconSize} />
+      <Highlighter size={DefaultIconSize} />
       <ArrayDivider direction={toolOptionsDirection} />
       {pencileSettings.allThicknes.map((id, ix) => {
         return (
@@ -67,4 +67,4 @@ function PencileTools() {
   );
 }
 
-export default PencileTools;
+export default PenToolOptions;

@@ -1,7 +1,7 @@
 import { Bookmark, Home, Plus, Trash, X } from "lucide-react";
 import {
-  defaultButtonsBackground,
-  defaultIconSize,
+  DefaultButtonsBackground,
+  DefaultIconSize,
 } from "../../data/constants/CanvasConstants";
 import { useState } from "react";
 import { useBookmark } from "../../data/store/BookmarkStore";
@@ -22,7 +22,7 @@ function BookmakrContainer() {
             className={`p-1 absolute left-0 top-[10vh]  pointer-events-auto
               w-[250px]
               gap-2
-            rounded-md ${defaultButtonsBackground}`}
+            rounded-md ${DefaultButtonsBackground}`}
           >
             <div className="flex justify-start gap-5 border-b-2  ">
               <div className="text-xl font-bold text-amber-300">Bookmakrs</div>

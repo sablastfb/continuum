@@ -1,8 +1,9 @@
 import { JSX, useRef, useState } from "react";
-import useCanvasStore from "../../../data/store/CanvasStore";
-import { Continuum_ToolManager } from "../../../features/tools/ToolManager";
-import { defaultOutlineColor } from "../../../data/constants/CanvasConstants";
+
 import { OverlayPanel } from "primereact/overlaypanel";
+import { Continuum_ToolManager } from "../../features/tools/ToolManager";
+import useCanvasStore from "../../data/store/CanvasStore";
+import { DefaultOutlineColor } from "../../data/constants/CanvasConstants";
 
 export type IconOption = {
   icon: JSX.Element;
@@ -24,7 +25,7 @@ function ToolButton({ icon, tool, toolOptionComponent }: IconOption) {
 
       <div
         className={`flex items-center hover:cursor-pointer p-1 ${
-          tool === activeTool ? `${defaultOutlineColor} rounded-xl` : ""
+          tool === activeTool ? `${DefaultOutlineColor} rounded-xl` : ""
         }`}
         onClick={() => {
           setActiveTool(tool);

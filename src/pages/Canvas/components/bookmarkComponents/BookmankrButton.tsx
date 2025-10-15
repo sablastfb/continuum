@@ -1,5 +1,5 @@
 import { Bookmark } from "lucide-react";
-import { defaultIconSize } from "../../data/constants/CanvasConstants";
+import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 import { useBookmark } from "../../data/store/BookmarkStore";
 
 function BookmankrButton() {
@@ -15,7 +15,7 @@ function BookmankrButton() {
         className="cursor-pointer"
       >
         <Bookmark
-          size={defaultIconSize}
+          size={DefaultIconSize}
           className={`${visible && `fill-amber-300`} `}
         />
       </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
 import { usePencileStore } from "../../data/store/PencileStore";
-import { circlePickeSize, defaultOutlineColor } from "../../data/constants/CanvasConstants";
+import { CirclePickeSize, DefaultOutlineColor } from "../../data/constants/CanvasConstants";
 
 function CustomColorPicker({ customColorId }: { customColorId: string }) {
   const setPencileColor = usePencileStore().setPencileColor;
@@ -33,12 +33,12 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
     <div
       style={{ background: color }}
       className={`rounded-sm ${
-        pencilColorId === customColorId ? `${defaultOutlineColor}` : ""
+        pencilColorId === customColorId ? `${DefaultOutlineColor}` : ""
       }`}
     >
       <input
         type="color"
-        className={`rounded-xl cursor-pointer opacity-0  ${circlePickeSize}`}
+        className={`rounded-xl cursor-pointer opacity-0  ${CirclePickeSize}`}
         value={color}
         onDoubleClick={(e) => {
           e.preventDefault();
