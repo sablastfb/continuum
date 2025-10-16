@@ -1,9 +1,7 @@
 import { Square } from "lucide-react";
-import { ShapeFillType, ShapesStore, useShapesStore } from "../../data/store/ShapeStore";
-import { BackgroundTypes } from "../../features/service/TailBackground";
-import CircleColorPicker from "../pickers/CircleColorPicker";
-import { DefaultOutlineColor } from "../../data/constants/CanvasConstants";
-import ArrayDivider from "../misc/ArrayDivider";
+import { ShapeFillType, ShapesStore, useShapesStore } from "../../../data/store/ShapeStore";
+import { BackgroundTypes } from "../../../features/service/TailBackground";
+import CircleColorPicker from "../../pickers/CircleColorPicker";
 
 
 interface ShapeToolProps {

@@ -1,17 +1,17 @@
-import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
-import { usePenStore as usePenStore } from "../../data/store/PenStore";
-import CircleColorPicker from "../pickers/CircleColorPicker";
-import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
-import CustomColorPicker from "../pickers/CustomColorPicker";
-import ArrayDivider from "../misc/ArrayDivider";
+import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
+import { usePenStore as usePenStore } from "../../../data/store/PenStore";
+import CircleColorPicker from "../../pickers/CircleColorPicker";
+import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
+import CustomColorPicker from "../../pickers/CustomColorPicker";
+import ArrayDivider from "../../misc/ArrayDivider";
 import {
   Ellipsis,
   EllipsisVertical,
   Highlighter,
   Pen,
 } from "lucide-react";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
-import useLayoutStore from "../../data/store/LayoutStore";
+import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
+import useLayoutStore from "../../../data/store/LayoutStore";
 
 function PenToolOptions() {
   const penSettings = usePenStore();

@@ -2,9 +2,9 @@ import {
   Eraser
 } from "lucide-react";
 import { useState } from "react";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
-import useCanvasStore from "../../data/store/CanvasStore";
-import { Continuum_ToolManager } from "../../features/tools/ToolManager";
+import { Continuum_ToolManager } from "../../../features/tools/ToolManager";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
 
 function EraserToolMenue() {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);

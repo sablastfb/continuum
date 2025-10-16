@@ -2,8 +2,8 @@ import { Highlighter, Pencil } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutlineColor as DefaultSelectionOutline,
-} from "../../data/constants/CanvasConstants";
-import useCanvasStore from "../../data/store/CanvasStore";
+} from "../../../data/constants/CanvasConstants";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function CurveToolMenue() {
   const canvasStore = useCanvasStore();

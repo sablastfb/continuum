@@ -6,9 +6,9 @@ import {
 } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Direction } from "../../data/store/LayoutStore";
-import EraseTools from "../eraseComponents/EraseTools";
-import ShapeTool from "../shapesComponents/ShapeToolOptions";
-import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
+import CurveToolOptions from "../tools/curveComponents/CurveToolOptionsBarrel";
+import EraseTools from "../tools/eraseComponents/EraseTools";
+import ShapeTool from "../tools/shapesComponents/ShapeToolOptions";
 
 export interface ToolOptionParameters {
   direction: Direction;

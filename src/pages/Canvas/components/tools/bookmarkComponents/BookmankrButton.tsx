@@ -1,6 +1,6 @@
 import { Bookmark } from "lucide-react";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
-import { useBookmark } from "../../data/store/BookmarkStore";
+import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
+import { useBookmark } from "../../../data/store/BookmarkStore";
 
 function BookmankrButton() {
   const visible = useBookmark().containerVisible;

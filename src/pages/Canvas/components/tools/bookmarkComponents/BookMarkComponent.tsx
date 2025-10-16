@@ -1,10 +1,10 @@
 import { Home, Plus, Trash, X } from "lucide-react";
 import {
   DefaultButtonsBackground,
-} from "../../data/constants/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import { useState } from "react";
-import { useBookmark } from "../../data/store/BookmarkStore";
-import { Continuum_Bookmark } from "../../features/service/BookMark";
+import { useBookmark } from "../../../data/store/BookmarkStore";
+import { Continuum_Bookmark } from "../../../features/service/BookMark";
 
 function BookmakrContainer() {
   const [editingId, seteditingId] = useState<string | null>(null);

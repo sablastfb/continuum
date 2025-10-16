@@ -1,18 +1,19 @@
-import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
-import { usePenStore as usePenStore } from "../../data/store/PenStore";
-import CircleColorPicker from "../pickers/CircleColorPicker";
-import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
-import CustomColorPicker from "../pickers/CustomColorPicker";
-import ArrayDivider from "../misc/ArrayDivider";
+import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
+import { usePenStore as usePenStore } from "../../../data/store/PenStore";
+import CircleColorPicker from "../../pickers/CircleColorPicker";
+import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
+import CustomColorPicker from "../../pickers/CustomColorPicker";
+import ArrayDivider from "../../misc/ArrayDivider";
 import { Ellipsis, EllipsisVertical, Highlighter, Pen } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutlineColor as DefaultOutlineSelection,
-} from "../../data/constants/CanvasConstants";
-import useLayoutStore from "../../data/store/LayoutStore";
+} from "../../../data/constants/CanvasConstants";
+import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolOptions from "./PenToolsOptions";
-import useCanvasStore from "../../data/store/CanvasStore";
+import useCanvasStore from "../../../data/store/CanvasStore";
 import HighlighterToolsOptions from "./HighlighterToolOptions";
+import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
 function CurveToolOptions() {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
@@ -21,12 +22,8 @@ function CurveToolOptions() {
 
   return (
     <>
-      {toolOptionsDirection === "horizontal" ? (
-        <EllipsisVertical size={DefaultIconSize} />
-      ) : (
-        <Ellipsis size={DefaultIconSize} />
-      )}
-      <ArrayDivider direction={toolOptionsDirection} />
+      <ToolOptionHeaderComponent/>
+
       <div
         className={`cursor-pointer  ${
           activeTool === "pen" && DefaultOutlineSelection

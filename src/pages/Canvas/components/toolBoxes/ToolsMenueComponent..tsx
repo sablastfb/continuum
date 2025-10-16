@@ -13,14 +13,14 @@ import {
   DefaultToolBarPadding,
 } from "../../data/constants/CanvasConstants";
 
-import BookmankrButton from "../bookmarkComponents/BookmankrButton";
+import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
 import { Direction } from "../../data/store/LayoutStore";
-import CurveToolMenue from "../curveComponents/CurveToolMenue";
-import ShapeToolMenue from "../shapesComponents/ShapeToolMenue";
-import SelectionToolMenue from "../selectonComponents/SelectionToolMenue";
-import EraserToolMenue from "../eraseComponents/EraserToolMenue";
+import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
 import DoUnDoComponent from "./DoUnDoComponent";
+import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";
+import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
+import ShapeToolMenue from "../tools/shapesComponents/ShapeToolMenue";
 
 export interface ToolsMenueParameter {
   direction: Direction;

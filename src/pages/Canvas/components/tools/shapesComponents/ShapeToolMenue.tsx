@@ -1,8 +1,8 @@
 import { Circle, HexagonIcon, Square } from "lucide-react";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
-import useCanvasStore from "../../data/store/CanvasStore";
-import { Continuum_ToolManager } from "../../features/tools/ToolManager";
 import { useState } from "react";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import { Continuum_ToolManager } from "../../../features/tools/ToolManager";
+import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
 
 function ShapeToolMenue() {
   const setActiveTool = useCanvasStore((state) => state.setActiveTool);
