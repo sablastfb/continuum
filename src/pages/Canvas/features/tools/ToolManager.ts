@@ -18,12 +18,12 @@ export type ITool = Partial<{
 
 export namespace Continuum_ToolManager {
   export type ToolType =
-    | "pencile"
-    | "pen"
-    | "marker"
     | "base"
+    | "pen"
+    | "highlighter"
     | "eraser"
     | "transform-move"
+    
     | "transform-pan"
     | "text"
     | "image"
@@ -42,8 +42,7 @@ export namespace Continuum_ToolManager {
 
   export function registerDefaultTools() {
     Continuum_ToolManager.tools.set("pen", new Curve('pen'));
-    Continuum_ToolManager.tools.set("pencile", new Curve('pencile'));
-    Continuum_ToolManager.tools.set("marker", new Curve('marker'));
+    Continuum_ToolManager.tools.set("highlighter", new Curve('marker'));
     Continuum_ToolManager.tools.set("eraser", new Erase());
     Continuum_ToolManager.tools.set("circle", new Shape('circle'));
     Continuum_ToolManager.tools.set("square", new Shape('square'));

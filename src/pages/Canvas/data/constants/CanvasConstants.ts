@@ -1,6 +1,6 @@
 export const ZoomSensitivity: number = 0.1;
 export const DefaultButtonsBackground = "bg-white/20  backdrop-blur-sm";
-export const DefaultOutlineColor = "outline-4 outline-amber-300";
+export const DefaultOutlineColor = "outline-4 outline-amber-300  p-0.5 rounded-xl";
 export const DefaultDialogBacground = "h-[90vh]  w-[min(80vw,900px)] bg-white/20 backdrop-blur-sm rounded-l-2xl p-2";
 export const CirclePickeSize = "w-8 h-8";
 export const DefaultIconSize = 32;

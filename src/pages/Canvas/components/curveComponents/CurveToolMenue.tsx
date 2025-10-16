@@ -1,23 +1,25 @@
 import { Highlighter, Pencil } from "lucide-react";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
+import {
+  DefaultIconSize,
+  DefaultOutlineColor,
+} from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { Continuum_ToolManager } from "../../features/tools/ToolManager";
-import { useState } from "react";
 
 function CurveToolMenue() {
-  const setActiveTool = useCanvasStore((state) => state.setActiveTool);
-  const [activeCurveTool, setActiveCurveTool] =
-    useState<Continuum_ToolManager.ToolType>("pen");
+  const canvasStore = useCanvasStore();
+
   return (
     <>
       <div
-        className="cursor-pointer"
+        className={`cursor-pointer   ${
+          canvasStore.activeTool === "pen" && DefaultOutlineColor
+        }`}
         onClick={() => {
-          setActiveCurveTool(activeCurveTool);
+          canvasStore.setActiveTool(canvasStore.activeTool)
         }}
       >
-        <Pencil size={DefaultIconSize} />
-        <Highlighter size={DefaultIconSize} />
+       {canvasStore.activeTool === 'pen' && <Pencil size={DefaultIconSize} />}
+       {canvasStore.activeTool === 'highlighter' && <Highlighter size={DefaultIconSize} />}
       </div>
     </>
   );

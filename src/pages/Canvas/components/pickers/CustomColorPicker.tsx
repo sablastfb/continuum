@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
-import { usePencileStore } from "../../data/store/PencileStore";
+import { usePenStore } from "../../data/store/PenStore";
 import { CirclePickeSize, DefaultOutlineColor } from "../../data/constants/CanvasConstants";
 
 function CustomColorPicker({ customColorId }: { customColorId: string }) {
-  const setPencileColor = usePencileStore().setPencileColor;
-  const pencilColorId = usePencileStore().pencilColorId;
+  const setPenColor = usePenStore().setPenColor;
+  const pencilColorId = usePenStore().penColorId;
 
   const [color, setColor] = useState<string>("#6466f1");
 
@@ -26,7 +26,7 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
 
     setColor(hexColor);
     Continuum_CanvasPalet.setColor(customColorId, rgbString);
-    setPencileColor({ colorId: customColorId, color: rgbString });
+    setPenColor({ colorId: customColorId, color: rgbString });
   };
 
   return (
@@ -47,7 +47,7 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
             customColorId,
             `rgb(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`
           );
-          setPencileColor({
+          setPenColor({
             colorId: customColorId,
             color: `rgb(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`,
           });

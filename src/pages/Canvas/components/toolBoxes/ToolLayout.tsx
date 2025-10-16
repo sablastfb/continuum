@@ -43,8 +43,9 @@ function ToolLayout() {
       {/* TOP */}
       <div className="p-1 w-full absolute top-0 flex flex-col items-center gap-1">
         {layoutStore.toolMenuePosition === "top" && (
-          <ToolsMenue direction="horizontal" />
+          <ToolsMenue direction="horizontal" /> 
         )}
+        
         {layoutStore.toolOptionsPosition === "top" && (
           <ToolOptions direction="horizontal" />
         )}

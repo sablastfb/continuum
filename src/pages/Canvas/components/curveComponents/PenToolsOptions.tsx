@@ -1,5 +1,5 @@
 import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
-import { usePencileStore } from "../../data/store/PencileStore";
+import { usePenStore as usePenStore } from "../../data/store/PenStore";
 import CircleColorPicker from "../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../pickers/CustomColorPicker";
@@ -9,19 +9,18 @@ import {
   EllipsisVertical,
   Highlighter,
   Pen,
-  Pencil,
 } from "lucide-react";
 import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 import useLayoutStore from "../../data/store/LayoutStore";
 
 function PenToolOptions() {
-  const pencileSettings = usePencileStore();
-  const pencilColorId = usePencileStore().pencilColorId;
-  const thicknesId = usePencileStore().thicknesId;
-  const setPencileColor = usePencileStore((state) => state.setPencileColor);
+  const penSettings = usePenStore();
+  const pencilColorId = usePenStore().penColorId;
+  const thicknesId = usePenStore().thicknesId;
+  const setPenColor = usePenStore((state) => state.setPenColor);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
-  const setPencileThickens = usePencileStore(
-    (state) => state.setPencileThickens
+  const setPenThickens = usePenStore(
+    (state) => state.setPenThickens
   );
 
   return (
@@ -33,14 +32,13 @@ function PenToolOptions() {
       )}
       <ArrayDivider direction={toolOptionsDirection} />
       <Pen size={DefaultIconSize} />
-      <Pencil size={DefaultIconSize} />
       <Highlighter size={DefaultIconSize} />
       <ArrayDivider direction={toolOptionsDirection} />
-      {pencileSettings.allThicknes.map((id, ix) => {
+      {penSettings.allThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker
             action={() => {
-              setPencileThickens({
+              setPenThickens({
                 thicknes: ThicknesPalet.getThicknes(id),
                 thicknesId: id,
               });
@@ -52,13 +50,13 @@ function PenToolOptions() {
         );
       })}
       <ArrayDivider direction={toolOptionsDirection} />
-      {pencileSettings.allPencilColors.map((colorId, ix) => {
+      {penSettings.allPencilColors.map((colorId, ix) => {
         return (
           <CircleColorPicker
             colorId={colorId}
             key={ix}
             selected={colorId === pencilColorId}
-            action={() => setPencileColor({ colorId: colorId, color: "" })}
+            action={() => setPenColor({ colorId: colorId, color: "" })}
           />
         );
       })}

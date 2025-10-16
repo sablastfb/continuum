@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useSettingsStore from "../../data/store/BacgroundStore";
-import { usePencileStore } from "../../data/store/PencileStore";
+import { usePenStore } from "../../data/store/PenStore";
 import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
 import { useEraseStore } from "../../data/store/EraseStore";
 
@@ -11,7 +11,7 @@ function CursorEffect() {
   const canvasCursorActive = useCanvasStore(
     (state) => state.canvasCursorActive
   );
-  const pen = usePencileStore();
+  const pen = usePenStore();
   const eraser = useEraseStore();
 
   useEffect(() => {

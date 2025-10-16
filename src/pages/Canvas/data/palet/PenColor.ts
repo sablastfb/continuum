@@ -1,4 +1,4 @@
-export const PencileColors = [
+export const PenColors = [
   { id: "p-1", light: "rgb(255, 59, 48)", dark: "rgb(255, 69, 58)" },
   {
     id: "p-2",

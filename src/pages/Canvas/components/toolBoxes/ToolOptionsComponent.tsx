@@ -20,13 +20,13 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
 
   let activeToolComponent;
   switch (activeTool) {
-    case "pencile":
+    case "pen":
       activeToolComponent = <PenToolOptions />;
       break;
     case "eraser":
       activeToolComponent = <EraseTools />;
       break;
-    case "marker":
+    case "highlighter":
       activeToolComponent = <MarkerTools />;
       break;
     case "square":

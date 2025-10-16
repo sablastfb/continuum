@@ -6,21 +6,21 @@ import CustomColorPicker from "../pickers/CustomColorPicker";
 
 
 function MarkerTools() {
-  const pencileSettings = useMarkerStore();
-  const pencilColorId = useMarkerStore().markerColorId;
+  const markerSettings = useMarkerStore();
+  const markerColorId = useMarkerStore().markerColorId;
   const thicknesId = useMarkerStore().thicknesId;
-  const setPencileColor = useMarkerStore((state) => state.setMarkereColor);
-  const setPencileThickens = useMarkerStore(
+  const setMarkerColor = useMarkerStore((state) => state.setMarkereColor);
+  const setMarkerThickens = useMarkerStore(
     (state) => state.setmarkereThickens
   );
 
   return (
     <>
-      {pencileSettings.allThicknes.map((id, ix) => {
+      {markerSettings.allThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker
             action={() => {
-              setPencileThickens({
+              setMarkerThickens({
                 thicknes: ThicknesPalet.getThicknes(id),
                 thicknesId: id,
               })
@@ -32,13 +32,13 @@ function MarkerTools() {
           />
         );
       })}
-      {pencileSettings.allmarkerColors.map((colorId, ix) => {
+      {markerSettings.allmarkerColors.map((colorId, ix) => {
         return (
           <CircleColorPicker
             colorId={colorId}
             key={ix}
-            selected={colorId === pencilColorId}
-            action={() => setPencileColor({ colorId: colorId, color: "" })
+            selected={colorId === markerColorId}
+            action={() => setMarkerColor({ colorId: colorId, color: "" })
             }
           />
         );
