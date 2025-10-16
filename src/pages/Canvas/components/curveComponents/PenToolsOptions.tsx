@@ -25,15 +25,6 @@ function PenToolOptions() {
 
   return (
     <>
-      {toolOptionsDirection === "horizontal" ? (
-        <EllipsisVertical size={DefaultIconSize} />
-      ) : (
-        <Ellipsis size={DefaultIconSize} />
-      )}
-      <ArrayDivider direction={toolOptionsDirection} />
-      <Pen size={DefaultIconSize} />
-      <Highlighter size={DefaultIconSize} />
-      <ArrayDivider direction={toolOptionsDirection} />
       {penSettings.allThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker

@@ -5,11 +5,10 @@ import {
   DefaultToolBarVPadding,
 } from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
-import MarkerTools from "../curveComponents/MarkerOptionsTool";
 import { Direction } from "../../data/store/LayoutStore";
-import PenToolOptions from "../curveComponents/PenToolsOptions";
 import EraseTools from "../eraseComponents/EraseTools";
 import ShapeTool from "../shapesComponents/ShapeToolOptions";
+import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
 
 export interface ToolOptionParameters {
   direction: Direction;
@@ -21,13 +20,11 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
   let activeToolComponent;
   switch (activeTool) {
     case "pen":
-      activeToolComponent = <PenToolOptions />;
+    case "highlighter":
+      activeToolComponent = <CurveToolOptions />;
       break;
     case "eraser":
       activeToolComponent = <EraseTools />;
-      break;
-    case "highlighter":
-      activeToolComponent = <MarkerTools />;
       break;
     case "square":
       activeToolComponent = <ShapeTool shapeType={"square"} />;
@@ -47,14 +44,12 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
       <div
         className={`
         ${DefaultButtonsBackground} 
-        flex  ${
-          directin === "vertical" && `flex-col ${DefaultToolBarVPadding}` 
-        } 
+        flex items-center gap-4 rounded-lg  pointer-events-auto 
+        ${directin === "vertical" && `flex-col ${DefaultToolBarVPadding}`} 
         ${
-          directin === 'horizontal' && `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
+          directin === "horizontal" &&
+          `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
         }
-        
-        items-center gap-4 rounded-lg  pointer-events-auto 
         `}
       >
         {activeToolComponent}
