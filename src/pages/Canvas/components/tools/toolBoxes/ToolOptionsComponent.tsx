@@ -5,6 +5,7 @@ import useToolStore from "../../../data/store/ToolStore";
 import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
 import EraseTools from "../eraseComponents/EraseTools";
 import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../../data/constants/CanvasConstants";
+import SelectoinToolOptions from "../selectonComponents/SelectoinToolOptions";
 
 export interface ToolOptionParameters {
   direction: Direction;
@@ -18,6 +19,12 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
     case "pen":
     case "highlighter":
       activeToolComponent = <CurveToolOptions />;
+      break;
+    case "pan-zoom":
+    case "selection-lasso":
+    case "selection-square":
+    case "screen-shot":
+      activeToolComponent = <SelectoinToolOptions/>
       break;
     case "eraser":
       activeToolComponent = <EraseTools />;

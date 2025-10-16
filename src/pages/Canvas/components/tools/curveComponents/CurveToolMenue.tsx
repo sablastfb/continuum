@@ -1,7 +1,7 @@
 import { Highlighter, Pencil } from "lucide-react";
 import {
   DefaultIconSize,
-  DefaultOutline as DefaultSelectionOutline,
+  DefaultOutline,
 } from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 
@@ -12,16 +12,15 @@ function CurveToolMenue() {
     <>
       <div
         className={`cursor-pointer   ${
-          ["pen", "highlighter"].includes(canvasStore.activeTool) &&
-          DefaultSelectionOutline
+          canvasStore.activeTool === canvasStore.lastCureveTool &&
+          DefaultOutline
         }`}
         onClick={() => {
-          canvasStore.setActiveTool(canvasStore.activeTool);
+          canvasStore.setActiveTool(canvasStore.lastCureveTool);
         }}
       >
-        {canvasStore.activeTool === "pen" && 
-        <Pencil size={DefaultIconSize} />}
-        {canvasStore.activeTool === "highlighter" && (
+        {canvasStore.lastCureveTool === "pen" && <Pencil size={DefaultIconSize} />}
+        {canvasStore.lastCureveTool === "highlighter" && (
           <Highlighter size={DefaultIconSize} />
         )}
       </div>

@@ -7,6 +7,8 @@ export interface ToolStore {
   lastCureveTool: CurveToolType;
   lastSelectionTool: SelectionToolType;
   setActiveTool: (activeTool: ToolType) => void;
+  setLastCureveTool: (activeTool: CurveToolType) => void;
+  setLastSelectionTool: (activeTool: SelectionToolType) => void;
 }
 
 const useToolStore = create<ToolStore>()(
@@ -17,6 +19,14 @@ const useToolStore = create<ToolStore>()(
     setActiveTool: (activeTool) =>
       set((state) => {
         state.activeTool = activeTool;
+      }),
+    setLastCureveTool: (activeTool) =>
+      set((state) => {
+        state.lastCureveTool = activeTool;
+      }),
+    setLastSelectionTool: (activeTool) =>
+      set((state) => {
+        state.lastSelectionTool = activeTool;
       }),
   }))
 );
