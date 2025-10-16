@@ -1,5 +1,5 @@
 import { System } from "detect-collisions";
-import { SimplePoint } from "../../Types";
+import { SimplePoint } from "../../data/types/Types";
 import {
   GraphicInfo,
   graphicOnCanvas,

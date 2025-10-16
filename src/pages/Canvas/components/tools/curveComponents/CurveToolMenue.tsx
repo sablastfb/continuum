@@ -3,10 +3,10 @@ import {
   DefaultIconSize,
   DefaultOutline as DefaultSelectionOutline,
 } from "../../../data/constants/CanvasConstants";
-import useCanvasStore from "../../../data/store/CanvasStore";
+import useToolStore from "../../../data/store/ToolStore";
 
 function CurveToolMenue() {
-  const canvasStore = useCanvasStore();
+  const canvasStore = useToolStore();
 
   return (
     <>

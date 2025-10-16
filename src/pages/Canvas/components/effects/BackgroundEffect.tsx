@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { Continuum_CanvasBacground } from "../../features/service/Background";
 import useSettingsStore from "../../data/store/BacgroundStore";
-import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
 import { Continuum_ToolManager } from "../../features/tools/ToolManager";
+import useToolStore from "../../data/store/ToolStore";
 
 function BackgroundEffect() {
   const settings = useSettingsStore(
     (state) => state
   );
 
-  const activeTool = useCanvasStore().activeTool;
+  const activeTool = useToolStore().activeTool;
 
   useEffect(() => {
     Continuum_CanvasBacground.changeBackground(settings.background);

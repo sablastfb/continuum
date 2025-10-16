@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   Clipboard,
   Image,
@@ -27,8 +26,9 @@ export interface ToolsMenueParameter {
 }
 
 function ToolsMenue({ direction }: ToolsMenueParameter) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
+  
+  // PART FOR SCROLLING
+  // const scrollContainerRef = useRef<HTMLDivElement>(null);
   // const scroll = (direction: "left" | "right", scrollAmount = 100) => {
   //   const container = scrollContainerRef.current;
   //   if (!container) return;

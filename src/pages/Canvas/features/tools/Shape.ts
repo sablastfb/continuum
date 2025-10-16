@@ -4,7 +4,7 @@
  */
 
 import { Graphics, Texture, TextureSource, TilingSprite } from "pixi.js";
-import { MouseInputPoint, SimplePoint } from "../../Types";
+import { MouseInputPoint, SimplePoint } from "../../data/types/Types";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_MouseService, MouseButton } from "../service/MouseService";
 import { Continuum_CanvasViewport } from "../service/Viewport";

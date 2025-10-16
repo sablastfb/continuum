@@ -2,13 +2,8 @@ import { Dropdown } from "primereact/dropdown";
 import useLayoutStore from "../../../data/store/LayoutStore";
 
 function LayoutSettings() {
-    const layoutStore = useLayoutStore();
-  
-  // const toolButtonPosition = useSettingsStore().layout.toolMenue;
-  // const setLayoutToolsButton = useSettingsStore().setLayoutToolsMenue;
+  const layoutStore = useLayoutStore();
 
-  // const toolMenue = useSettingsStore().layout.toolButtons;
-  // const setLayoutToolsMenue = useSettingsStore().setLayoutToolsButton;
   return (
     <div className="p-4 flex flex-col gap-4">
       <h3 className="text-xl  mb-4">Layout Settings</h3>
@@ -17,7 +12,9 @@ function LayoutSettings() {
         <div>
           <Dropdown
             value={layoutStore.toolMenuePosition}
-            onChange={(e) => layoutStore.setLayoutOptions({toolMenuePosition: e.value})}
+            onChange={(e) =>
+              layoutStore.setLayoutOptions({ toolMenuePosition: e.value })
+            }
             options={["top", "bottom", "left", "right"]}
           />
         </div>
@@ -27,7 +24,9 @@ function LayoutSettings() {
         <div>
           <Dropdown
             value={layoutStore.toolOptionsPosition}
-             onChange={(e) => layoutStore.setLayoutOptions({toolOptionsPosition: e.value})}
+            onChange={(e) =>
+              layoutStore.setLayoutOptions({ toolOptionsPosition: e.value })
+            }
             options={["top", "bottom", "left", "right"]}
           />
         </div>

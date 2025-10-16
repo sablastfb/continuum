@@ -6,7 +6,7 @@ import { Continuum_CanvasViewport } from "../../service/Viewport";
 import { Continuum_ToolManager, ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import { MouseInputPoint } from "../../../Types";
+import { MouseInputPoint } from "../../../data/types/Types";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";

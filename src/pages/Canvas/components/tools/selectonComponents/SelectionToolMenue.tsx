@@ -5,31 +5,21 @@ import {
   SquareDashed,
 } from "lucide-react";
 
-import { useState } from "react";
-import useCanvasStore from "../../../data/store/CanvasStore";
-import { Continuum_ToolManager } from "../../../features/tools/ToolManager";
 import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
+import useToolStore from "../../../data/store/ToolStore";
 
 function SelectionToolMenue() {
-  const setActiveTool = useCanvasStore((state) => state.setActiveTool);
-  const [activeCurveTool, setActiveCurveTool] =
-    useState<Continuum_ToolManager.ToolType>("pen");
+  const canvasStore = useToolStore();
+
   return (
     <>
       <div
         className="cursor-pointer"
-        onClick={() => {
-          setActiveCurveTool(activeCurveTool);
-        }}
       >
-        <div>
-          <Lasso size={DefaultIconSize} />
-        </div>
-        <div>
-          <Camera size={DefaultIconSize} />
-        </div>
-        <MousePointer2 />
-        <SquareDashed />
+       {canvasStore.activeTool === "pan-zoom" && <MousePointer2 size={DefaultIconSize} />}
+       {canvasStore.activeTool === "selection-lasso" && <Lasso size={DefaultIconSize} />}
+       {canvasStore.activeTool === "selection-square" && <SquareDashed size={DefaultIconSize}/>}
+       {canvasStore.activeTool === "screen-shot" && <Camera size={DefaultIconSize} />}
       </div>
     </>
   );
