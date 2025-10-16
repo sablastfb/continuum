@@ -1,11 +1,10 @@
 import { Curve } from "./Curve/Curve";
 import { Erase } from "./Erase";
-import { MouseInputPoint } from "../../data/types/Types";
 import { FederatedPointerEvent } from "pixi.js";
 import { throttle } from "lodash";
-import { Shape } from "./Shape";
 import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
+import type { MouseInputPoint } from "../../data/types/PointTypes";
 
 export type ITool = Partial<{
   type: ToolType;
@@ -17,66 +16,66 @@ export type ITool = Partial<{
   updateCursor(): void;
 }>;
 
-export namespace Continuum_ToolManager {
- 
-  export const tools: Map<ToolType, ITool> = new Map();
-  export let currentTool: ITool | null = null;
+export class Continuum_ToolManager {
+  public static tools: Map<ToolType, ITool> = new Map();
+  public static currentTool: ITool | null = null;
 
-  export function init() {
-    registerDefaultTools();
-    setTool(useToolStore.getState().activeTool);
+  public static init() {
+    Continuum_ToolManager.registerDefaultTools();
+    Continuum_ToolManager.setTool(useToolStore.getState().activeTool);
   }
 
-  export function registerDefaultTools() {
+  public static registerDefaultTools() {
     Continuum_ToolManager.tools.set("pen", new Curve('pen'));
     Continuum_ToolManager.tools.set("highlighter", new Curve('marker'));
     Continuum_ToolManager.tools.set("eraser", new Erase());
-    Continuum_ToolManager.tools.set("shape", new Shape('circle'));
+    // Continuum_ToolManager.tools.set("shape", new Shape('circle'));
   }
 
-  export function startDrawing<P extends MouseInputPoint>(e: P) {
-    if (currentTool && currentTool.startDrawing) {
-      currentTool.startDrawing(e);
+  public static startDrawing<P extends MouseInputPoint>(e: P) {
+    if (Continuum_ToolManager.currentTool && 
+      Continuum_ToolManager.currentTool.startDrawing) {
+      Continuum_ToolManager.currentTool.startDrawing(e);
     }
   }
 
-  export function stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (currentTool && currentTool.stopDrawing) {
-      currentTool.stopDrawing(e);
+ public static stopDrawing<P extends MouseInputPoint>(e: P) {
+    if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.stopDrawing) {
+      Continuum_ToolManager.currentTool.stopDrawing(e);
     }
   }
 
-  export function getCurrentTool() {
-    if (currentTool === null) return null;
-    return currentTool;
+  public static getCurrentTool() {
+    if (Continuum_ToolManager.currentTool === null) return null;
+    return Continuum_ToolManager.currentTool;
   }
 
-  export function updateCursor() {
-    if (currentTool === null) return null;
-    if (currentTool && currentTool.updateCursor) {
-      currentTool.updateCursor();
+  public static updateCursor() {
+    if (Continuum_ToolManager.currentTool === null) return null;
+    if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.updateCursor) {
+      Continuum_ToolManager.currentTool.updateCursor();
     }
   }
 
-  export function setTool(toolType: ToolType) {
+  public static setTool(toolType: ToolType) {
     if (!Continuum_ToolManager.tools.has(toolType)) {
       return;
     }
-    if (currentTool?.type === toolType) return;
-    if (currentTool && currentTool.disposeTool) {
-      currentTool.disposeTool();
+    if (Continuum_ToolManager.currentTool?.type === toolType) return;
+    if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.disposeTool) {
+      Continuum_ToolManager.currentTool.disposeTool();
     }
-    currentTool = tools.get(toolType) ?? null;
-    if (currentTool?.initTool) {
-      currentTool.initTool();
+    Continuum_ToolManager.currentTool = Continuum_ToolManager.tools.get(toolType) ?? null;
+    if (Continuum_ToolManager.currentTool?.initTool) {
+      Continuum_ToolManager.currentTool.initTool();
     }
 
-    return currentTool;
+    return Continuum_ToolManager.currentTool;
   }
 
-  export const draw = throttle((e: FederatedPointerEvent) => {
-    if (currentTool && currentTool.draw) {
-      currentTool.draw(e);
+  public static draw = throttle((e: FederatedPointerEvent) => {
+    if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.draw) {
+      Continuum_ToolManager.currentTool.draw(e);
     }
   }, 8);
 }

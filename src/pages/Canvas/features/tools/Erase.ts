@@ -1,7 +1,6 @@
 import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { Continuum_CanvasViewport } from "../service/Viewport";
-import { MouseInputPoint } from "../../data/types/Types";
 import { ITool } from "./ToolManager";
 import { CircleCursor } from "../cursor/Circle";
 import { Continuum_CollisionService } from "../service/ColisionDetection";
@@ -9,7 +8,8 @@ import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
 import { Continuum_Canvas } from "../CanvasApp";
 import { MouseButton, Continuum_MouseService } from "../service/MouseService";
-import { EraserToolType } from "../../data/types/ToolTypes";
+import type { EraserToolType } from "../../data/types/ToolTypes";
+import type { MouseInputPoint} from "../../data/types/PointTypes";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";

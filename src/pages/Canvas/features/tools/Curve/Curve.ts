@@ -3,10 +3,10 @@ import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePenStore } from "../../../data/store/PenStore";
 import { Continuum_CanvasViewport } from "../../service/Viewport";
-import { Continuum_ToolManager, ITool } from "../ToolManager";
+import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import { MouseInputPoint } from "../../../data/types/Types";
+import type { MouseInputPoint } from "../../../data/types/PointTypes";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
@@ -18,6 +18,7 @@ import {
 import { PenStyle } from "./Pen";
 import { MarkerStyle } from "./Marker";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { ToolType } from "../../../data/types/ToolTypes";
 
 export type CruveStyle = "pen" | "marker";
 
@@ -27,7 +28,7 @@ export interface ICurveStyle {
 }
 
 export class Curve implements ITool {
-  type: Continuum_ToolManager.ToolType = "base";
+  type: ToolType = "base";
   private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;

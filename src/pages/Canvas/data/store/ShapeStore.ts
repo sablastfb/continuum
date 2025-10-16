@@ -52,7 +52,6 @@ export const DefaultShapeSettings: ShapeData = {
   },
 };
 
-export type ShapeTypes = keyof ShapesStore["shapes"];
 
 export interface ShapesStore {
   shapes: {

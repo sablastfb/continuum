@@ -1,4 +1,4 @@
-import { SimplePoint } from "../../data/types/Types";
+import { SimplePoint } from "../../data/types/PointTypes";
 
 export namespace  Continuum_Math{
     export function Distance<P extends SimplePoint>(pStart: P, pEnd: P): number{
