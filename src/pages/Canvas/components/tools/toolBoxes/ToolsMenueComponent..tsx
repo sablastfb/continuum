@@ -5,21 +5,15 @@ import {
   Link,
   Ruler,
 } from "lucide-react";
-import {
-  DefaultButtonsBackground,
-  DefaultIconSize,
-  DefaultToolBarHeight,
-  DefaultToolBarPadding,
-} from "../../data/constants/CanvasConstants";
-
-import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
-import ArrayDivider from "../misc/ArrayDivider";
-import { Direction } from "../../data/store/LayoutStore";
-import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
+import { Direction } from "../../../data/store/LayoutStore";
+import CurveToolMenue from "../curveComponents/CurveToolMenue";
+import SelectionToolMenue from "../selectonComponents/SelectionToolMenue";
+import EraserToolMenue from "../eraseComponents/EraserToolMenue";
+import ShapeToolMenue from "../shapesComponents/ShapeToolMenue";
+import { DefaultButtonsBackground, DefaultIconSize, DefaultToolBarHeight, DefaultToolBarPadding } from "../../../data/constants/CanvasConstants";
+import BookmankrButton from "../bookmarkComponents/BookmankrButton";
+import ArrayDivider from "../../misc/ArrayDivider";
 import DoUnDoComponent from "./DoUnDoComponent";
-import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";
-import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
-import ShapeToolMenue from "../tools/shapesComponents/ShapeToolMenue";
 
 export interface ToolsMenueParameter {
   direction: Direction;
@@ -64,7 +58,6 @@ function ToolsMenue({ direction }: ToolsMenueParameter) {
             ${DefaultToolBarHeight}  ${DefaultButtonsBackground} ${DefaultToolBarPadding}
         `}
       >
-     
             <CurveToolMenue/>
             <SelectionToolMenue/>
             <EraserToolMenue/>

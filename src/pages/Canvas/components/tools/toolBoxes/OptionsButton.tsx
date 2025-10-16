@@ -2,8 +2,9 @@ import { Download, Eye, Info, Menu, NotebookPen, Settings } from "lucide-react";
 
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
-import useCanvasStore from "../../data/store/CanvasStore";
-import { DefaultButtonsBackground, DefaultIconSize } from "../../data/constants/CanvasConstants";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import { DefaultButtonsBackground, DefaultIconSize } from "../../../data/constants/CanvasConstants";
+
 
 function OptionButton() {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);

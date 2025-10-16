@@ -3,7 +3,7 @@ import { Continuum_Canvas } from "./features/CanvasApp";
 import useCanvasStore from "./data/store/CanvasStore";
 import BarrelDialogs from "./components/dialog/BarrelDialogs";
 import BarrelEffect from "./components/effects/BarrelEffect";
-import ToolLayout from "./components/toolBoxes/ToolLayout";
+import ToolLayout from "./components/tools/toolBoxes/ToolLayout";
 
 function CanvasPage() {
   const canvasContainer = useRef<HTMLDivElement>(null);

@@ -1,14 +1,10 @@
-import {
-  DefaultButtonsBackground,
-  DefaultToolBarHeight,
-  DefaultToolBarPadding,
-  DefaultToolBarVPadding,
-} from "../../data/constants/CanvasConstants";
-import { Direction } from "../../data/store/LayoutStore";
-import CurveToolOptions from "../tools/curveComponents/CurveToolOptionsBarrel";
-import EraseTools from "../tools/eraseComponents/EraseTools";
-import useToolStore from "../../data/store/ToolStore";
+
 import type { JSX } from "react";
+import { Direction } from "../../../data/store/LayoutStore";
+import useToolStore from "../../../data/store/ToolStore";
+import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
+import EraseTools from "../eraseComponents/EraseTools";
+import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../../data/constants/CanvasConstants";
 
 export interface ToolOptionParameters {
   direction: Direction;
