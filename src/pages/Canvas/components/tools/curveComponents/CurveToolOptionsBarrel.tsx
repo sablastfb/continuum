@@ -7,7 +7,7 @@ import ArrayDivider from "../../misc/ArrayDivider";
 import { Ellipsis, EllipsisVertical, Highlighter, Pen } from "lucide-react";
 import {
   DefaultIconSize,
-  DefaultOutlineColor as DefaultOutlineSelection,
+  DefaultOutline as DefaultOutlineSelection,
 } from "../../../data/constants/CanvasConstants";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolOptions from "./PenToolsOptions";

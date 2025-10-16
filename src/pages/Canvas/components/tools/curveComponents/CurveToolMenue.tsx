@@ -1,7 +1,7 @@
 import { Highlighter, Pencil } from "lucide-react";
 import {
   DefaultIconSize,
-  DefaultOutlineColor as DefaultSelectionOutline,
+  DefaultOutline as DefaultSelectionOutline,
 } from "../../../data/constants/CanvasConstants";
 import useCanvasStore from "../../../data/store/CanvasStore";
 

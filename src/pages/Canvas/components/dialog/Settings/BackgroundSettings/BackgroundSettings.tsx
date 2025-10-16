@@ -1,7 +1,7 @@
 import "./BackgroundSettings.css";
 import { Continuum_CanvasPalet } from "../../../../data/palet/PaletContainer";
 import CircleColorPicker from "../../../pickers/CircleColorPicker";
-import { DefaultOutlineColor } from "../../../../data/constants/CanvasConstants";
+import { DefaultOutline } from "../../../../data/constants/CanvasConstants";
 import useSettingsStore from "../../../../data/store/BacgroundStore";
 
 function BacgroundPickerColor({ selected }: { selected: boolean }) {
@@ -11,7 +11,7 @@ function BacgroundPickerColor({ selected }: { selected: boolean }) {
     <>
       <div
         className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer line-pattern ${
-          selected ? `${DefaultOutlineColor}` : "outline-gray-800"
+          selected ? `${DefaultOutline}` : "outline-gray-800"
         }`}
         style={{ backgroundColor: Continuum_CanvasPalet.getColor(background.color) }}
         onClick={() => setBackgroundSettings({ activeBacgroundType: "color" })}
@@ -26,7 +26,7 @@ function BacgroundPickerGrid({ selected }: { selected: boolean }) {
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer grid-pattern ${
-        selected ? `${DefaultOutlineColor}` : "outline-gray-800"
+        selected ? `${DefaultOutline}` : "outline-gray-800"
       }`}
       style={{
         backgroundColor: Continuum_CanvasPalet.getColor(background.grid.bacgroundColor),
@@ -44,7 +44,7 @@ function BacgroundPickerDots({ selected }: { selected: boolean }) {
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer dot-pattern ${
-        selected ? `${DefaultOutlineColor} ` : "outline-gray-800"
+        selected ? `${DefaultOutline} ` : "outline-gray-800"
       }`}
       style={{
         backgroundColor: Continuum_CanvasPalet.getColor(background.dots.bacgroundColor),
@@ -66,7 +66,7 @@ function BacgroundPickerLine({ selected }: { selected: boolean }) {
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer line-pattern ${
-        selected ? `${DefaultOutlineColor} ` : "outline-gray-800"
+        selected ? `${DefaultOutline} ` : "outline-gray-800"
       }`}
       style={{
         backgroundColor: Continuum_CanvasPalet.getColor(background.line.bacgroundColor),

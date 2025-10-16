@@ -1,6 +1,6 @@
 import { Circle, LineSquiggle } from "lucide-react";
 import { useEraseStore } from "../../../data/store/EraseStore";
-import { DefaultOutlineColor } from "../../../data/constants/CanvasConstants";
+import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
@@ -17,7 +17,7 @@ function EraseTools() {
     <>
       <LineSquiggle
         className={`rounded-full w-7 h-7 hover:cursor-pointer ${
-          eraseMethod === "strong" ? DefaultOutlineColor : ""
+          eraseMethod === "strong" ? DefaultOutline : ""
         }`}
         onClick={() => {
           setEraseMode("strong");
@@ -25,7 +25,7 @@ function EraseTools() {
       />
       <Circle
         className={`rounded-full w-7 h-7 hover:cursor-pointer ${
-          eraseMethod === "soft" ? DefaultOutlineColor : ""
+          eraseMethod === "soft" ? DefaultOutline : ""
         }`}
         onClick={() => {
           setEraseMode("soft");

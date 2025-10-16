@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
 import { usePenStore } from "../../data/store/PenStore";
-import { CirclePickeSize, DefaultOutlineColor } from "../../data/constants/CanvasConstants";
+import { CirclePickeSize, DefaultOutline } from "../../data/constants/CanvasConstants";
 
 function CustomColorPicker({ customColorId }: { customColorId: string }) {
   const setPenColor = usePenStore().setPenColor;
@@ -33,7 +33,7 @@ function CustomColorPicker({ customColorId }: { customColorId: string }) {
     <div
       style={{ background: color }}
       className={`rounded-sm ${
-        pencilColorId === customColorId ? `${DefaultOutlineColor}` : ""
+        pencilColorId === customColorId ? `${DefaultOutline}` : ""
       }`}
     >
       <input
