@@ -23,7 +23,7 @@ function ToolLayout() {
         `}
     >
       {/* LEFT */}
-      <div className="p-1 h-full  absolute left-0 flex  items-center gap-1">
+      <div className="p-1 h-full  absolute left-0 flex  items-center gap-1 flex-row-reverse">
         {layoutStore.toolOptionsPosition === "left" && (
           <ToolOptionsComponent direction="vertical" />
         )}
@@ -32,7 +32,7 @@ function ToolLayout() {
         )}
       </div>
       {/* RIGT */}
-      <div className="p-1 h-full absolute right-0 flex items-center gap-1">
+      <div className="p-1 h-full absolute right-0 flex items-center gap-1 ">
         {layoutStore.toolOptionsPosition === "right" && (
           <ToolOptionsComponent direction="vertical" />
         )}
@@ -42,14 +42,14 @@ function ToolLayout() {
       </div>
 
       {/* TOP */}
-      <div className="p-1 w-full absolute top-0 flex flex-col items-center gap-1">
+      <div className="p-1 w-full absolute top-0 flex  items-center gap-1 flex-col-reverse">
+        {layoutStore.toolOptionsPosition === "top" && (
+          <ToolOptionsComponent direction="horizontal" />
+        )}
         {layoutStore.toolMenuePosition === "top" && (
           <ToolsMenue direction="horizontal" /> 
         )}
         
-        {layoutStore.toolOptionsPosition === "top" && (
-          <ToolOptionsComponent direction="horizontal" />
-        )}
       </div>
       {/*BOTOM */}
       <div className="p-1 w-full absolute bottom-0 flex flex-col items-center gap-1">
