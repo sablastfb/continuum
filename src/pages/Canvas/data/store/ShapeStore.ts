@@ -3,14 +3,8 @@ import { immer } from "zustand/middleware/immer";
 import { TileBacgroundSettings } from "../../features/service/TailBackground";
 import { ColorId } from "../palet/PaletContainer";
 
+export type Shape = "square" | "circle" |  "poligon";
 export type ShapeFillType = "outline-only" | "fill-only" | "outline-fill";
-
-export type ShapeData = TileBacgroundSettings & {
-  outlineColors: ColorId[];
-  outlineColor: ColorId;
-  outlineWidth: number;
-  fillType: ShapeFillType;
-};
 
 const shapeBackgroundColors = [
   "bg-1",
@@ -25,7 +19,17 @@ const shapeOutlineColors = [
   "shape-outline-rose-pink",
   "shape-outline-turquoise-teal",
 ];
+
+export type ShapeData = TileBacgroundSettings & {
+  shape: Shape,
+  outlineColors: ColorId[];
+  outlineColor: ColorId;
+  outlineWidth: number;
+  fillType: ShapeFillType;
+};
+
 export const DefaultShapeSettings: ShapeData = {
+  shape: 'square',
   fillType: "outline-fill",
   outlineColors: shapeOutlineColors,
   outlineColor: shapeOutlineColors[0],
@@ -49,33 +53,14 @@ export const DefaultShapeSettings: ShapeData = {
     bacgroundColor: shapeBackgroundColors[0],
     lineColor: "bgt-1",
     spaceBetween: 50,
-  },
+  }
 };
 
-
-export interface ShapesStore {
-  shapes: {
-    square: ShapeData;
-    circle: ShapeData;
-    hexagon: ShapeData;
-    poligon: ShapeData;
-  };
-  updateShape: (
-    shapeType: keyof ShapesStore["shapes"],
-    data: Partial<ShapeData>
-  ) => void;
+export interface ShapeStore extends ShapeData {
 }
-export const useShapesStore = create<ShapesStore>()(
+
+export const useShapesStore = create<ShapeData>()(
   immer((set) => ({
-    shapes: {
-      square: { ...DefaultShapeSettings },
-      circle: { ...DefaultShapeSettings },
-      hexagon: { ...DefaultShapeSettings },
-      poligon: { ...DefaultShapeSettings },
-    },
-    updateShape: (shapeType, newData) =>
-      set((state) => {
-        state.shapes[shapeType] = { ...state.shapes[shapeType], ...newData };
-      }),
+    ...DefaultShapeSettings,
   }))
 );

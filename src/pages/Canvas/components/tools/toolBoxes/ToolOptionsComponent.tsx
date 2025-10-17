@@ -3,9 +3,11 @@ import type { JSX } from "react";
 import { Direction } from "../../../data/store/LayoutStore";
 import useToolStore from "../../../data/store/ToolStore";
 import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
-import EraseTools from "../eraseComponents/EraseTools";
+import EraseToolOptions from "../eraseComponents/EraseToolOptions";
 import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../../data/constants/CanvasConstants";
 import SelectoinToolOptions from "../selectonComponents/SelectoinToolOptions";
+import ShapeToolMenue from "../shapesComponents/ShapeToolMenue";
+import ShapeToolOptions from "../shapesComponents/ShapeToolOptions";
 
 export interface ToolOptionParameters {
   direction: Direction;
@@ -27,7 +29,10 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
       activeToolComponent = <SelectoinToolOptions/>
       break;
     case "eraser":
-      activeToolComponent = <EraseTools />;
+      activeToolComponent = <EraseToolOptions />;
+      break;
+    case "shape":
+      activeToolComponent = <ShapeToolOptions/>
       break;
     default:
       activeToolComponent = null;

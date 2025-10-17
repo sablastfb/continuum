@@ -1,18 +1,25 @@
+import { Eraser } from "lucide-react";
 import {
-  Eraser
-} from "lucide-react";
-import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
+  DefaultIconSize,
+  DefaultOutline,
+} from "../../../data/constants/CanvasConstants";
+import useToolStore from "../../../data/store/ToolStore";
 
 function EraserToolMenue() {
+  const canvasStore = useToolStore();
 
   return (
     <>
       <div
-        className="cursor-pointer"
+        className={`cursor-pointer
+                ${canvasStore.activeTool === "eraser" && DefaultOutline}
+               
+               `}
         onClick={() => {
+          canvasStore.setActiveTool("eraser");
         }}
       >
-          <Eraser size={DefaultIconSize} />
+        <Eraser size={DefaultIconSize} />
       </div>
     </>
   );

@@ -4,17 +4,21 @@ import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
+import ToolOptionHeaderComponent from "../toolBoxes/ToolOptionsHeaderComponent";
+import useLayoutStore from "../../../data/store/LayoutStore";
 
 
-function EraseTools() {
+function EraseToolOptions() {
   const eraseSettings = useEraseStore();
   const eraseMethod = useEraseStore().eraseMethod;
   const thicknesId = useEraseStore().thicknesId;
   const setEraseMode = useEraseStore().setEraseMode;
   const setEraseThickens = useEraseStore((state) => state.setEraseThickens);
+  const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   
   return (
     <>
+      <ToolOptionHeaderComponent />
       <LineSquiggle
         className={`rounded-full w-7 h-7 hover:cursor-pointer ${
           eraseMethod === "strong" ? DefaultOutline : ""
@@ -32,7 +36,7 @@ function EraseTools() {
         }}
       />
 
-      <ArrayDivider direction="vertical" />
+      <ArrayDivider direction={toolOptionsDirection} />
       
       {eraseSettings.allEraseThicknes.map((id, ix) => {
         return (
@@ -53,4 +57,4 @@ function EraseTools() {
   );
 }
 
-export default EraseTools;
+export default EraseToolOptions;
