@@ -13,10 +13,6 @@ function OptionButton() {
 
   return (
     <>
-    <NotebookPen 
-        size={DefaultIconSize}
-    />
-    <Eye></Eye>
       <Settings
         size={DefaultIconSize}
         className="hover:cursor-pointer"

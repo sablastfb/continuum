@@ -9,6 +9,7 @@ export interface CanvasStore {
   canvasCursorActive: boolean;
   historyPosition: number;
   historyCount: number;
+  advanceToolsActive: boolean;
   setZoom: (zoom: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   setSettingVisible: (visible: boolean) => void;
@@ -16,6 +17,7 @@ export interface CanvasStore {
   setExportVisible: (visible: boolean) => void;
   setHistoryPosition: (historyCount: number) => void;
   setHistoryCount: (historyPosition: number) => void;
+  setAdvanceTools: (advanceTools: boolean) => void;
 }
 
 const useCanvasStore = create<CanvasStore>()(
@@ -27,6 +29,7 @@ const useCanvasStore = create<CanvasStore>()(
     canvasCursorActive: true,
     historyPosition: -1,
     historyCount: 0,
+    advanceToolsActive: false,
     setHistoryCount: (historyCount) =>
       set((state) => {
         state.historyCount = historyCount;
@@ -51,10 +54,14 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.exportVisible = exportVisible;
       }),
- 
+
     setCanvasCursorActive: (canvasCursorActive) =>
       set((state) => {
         state.canvasCursorActive = canvasCursorActive;
+      }),
+    setAdvanceTools: (advanceTools: boolean) =>
+      set((state) => {
+        state.advanceToolsActive = advanceTools;
       }),
   }))
 );

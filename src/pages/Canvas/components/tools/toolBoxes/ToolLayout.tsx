@@ -32,7 +32,7 @@ function ToolLayout() {
         )}
       </div>
       {/* RIGT */}
-      <div className="p-1 h-full absolute right-0 flex  items-center gap-1">
+      <div className="p-1 h-full absolute right-0 flex items-center gap-1">
         {layoutStore.toolOptionsPosition === "right" && (
           <ToolOptions direction="vertical" />
         )}

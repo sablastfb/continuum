@@ -2,9 +2,11 @@ import { Ellipsis, EllipsisVertical } from "lucide-react";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function ToolOptionHeaderComponent() {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
+  const canvasStore = useCanvasStore();
 
   return (
     <>
@@ -15,6 +17,9 @@ function ToolOptionHeaderComponent() {
       ${toolOptionsDirection === "vertical" && " flex-col  "}
       
       `}
+        onClick={() => {
+          canvasStore.setAdvanceTools(!canvasStore.advanceToolsActive);
+        }}
       >
         {toolOptionsDirection === "horizontal" ? (
           <EllipsisVertical size={DefaultIconSize} />
