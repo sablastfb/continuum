@@ -18,7 +18,7 @@ export interface ToolOptionParameters {
   direction: Direction;
 }
 
-function ToolOptions({ direction: directin }: ToolOptionParameters) {
+function ToolOptionsComponent({ direction: direction }: ToolOptionParameters) {
   const canvasStore = useCanvasStore();
   const activeTool = useToolStore((state) => state.activeTool);
 
@@ -60,9 +60,9 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
           className={`
         ${DefaultButtonsBackground} 
         flex items-center gap-4 rounded-lg  pointer-events-auto 
-        ${directin === "vertical" && `flex-col ${DefaultToolBarVPadding}`} 
+        ${direction === "vertical" && `flex-col ${DefaultToolBarVPadding}`} 
         ${
-          directin === "horizontal" &&
+          direction === "horizontal" &&
           `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
         }
         `}
@@ -74,4 +74,4 @@ function ToolOptions({ direction: directin }: ToolOptionParameters) {
   );
 }
 
-export default ToolOptions;
+export default ToolOptionsComponent;

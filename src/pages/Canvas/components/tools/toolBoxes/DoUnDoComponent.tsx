@@ -12,7 +12,7 @@ function DoUnDoComponent() {
 
   return (
     <>
-      <div className="pointer-events-auto flex gap-2 px-1">
+      <div className={`pointer-events-auto flex gap-2 px-1 ${layoutStore === 'vertical' && 'flex-col h-full '}`}>
         <div
           onClick={() => Continuum_Canvas.commandManage.goBack()}
           className={

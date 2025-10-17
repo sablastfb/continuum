@@ -1,16 +1,16 @@
-import {
-  Clipboard,
-  Image,
-  Type,
-  Link,
-  Ruler,
-} from "lucide-react";
+import { Clipboard, Image, Type, Link, Ruler } from "lucide-react";
 import { Direction } from "../../../data/store/LayoutStore";
 import CurveToolMenue from "../curveComponents/CurveToolMenue";
 import SelectionToolMenue from "../selectonComponents/SelectionToolMenue";
 import EraserToolMenue from "../eraseComponents/EraserToolMenue";
 import ShapeToolMenue from "../shapesComponents/ShapeToolMenue";
-import { DefaultButtonsBackground, DefaultIconSize, DefaultToolBarHeight, DefaultToolBarPadding } from "../../../data/constants/CanvasConstants";
+import {
+  DefaultButtonsBackground,
+  DefaultIconSize,
+  DefaultToolBarHeight,
+  DefaultToolBarPadding,
+  DefaultToolBarVPadding,
+} from "../../../data/constants/CanvasConstants";
 import BookmankrButton from "../bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../../misc/ArrayDivider";
 import DoUnDoComponent from "./DoUnDoComponent";
@@ -20,7 +20,6 @@ export interface ToolsMenueParameter {
 }
 
 function ToolsMenue({ direction }: ToolsMenueParameter) {
-  
   // PART FOR SCROLLING
   // const scrollContainerRef = useRef<HTMLDivElement>(null);
   // const scroll = (direction: "left" | "right", scrollAmount = 100) => {
@@ -49,27 +48,48 @@ function ToolsMenue({ direction }: ToolsMenueParameter) {
   //   });
   // };
 
-
   return (
     <>
       <div
-        className={`flex ${ direction === "vertical" && "flex-col"} 
-        justify-center items-center rounded-md gap-5 pointer-events-auto
-            ${DefaultToolBarHeight}  ${DefaultButtonsBackground} ${DefaultToolBarPadding}
-        `}
+        className={`
+             ${DefaultButtonsBackground} 
+             flex items-center gap-4 rounded-lg  pointer-events-auto 
+             ${
+               direction === "vertical" && `flex-col ${DefaultToolBarVPadding}`
+             } 
+             ${
+               direction === "horizontal" &&
+               `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
+             }
+             `}
       >
-            <CurveToolMenue/>
-            <SelectionToolMenue/>
-            <EraserToolMenue/>
-            <ShapeToolMenue/>
-            <div>  <Type size={DefaultIconSize} /></div>
+        <CurveToolMenue />
+        <SelectionToolMenue />
+        <EraserToolMenue />
+        <ShapeToolMenue />
+        <div>
+          {" "}
+          <Type size={DefaultIconSize} />
+        </div>
 
-            <div>  <Image size={DefaultIconSize} /></div>
-            <div>  <Ruler size={DefaultIconSize} /></div>
-            <div>  <Link size={DefaultIconSize} /></div>
-            <BookmankrButton />
-            <div>  <Clipboard size={DefaultIconSize} /></div>
-        <ArrayDivider direction="horizontal"/>
+        <div>
+          {" "}
+          <Image size={DefaultIconSize} />
+        </div>
+        <div>
+          {" "}
+          <Ruler size={DefaultIconSize} />
+        </div>
+        <div>
+          {" "}
+          <Link size={DefaultIconSize} />
+        </div>
+        <BookmankrButton />
+        <div>
+          {" "}
+          <Clipboard size={DefaultIconSize} />
+        </div>
+        <ArrayDivider direction={direction} />
         <DoUnDoComponent />
       </div>
     </>

@@ -2,7 +2,7 @@
 import useLayoutStore from "../../../data/store/LayoutStore";
 import BookmakrContainer from "../bookmarkComponents/BookMarkComponent";
 import OptionButtons from "./OptionsButton";
-import ToolOptions from "./ToolOptionsComponent";
+import ToolOptionsComponent from "./ToolOptionsComponent";
 import ToolsMenue from "./ToolsMenueComponent.";
 import ZoomingButton from "./ZoomingComponent";
 function ToolLayout() {
@@ -25,7 +25,7 @@ function ToolLayout() {
       {/* LEFT */}
       <div className="p-1 h-full  absolute left-0 flex  items-center gap-1">
         {layoutStore.toolOptionsPosition === "left" && (
-          <ToolOptions direction="vertical" />
+          <ToolOptionsComponent direction="vertical" />
         )}
         {layoutStore.toolMenuePosition === "left" && (
           <ToolsMenue direction="vertical" />
@@ -34,7 +34,7 @@ function ToolLayout() {
       {/* RIGT */}
       <div className="p-1 h-full absolute right-0 flex items-center gap-1">
         {layoutStore.toolOptionsPosition === "right" && (
-          <ToolOptions direction="vertical" />
+          <ToolOptionsComponent direction="vertical" />
         )}
         {layoutStore.toolMenuePosition === "right" && (
           <ToolsMenue direction="vertical" />
@@ -48,13 +48,13 @@ function ToolLayout() {
         )}
         
         {layoutStore.toolOptionsPosition === "top" && (
-          <ToolOptions direction="horizontal" />
+          <ToolOptionsComponent direction="horizontal" />
         )}
       </div>
       {/*BOTOM */}
       <div className="p-1 w-full absolute bottom-0 flex flex-col items-center gap-1">
         {layoutStore.toolOptionsPosition === "bottom" && (
-          <ToolOptions direction="horizontal" />
+          <ToolOptionsComponent direction="horizontal" />
         )}
         {layoutStore.toolMenuePosition === "bottom" && (
           <ToolsMenue direction="horizontal" />
