@@ -1,4 +1,4 @@
-import { ChevronLeft, Download, Info, Menu, Settings } from "lucide-react";
+import { ChevronLeft, CircleChevronLeft, Download, Info, Keyboard, Menu, Settings } from "lucide-react";
 
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
@@ -12,8 +12,7 @@ function OptionButton() {
 
   return (
     <>
-      <ChevronLeft size={DefaultIconSize} />
-
+      <CircleChevronLeft   className="hover:cursor-pointer" size={DefaultIconSize} />
       <Settings
         size={DefaultIconSize}
         className="hover:cursor-pointer"
@@ -21,7 +20,7 @@ function OptionButton() {
           setSettingVisible(true);
         }}
       />
-      <Info
+      <Keyboard
         size={DefaultIconSize}
         className="hover:cursor-pointer"
         onClick={() => {
@@ -56,7 +55,7 @@ function OptionButtons() {
         <Menu size={DefaultIconSize} className="hover:cursor-pointer" />
       </div>
       <div
-        className={` hidden xl:flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center gap-4 m-1 p-1`}
+        className={` hidden xl:flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center gap-2 m-1 p-1`}
       >
         <OptionButton />
       </div>

@@ -19,7 +19,7 @@ function ToolOptionHeaderComponent() {
       
       `}
         onClick={() => {
-          canvasStore.setAdvanceTools(!canvasStore.advanceToolsActive);
+          canvasStore.setAdvanceToolsVisibility(!canvasStore.advanceToolsActive);
         }}
       >
         {toolOptionsDirection === "horizontal" ? (
