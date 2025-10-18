@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
 import { usePenStore } from "../../data/store/PenStore";
-import { CirclePickeSize, DefaultOutline } from "../../data/constants/CanvasConstants";
+import { CirclePickeSize, DefaultOutline } from "../../data/types/CanvasConstants";
 
 function CustomColorPicker({ customColorId }: { customColorId: string }) {
   const setPenColor = usePenStore().setPenColor;

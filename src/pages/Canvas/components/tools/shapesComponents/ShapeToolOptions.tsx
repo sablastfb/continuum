@@ -5,7 +5,7 @@ import CircleColorPicker from "../../pickers/CircleColorPicker";
 import {
   DefaultIconSize,
   DefaultOutlineColor,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../data/types/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";

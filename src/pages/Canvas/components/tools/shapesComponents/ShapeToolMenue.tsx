@@ -2,7 +2,7 @@ import { Circle, HexagonIcon, Square } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../data/types/CanvasConstants";
 import { useShapesStore } from "../../../data/store/ShapeStore";
 import useToolStore from "../../../data/store/ToolStore";
 

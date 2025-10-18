@@ -1,14 +1,18 @@
 import type { JSX } from "react";
-import { Direction } from "../../data/store/LayoutStore";
-import useCanvasStore from "../../data/store/CanvasStore";
-import useToolStore from "../../data/store/ToolStore";
-import CurveToolOptions from "../tools/curveComponents/CurveToolOptionsBarrel";
-import CurveAdvanceSettings from "../tools/curveComponents/CurveAdvanceSettings";
-import SelectoinToolOptions from "../tools/selectonComponents/SelectoinToolOptions";
-import EraseToolOptions from "../tools/eraseComponents/EraseToolOptions";
-import ShapeToolOptions from "../tools/shapesComponents/ShapeToolOptions";
-import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../data/types/CanvasConstants";
-
+import { Direction } from "../../../data/store/LayoutStore";
+import useToolStore from "../../../data/store/ToolStore";
+import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
+import EraseToolOptions from "../eraseComponents/EraseToolOptions";
+import {
+  DefaultButtonsBackground,
+  DefaultToolBarHeight,
+  DefaultToolBarPadding,
+  DefaultToolBarVPadding,
+} from "../../../data/types/CanvasConstants";
+import SelectoinToolOptions from "../selectonComponents/SelectoinToolOptions";
+import ShapeToolOptions from "../shapesComponents/ShapeToolOptions";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import CurveAdvanceSettings from "../curveComponents/CurveAdvanceSettings";
 
 export interface ToolOptionParameters {
   direction: Direction;

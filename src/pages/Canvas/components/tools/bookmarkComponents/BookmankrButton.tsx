@@ -1,5 +1,5 @@
 import { Bookmark } from "lucide-react";
-import { DefaultIconSize } from "../../../data/constants/CanvasConstants";
+import { DefaultIconSize } from "../../../data/types/CanvasConstants";
 import { useBookmark } from "../../../data/store/BookmarkStore";
 
 function BookmankrButton() {

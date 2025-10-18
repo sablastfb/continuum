@@ -2,7 +2,7 @@ import { Highlighter, Pencil } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../data/types/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 
 function CurveToolMenue() {

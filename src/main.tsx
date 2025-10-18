@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from 'primereact/api';
-import { AppConstants } from './pages/Canvas/data/constants/AppConstants';
+import { AppConstants } from './pages/Canvas/data/types/AppConstants';
 
 
 const themeLinkId = 'theme-link';

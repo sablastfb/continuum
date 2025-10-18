@@ -1,5 +1,5 @@
 import { ZoomedEvent } from "pixi-viewport/dist/types";
-import { ZoomSensitivity } from "../../data/constants/CanvasConstants";
+import { ZoomSensitivity } from "../../data/types/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasBacground } from "./Background";

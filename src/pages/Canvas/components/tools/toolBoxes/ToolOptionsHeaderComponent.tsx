@@ -1,9 +1,8 @@
 import { Ellipsis, EllipsisVertical } from "lucide-react";
-import useLayoutStore from "../../data/store/LayoutStore";
-import useCanvasStore from "../../data/store/CanvasStore";
-import { DefaultIconSize } from "../../data/types/CanvasConstants";
-import ArrayDivider from "../misc/ArrayDivider";
-
+import useLayoutStore from "../../../data/store/LayoutStore";
+import { DefaultIconSize } from "../../../data/types/CanvasConstants";
+import ArrayDivider from "../../misc/ArrayDivider";
+import useCanvasStore from "../../../data/store/CanvasStore";
 
 function ToolOptionHeaderComponent() {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;

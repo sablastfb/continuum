@@ -4,13 +4,13 @@ import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
 import { useRef, useState } from "react";
 import "./SettingsDialog.css";
-import BackgroundSettings from "../BackgroundSettings/BackgroundSettings";
+import BackgroundSettings from "../backgroundSettings/BackgroundSettings";
 import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
 import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
-import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
+import { DefaultDialogBacground } from "../../../../data/types/CanvasConstants";
 
 function SettingsDialog() {
   const setTheme = useSettingsStore().setTheme;

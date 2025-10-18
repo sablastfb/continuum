@@ -1,4 +1,4 @@
-import { DefaultOutlineColor } from "../../data/constants/CanvasConstants";
+import { DefaultOutlineColor } from "../../data/types/CanvasConstants";
 import { Continuum_CanvasPalet, ColorId } from "../../data/palet/PaletContainer";
 
 export type CircleColorPickerParm = {
