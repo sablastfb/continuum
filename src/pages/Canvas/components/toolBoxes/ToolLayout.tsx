@@ -1,6 +1,6 @@
 
-import useLayoutStore from "../../../data/store/LayoutStore";
-import BookmakrContainer from "../bookmarkComponents/BookMarkComponent";
+import useLayoutStore from "../../data/store/LayoutStore";
+import BookmakrContainer from "../tools/bookmarkComponents/BookMarkComponent";
 import OptionButtons from "./OptionsButton";
 import ToolOptionsComponent from "./ToolOptionsComponent";
 import ToolsMenue from "./ToolsMenueComponent.";

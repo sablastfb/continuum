@@ -8,7 +8,7 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolOptions from "./PenToolsOptions";
 import HighlighterToolsOptions from "./HighlighterToolOptions";
 import useToolStore from "../../../data/store/ToolStore";
-import ToolOptionHeaderComponent from "../toolBoxes/ToolOptionsHeaderComponent";
+import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
 function CurveToolOptions() {
   const setActiveTool = useToolStore((state) => state.setActiveTool);

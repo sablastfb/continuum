@@ -9,9 +9,9 @@ import {
   DefaultOutline as DefaultOutlineSelection,
 } from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
-import ToolOptionHeaderComponent from "../toolBoxes/ToolOptionsHeaderComponent";
 import { SelectionToolType } from "../../../data/types/ToolTypes";
 import { JSX } from "react";
+import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
 interface Par {
   icon: JSX.Element;

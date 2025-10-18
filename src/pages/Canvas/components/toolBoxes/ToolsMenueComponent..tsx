@@ -1,19 +1,13 @@
 import { Clipboard, Image, Type, Link, Ruler } from "lucide-react";
-import { Direction } from "../../../data/store/LayoutStore";
-import CurveToolMenue from "../curveComponents/CurveToolMenue";
-import SelectionToolMenue from "../selectonComponents/SelectionToolMenue";
-import EraserToolMenue from "../eraseComponents/EraserToolMenue";
-import ShapeToolMenue from "../shapesComponents/ShapeToolMenue";
-import {
-  DefaultButtonsBackground,
-  DefaultIconSize,
-  DefaultToolBarHeight,
-  DefaultToolBarPadding,
-  DefaultToolBarVPadding,
-} from "../../../data/constants/CanvasConstants";
-import BookmankrButton from "../bookmarkComponents/BookmankrButton";
-import ArrayDivider from "../../misc/ArrayDivider";
 import DoUnDoComponent from "./DoUnDoComponent";
+import { Direction } from "../../data/store/LayoutStore";
+import { DefaultButtonsBackground, DefaultIconSize, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../data/constants/CanvasConstants";
+import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
+import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
+import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";
+import ShapeToolMenue from "../tools/shapesComponents/ShapeToolMenue";
+import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
+import ArrayDivider from "../misc/ArrayDivider";
 
 export interface ToolsMenueParameter {
   direction: Direction;

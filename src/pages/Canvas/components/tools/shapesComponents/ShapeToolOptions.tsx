@@ -7,8 +7,8 @@ import {
   DefaultOutlineColor,
 } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
-import ToolOptionHeaderComponent from "../toolBoxes/ToolOptionsHeaderComponent";
 import useLayoutStore from "../../../data/store/LayoutStore";
+import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
 // interface ShapeToolProps {
 //   fillType?: ShapeFillType;
