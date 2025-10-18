@@ -1,6 +1,6 @@
 import ExportDialog from "./ExportDialog";
 import InfoDialog from "./InfoDialog";
-import SettingsDialog from "./Settings/SettingsDialog/SettingsDialog";
+import SettingsDialog from "./settingsDialogs/SettingsDialog/SettingsDialog";
 
 function BarrelDialogs() {
   return (

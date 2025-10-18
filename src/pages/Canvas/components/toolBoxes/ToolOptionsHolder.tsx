@@ -14,7 +14,7 @@ export interface ToolOptionParameters {
   direction: Direction;
 }
 
-function ToolOptionsComponent({ direction: direction }: ToolOptionParameters) {
+function ToolOptionsHolder({ direction: direction }: ToolOptionParameters) {
   const canvasStore = useCanvasStore();
   const activeTool = useToolStore((state) => state.activeTool);
 
@@ -70,4 +70,4 @@ function ToolOptionsComponent({ direction: direction }: ToolOptionParameters) {
   );
 }
 
-export default ToolOptionsComponent;
+export default ToolOptionsHolder;
