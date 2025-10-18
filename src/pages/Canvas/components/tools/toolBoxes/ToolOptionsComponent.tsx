@@ -1,20 +1,24 @@
 import type { JSX } from "react";
-import { Direction } from "../../data/store/LayoutStore";
-import useCanvasStore from "../../data/store/CanvasStore";
-import useToolStore from "../../data/store/ToolStore";
-import CurveToolOptions from "../tools/curveComponents/CurveToolOptionsBarrel";
-import CurveAdvanceSettings from "../tools/curveComponents/CurveAdvanceSettings";
-import SelectoinToolQuickOptions from "../tools/selectonComponents/SelectoinToolQuickOptions";
-import EraseToolQuickOptions from "../tools/eraseComponents/EraseToolQuickOptions";
-import ShapeToolQuickOptions from "../tools/shapesComponents/ShapeToolQuickOptions";
-import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../data/types/CanvasConstants";
-
+import { Direction } from "../../../data/store/LayoutStore";
+import useToolStore from "../../../data/store/ToolStore";
+import CurveToolOptions from "../curveComponents/CurveToolOptionsBarrel";
+import EraseToolQuickOptions from "../eraseComponents/EraseToolQuickOptions";
+import {
+  DefaultButtonsBackground,
+  DefaultToolBarHeight,
+  DefaultToolBarPadding,
+  DefaultToolBarVPadding,
+} from "../../../data/types/CanvasConstants";
+import SelectoinToolQuickOptions from "../selectonComponents/SelectoinToolQuickOptions";
+import ShapeToolQuickOptions from "../shapesComponents/ShapeToolQuickOptions";
+import useCanvasStore from "../../../data/store/CanvasStore";
+import CurveAdvanceSettings from "../curveComponents/CurveAdvanceSettings";
 
 export interface ToolOptionParameters {
   direction: Direction;
 }
 
-function ToolOptionsHolder({ direction: direction }: ToolOptionParameters) {
+function ToolOptionsComponent({ direction: direction }: ToolOptionParameters) {
   const canvasStore = useCanvasStore();
   const activeTool = useToolStore((state) => state.activeTool);
 
@@ -46,7 +50,9 @@ function ToolOptionsHolder({ direction: direction }: ToolOptionParameters) {
     <>
       {canvasStore.advanceToolsActive && advanceSettingsComponent && (
         <div
-          className={`${DefaultButtonsBackground} rounded-lg min-w-[20vw]  min-h-[20vw] pointer-events-auto `}
+          tabIndex={0} // This makes the div focusable
+          className={`${DefaultButtonsBackground} rounded-lg min-w-[20vw] min-h-[20vw] pointer-events-auto`}
+          onBlur={() => canvasStore.setAdvanceToolsVisibility(false)}
         >
           {advanceSettingsComponent}
         </div>
@@ -70,4 +76,4 @@ function ToolOptionsHolder({ direction: direction }: ToolOptionParameters) {
   );
 }
 
-export default ToolOptionsHolder;
+export default ToolOptionsComponent;

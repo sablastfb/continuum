@@ -8,7 +8,7 @@ import ArrayDivider from "../../misc/ArrayDivider";
 
 import useLayoutStore from "../../../data/store/LayoutStore";
 
-function PenToolOptions() {
+function PenToolQuickOptions() {
   const penSettings = usePenStore();
   const pencilColorId = usePenStore().penColorId;
   const thicknesId = usePenStore().thicknesId;
@@ -51,4 +51,4 @@ function PenToolOptions() {
   );
 }
 
-export default PenToolOptions;
+export default PenToolQuickOptions;

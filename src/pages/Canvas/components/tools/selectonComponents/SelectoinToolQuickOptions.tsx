@@ -41,7 +41,7 @@ function SelectoinToolOptionsButton({ icon, toolType }: Par) {
   );
 }
 
-function SelectoinToolOptions() {
+function SelectoinToolQuickOptions() {
   return (
     <>
       <ToolOptionHeaderComponent />
@@ -65,4 +65,4 @@ function SelectoinToolOptions() {
   );
 }
 
-export default SelectoinToolOptions;
+export default SelectoinToolQuickOptions;

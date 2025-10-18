@@ -5,8 +5,8 @@ import {
   DefaultOutline as DefaultOutlineSelection,
 } from "../../../data/types/CanvasConstants";
 import useLayoutStore from "../../../data/store/LayoutStore";
-import PenToolOptions from "./PenToolsOptions";
-import HighlighterToolsOptions from "./HighlighterToolOptions";
+import PenToolQuickOptions from "./PenToolsQuickOptions";
+import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
@@ -19,7 +19,6 @@ function CurveToolOptions() {
   return (
     <>
       <ToolOptionHeaderComponent/>
-
       <div
         className={`cursor-pointer  ${
           activeTool === "pen" && DefaultOutlineSelection
@@ -37,8 +36,8 @@ function CurveToolOptions() {
         <Highlighter size={DefaultIconSize} />
       </div>
       <ArrayDivider direction={toolOptionsDirection} />
-      {activeTool === "pen" && <PenToolOptions />}
-      {activeTool === "highlighter" && <HighlighterToolsOptions />}
+      {activeTool === "pen" && <PenToolQuickOptions />}
+      {activeTool === "highlighter" && <HighlighterToolsQuickOptions />}
     </>
   );
 }

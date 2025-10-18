@@ -8,7 +8,7 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
 
-function EraseToolOptions() {
+function EraseToolQuickOptions() {
   const eraseSettings = useEraseStore();
   const eraseMethod = useEraseStore().eraseMethod;
   const thicknesId = useEraseStore().thicknesId;
@@ -57,4 +57,4 @@ function EraseToolOptions() {
   );
 }
 
-export default EraseToolOptions;
+export default EraseToolQuickOptions;
