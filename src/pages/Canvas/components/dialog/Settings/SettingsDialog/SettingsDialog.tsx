@@ -5,7 +5,6 @@ import { TabMenu } from "primereact/tabmenu";
 import { useRef, useState } from "react";
 import "./SettingsDialog.css";
 import BackgroundSettings from "../BackgroundSettings/BackgroundSettings";
-import DrawingSettings from "../DrawingSettings";
 import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
@@ -30,17 +29,12 @@ function SettingsDialog() {
 
   const reserToDefaultSettings = useSettingsStore().reserToDefaultSettings;
   const discardSettings = useSettingsStore().discardSettings;
-  type SettingTabs = "background" | "drawing" | "layout";
+  type SettingTabs = "background" | "layout";
   const items = [
     {
       label: "Background",
       icon: "pi pi-image",
       command: () => setSettingActiveTab("background"),
-    },
-    {
-      label: "Drawing",
-      icon: "pi pi-pencil",
-      command: () => setSettingActiveTab("drawing"),
     },
     {
       label: "Layout",
@@ -85,7 +79,6 @@ function SettingsDialog() {
 
           <div className="flex-1 overflow-auto">
             {settingActiveTab === "background" && <BackgroundSettings />}
-            {settingActiveTab === "drawing" && <DrawingSettings />}
             {settingActiveTab === "layout" && <LayoutSettings />}
           </div>
 

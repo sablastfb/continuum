@@ -8,7 +8,7 @@ function LayoutSettings() {
     <div className="p-4 flex flex-col gap-4">
       <h3 className="text-xl  mb-4">Layout Settings</h3>
       <div>
-        <h3> Tool button</h3>
+        <h3> Tool menue</h3>
         <div>
           <Dropdown
             value={layoutStore.toolMenuePosition}
@@ -20,7 +20,7 @@ function LayoutSettings() {
         </div>
       </div>
       <div>
-        <h3> Tool menue</h3>
+        <h3> Tool option</h3>
         <div>
           <Dropdown
             value={layoutStore.toolOptionsPosition}
