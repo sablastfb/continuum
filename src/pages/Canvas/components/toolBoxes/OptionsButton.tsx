@@ -5,7 +5,7 @@ import { useRef } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { DefaultButtonsBackground, DefaultIconSize } from "../../data/types/CanvasConstants";
 
-function OptionButton() {
+const OptionButton = () => {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const setExportVisible = useCanvasStore((state) => state.setExportVisible);
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
@@ -38,7 +38,7 @@ function OptionButton() {
   );
 }
 
-function OptionButtons() {
+const OptionButtons = () => {
   const op = useRef<OverlayPanel>(null);
 
   return (

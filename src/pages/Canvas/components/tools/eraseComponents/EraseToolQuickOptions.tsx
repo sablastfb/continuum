@@ -7,8 +7,7 @@ import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
-
-function EraseToolQuickOptions() {
+const EraseToolQuickOptions = () => {
   const eraseSettings = useEraseStore();
   const eraseMethod = useEraseStore().eraseMethod;
   const thicknesId = useEraseStore().thicknesId;

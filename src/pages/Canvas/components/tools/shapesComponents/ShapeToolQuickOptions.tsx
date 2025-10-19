@@ -74,7 +74,7 @@ import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponen
 //   );
 // }
 
-function ShapeToolQuickOptions() {
+const ShapeToolQuickOptions = () => {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   return (
     <>

@@ -7,11 +7,11 @@ export type CircleColorPickerParm = {
   action: () => void;
 };
 
-function CircleColorPicker({
+const CircleColorPicker = ({
   colorId,
   selected,
   action,
-}: CircleColorPickerParm) {
+}: CircleColorPickerParm) => {
   return (
     <div
       onClick={() => {

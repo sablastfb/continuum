@@ -5,7 +5,7 @@ import { Continuum_ResizeService } from "../../features/service/Resize";
 
 
 
-function ZoomingButton() {
+const ZoomingButton = () => {
   const zoome = useCanvasStore((state) => state.zoome);
   return (
     <>

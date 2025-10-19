@@ -4,7 +4,7 @@ import CircleColorPicker from "../../../pickers/CircleColorPicker";
 import { DefaultOutline } from "../../../../data/types/CanvasConstants";
 import useSettingsStore from "../../../../data/store/BacgroundStore";
 
-function BacgroundPickerColor({ selected }: { selected: boolean }) {
+const BacgroundPickerColor = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
   const background = useSettingsStore().background;
   return (
@@ -20,7 +20,7 @@ function BacgroundPickerColor({ selected }: { selected: boolean }) {
   );
 }
 
-function BacgroundPickerGrid({ selected }: { selected: boolean }) {
+const BacgroundPickerGrid = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
   const background = useSettingsStore().background;
   return (
@@ -38,7 +38,7 @@ function BacgroundPickerGrid({ selected }: { selected: boolean }) {
   );
 }
 
-function BacgroundPickerDots({ selected }: { selected: boolean }) {
+const BacgroundPickerDots = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
   const background = useSettingsStore().background;
   return (
@@ -60,7 +60,7 @@ function BacgroundPickerDots({ selected }: { selected: boolean }) {
   );
 }
 
-function BacgroundPickerLine({ selected }: { selected: boolean }) {
+const  BacgroundPickerLine = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
   const background = useSettingsStore().background;
   return (
@@ -78,7 +78,7 @@ function BacgroundPickerLine({ selected }: { selected: boolean }) {
   );
 }
 
-function BackgroundSettings() {
+const BackgroundSettings = () => {
   const setBackgroundSettings = useSettingsStore().setBackgroundSettings;
   const background = useSettingsStore().background;
 

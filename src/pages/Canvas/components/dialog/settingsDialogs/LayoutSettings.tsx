@@ -3,7 +3,7 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 import { Checkbox } from "primereact/checkbox";
 import useCanvasStore from "../../../data/store/CanvasStore";
 
-function LayoutSettings() {
+const LayoutSettings = ()  => {
   const layoutStore = useLayoutStore();
   const canvasStore = useCanvasStore();
 

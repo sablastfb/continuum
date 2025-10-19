@@ -5,7 +5,7 @@ import { usePenStore } from "../../data/store/PenStore";
 import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
 import { useEraseStore } from "../../data/store/EraseStore";
 
-function CursorEffect() {
+const CursorEffect = () => {
   const zoom = useCanvasStore().zoome;
   const color = useSettingsStore((state) => state);
   const canvasCursorActive = useCanvasStore(

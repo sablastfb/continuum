@@ -3,16 +3,16 @@ import BarrelEffect from "./components/effects/BarrelEffect";
 import PixiCanvasComponent from "./components/toolBoxes/CanvasComponent";
 import ToolLayout from "./components/toolBoxes/ToolLayout";
 import 'dockview-core/dist/styles/dockview.css';
-import { MyDockviewLayout } from "./DockviewLayout";
+import { MyDockviewLayout } from "../../components/Layout/DockviewLayout";
 
-function CanvasPage() {
+const CanvasPage = () => {
   return (
     <div className=" h-screen w-screen flex">
-      <MyDockviewLayout/>
-      {/* <PixiCanvasComponent/>
+      {/* <MyDockviewLayout/> */}
+      <PixiCanvasComponent/>
       <ToolLayout />
       <BarrelDialogs/>
-      <BarrelEffect /> */}
+      <BarrelEffect />
     </div>
   );
 }

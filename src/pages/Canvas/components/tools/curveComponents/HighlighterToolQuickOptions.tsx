@@ -5,7 +5,7 @@ import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
 
 
-function HighlighterToolsQuickOptions() {
+const HighlighterToolsQuickOptions = () => {
   const markerSettings = useMarkerStore();
   const markerColorId = useMarkerStore().markerColorId;
   const thicknesId = useMarkerStore().thicknesId;

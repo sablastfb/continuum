@@ -5,7 +5,7 @@ import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
 import { Continuum_ToolManager } from "../../features/tools/ToolManager";
 import useToolStore from "../../data/store/ToolStore";
 
-function BackgroundEffect() {
+const BackgroundEffect = () => {
   const settings = useSettingsStore(
     (state) => state
   );

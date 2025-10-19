@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useBookmark } from "../../../data/store/BookmarkStore";
 import { Continuum_Bookmark } from "../../../features/service/BookMark";
 
-function BookmakrContainer() {
+const BookmakrContainer = ()  => {
   const [editingId, seteditingId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const visible = useBookmark().containerVisible;

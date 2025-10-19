@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { DefaultDialogBacground } from "../../data/types/CanvasConstants";
 
-function ExportDialog() {
+const ExportDialog = () => {
   const exportVisible = useCanvasStore((state) => state.exportVisible);
   const setExportVisible = useCanvasStore((state) => state.setExportVisible);
 

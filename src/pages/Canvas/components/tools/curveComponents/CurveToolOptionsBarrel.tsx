@@ -10,7 +10,7 @@ import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 
-function CurveToolOptions() {
+const CurveToolOptions = () => {
   const setActiveTool = useToolStore((state) => state.setActiveTool);
   const lastCureveTool = useToolStore((state) => state.setLastCureveTool);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;

@@ -20,7 +20,7 @@ export interface ToolsMenueParameter {
   direction: Direction;
 }
 
-function ToolsMenueHolder({ direction }: ToolsMenueParameter) {
+const  ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
   // PART FOR SCROLLING
   // const scrollContainerRef = useRef<HTMLDivElement>(null);
   // const scroll = (direction: "left" | "right", scrollAmount = 100) => {

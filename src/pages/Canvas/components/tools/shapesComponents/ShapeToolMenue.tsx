@@ -6,7 +6,7 @@ import {
 import { useShapesStore } from "../../../data/store/ShapeStore";
 import useToolStore from "../../../data/store/ToolStore";
 
-function ShapeToolMenue() {
+const ShapeToolMenue = () => {
   const canvasStore = useToolStore();
   const shapesStore = useShapesStore();
   const toolType = "shape";

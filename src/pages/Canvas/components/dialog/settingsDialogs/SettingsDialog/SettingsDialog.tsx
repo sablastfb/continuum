@@ -12,7 +12,7 @@ import ThemeToggle from "../../../misc/ThemeToggle";
 import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
 import { DefaultDialogBacground } from "../../../../data/types/CanvasConstants";
 
-function SettingsDialog() {
+const SettingsDialog = () => {
   const setTheme = useSettingsStore().setTheme;
   const settingVisible = useCanvasStore((state) => state.settingVisible);
   const canvasSettings = useSettingsStore((state) => state);

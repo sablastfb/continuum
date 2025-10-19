@@ -10,7 +10,7 @@ interface Editor {
 }
 
 // Example components that can be switched between
-function ViewportComponent() {
+const ViewportComponent = () => {
   return (
     <div className="flex-1 flex items-center justify-center bg-gray-800 text-white">
       <div className="text-center">
@@ -22,7 +22,7 @@ function ViewportComponent() {
   );
 }
 
-function GraphComponent() {
+const GraphComponent = () => {
   return (
     <div className="flex-1 flex items-center justify-center bg-gray-900 text-white">
       <div className="text-center">
@@ -34,7 +34,7 @@ function GraphComponent() {
   );
 }
 
-function PropertiesComponent() {
+const  PropertiesComponent = () => {
   return (
     <div className="flex-1 flex items-center justify-center bg-gray-700 text-white">
       <div className="text-center">
@@ -46,7 +46,7 @@ function PropertiesComponent() {
   );
 }
 
-function ImageEditorComponent() {
+const ImageEditorComponent = () => {
   return (
     <div className="flex-1 flex items-center justify-center bg-gray-600 text-white">
       <div className="text-center">
@@ -59,7 +59,7 @@ function ImageEditorComponent() {
 }
 
 // Main root component with dropdown switcher
-function EditorRoot() {
+const  EditorRoot = () => {
   const [activeEditor, setActiveEditor] = useState<string>('viewport');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

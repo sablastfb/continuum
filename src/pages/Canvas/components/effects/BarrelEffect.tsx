@@ -1,7 +1,7 @@
 import BackgroundEffect from "./BackgroundEffect";
 import CursorEffect from "./CursorEffect";
 
-function BarrelEffect() {
+const BarrelEffect = ()  => {
   return (
     <>
       <CursorEffect />

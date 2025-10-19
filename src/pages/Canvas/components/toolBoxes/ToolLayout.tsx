@@ -5,7 +5,8 @@ import OptionButtons from "./OptionsButton";
 import ToolOptionsHolder from "./ToolQuickOptionsHolder";
 import ToolsMenueHolder from "./ToolsMenueHolder";
 import ZoomingButton from "./ZoomingComponent";
-function ToolLayout() {
+
+const ToolLayout = () => {
   const layoutStore = useLayoutStore();
 
   return (

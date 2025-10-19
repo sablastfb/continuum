@@ -9,7 +9,7 @@ import useCanvasStore from "../../../data/store/CanvasStore";
 import CurveAdvanceSettings from "./CurveAdvanceSettings";
 import { useEffect, useRef, useState } from "react";
 
-function CurveToolMenue() {
+const CurveToolMenue = () => {
   const toolStore = useToolStore();
   const [domo, setdomo] = useState<boolean>(false);
 

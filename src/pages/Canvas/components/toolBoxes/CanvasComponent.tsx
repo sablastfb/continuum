@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
-function PixiCanvasComponent() {
+const PixiCanvasComponent = () => {
   const canvasContainer = useRef<HTMLDivElement>(null);
 
   const setCanvasCursorActive = useCanvasStore(

@@ -5,7 +5,7 @@ import { DefaultIconSize } from "../../data/types/CanvasConstants";
 import ArrayDivider from "../misc/ArrayDivider";
 
 
-function ToolOptionHeaderComponent() {
+const ToolOptionHeaderComponent = () => {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   const canvasStore = useCanvasStore();
 

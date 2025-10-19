@@ -1,4 +1,4 @@
-function CurveAdvanceSettings(){
+const CurveAdvanceSettings = () => {
     return <>Domo</>
 }
 

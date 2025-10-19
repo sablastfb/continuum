@@ -2,7 +2,7 @@ import { Bookmark } from "lucide-react";
 import { DefaultIconSize } from "../../../data/types/CanvasConstants";
 import { useBookmark } from "../../../data/store/BookmarkStore";
 
-function BookmankrButton() {
+const BookmankrButton = () => {
   const visible = useBookmark().containerVisible;
   const setVisible = useBookmark().setContainerVisible;
 

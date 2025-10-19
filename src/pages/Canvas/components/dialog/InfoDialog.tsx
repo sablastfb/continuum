@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { DefaultDialogBacground } from "../../data/types/CanvasConstants";
 
-function InfoDialog() {
+const  InfoDialog = () => {
   const infoVisible = useCanvasStore((state) => state.infoVisible);
   const setInfoVisible = useCanvasStore((state) => state.setInfoVisible);
 

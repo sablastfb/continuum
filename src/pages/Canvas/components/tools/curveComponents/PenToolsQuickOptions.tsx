@@ -4,11 +4,9 @@ import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
 import ArrayDivider from "../../misc/ArrayDivider";
-
-
 import useLayoutStore from "../../../data/store/LayoutStore";
 
-function PenToolQuickOptions() {
+const PenToolQuickOptions = () => {
   const penSettings = usePenStore();
   const pencilColorId = usePenStore().penColorId;
   const thicknesId = usePenStore().thicknesId;

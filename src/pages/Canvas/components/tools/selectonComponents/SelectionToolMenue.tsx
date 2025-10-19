@@ -5,7 +5,7 @@ import {
 } from "../../../data/types/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 
-function SelectionToolMenue() {
+const SelectionToolMenue = () => {
   const canvasStore = useToolStore();
 
   return (

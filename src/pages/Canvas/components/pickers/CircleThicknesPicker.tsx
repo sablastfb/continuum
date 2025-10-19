@@ -17,11 +17,11 @@ export type CircleThicknesPickerParm = {
   action: () => void
 };
 
-function CircleThicknesPicker({
+const CircleThicknesPicker = ({
   thicknesId,
   selected,
   action,
-}: CircleThicknesPickerParm) {
+}: CircleThicknesPickerParm) => {
   return (
     <div
       onClick={()=> action()}

@@ -2,7 +2,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useEffect } from "react";
 import "./WindowsHeader.css";
 
-function WindowsHeader() {
+const  WindowsHeader = () => {
   useEffect(() => {
     const appWindow = getCurrentWindow();
 

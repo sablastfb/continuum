@@ -18,7 +18,7 @@ interface Par {
   toolType: SelectionToolType;
 }
 
-function SelectoinToolOptionsButton({ icon, toolType }: Par) {
+const SelectoinToolOptionsButton = ({ icon, toolType }: Par) => {
   const setActiveTool = useToolStore((state) => state.setActiveTool);
   const setLastSelectionTool = useToolStore(
     (state) => state.setLastSelectionTool

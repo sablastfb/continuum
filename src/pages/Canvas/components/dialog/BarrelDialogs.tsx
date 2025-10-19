@@ -2,7 +2,7 @@ import ExportDialog from "./ExportDialog";
 import InfoDialog from "./InfoDialog";
 import SettingsDialog from "./settingsDialogs/SettingsDialog/SettingsDialog";
 
-function BarrelDialogs() {
+const BarrelDialogs = () => {
   return (
     <>
       <SettingsDialog />

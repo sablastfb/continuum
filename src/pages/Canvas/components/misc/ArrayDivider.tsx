@@ -4,9 +4,9 @@ export type DividerParameters = {
   direction: Direction;
 };
 
-function ArrayDivider({
+const ArrayDivider = ({
   direction: orjentation = "vertical",
-}: DividerParameters) {
+}: DividerParameters) => {
   if (orjentation === "vertical") {
     return <div className="w-full h-0.5 bg-gray-200 " />;
   } else {

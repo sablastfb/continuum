@@ -4,9 +4,7 @@ import useLayoutStore from "../../data/store/LayoutStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 import { DefaultIconSize } from "../../data/types/CanvasConstants";
 
-
-
-function DoUnDoComponent() {
+const DoUnDoComponent = () => {
   const historyPosition = useCanvasStore().historyPosition;
   const historyCount = useCanvasStore().historyCount;
   const layoutStore = useLayoutStore().toolMenuesDirection;
