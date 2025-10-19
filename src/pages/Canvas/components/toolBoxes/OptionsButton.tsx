@@ -1,4 +1,4 @@
-import { ChevronLeft, CircleChevronLeft, Download, Info, Keyboard, Menu, Settings } from "lucide-react";
+import { ChevronLeft, CircleChevronLeft, Download, Info, Keyboard, LayoutDashboard, Menu, Settings } from "lucide-react";
 
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
@@ -58,6 +58,7 @@ function OptionButtons() {
         className={` hidden xl:flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center gap-2 m-1 p-1`}
       >
         <OptionButton />
+        <LayoutDashboard />
       </div>
     </>
   );
