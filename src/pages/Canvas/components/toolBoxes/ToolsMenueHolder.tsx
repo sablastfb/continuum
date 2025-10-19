@@ -76,7 +76,6 @@ function ToolsMenueHolder({ direction }: ToolsMenueParameter) {
         <Clipboard size={DefaultIconSize} />
         <ArrayDivider direction={direction} />
         <DoUnDoComponent />
-        <HideQuickToolSettings/>
       </div>
     </>
   );

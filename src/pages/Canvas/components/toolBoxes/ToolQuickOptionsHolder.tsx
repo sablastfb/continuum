@@ -44,14 +44,14 @@ function ToolOptionsHolder({ direction: direction }: ToolOptionParameters) {
 
   return (
     <>
-      {canvasStore.advanceToolsActive && advanceSettingsComponent && (
+      { canvasStore.advanceToolsActive && advanceSettingsComponent && (
         <div
           className={`${DefaultButtonsBackground} rounded-lg min-w-[20vw]  min-h-[20vw] pointer-events-auto `}
         >
           {advanceSettingsComponent}
         </div>
       )}
-      {activeToolComponent && (
+      {canvasStore.qucikToolsActive && activeToolComponent && (
         <div
           className={`
         ${DefaultButtonsBackground} 

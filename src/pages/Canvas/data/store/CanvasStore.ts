@@ -9,6 +9,7 @@ export interface CanvasStore {
   canvasCursorActive: boolean;
   historyPosition: number;
   historyCount: number;
+  qucikToolsActive: boolean;
   advanceToolsActive: boolean;
   setZoom: (zoom: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
@@ -18,6 +19,7 @@ export interface CanvasStore {
   setHistoryPosition: (historyCount: number) => void;
   setHistoryCount: (historyPosition: number) => void;
   setAdvanceToolsVisibility: (advanceTools: boolean) => void;
+  setQuickToolsVisibility: (advanceTools: boolean) => void;
 }
 
 const useCanvasStore = create<CanvasStore>()(
@@ -30,6 +32,7 @@ const useCanvasStore = create<CanvasStore>()(
     historyPosition: -1,
     historyCount: 0,
     advanceToolsActive: false,
+    qucikToolsActive: true,
     setHistoryCount: (historyCount) =>
       set((state) => {
         state.historyCount = historyCount;
@@ -62,6 +65,10 @@ const useCanvasStore = create<CanvasStore>()(
     setAdvanceToolsVisibility: (advanceTools: boolean) =>
       set((state) => {
         state.advanceToolsActive = advanceTools;
+      }),
+    setQuickToolsVisibility: (advanceTools: boolean) =>
+      set((state) => {
+        state.qucikToolsActive = advanceTools;
       }),
   }))
 );

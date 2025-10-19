@@ -2,7 +2,7 @@
 import useLayoutStore from "../../data/store/LayoutStore";
 import BookmakrContainer from "../tools/bookmarkComponents/BookMarkComponent";
 import OptionButtons from "./OptionsButton";
-import ToolOptionsHolder from "./ToolOptionsHolder";
+import ToolOptionsHolder from "./ToolQuickOptionsHolder";
 import ToolsMenueHolder from "./ToolsMenueHolder";
 import ZoomingButton from "./ZoomingComponent";
 function ToolLayout() {
