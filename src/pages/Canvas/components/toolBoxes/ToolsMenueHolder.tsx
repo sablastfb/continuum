@@ -1,13 +1,20 @@
 import { Clipboard, Image, Type, Link, Ruler } from "lucide-react";
 import DoUnDoComponent from "./DoUnDoComponent";
 import { Direction } from "../../data/store/LayoutStore";
-import { DefaultButtonsBackground, DefaultIconSize, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../data/types/CanvasConstants";
+import {
+  DefaultButtonsBackground,
+  DefaultIconSize,
+  DefaultToolBarHeight,
+  DefaultToolBarPadding,
+  DefaultToolBarVPadding,
+} from "../../data/types/CanvasConstants";
 import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
 import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
 import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";
 import ShapeToolMenue from "../tools/shapesComponents/ShapeToolMenue";
 import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
+import HideQuickToolSettings from "./HideButotn";
 
 export interface ToolsMenueParameter {
   direction: Direction;
@@ -61,30 +68,15 @@ function ToolsMenueHolder({ direction }: ToolsMenueParameter) {
         <SelectionToolMenue />
         <EraserToolMenue />
         <ShapeToolMenue />
-        <div>
-          {" "}
-          <Type size={DefaultIconSize} />
-        </div>
-
-        <div>
-          {" "}
-          <Image size={DefaultIconSize} />
-        </div>
-        <div>
-          {" "}
-          <Ruler size={DefaultIconSize} />
-        </div>
-        <div>
-          {" "}
-          <Link size={DefaultIconSize} />
-        </div>
+        <Type size={DefaultIconSize} />
+        <Image size={DefaultIconSize} />
+        <Ruler size={DefaultIconSize} />
+        <Link size={DefaultIconSize} />
         <BookmankrButton />
-        <div>
-          {" "}
-          <Clipboard size={DefaultIconSize} />
-        </div>
+        <Clipboard size={DefaultIconSize} />
         <ArrayDivider direction={direction} />
         <DoUnDoComponent />
+        <HideQuickToolSettings/>
       </div>
     </>
   );
