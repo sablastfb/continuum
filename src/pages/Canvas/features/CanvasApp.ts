@@ -32,6 +32,7 @@ export namespace Continuum_Canvas {
   }
 
   async function setUpAplication() {
+
     appInstance = new Application();
     await appInstance.init({
       antialias: true,

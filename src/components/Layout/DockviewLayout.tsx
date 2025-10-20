@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { DockviewReact, DockviewApi, IDockviewPanelProps } from 'dockview';
 import 'dockview-core/dist/styles/dockview.css';
-import EditorRoot from './ComponentSwitcher';
 
 // Hello component with split buttons
 const HelloPanel = (props: IDockviewPanelProps<{ panelId: string; onSplit: (direction: string) => void; showSplitButtons: boolean }>) => {
@@ -124,8 +123,7 @@ export const MyDockviewLayout = () => {
   const [showSplitMode, setShowSplitMode] = useState(false);
 
   const components = {
-    hello:       EditorRoot
-,
+    hello:  HelloPanel
   };
 
   // Toggle split mode (show/hide split buttons on all panels)

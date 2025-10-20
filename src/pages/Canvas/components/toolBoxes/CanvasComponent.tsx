@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import {  useLayoutEffect, useRef } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
@@ -9,7 +9,7 @@ const PixiCanvasComponent = () => {
     (state) => state.setCanvasCursorActive
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.add("dark");
 
     async function SetUpPixi() {
@@ -24,6 +24,9 @@ const PixiCanvasComponent = () => {
   return (
     <>
       <div
+         style={{ cursor: "none" }}
+        ref={canvasContainer}
+        className="h-full w-full flex-1"
         onMouseEnter={() => {
           setCanvasCursorActive(true);
         }}
@@ -31,14 +34,9 @@ const PixiCanvasComponent = () => {
           setCanvasCursorActive(false);
         }}
       >
-        <div
-          ref={canvasContainer}
-          className="flex"
-          style={{ cursor: "none" }}
-        />
       </div>
     </>
   );
-}
+};
 
 export default PixiCanvasComponent;

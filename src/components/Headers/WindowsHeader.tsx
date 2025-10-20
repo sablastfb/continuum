@@ -1,0 +1,42 @@
+import { getCurrentWindow } from "@tauri-apps/api/window";
+import { useEffect } from "react";
+import { Minus, X } from "lucide-react";
+
+const WindowsHeader = () => {
+  useEffect(() => {
+    const appWindow = getCurrentWindow();
+
+    document
+      .getElementById("titlebar-minimize")
+      ?.addEventListener("click", () => appWindow.minimize());
+    document
+      .getElementById("titlebar-maximize")
+      ?.addEventListener("click", () => appWindow.toggleMaximize());
+    document
+      .getElementById("titlebar-close")
+      ?.addEventListener("click", () => appWindow.close());
+  }, []);
+
+  return (
+      <div className="flex gap-5 items-center h-full px-2">
+        <button id="titlebar-minimize" >
+          <Minus />
+        </button>
+        <button id="titlebar-maximize">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
+          </svg>
+        </button>
+        <button id="titlebar-close" >
+          <X />
+        </button>
+    </div>
+  );
+};
+
+export default WindowsHeader;

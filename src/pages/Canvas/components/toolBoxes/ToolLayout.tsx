@@ -61,7 +61,7 @@ const ToolLayout = () => {
           <ToolsMenueHolder direction="horizontal" />
         )}
       </div>
-      <OptionButtons />
+      {/* <OptionButtons /> */}
       <ZoomingButton />
       <BookmakrContainer />
     </div>

@@ -12,7 +12,6 @@ const OptionButton = () => {
 
   return (
     <>
-      <CircleChevronLeft   className="hover:cursor-pointer" size={DefaultIconSize} />
       <Settings
         size={DefaultIconSize}
         className="hover:cursor-pointer"
@@ -58,7 +57,6 @@ const OptionButtons = () => {
         className={` hidden xl:flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center gap-2 m-1 p-1`}
       >
         <OptionButton />
-        <LayoutDashboard />
       </div>
     </>
   );

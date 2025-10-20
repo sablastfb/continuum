@@ -1,20 +1,19 @@
+import ContinumLayout from "../../components/Layout/Layout";
+import { MyDockviewLayout } from "../../components/Layout/DockviewLayout";
 import BarrelDialogs from "./components/dialog/BarrelDialogs";
 import BarrelEffect from "./components/effects/BarrelEffect";
 import PixiCanvasComponent from "./components/toolBoxes/CanvasComponent";
 import ToolLayout from "./components/toolBoxes/ToolLayout";
-import 'dockview-core/dist/styles/dockview.css';
-import { MyDockviewLayout } from "../../components/Layout/DockviewLayout";
+import "dockview-core/dist/styles/dockview.css";
+
+
 
 const CanvasPage = () => {
   return (
-    <div className=" h-screen w-screen flex">
-      {/* <MyDockviewLayout/> */}
-      <PixiCanvasComponent/>
-      <ToolLayout />
-      <BarrelDialogs/>
-      <BarrelEffect />
+    <div className=" relative flex  h-full">
+      <ContinumLayout />
     </div>
   );
-}
+};
 
 export default CanvasPage;

@@ -9,7 +9,7 @@ const ZoomingButton = () => {
   const zoome = useCanvasStore((state) => state.zoome);
   return (
     <>
-        <div className={`${DefaultButtonsBackground}  absolute top-0 right-0 m-1 p-1 pointer-events-auto rounded-md hidden xl:flex items-center gap-1`}>
+        <div className={`${DefaultButtonsBackground}  absolute bottom-0 left-0 m-1 p-1 pointer-events-auto rounded-md hidden xl:flex items-center gap-1`}>
           <ZoomIn
             className="hover:cursor-pointer"
             size={DefaultIconSize}
