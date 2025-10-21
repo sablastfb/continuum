@@ -18,11 +18,11 @@ const WindowsHeader = () => {
   }, []);
 
   return (
-      <div className="flex gap-5 items-center h-full px-2">
-        <button id="titlebar-minimize" >
+      <div className="flex items-center h-full px-2">
+        <button id="titlebar-minimize" className="hover:bg-stone-700 h-full w-full px-3 cursor-pointer">
           <Minus />
         </button>
-        <button id="titlebar-maximize">
+        <button id="titlebar-maximize" className="hover:bg-stone-700 h-full w-full px-3 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -32,7 +32,7 @@ const WindowsHeader = () => {
             <path fill="currentColor" d="M4 4h16v16H4zm2 4v10h12V8z" />
           </svg>
         </button>
-        <button id="titlebar-close" >
+        <button id="titlebar-close" className="hover:bg-red-700 h-full w-full px-3 cursor-pointer" >
           <X />
         </button>
     </div>
