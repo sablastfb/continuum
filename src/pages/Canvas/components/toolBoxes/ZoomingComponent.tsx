@@ -1,29 +1,43 @@
 import { ZoomIn, ZoomOut } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { DefaultButtonsBackground, DefaultIconSize } from "../../data/types/CanvasConstants";
+import {
+  DefaultButtonsBackground,
+  DefaultIconSize,
+} from "../../data/types/CanvasConstants";
 import { Continuum_ResizeService } from "../../features/service/Resize";
-
-
+import HideQuickToolSettings from "./HideButotn";
 
 const ZoomingButton = () => {
   const zoome = useCanvasStore((state) => state.zoome);
+  const canvasStore = useCanvasStore();
   return (
     <>
-        <div className={`${DefaultButtonsBackground}  absolute bottom-0 left-0 m-1 p-1 pointer-events-auto rounded-md hidden xl:flex items-center gap-1`}>
-          <ZoomIn
-            className="hover:cursor-pointer"
-            size={DefaultIconSize}
-            onClick={() => Continuum_ResizeService.manualZoom(1)}
-          />
-          <div className="select-none text-xl w-20 text-center">{(zoome * 100).toFixed(1)}%</div>
-          <ZoomOut
-            className="hover:cursor-pointer"
-            size={DefaultIconSize}
-            onClick={() => Continuum_ResizeService.manualZoom(-1)}
-          />
-        </div>
+      <div className={`  absolute bottom-0 left-0 m-1 flex gap-5 items-center`}>
+        {canvasStore.qucikToolsActive && (
+          <>
+            <div
+              className={`${DefaultButtonsBackground} p-1 pointer-events-auto rounded-md hidden xl:flex items-center gap-1`}
+            >
+              <ZoomIn
+                className="hover:cursor-pointer"
+                size={DefaultIconSize}
+                onClick={() => Continuum_ResizeService.manualZoom(1)}
+              />
+              <div className="select-none text-xl w-20 text-center">
+                {(zoome * 100).toFixed(1)}%
+              </div>
+              <ZoomOut
+                className="hover:cursor-pointer"
+                size={DefaultIconSize}
+                onClick={() => Continuum_ResizeService.manualZoom(-1)}
+              />
+            </div>
+          </>
+        )}
+        <HideQuickToolSettings />
+      </div>
     </>
   );
-}
+};
 
 export default ZoomingButton;

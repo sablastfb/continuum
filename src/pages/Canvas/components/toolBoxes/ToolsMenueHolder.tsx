@@ -15,12 +15,13 @@ import ShapeToolMenue from "../tools/shapesComponents/ShapeToolMenue";
 import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
 import HideQuickToolSettings from "./HideButotn";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 export interface ToolsMenueParameter {
   direction: Direction;
 }
 
-const  ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
+const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
   // PART FOR SCROLLING
   // const scrollContainerRef = useRef<HTMLDivElement>(null);
   // const scroll = (direction: "left" | "right", scrollAmount = 100) => {
@@ -48,11 +49,13 @@ const  ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
   //     behavior: "smooth",
   //   });
   // };
+  const canvasStore = useCanvasStore();
 
   return (
     <>
-      <div
-        className={`
+      {canvasStore.qucikToolsActive && (
+        <div
+          className={`
              ${DefaultButtonsBackground} 
              flex items-center gap-4 rounded-lg  pointer-events-auto 
              ${
@@ -63,22 +66,23 @@ const  ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
                `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
              }
              `}
-      >
-        <CurveToolMenue />
-        <SelectionToolMenue />
-        <EraserToolMenue />
-        <ShapeToolMenue />
-        <Type size={DefaultIconSize} />
-        <Image size={DefaultIconSize} />
-        <Ruler size={DefaultIconSize} />
-        <Link size={DefaultIconSize} />
-        <BookmankrButton />
-        <Clipboard size={DefaultIconSize} />
-        <ArrayDivider direction={direction} />
-        <DoUnDoComponent />
-      </div>
+        >
+          <CurveToolMenue />
+          <SelectionToolMenue />
+          <EraserToolMenue />
+          <ShapeToolMenue />
+          <Type size={DefaultIconSize} />
+          <Image size={DefaultIconSize} />
+          <Ruler size={DefaultIconSize} />
+          <Link size={DefaultIconSize} />
+          <BookmankrButton />
+          <Clipboard size={DefaultIconSize} />
+          <ArrayDivider direction={direction} />
+          <DoUnDoComponent />
+        </div>
+      )}
     </>
   );
-}
+};
 
 export default ToolsMenueHolder;

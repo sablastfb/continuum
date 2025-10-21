@@ -1,7 +1,5 @@
 import "./App.css";
-import ContinumLogo from "./components/Headers/ContinumLogo";
 import ContinumHeader from "./components/Headers/Header";
-import WindowsHeader from "./components/Headers/WindowsHeader";
 import Router from "./Router";
 
 function App() {

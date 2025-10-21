@@ -1,9 +1,25 @@
-import { PencilRuler } from "lucide-react";
+import { Eye, PencilLine, PencilRuler } from "lucide-react";
+import {
+  DefaultButtonsBackground,
+  DefaultIconSize,
+} from "../../data/types/CanvasConstants";
+import useCanvasStore from "../../data/store/CanvasStore";
 
-const HideQuickToolSettings =() => {
-    return <>
-    <PencilRuler size={32} className="outline-2 outline-amber-300 rounded-2xl p-1" />
+const HideQuickToolSettings = () => {
+  const canvasStore = useCanvasStore();
+
+  return (
+    <>
+      <div
+        className={`${DefaultButtonsBackground} rounded-full p-1 pointer-events-auto  hidden xl:flex items-center gap-1 cursor-pointer hover:bg-stone-500`}
+        onClick={() => canvasStore.setQuickToolsVisibility(!canvasStore.qucikToolsActive)}
+      >
+        {/* <PencilRuler  size={DefaultIconSize} className=" rounded-2xl p-1" /> */}
+        {canvasStore.qucikToolsActive && <PencilRuler size={DefaultIconSize} />}
+        {!canvasStore.qucikToolsActive && <Eye size={DefaultIconSize} />}
+      </div>
     </>
-}
+  );
+};
 
 export default HideQuickToolSettings;

@@ -9,6 +9,8 @@ const components = {
 };
 
 const ContinumLayout = () => {
+    const canvasStore = useCanvasStore();
+
   const apiRef = useRef<DockviewApi | null>(null);
 
   const handleSplit = (
@@ -31,6 +33,7 @@ const ContinumLayout = () => {
     });
 
     newPanel.group.header.hidden = true;
+    canvasStore.setLayoutEditableVisible(false);
   };
 
   return (
