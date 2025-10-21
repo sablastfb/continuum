@@ -28,6 +28,7 @@ const ContinumLayout = () => {
       params: {
         panelId: newPanelId,
         onSplit: (dir: Direction) => handleSplit(newPanelId, dir),
+        onRemove: () => removeTile(newPanelId),
       },
       position: { referencePanel: panelId, direction },
     });
@@ -35,6 +36,18 @@ const ContinumLayout = () => {
     newPanel.group.header.hidden = true;
     canvasStore.setLayoutEditableVisible(false);
   };
+  const removeTile = (  panelId: string) => {
+      if (!apiRef.current) return;
+    
+    const activePanel = apiRef.current.getPanel(panelId);
+    if (!activePanel) {
+      alert('No active panel to remove. Click on a panel first.');
+      return;
+    }
+
+    apiRef.current.removePanel(activePanel);
+    canvasStore.setLayoutEditableVisible(false);
+  }
 
   return (
     <>

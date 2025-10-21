@@ -16,9 +16,9 @@ import { IDockviewPanelProps } from "dockview-core";
 export type Direction =  'above' | 'below' | 'left' | 'right';
 
 
-const ComponentHolder = (props: IDockviewPanelProps<{ panelId: string; onSplit: (direction: Direction) => void; }>) => {
+const ComponentHolder = (props: IDockviewPanelProps<{ panelId: string; onSplit: (direction: Direction) => void;  onRemove: () => void;}>) => {
   const canvasStore = useCanvasStore();
-  const { onSplit } = props.params;
+  const { onSplit, onRemove } = props.params;
 
   return (
     <>
@@ -45,7 +45,7 @@ const ComponentHolder = (props: IDockviewPanelProps<{ panelId: string; onSplit: 
           </div>
 
           {/* Center (X button) */}
-          <div className="bg-red-500 rounded-full hover:bg-red-700 cursor-pointer col-start-2 row-start-2 flex items-center justify-center">
+          <div onClick={() => onRemove()} className="bg-red-500 rounded-full hover:bg-red-700 cursor-pointer col-start-2 row-start-2 flex items-center justify-center">
             <X size={DefaultIconSize * 1.2} />
           </div>
         </div>
