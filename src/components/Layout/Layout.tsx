@@ -1,26 +1,19 @@
 import { Direction, DockviewApi, DockviewReact } from "dockview";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import useCanvasStore from "../../pages/Canvas/data/store/CanvasStore";
 import ComponentHolder from "./ComponentHolder";
-
 
 const components = {
   componentHolder: ComponentHolder,
 };
 
 const ContinumLayout = () => {
-    const canvasStore = useCanvasStore();
-
+  const canvasStore = useCanvasStore();
   const apiRef = useRef<DockviewApi | null>(null);
 
-  const handleSplit = (
-    panelId: string,
-    direction: Direction
-  ) => {
-
+  const handleSplit = (panelId: string, direction: Direction) => {
     if (!apiRef.current) return;
-      debugger;
-    const newPanelId = `panel_${Math.random() }`;
+    const newPanelId = `panel_${Math.random()}`;
 
     const newPanel = apiRef.current.addPanel({
       id: newPanelId,
@@ -36,18 +29,17 @@ const ContinumLayout = () => {
     newPanel.group.header.hidden = true;
     canvasStore.setLayoutEditableVisible(false);
   };
-  const removeTile = (  panelId: string) => {
-      if (!apiRef.current) return;
-    
+  const removeTile = (panelId: string) => {
+    if (!apiRef.current) return;
+
     const activePanel = apiRef.current.getPanel(panelId);
     if (!activePanel) {
-      alert('No active panel to remove. Click on a panel first.');
       return;
     }
 
     apiRef.current.removePanel(activePanel);
     canvasStore.setLayoutEditableVisible(false);
-  }
+  };
 
   return (
     <>
@@ -64,7 +56,7 @@ const ContinumLayout = () => {
               id: "panel_0",
               component: "componentHolder",
               params: {
-                panelId: "panel_0",   
+                panelId: "panel_0",
                 onSplit: (dir: Direction) => handleSplit("panel_0", dir),
                 showSplitButtons: false,
               },

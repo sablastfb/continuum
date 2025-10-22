@@ -18,7 +18,7 @@ const WindowsHeader = () => {
   }, []);
 
   return (
-      <div className="flex items-center h-full px-2">
+      <div className="flex items-center h-full ">
         <button id="titlebar-minimize" className="hover:bg-stone-700 h-full w-full px-3 cursor-pointer">
           <Minus />
         </button>
