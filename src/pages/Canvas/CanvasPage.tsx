@@ -12,6 +12,8 @@ const CanvasPage = () => {
   return (
     <div className=" relative flex  h-full">
       <ContinumLayout />
+      <BarrelDialogs/>
+      <BarrelEffect />
     </div>
   );
 };

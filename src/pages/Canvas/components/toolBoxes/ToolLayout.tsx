@@ -23,7 +23,7 @@ const ToolLayout = () => {
         `}
     >
       {/* LEFT */}
-      <div className="p-1 h-full  absolute left-0 flex  items-center gap-1 flex-row-reverse">
+      <div className="p-1 h-full w-fit  absolute left-0 flex  items-center gap-1 flex-row-reverse">
         {layoutStore.toolOptionsPosition === "left" && (
           <ToolOptionsHolder direction="vertical" />
         )}

@@ -73,8 +73,6 @@ const ComponentHolder = (
       <>
         <PixiCanvasComponent />
         <ToolLayout />
-        <BarrelDialogs />
-        <BarrelEffect />
       </>
     </>
   );

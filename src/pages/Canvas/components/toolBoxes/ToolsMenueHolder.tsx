@@ -32,14 +32,14 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
             ${DefaultButtonsBackground} 
             rounded-lg pointer-events-auto 
             ${direction === "vertical" ? DefaultToolBarVPadding : DefaultToolBarPadding}
-            ${direction === "vertical" ? "  " : " max-w-[75%] w-fit"}
+            ${direction === "vertical" ? "  max-h-[20%] h-fit " : " max-w-[75%] w-fit"}
           `}
         >
-          <ScrollableContainer  direction={direction}>
+          <ScrollableContainer  direction={direction} >
             <div
               className={`
                 flex items-center gap-4 
-                ${direction === "vertical" ? " flex-col " : `flex-row ${DefaultToolBarHeight} px-1 h-11`}
+                ${direction === "vertical" ? " flex-col  py-1 w-11  " : `flex-row ${DefaultToolBarHeight} px-1 h-11`}
               `}
             >
               <CurveToolMenue />
