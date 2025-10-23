@@ -11,7 +11,7 @@ const HideQuickToolSettings = () => {
   return (
     <>
       <div
-        className={`${DefaultButtonsBackground} rounded-full p-1 pointer-events-auto  flex items-center gap-1 cursor-pointer  hover:bg-amber-100 dark:hover:bg-stone-500`}
+        className={`${DefaultButtonsBackground} rounded-xl p-1 pointer-events-auto  flex items-center gap-1 cursor-pointer  hover:bg-amber-100 dark:hover:bg-stone-500`}
         onClick={() => canvasStore.setEdditingMod(!canvasStore.editingModOn)}
       >
         {/* <PencilRuler  size={DefaultIconSize} className=" rounded-2xl p-1" /> */}

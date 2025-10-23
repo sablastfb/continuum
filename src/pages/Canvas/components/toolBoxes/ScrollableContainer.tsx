@@ -15,7 +15,7 @@ export interface ScrollableToolbarProps {
   scrollAmount?: number;
 }
 
-const ScrollableToolbar = ({
+const ScrollableContainer = ({
   direction,
   children,
   className = "",
@@ -53,13 +53,13 @@ const ScrollableToolbar = ({
     resizeObserver.observe(container);
 
     return () => resizeObserver.disconnect();
-  }, [children]);
+  }, [children, isHorizontal]);
 
-  const scroll = (direction: "start" | "end") => {
+  const scroll = (scrollDirection: "start" | "end") => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollValue = direction === "start" ? -scrollAmount : scrollAmount;
+    const scrollValue = scrollDirection === "start" ? -scrollAmount : scrollAmount;
 
     if (isHorizontal) {
       container.scrollTo({
@@ -100,12 +100,12 @@ const ScrollableToolbar = ({
     <div
       className={`flex ${
         isHorizontal ? "flex-row" : "flex-col"
-      } items-center gap-1`}
+      } items-center gap-1 ${isHorizontal ? "w-full" : "h-full"}`}
     >
       {canScrollStart && (
         <div
           onClick={() => scroll("start")}
-          className="rounded  transition-colors  cursor-pointer "
+          className="rounded transition-colors cursor-pointer flex-shrink-0"
           aria-label={`Scroll ${isHorizontal ? "left" : "up"}`}
         >
           <StartIcon size={DefaultIconSize} />
@@ -117,9 +117,11 @@ const ScrollableToolbar = ({
         onScroll={checkScrollability}
         onWheel={handleWheel}
         className={`
-          overflow-hidden
+          ${className}
+          ${isHorizontal ? "overflow-x-auto overflow-y-hidden" : "overflow-y-auto overflow-x-hidden"}
           scrollbar-hide
           flex ${isHorizontal ? "flex-row" : "flex-col"}
+          ${isHorizontal ? "w-full" : "h-full"}
         `}
         style={{
           scrollbarWidth: "none",
@@ -132,7 +134,7 @@ const ScrollableToolbar = ({
       {canScrollEnd && (
         <div
           onClick={() => scroll("end")}
-          className=" p-1 transition-colors flex-shrink-0  cursor-pointer "
+          className="rounded transition-colors flex-shrink-0 cursor-pointer"
           aria-label={`Scroll ${isHorizontal ? "right" : "down"}`}
         >
           <EndIcon size={DefaultIconSize} />
@@ -142,4 +144,4 @@ const ScrollableToolbar = ({
   );
 };
 
-export default ScrollableToolbar;
+export default ScrollableContainer;

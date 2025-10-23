@@ -10,11 +10,11 @@ import "dockview-core/dist/styles/dockview.css";
 
 const CanvasPage = () => {
   return (
-    <div className=" relative flex  h-full">
+    <>
       <ContinumLayout />
       <BarrelDialogs/>
       <BarrelEffect />
-    </div>
+    </>
   );
 };
 

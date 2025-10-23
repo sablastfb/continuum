@@ -32,30 +32,48 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           className={`
             ${DefaultButtonsBackground} 
             rounded-lg pointer-events-auto 
-            ${direction === "vertical" ? "    " : " max-w-[75%] w-fit "}
+            ${
+              direction === "vertical"
+                ? `  max-h-[50%] h-200 `
+                : ` max-w-[75%] w-fit `
+            }
           `}
         >
-          <ScrollableContainer  direction={direction} >
+          <ScrollableContainer direction={direction}>
             <div
               className={`
                 flex items-center gap-4 
-                ${direction === "vertical" ? ` flex-col  py-1  ${DefaultToolBarWith} h-full ` : ` flex-row ${DefaultToolBarHeight} px-1 `}
+                ${
+                  direction === "vertical"
+                    ? ` flex-col  py-1  ${DefaultToolBarWith}  `
+                    : ` flex-row ${DefaultToolBarHeight} px-1 `
+                }
               `}
             >
               <CurveToolMenue />
               <SelectionToolMenue />
               <EraserToolMenue />
               <ShapeToolMenue />
-              <Type size={DefaultIconSize} />
-              <Image size={DefaultIconSize} />
-              <Ruler size={DefaultIconSize} />
-              <Link size={DefaultIconSize} />
+              <div>
+                <Type size={DefaultIconSize} />
+              </div>
+              <div>
+                <Image size={DefaultIconSize} />
+              </div>
+              <div>
+                <Ruler size={DefaultIconSize} />
+              </div>
+              <div>
+                <Link size={DefaultIconSize} />
+              </div>
               <BookmankrButton />
-              <Clipboard size={DefaultIconSize} />
+              <div>
+                <Clipboard size={DefaultIconSize} />
+              </div>
               <ArrayDivider direction={direction} />
               <DoUnDoComponent />
             </div>
-          </ScrollableContainer >
+          </ScrollableContainer>
         </div>
       )}
     </>
