@@ -98,18 +98,18 @@ const ScrollableToolbar = ({
 
   return (
     <div
-      className={`flex h-full w-full ${
+      className={`flex ${
         isHorizontal ? "flex-row" : "flex-col"
       } items-center gap-1`}
     >
       {canScrollStart && (
-        <button
+        <div
           onClick={() => scroll("start")}
-          className="rounded  transition-colors h-full "
+          className="rounded  transition-colors  cursor-pointer "
           aria-label={`Scroll ${isHorizontal ? "left" : "up"}`}
         >
           <StartIcon size={DefaultIconSize} />
-        </button>
+        </div>
       )}
 
       <div
@@ -117,12 +117,7 @@ const ScrollableToolbar = ({
         onScroll={checkScrollability}
         onWheel={handleWheel}
         className={`
-          ${className}
-          ${
-            isHorizontal
-              ? "overflow-x-auto overflow-y-hidden"
-              : "overflow-y-auto overflow-x-hidden"
-          }
+          overflow-hidden
           scrollbar-hide
           flex ${isHorizontal ? "flex-row" : "flex-col"}
         `}
@@ -137,7 +132,7 @@ const ScrollableToolbar = ({
       {canScrollEnd && (
         <div
           onClick={() => scroll("end")}
-          className=" rounded p-1 transition-colors flex-shrink-0 h-full"
+          className=" p-1 transition-colors flex-shrink-0  cursor-pointer "
           aria-label={`Scroll ${isHorizontal ? "right" : "down"}`}
         >
           <EndIcon size={DefaultIconSize} />

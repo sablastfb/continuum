@@ -13,8 +13,8 @@ export interface LayoutData {
 }
 
 export const LayoutDefault: LayoutData = {
-  toolMenuePosition: "top",
-  toolMenuesDirection: "horizontal",
+  toolMenuePosition: "left",
+  toolMenuesDirection: "vertical",
 
   toolOptionsPosition: "right",
   toolOptionsDirection: "vertical",

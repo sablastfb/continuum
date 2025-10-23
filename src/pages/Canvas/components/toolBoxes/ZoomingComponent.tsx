@@ -14,7 +14,7 @@ const ZoomingButton = () => {
         {canvasStore.editingModOn && (
           <>
             <div
-              className={`${DefaultButtonsBackground} p-1 pointer-events-auto rounded-md hidden xl:flex items-center gap-1`}
+              className={`${DefaultButtonsBackground} p-1 pointer-events-auto rounded-md flex items-center gap-1`}
             >
               <ZoomIn
                 className="hover:cursor-pointer"

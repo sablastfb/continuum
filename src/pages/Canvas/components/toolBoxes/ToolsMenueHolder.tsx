@@ -7,6 +7,7 @@ import {
   DefaultToolBarHeight,
   DefaultToolBarPadding,
   DefaultToolBarVPadding,
+  DefaultToolBarWith,
 } from "../../data/types/CanvasConstants";
 import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
 import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
@@ -31,15 +32,14 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           className={`
             ${DefaultButtonsBackground} 
             rounded-lg pointer-events-auto 
-            ${direction === "vertical" ? DefaultToolBarVPadding : DefaultToolBarPadding}
-            ${direction === "vertical" ? "  max-h-[20%] h-fit " : " max-w-[75%] w-fit"}
+            ${direction === "vertical" ? "    " : " max-w-[75%] w-fit "}
           `}
         >
           <ScrollableContainer  direction={direction} >
             <div
               className={`
                 flex items-center gap-4 
-                ${direction === "vertical" ? " flex-col  py-1 w-11  " : `flex-row ${DefaultToolBarHeight} px-1 h-11`}
+                ${direction === "vertical" ? ` flex-col  py-1  ${DefaultToolBarWith} h-full ` : ` flex-row ${DefaultToolBarHeight} px-1 `}
               `}
             >
               <CurveToolMenue />
