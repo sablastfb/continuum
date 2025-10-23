@@ -9,7 +9,7 @@ export interface CanvasStore {
   canvasCursorActive: boolean;
   historyPosition: number;
   historyCount: number;
-  qucikToolsActive: boolean;
+  editingModOn: boolean;
   advanceToolsActive: boolean;
   layoutEditableVisible: boolean;
   setZoom: (zoom: number) => void;
@@ -20,7 +20,7 @@ export interface CanvasStore {
   setHistoryPosition: (historyCount: number) => void;
   setHistoryCount: (historyPosition: number) => void;
   setAdvanceToolsVisibility: (advanceTools: boolean) => void;
-  setQuickToolsVisibility: (advanceTools: boolean) => void;
+  setEdditingMod: (advanceTools: boolean) => void;
   setLayoutEditableVisible: (layoutActive: boolean) => void;
 }
 
@@ -34,7 +34,7 @@ const useCanvasStore = create<CanvasStore>()(
     historyPosition: -1,
     historyCount: 0,
     advanceToolsActive: false,
-    qucikToolsActive: true,
+    editingModOn: true,
     layoutEditableVisible: false,
     setLayoutEditableVisible: (layoutActive: boolean) =>
       set((state) => {
@@ -73,9 +73,9 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.advanceToolsActive = advanceTools;
       }),
-    setQuickToolsVisibility: (advanceTools: boolean) =>
+    setEdditingMod: (advanceTools: boolean) =>
       set((state) => {
-        state.qucikToolsActive = advanceTools;
+        state.editingModOn = advanceTools;
       }),
   }))
 );

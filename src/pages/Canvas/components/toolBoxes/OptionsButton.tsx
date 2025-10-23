@@ -38,23 +38,11 @@ const OptionButton = () => {
 }
 
 const OptionButtons = () => {
-  const op = useRef<OverlayPanel>(null);
 
   return (
     <>
-      <OverlayPanel ref={op}>
-        <OptionButton />
-      </OverlayPanel>
       <div
-        className={`  xl:hidden absolute  flex  left-10 ${DefaultButtonsBackground} pointer-events-auto rounded-md `}
-        onClick={(e) => {
-          op.current!.toggle(e);
-        }}
-      >
-        <Menu size={DefaultIconSize} className="hover:cursor-pointer" />
-      </div>
-      <div
-        className={` hidden xl:flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center gap-2 m-1 p-1`}
+        className={`flex  ${DefaultButtonsBackground} pointer-events-auto rounded-md  bg-white/10 backdrop-blur-sm items-center gap-2 m-1 p-1`}
       >
         <OptionButton />
       </div>

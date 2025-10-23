@@ -5,15 +5,13 @@ import {
   DefaultIconSize,
 } from "../../data/types/CanvasConstants";
 import { Continuum_ResizeService } from "../../features/service/Resize";
-import HideQuickToolSettings from "./HideButotn";
 
 const ZoomingButton = () => {
   const zoome = useCanvasStore((state) => state.zoome);
   const canvasStore = useCanvasStore();
   return (
     <>
-      <div className={`  absolute bottom-0 left-0 m-1 flex gap-5 items-center`}>
-        {canvasStore.qucikToolsActive && (
+        {canvasStore.editingModOn && (
           <>
             <div
               className={`${DefaultButtonsBackground} p-1 pointer-events-auto rounded-md hidden xl:flex items-center gap-1`}
@@ -34,8 +32,6 @@ const ZoomingButton = () => {
             </div>
           </>
         )}
-        <HideQuickToolSettings />
-      </div>
     </>
   );
 };

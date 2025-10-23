@@ -12,7 +12,7 @@ const LayoutSettings = ()  => {
       <h3 className="text-xl  mb-4">Layout Settings</h3>
         <div>
           <h3>Quic tools visible</h3>
-          <Checkbox onChange={e => canvasStore.setQuickToolsVisibility(e.checked ?? true )} checked={canvasStore.qucikToolsActive}></Checkbox>
+          <Checkbox onChange={e => canvasStore.setEdditingMod(e.checked ?? true )} checked={canvasStore.editingModOn}></Checkbox>
         </div>
       <div>
         <h3> Tool menue</h3>

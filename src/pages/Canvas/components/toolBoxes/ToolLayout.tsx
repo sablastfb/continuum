@@ -1,7 +1,6 @@
-
 import useLayoutStore from "../../data/store/LayoutStore";
 import BookmakrContainer from "../tools/bookmarkComponents/BookMarkComponent";
-import OptionButtons from "./OptionsButton";
+import HideQuickToolSettings from "./HideButotn";
 import ToolOptionsHolder from "./ToolQuickOptionsHolder";
 import ToolsMenueHolder from "./ToolsMenueHolder";
 import ZoomingButton from "./ZoomingComponent";
@@ -48,9 +47,8 @@ const ToolLayout = () => {
           <ToolOptionsHolder direction="horizontal" />
         )}
         {layoutStore.toolMenuePosition === "top" && (
-          <ToolsMenueHolder direction="horizontal" /> 
+          <ToolsMenueHolder direction="horizontal" />
         )}
-        
       </div>
       {/*BOTOM */}
       <div className="p-1 w-full absolute bottom-0 flex flex-col items-center gap-1">
@@ -62,10 +60,13 @@ const ToolLayout = () => {
         )}
       </div>
       {/* <OptionButtons /> */}
-      <ZoomingButton />
+      <div className={`  absolute bottom-0 left-0 m-1 flex gap-5 items-center`}>
+        <ZoomingButton />
+        <HideQuickToolSettings />
+      </div>
       <BookmakrContainer />
     </div>
   );
-}
+};
 
 export default ToolLayout;

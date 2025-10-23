@@ -46,16 +46,16 @@ const  ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
     <>
       { canvasStore.advanceToolsActive && advanceSettingsComponent && (
         <div
-          className={`${DefaultButtonsBackground} rounded-lg min-w-[20vw]  min-h-[20vw] pointer-events-auto `}
+          className={`${DefaultButtonsBackground} rounded-lg min-w-[20vw]  min-h-[20vw]  pointer-events-auto overflow-hidden `}
         >
           {advanceSettingsComponent}
         </div>
       )}
-      {canvasStore.qucikToolsActive && activeToolComponent && (
+      {canvasStore.editingModOn && activeToolComponent && (
         <div
           className={`
         ${DefaultButtonsBackground} 
-        flex items-center gap-4 rounded-lg  pointer-events-auto 
+        flex items-center gap-4 rounded-lg  pointer-events-auto  max-w-[20vw] max-h-[20vw]
         ${direction === "vertical" && `flex-col ${DefaultToolBarVPadding}`} 
         ${
           direction === "horizontal" &&

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { DockviewReact, DockviewApi, IDockviewPanelProps } from 'dockview';
 import 'dockview-core/dist/styles/dockview.css';
-
+// TODO REMOVE
 // Hello component with split buttons
 const HelloPanel = (props: IDockviewPanelProps<{ panelId: string; onSplit: (direction: string) => void; showSplitButtons: boolean }>) => {
   const { panelId, onSplit, showSplitButtons } = props.params;
