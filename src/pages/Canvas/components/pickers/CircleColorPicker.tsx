@@ -13,6 +13,8 @@ const CircleColorPicker = ({
   action,
 }: CircleColorPickerParm) => {
   return (
+    <div>
+
     <div
       onClick={() => {
         action();
@@ -21,7 +23,8 @@ const CircleColorPicker = ({
       className={`rounded-full w-7 h-7 hover:cursor-pointer ${
         selected ? DefaultOutlineColor : ""
       } `}
-    ></div>
+      ></div>
+      </div>
   );
 }
 
