@@ -6,14 +6,15 @@ import PixiCanvasComponent from "./components/toolBoxes/CanvasComponent";
 import ToolLayout from "./components/toolBoxes/ToolLayout";
 import "dockview-core/dist/styles/dockview.css";
 
-
-
 const CanvasPage = () => {
   return (
     <>
-      <ContinumLayout />
-      <BarrelDialogs/>
-      <BarrelEffect />
+      <div className="relative h-full w-full">
+        <ToolLayout />
+        <PixiCanvasComponent />
+        <BarrelDialogs />
+        <BarrelEffect />
+      </div>
     </>
   );
 };

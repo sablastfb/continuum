@@ -71,8 +71,7 @@ const ComponentHolder = (
         </div>
       )}
       <>
-        <PixiCanvasComponent />
-        <ToolLayout />
+
       </>
     </>
   );

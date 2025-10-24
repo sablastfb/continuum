@@ -31,10 +31,10 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
         <div
           className={`
             ${DefaultButtonsBackground} 
-            rounded-lg pointer-events-auto 
+            rounded-lg pointer-events-auto  overflow-hidden
             ${
               direction === "vertical"
-                ? `  max-h-[50%] h-200 `
+                ? `  max-h-[70%] h-fit `
                 : ` max-w-[75%] w-fit `
             }
           `}

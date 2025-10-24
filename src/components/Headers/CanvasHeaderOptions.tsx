@@ -15,9 +15,6 @@ const CanvasHeaderOptions = () => {
           <Settings size={SmallerIconSize} />
         </div>
         <Download size={SmallerIconSize} />
-        <div className="cursor-pointer" onClick={() => canvasStore.setLayoutEditableVisible(!canvasStore.layoutEditableVisible)}>
-          <LayoutDashboard size={SmallerIconSize} />
-        </div>
       </div>
     </>
   );

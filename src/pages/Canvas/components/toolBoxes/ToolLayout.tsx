@@ -9,18 +9,7 @@ const ToolLayout = () => {
   const layoutStore = useLayoutStore();
 
   return (
-    <div
-      className={`
-        absolute
-        h-full
-        w-hull
-        flex 
-        flex-wrap
-        justify-between
-        pointer-events-none
-        top-0 left-0 right-0 items-start
-        `}
-    >
+    <>
       {/* LEFT */}
       <div className="p-1 h-full absolute left-0 flex  items-center gap-1 flex-row-reverse">
         {layoutStore.toolOptionsPosition === "left" && (
@@ -59,12 +48,12 @@ const ToolLayout = () => {
         )}
       </div>
       {/* <OptionButtons /> */}
-      <div className={`  absolute bottom-0 left-0 m-1 flex gap-5 items-center`}>
+      <div className={`absolute   bottom-0 left-0 m-1 flex gap-5 items-center`}>
         <ZoomingButton />
         <HideQuickToolSettings />
       </div>
       <BookmakrContainer />
-    </div>
+    </>
   );
 };
 

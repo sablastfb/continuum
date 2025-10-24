@@ -4,14 +4,15 @@ import { FederatedPointerEvent } from "pixi.js";
 import { throttle } from "lodash";
 import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
-import type { MouseInputPoint } from "../../data/types/PointTypes";
+import type { MouseInputPoint, SimplePoint } from "../../data/types/PointTypes";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export type ITool = Partial<{
   type: ToolType;
   initTool(): void;
   disposeTool(): void;
   startDrawing<P extends MouseInputPoint>(e: P): void;
-  draw<P extends MouseInputPoint>(e: P): void;
+  draw<P extends MouseInputPoint>(e: P, simpe: SimplePoint): void;
   stopDrawing<P extends MouseInputPoint>(e: P): void;
   updateCursor(): void;
 }>;
@@ -75,7 +76,14 @@ export class Continuum_ToolManager {
 
   public static draw = throttle((e: FederatedPointerEvent) => {
     if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.draw) {
-      Continuum_ToolManager.currentTool.draw(e);
+      const canvas = Continuum_Canvas.appInstance?.canvas;
+      if (!canvas) return
+    const rect = canvas.getBoundingClientRect();
+    
+    // Calculate coordinates relative to canvas
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      Continuum_ToolManager.currentTool.draw(e, {x,y});
     }
   }, 8);
 }

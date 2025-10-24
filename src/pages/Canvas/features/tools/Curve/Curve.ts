@@ -6,7 +6,7 @@ import { Continuum_CanvasViewport } from "../../service/Viewport";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import type { MouseInputPoint } from "../../../data/types/PointTypes";
+import type { MouseInputPoint, SimplePoint } from "../../../data/types/PointTypes";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
@@ -79,14 +79,14 @@ export class Curve implements ITool {
     this.activeCurve.moveTo(worldPos.x, worldPos.y);
   }
 
-  public draw<P extends MouseInputPoint>(e: P) {
+  public draw<P extends MouseInputPoint>(e: P,ee: SimplePoint) {
     if (Continuum_Canvas.drawing === false) return;
     if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(ee);
     this.line.push(worldPos);
     this.activeCurve.lineTo(worldPos.x, worldPos.y);
 
