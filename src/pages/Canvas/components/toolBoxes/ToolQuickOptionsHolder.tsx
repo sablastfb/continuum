@@ -8,6 +8,7 @@ import SelectoinToolQuickOptions from "../tools/selectonComponents/SelectoinTool
 import EraseToolQuickOptions from "../tools/eraseComponents/EraseToolQuickOptions";
 import ShapeToolQuickOptions from "../tools/shapesComponents/ShapeToolQuickOptions";
 import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../data/types/CanvasConstants";
+import ScrollableContainer from "./ScrollableContainer";
 
 
 export interface ToolOptionParameters {
@@ -52,19 +53,20 @@ const  ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
         </div>
       )}
       {canvasStore.editingModOn && activeToolComponent && (
-        <div
+        <ScrollableContainer
+          direction={direction}
           className={`
         ${DefaultButtonsBackground} 
-        flex items-center gap-4 rounded-lg  pointer-events-auto  max-w-[20vw] max-h-[20vw]
-        ${direction === "vertical" && `flex-col ${DefaultToolBarVPadding}`} 
+        flex items-center gap-4 rounded-lg  pointer-events-auto 
+        ${direction === "vertical" && `flex-col ${DefaultToolBarVPadding}  max-h-[80vh]`} 
         ${
           direction === "horizontal" &&
-          `${DefaultToolBarHeight} ${DefaultToolBarPadding}`
+          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[80vw]` 
         }
         `}
         >
           {activeToolComponent}
-        </div>
+        </ScrollableContainer>
       )}
     </>
   );
