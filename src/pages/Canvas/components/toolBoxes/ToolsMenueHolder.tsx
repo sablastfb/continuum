@@ -5,8 +5,6 @@ import {
   DefaultButtonsBackground,
   DefaultIconSize,
   DefaultToolBarHeight,
-  DefaultToolBarPadding,
-  DefaultToolBarVPadding,
   DefaultToolBarWith,
 } from "../../data/types/CanvasConstants";
 import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
@@ -28,53 +26,28 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
   return (
     <>
       {canvasStore.editingModOn && (
-        <div
+        <ScrollableContainer
+          direction={direction}
           className={`
             ${DefaultButtonsBackground} 
-            rounded-lg pointer-events-auto  overflow-hidden
-            ${
-              direction === "vertical"
-                ? `  max-h-[70%] h-fit `
-                : ` max-w-[75%] w-fit `
-            }
+            pointer-events-auto 
+             flex items-center gap-4
+               ${
+                 direction === "vertical"
+                   ? `flex-col py-1 ${DefaultToolBarWith} max-h-[20vh] h-fit`
+                   : `flex-row px-1 ${DefaultToolBarHeight}  max-w-[15vw] w-fit`
+               }
+
           `}
         >
-          <ScrollableContainer direction={direction}>
-            <div
-              className={`
-                flex items-center gap-4 
-                ${
-                  direction === "vertical"
-                    ? ` flex-col  py-1  ${DefaultToolBarWith}  `
-                    : ` flex-row ${DefaultToolBarHeight} px-1 `
-                }
-              `}
-            >
-              <CurveToolMenue />
-              <SelectionToolMenue />
-              <EraserToolMenue />
-              <ShapeToolMenue />
-              <div>
-                <Type size={DefaultIconSize} />
-              </div>
-              <div>
-                <Image size={DefaultIconSize} />
-              </div>
-              <div>
-                <Ruler size={DefaultIconSize} />
-              </div>
-              <div>
-                <Link size={DefaultIconSize} />
-              </div>
-              <BookmankrButton />
-              <div>
-                <Clipboard size={DefaultIconSize} />
-              </div>
-              <ArrayDivider direction={direction} />
-              <DoUnDoComponent />
-            </div>
-          </ScrollableContainer>
-        </div>
+          <CurveToolMenue />
+          <SelectionToolMenue />
+          <EraserToolMenue />
+          <ShapeToolMenue />
+          <BookmankrButton />
+          <ArrayDivider direction={direction} />
+          <DoUnDoComponent />
+        </ScrollableContainer>
       )}
     </>
   );

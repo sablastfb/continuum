@@ -5,8 +5,14 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useRef, useState, useEffect, type ReactNode } from "react";
-import { Direction } from "../../data/store/LayoutStore";
-import { DefaultIconSize } from "../../data/types/CanvasConstants";
+import {
+  DefaultButtonsBackground,
+  DefaultIconSize,
+} from "../../data/types/CanvasConstants";
+import { BacgroundColors } from "../../data/palet/BacgroundColor";
+import { hide } from "@tauri-apps/api/app";
+
+type Direction = "horizontal" | "vertical";
 
 export interface ScrollableToolbarProps {
   direction: Direction;
@@ -34,12 +40,12 @@ const ScrollableContainer = ({
     if (isHorizontal) {
       setCanScrollStart(container.scrollLeft > 0);
       setCanScrollEnd(
-        container.scrollLeft < container.scrollWidth - container.clientWidth
+        container.scrollLeft+2 < container.scrollWidth - container.clientWidth
       );
     } else {
       setCanScrollStart(container.scrollTop > 0);
       setCanScrollEnd(
-        container.scrollTop < container.scrollHeight - container.clientHeight
+       container.scrollTop+2 < container.scrollHeight - container.clientHeight
       );
     }
   };
@@ -56,10 +62,12 @@ const ScrollableContainer = ({
   }, [children, isHorizontal]);
 
   const scroll = (scrollDirection: "start" | "end") => {
+    debugger;
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const scrollValue = scrollDirection === "start" ? -scrollAmount : scrollAmount;
+    const scrollValue =
+      scrollDirection === "start" ? -scrollAmount : scrollAmount;
 
     if (isHorizontal) {
       container.scrollTo({
@@ -77,8 +85,6 @@ const ScrollableContainer = ({
   const handleWheel = (e: React.WheelEvent) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-
-    e.preventDefault();
 
     if (isHorizontal) {
       container.scrollTo({
@@ -99,30 +105,33 @@ const ScrollableContainer = ({
   return (
     <div
       className={`flex ${
-        isHorizontal ? "flex-row" : "flex-col"
-      } items-center gap-1 ${isHorizontal ? "w-full" : "h-full"}`}
+        isHorizontal ? "flex-row h-full" : "flex-col "
+      } items-center`}
     >
-      {canScrollStart && (
-        <div
-          onClick={() => scroll("start")}
-          className="rounded transition-colors cursor-pointer flex-shrink-0"
-          aria-label={`Scroll ${isHorizontal ? "left" : "up"}`}
-        >
-          <StartIcon size={DefaultIconSize} />
-        </div>
-      )}
-
+      <div
+        onClick={() => scroll("start")}
+        className={`pointer-events-auto   transition-colors  cursor-pointer  flex  justify-center bg-black/20 dark:bg-white/30  backdrop-blur-sm
+        ${isHorizontal ? "h-11 flex items-center rounded-l-2xl" : "w-full rounded-t-2xl"}
+        ${!canScrollStart && 'hidden'}
+        `}
+      >
+        <StartIcon size={DefaultIconSize / 1.5} />
+      </div>
       <div
         ref={scrollContainerRef}
         onScroll={checkScrollability}
         onWheel={handleWheel}
         className={`
           ${className}
-          ${isHorizontal ? "overflow-x-auto overflow-y-hidden" : "overflow-y-auto overflow-x-hidden"}
-          scrollbar-hide
+          ${
+            isHorizontal
+              ? "overflow-x-auto overflow-y-hidden "
+              : "overflow-y-auto overflow-x-hidden "
+          }
           flex ${isHorizontal ? "flex-row" : "flex-col"}
-          ${isHorizontal ? "w-full" : "h-full"}
-        `}
+          ${!canScrollStart && (direction === 'vertical' ? 'rounded-t-2xl' : 'rounded-l-2xl')}
+          ${!canScrollEnd && (direction === 'vertical' ? 'rounded-b-2xl' : 'rounded-r-2xl')}
+          `}
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -131,15 +140,17 @@ const ScrollableContainer = ({
         {children}
       </div>
 
-      {canScrollEnd && (
-        <div
-          onClick={() => scroll("end")}
-          className="rounded transition-colors flex-shrink-0 cursor-pointer"
-          aria-label={`Scroll ${isHorizontal ? "right" : "down"}`}
-        >
-          <EndIcon size={DefaultIconSize} />
-        </div>
-      )}
+    <div
+        onClick={() => scroll("end")}
+        className={`pointer-events-auto   transition-colors  cursor-pointer  flex  justify-center bg-black/20 dark:bg-white/30  backdrop-blur-sm
+        ${isHorizontal ? "h-11 flex items-center rounded-r-2xl" : "w-full rounded-b-2xl"}
+          ${!canScrollEnd && 'hidden'}
+        `}
+        
+        aria-label={`Scroll ${isHorizontal ? "right" : "down"}`}
+      >
+        <EndIcon size={DefaultIconSize / 1.5} />
+      </div>
     </div>
   );
 };

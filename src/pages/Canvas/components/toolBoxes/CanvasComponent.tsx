@@ -24,9 +24,9 @@ const PixiCanvasComponent = () => {
   return (
     <>
       <div
+      className="h-full w-full overflow-hidden"
          style={{ cursor: "none" }}
         ref={canvasContainer}
-        className="h-full w-full flex-1 "
         onMouseEnter={() => {
           setCanvasCursorActive(true);
         }}

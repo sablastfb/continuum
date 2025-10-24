@@ -7,7 +7,7 @@ function App() {
     <>
     <div className="flex flex-col h-screen w-screen">
       <ContinumHeader/>
-      <div className="flex-1">
+      <div className="flex-1 ">
         <Router/>
       </div>
     </div>
