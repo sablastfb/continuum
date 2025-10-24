@@ -9,12 +9,18 @@ import PenToolQuickOptions from "./PenToolsQuickOptions";
 import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import { usePenStore } from "../../../data/store/PenStore";
+import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
+import { useHandleStyle } from "primereact/componentbase";
+import { useMarkerStore } from "../../../data/store/MarkerStore";
 
 const CurveToolOptions = () => {
   const setActiveTool = useToolStore((state) => state.setActiveTool);
   const lastCureveTool = useToolStore((state) => state.setLastCureveTool);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   const activeTool = useToolStore().activeTool;
+  const penStore = usePenStore();
+  const markerStore = useMarkerStore();
 
   return (
     <>
@@ -25,7 +31,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("pen"); lastCureveTool("pen");}}
       >
-        <Pen size={DefaultIconSize} />
+        <Pen size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( penStore.penColorId )}/>
       </div>
       <div
         className={`cursor-pointer ${
@@ -33,7 +39,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("highlighter"); lastCureveTool("highlighter"); }}
       >
-        <Highlighter size={DefaultIconSize} />
+        <Highlighter size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( markerStore.markerColorId )}/>
       </div>
       <ArrayDivider direction={toolOptionsDirection} />
       {activeTool === "pen" && <PenToolQuickOptions />}

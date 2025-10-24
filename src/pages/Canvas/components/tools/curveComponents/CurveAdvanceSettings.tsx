@@ -1,5 +1,5 @@
 const CurveAdvanceSettings = () => {
-    return <>Domo</>
+    return <>Zoom</>
 }
 
 export default CurveAdvanceSettings;

@@ -1,4 +1,4 @@
-import { Highlighter, Pencil } from "lucide-react";
+import { Highlighter, Pen, Pencil } from "lucide-react";
 import {
   DefaultButtonsBackground,
   DefaultIconSize,
@@ -8,11 +8,14 @@ import useToolStore from "../../../data/store/ToolStore";
 import useCanvasStore from "../../../data/store/CanvasStore";
 import CurveAdvanceSettings from "./CurveAdvanceSettings";
 import { useEffect, useRef, useState } from "react";
+import { usePenStore } from "../../../data/store/PenStore";
+import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 
 const CurveToolMenue = () => {
   const toolStore = useToolStore();
-  const [domo, setdomo] = useState<boolean>(false);
-
+  const penStore = usePenStore();
+  const markerStore = useMarkerStore();
   return (
     <>
       <div
@@ -22,15 +25,14 @@ const CurveToolMenue = () => {
         onClick={() => {
           toolStore.setActiveTool(toolStore.lastCureveTool);
         }}
-        onDoubleClick={() => {
-          setdomo(!domo);
-        }}
+    
       >
         {toolStore.lastCureveTool === "pen" && (
-          <Pencil size={DefaultIconSize} />
+        <Pen size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( penStore.penColorId )}/>
         )}
         {toolStore.lastCureveTool === "highlighter" && (
-          <Highlighter size={DefaultIconSize} />
+               <Highlighter size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( markerStore.markerColorId )}/>
+       
         )}
       </div>
     </>
