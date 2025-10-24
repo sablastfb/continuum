@@ -34,8 +34,8 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
              flex items-center gap-4
                ${
                  direction === "vertical"
-                   ? `flex-col py-1 ${DefaultToolBarWith} max-h-[20vh] h-fit`
-                   : `flex-row px-1 ${DefaultToolBarHeight}  max-w-[15vw] w-fit`
+                   ? `flex-col py-1 ${DefaultToolBarWith} max-h-[75vh] `
+                   : `flex-row px-1 ${DefaultToolBarHeight}  max-w-[75vw] `
                }
 
           `}
@@ -45,7 +45,7 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           <EraserToolMenue />
           <ShapeToolMenue />
           <BookmankrButton />
-          <ArrayDivider direction={direction} />
+           <ArrayDivider direction={direction} />
           <DoUnDoComponent />
         </ScrollableContainer>
       )}
