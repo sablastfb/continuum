@@ -1,4 +1,4 @@
-import { ChevronLeft, Download, LayoutDashboard, Settings } from "lucide-react";
+import { ChevronLeft, Download, Settings } from "lucide-react";
 import useCanvasStore from "../../pages/Canvas/data/store/CanvasStore";
 
 const SmallerIconSize = 25;

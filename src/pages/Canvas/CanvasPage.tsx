@@ -1,5 +1,3 @@
-import ContinumLayout from "../../components/Layout/Layout";
-import { MyDockviewLayout } from "../../components/Layout/DockviewLayout";
 import BarrelDialogs from "./components/dialog/BarrelDialogs";
 import BarrelEffect from "./components/effects/BarrelEffect";
 import PixiCanvasComponent from "./components/toolBoxes/CanvasComponent";

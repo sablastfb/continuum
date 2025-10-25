@@ -10,7 +10,7 @@ import fragment from "./../shaders/shader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
 
 export namespace Continuum_CanvasViewport {
-  export let viewport: Viewport | null = null;
+  export const viewport: Viewport | null = null;
 
   export function init() {
     if (!Continuum_Canvas.appInstance) return;

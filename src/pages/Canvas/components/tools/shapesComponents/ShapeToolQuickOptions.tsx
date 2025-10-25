@@ -1,10 +1,6 @@
 import { Circle, HexagonIcon, Square } from "lucide-react";
-import { ShapeFillType, useShapesStore } from "../../../data/store/ShapeStore";
-import { BackgroundTypes } from "../../../features/service/TailBackground";
-import CircleColorPicker from "../../pickers/CircleColorPicker";
 import {
   DefaultIconSize,
-  DefaultOutlineColor,
 } from "../../../data/types/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";

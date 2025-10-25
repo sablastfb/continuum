@@ -1,9 +1,7 @@
-import { Clipboard, Image, Type, Link, Ruler } from "lucide-react";
 import DoUnDoComponent from "./DoUnDoComponent";
 import { Direction } from "../../data/store/LayoutStore";
 import {
   DefaultButtonsBackground,
-  DefaultIconSize,
   DefaultToolBarHeight,
   DefaultToolBarWith,
 } from "../../data/types/CanvasConstants";

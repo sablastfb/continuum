@@ -1,7 +1,5 @@
-import { ChevronLeft, CircleChevronLeft, Download, Info, Keyboard, LayoutDashboard, Menu, Settings } from "lucide-react";
+import { Download, Keyboard, Settings } from "lucide-react";
 
-import { OverlayPanel } from "primereact/overlaypanel";
-import { useRef } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { DefaultButtonsBackground, DefaultIconSize } from "../../data/types/CanvasConstants";
 

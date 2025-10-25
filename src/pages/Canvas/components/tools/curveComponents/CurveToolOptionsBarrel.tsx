@@ -11,7 +11,6 @@ import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 import { usePenStore } from "../../../data/store/PenStore";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
-import { useHandleStyle } from "primereact/componentbase";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 
 const CurveToolOptions = () => {

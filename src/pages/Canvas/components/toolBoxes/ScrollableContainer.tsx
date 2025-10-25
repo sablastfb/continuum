@@ -6,11 +6,8 @@ import {
 } from "lucide-react";
 import { useRef, useState, useEffect, type ReactNode } from "react";
 import {
-  DefaultButtonsBackground,
   DefaultIconSize,
 } from "../../data/types/CanvasConstants";
-import { BacgroundColors } from "../../data/palet/BacgroundColor";
-import { hide } from "@tauri-apps/api/app";
 
 type Direction = "horizontal" | "vertical";
 

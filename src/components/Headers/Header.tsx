@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getCurrentWindow } from "@tauri-apps/api/window";
 import CanvasHeaderOptions from "./CanvasHeaderOptions";
 import ContinumLogo from "./ContinumLogo";
 import WindowsHeader from "./WindowsHeader";
