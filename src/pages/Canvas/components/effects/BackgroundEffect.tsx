@@ -13,7 +13,6 @@ const BackgroundEffect = () => {
   const activeTool = useToolStore().activeTool;
 
   useEffect(() => {
-    Continuum_CanvasBacground.changeBackground(settings.background);
   }, [settings]);
 
 

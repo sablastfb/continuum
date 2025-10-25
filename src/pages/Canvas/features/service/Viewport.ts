@@ -2,7 +2,6 @@ import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 import { Continuum_ResizeService } from "./Resize";
-import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_ToolManager } from "../tools/ToolManager";
 import { Geometry, GlProgram, Mesh, Shader } from "pixi.js";
 
@@ -112,15 +111,7 @@ export namespace Continuum_CanvasViewport {
         Continuum_ResizeService.viewportZoom(e);
       })
       .on("moved", () => {
-        if (
-          Continuum_CanvasBacground.backgroundTilingSprite &&
-          viewport?.scale.x
-        ) {
-          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.x =
-            viewport?.x;
-          Continuum_CanvasBacground.backgroundTilingSprite.tilePosition.y =
-            viewport?.y;
-        }
+        
       });
   }
 }

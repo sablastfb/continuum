@@ -1,6 +1,5 @@
 import { Application } from "pixi.js";
 import { Continuum_ToolManager } from "./tools/ToolManager";
-import { Continuum_CanvasBacground } from "./service/Background";
 import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
 import useSettingsStore from "../data/store/BacgroundStore";
 import { Continuum_ResizeService } from "./service/Resize";
@@ -25,9 +24,9 @@ export namespace Continuum_Canvas {
     Continuum_CanvasViewport.setUpViewportAndEvent();
     Continuum_ResizeService.setUpResize();
     Continuum_CanvasCursor.updateCursor();
-    Continuum_CanvasBacground.changeBackground(
-      useSettingsStore.getState().background
-    );
+    // Continuum_CanvasBacground.changeBackground(
+    //   useSettingsStore.getState().background
+    // );
     return appInstance;
   }
 
@@ -46,7 +45,7 @@ export namespace Continuum_Canvas {
     Continuum_CanvasViewport.init();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
-    Continuum_CanvasBacground.init();
+    // Continuum_CanvasBacground.init();
 
     if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
