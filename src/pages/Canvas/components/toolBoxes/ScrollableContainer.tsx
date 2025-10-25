@@ -59,7 +59,6 @@ const ScrollableContainer = ({
   }, [children, isHorizontal]);
 
   const scroll = (scrollDirection: "start" | "end") => {
-    debugger;
     const container = scrollContainerRef.current;
     if (!container) return;
 

@@ -42,14 +42,13 @@ export type TileBacgroundSettings = {
 };
 
 export namespace Continuum_TailBacground {
-  export const tailScale = 6;
 
   export function GrindTile(grid: GridBackground, bacgroundColorId: ColorId) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
 
     const graphics = new Graphics();
     // const zoom = useCanvasStore.getState().zoome;
-    const width = grid.sizeOfGrid / tailScale ;
+    const width = grid.sizeOfGrid ;
     // const line =  1 ;
 
     const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor);
@@ -80,17 +79,14 @@ export namespace Continuum_TailBacground {
     if (!Continuum_Canvas.IsCanvasReady()) return;
     const zoom = useCanvasStore.getState().zoome;
 
-    const width = dots.tileWidth * zoom;
+    const width = dots.tileWidth*zoom ;
+    const radius = dots.dotRadius*zoom ;
     const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
 
     const graphics = new Graphics()
       .rect(0, 0, width, width)
       .fill({ color: bacground})
-      .stroke({
-        color: bacground,
-        width: 1,
-      })
-      .circle(width / 2, width / 2, dots.dotRadius)
+      .circle(radius, radius, radius)
       .fill({
         color: Continuum_CanvasPalet.getColor(dots.dotColor),
       });
@@ -98,7 +94,7 @@ export namespace Continuum_TailBacground {
     const renderTexture = RenderTexture.create({
       width: width,
       height: width,
-      scaleMode: "nearest",
+      scaleMode: "linear",
     });
 
     Continuum_Canvas.appInstance!.renderer.render({

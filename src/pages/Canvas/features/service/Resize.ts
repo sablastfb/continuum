@@ -5,7 +5,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_CanvasViewport } from "./Viewport";
 import { Continuum_TailBacground } from "./TailBackground";
-
+import useSettingsStore from "../../data/store/BacgroundStore";
 export namespace Continuum_ResizeService {
   export function manualZoom(zoomeDirection: number) {
     if (Continuum_CanvasViewport.viewport === null) return;
@@ -18,9 +18,9 @@ export namespace Continuum_ResizeService {
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
       Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
-        Continuum_CanvasViewport.viewport?.scale.x*Continuum_TailBacground.tailScale;
+        Continuum_CanvasViewport.viewport?.scale.x;
       Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
-        Continuum_CanvasViewport.viewport?.scale.y*Continuum_TailBacground.tailScale;
+        Continuum_CanvasViewport.viewport?.scale.y;
     }
   }
 
@@ -30,10 +30,10 @@ export namespace Continuum_ResizeService {
       Continuum_CanvasBacground.backgroundTilingSprite &&
       Continuum_CanvasViewport.viewport?.scale.x
     ) {
-  Continuum_CanvasBacground.backgroundTilingSprite.tileScale.x =
-        Continuum_CanvasViewport.viewport?.scale.x*Continuum_TailBacground.tailScale;
-      Continuum_CanvasBacground.backgroundTilingSprite.tileScale.y =
-        Continuum_CanvasViewport.viewport?.scale.y*Continuum_TailBacground.tailScale;
+      // HERE I CHANGE bacground 
+         Continuum_CanvasBacground.changeBackground(
+           useSettingsStore.getState().background
+         );
     }
   }
   export function move(){
