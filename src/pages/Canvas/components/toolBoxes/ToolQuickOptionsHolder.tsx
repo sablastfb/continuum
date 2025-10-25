@@ -7,15 +7,19 @@ import CurveAdvanceSettings from "../tools/curveComponents/CurveAdvanceSettings"
 import SelectoinToolQuickOptions from "../tools/selectonComponents/SelectoinToolQuickOptions";
 import EraseToolQuickOptions from "../tools/eraseComponents/EraseToolQuickOptions";
 import ShapeToolQuickOptions from "../tools/shapesComponents/ShapeToolQuickOptions";
-import { DefaultButtonsBackground, DefaultToolBarHeight, DefaultToolBarPadding, DefaultToolBarVPadding } from "../../data/types/CanvasConstants";
+import {
+  DefaultButtonsBackground,
+  DefaultToolBarHeight,
+  DefaultToolBarPadding,
+  DefaultToolBarVPadding,
+} from "../../data/types/CanvasConstants";
 import ScrollableContainer from "./ScrollableContainer";
-
 
 export interface ToolOptionParameters {
   direction: Direction;
 }
 
-const  ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
+const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
   const canvasStore = useCanvasStore();
   const activeTool = useToolStore((state) => state.activeTool);
 
@@ -45,9 +49,16 @@ const  ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
 
   return (
     <>
-      { canvasStore.advanceToolsActive && advanceSettingsComponent && (
+      {advanceSettingsComponent && (
         <div
-          className={`${DefaultButtonsBackground} rounded-lg min-w-[20vw]  min-h-[20vw]  pointer-events-auto overflow-hidden `}
+          className={`${DefaultButtonsBackground} rounded-lg min-w-[max(20vw,300px)] min-h-[max(20vw,300px)] pointer-events-auto overflow-hidden 
+              transition-all duration-300 ease-in-out origin-center
+              ${
+                canvasStore.advanceToolsActive
+                  ? "scale-100 opacity-100"
+                  : "scale-0 opacity-0 pointer-events-none"
+              } 
+        `}
         >
           {advanceSettingsComponent}
         </div>
@@ -57,11 +68,14 @@ const  ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
           direction={direction}
           className={`
         ${DefaultButtonsBackground} 
-        flex items-center gap-4 rounded-lg  pointer-events-auto 
-        ${direction === "vertical" && `flex-col ${DefaultToolBarVPadding}  max-h-[80vh]`} 
+        flex items-center gap-4  pointer-events-auto 
+        ${
+          direction === "vertical" &&
+          `flex-col ${DefaultToolBarVPadding}  sm:max-h-[80vh] max-h-[40vh] `
+        } 
         ${
           direction === "horizontal" &&
-          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[80vw]` 
+          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[80vw]`
         }
         `}
         >
@@ -70,6 +84,6 @@ const  ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
       )}
     </>
   );
-}
+};
 
 export default ToolOptionsHolder;

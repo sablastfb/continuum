@@ -11,7 +11,7 @@ const ArrayDivider = ({
     return (
       <>
         <div className="w-full">
-          <div className="w-full h-0.5 bg-gray-200 "></div>
+          <div className="w-full h-0.5 bg-gray-900 dark:bg-gray-200  "></div>
         </div>
       </>
     );
@@ -19,7 +19,7 @@ const ArrayDivider = ({
        return (
       <>
         <div className="h-full">
-        <div className="h-full w-0.5 bg-gray-200 " />;
+        <div className="h-full w-0.5 bg-gray-900 dark:bg-gray-200 " />;
         </div>
       </>
     );
