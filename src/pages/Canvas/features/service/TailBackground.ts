@@ -13,19 +13,16 @@ import useCanvasStore from "../../data/store/CanvasStore";
 export type BackgroundTypes = "color" | "grid" | "dots" | "line";
 export type SolidColorBackground = ColorId;
 export type GridBackground = {
-  bacgroundColor: ColorId;
   gridBorderColor: ColorId;
   sizeOfGrid: number;
   widthOfGridLine: number;
 };
 export type DotBackground = {
-  bacgroundColor: ColorId;
   dotColor: ColorId;
   dotRadius: number;
   tileWidth: number;
 };
 export type LineBackground = {
-  bacgroundColor: ColorId;
   lineColor: ColorId;
   spaceBetween: number;
 };
@@ -47,7 +44,7 @@ export type TileBacgroundSettings = {
 export namespace Continuum_TailBacground {
   export const tailScale = 6;
 
-  export function GrindTile(grid: GridBackground) {
+  export function GrindTile(grid: GridBackground, bacgroundColorId: ColorId) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
 
     const graphics = new Graphics();
@@ -56,7 +53,7 @@ export namespace Continuum_TailBacground {
     // const line =  1 ;
 
     const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor);
-    const bacground = Continuum_CanvasPalet.getColor(grid.bacgroundColor);
+    const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
     graphics
       .rect(0, 0, width, width)
       .fill(bacground)
@@ -79,16 +76,18 @@ export namespace Continuum_TailBacground {
     return renderTexture;
   }
 
-  export function DotBacground(dots: DotBackground) {
+  export function DotBacground(dots: DotBackground,bacgroundColorId: ColorId ) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
     const zoom = useCanvasStore.getState().zoome;
 
     const width = dots.tileWidth * zoom;
+    const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
+
     const graphics = new Graphics()
       .rect(0, 0, width, width)
-      .fill({ color: Continuum_CanvasPalet.getColor(dots.bacgroundColor) })
+      .fill({ color: bacground})
       .stroke({
-        color: Continuum_CanvasPalet.getColor(dots.bacgroundColor),
+        color: bacground,
         width: 1,
       })
       .circle(width / 2, width / 2, dots.dotRadius)
@@ -111,17 +110,19 @@ export namespace Continuum_TailBacground {
     return renderTexture;
   }
 
-  export function HorizonalLineBacground(line: LineBackground) {
+  export function HorizonalLineBacground(line: LineBackground, bacgroundColorId: ColorId) {
     if (!Continuum_Canvas.IsCanvasReady()) return;
     const zoom = useCanvasStore.getState().zoome;
 
     const graphics = new Graphics();
     const height = line.spaceBetween * zoom;
     const color = line.lineColor;
+    const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
+
     // Draw horizontal line at the bottom of the tile
     graphics
       .rect(0, 0, height, height)
-      .fill(Continuum_CanvasPalet.getColor(line.bacgroundColor))
+      .fill(bacground)
       .fill()
       .rect(0, 0, height, 1)
       .rect(0, height, height, 1)

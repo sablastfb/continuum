@@ -25,13 +25,13 @@ export namespace Continuum_CanvasBacground {
         colorId = bs.color;
         break;
       case "dots":
-        texture = Continuum_TailBacground.DotBacground(bs.dots);
+        texture = Continuum_TailBacground.DotBacground(bs.dots, bs.color);
         break;
       case "grid":
-        texture = Continuum_TailBacground.GrindTile(bs.grid);
+        texture = Continuum_TailBacground.GrindTile(bs.grid,bs.color);
         break;
       case "line":
-        texture = Continuum_TailBacground.HorizonalLineBacground(bs.line);
+        texture = Continuum_TailBacground.HorizonalLineBacground(bs.line, bs.color);
         break;
     }
     if (backgroundTilingSprite){

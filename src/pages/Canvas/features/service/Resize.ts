@@ -64,12 +64,12 @@ export namespace Continuum_ResizeService {
     );
     Continuum_Canvas.appInstance.renderer.resize(
       window.innerWidth,
-      window.innerHeight*0.97
+      window.innerHeight
     );
 
     if (Continuum_CanvasBacground.backgroundTilingSprite) {
       Continuum_CanvasBacground.backgroundTilingSprite.width =
-        window.innerWidth*0.5;
+        window.innerWidth;
       Continuum_CanvasBacground.backgroundTilingSprite.height =
         window.innerHeight;
     }

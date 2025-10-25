@@ -13,7 +13,6 @@
     "windows": [
       {
         "title": "Continuum",
-        "maximized": true,
          "decorations": false
       }
     ],

@@ -27,24 +27,21 @@ export const BacgroundDefault: BacgroundData = {
   background: {
     activeBacgroundType: "color",
     color: backgroundColors[0],
+    backgroundColors: backgroundColors,
     grid: {
-      bacgroundColor: backgroundColors[0],
       gridBorderColor: "bgt-1",
       sizeOfGrid: 50,
       widthOfGridLine: 1,
     },
     dots: {
-      bacgroundColor: backgroundColors[0],
       dotColor: "bgt-1",
       dotRadius: 2,
       tileWidth: 50,
     },
     line: {
-      bacgroundColor: backgroundColors[0],
       lineColor: "bgt-1",
       spaceBetween: 50,
     },
-    backgroundColors: backgroundColors,
   },
   theme: "dark",
 };

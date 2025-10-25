@@ -71,11 +71,11 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
         flex items-center gap-4  pointer-events-auto 
         ${
           direction === "vertical" &&
-          `flex-col ${DefaultToolBarVPadding}  sm:max-h-[80vh] max-h-[40vh] `
+          `flex-col ${DefaultToolBarVPadding}  sm:max-h-[75vh] max-h-[40vh] `
         } 
         ${
           direction === "horizontal" &&
-          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[80vw]`
+          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[85vw]`
         }
         `}
         >
