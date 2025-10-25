@@ -60,7 +60,7 @@ export interface ShapeStore extends ShapeData {
 }
 
 export const useShapesStore = create<ShapeData>()(
-  immer((set) => ({
+  immer(() => ({
     ...DefaultShapeSettings,
   }))
 );

@@ -10,7 +10,7 @@ import fragment from "./../shaders/shader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
 
 export namespace Continuum_CanvasViewport {
-  export const viewport: Viewport | null = null;
+  export let viewport: Viewport | null = null;
 
   export function init() {
     if (!Continuum_Canvas.appInstance) return;
@@ -62,7 +62,6 @@ export namespace Continuum_CanvasViewport {
     viewport?.addChild(redSquare);
   }
 
-  export function testZoom(zoom: number) {}
 
   export function setUpViewportAndEvent() {
     if (viewport === null) return;
@@ -111,7 +110,6 @@ export namespace Continuum_CanvasViewport {
       })
       .on("zoomed", (e) => {
         Continuum_ResizeService.viewportZoom(e);
-        testZoom(e?.viewport.scale.x);
       })
       .on("moved", () => {
         if (

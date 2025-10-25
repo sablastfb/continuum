@@ -51,9 +51,9 @@ export namespace Continuum_TailBacground {
     if (!Continuum_Canvas.IsCanvasReady()) return;
 
     const graphics = new Graphics();
-    const zoom = useCanvasStore.getState().zoome;
+    // const zoom = useCanvasStore.getState().zoome;
     const width = grid.sizeOfGrid / tailScale ;
-    const line =  1 ;
+    // const line =  1 ;
 
     const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor);
     const bacground = Continuum_CanvasPalet.getColor(grid.bacgroundColor);
