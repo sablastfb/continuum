@@ -9,7 +9,7 @@ export interface EraseStore {
   allEraseThicknes: ThicknesId[];
   thicknesId: ThicknesId;
   softnes: number;
-  setEraseThickens: (pencileThickens: {
+  setEraseThickens: (penThickens: {
     thicknesId: ThicknesId;
     thicknes: number;
   }) => void;
@@ -29,10 +29,10 @@ export const useEraseStore = create<EraseStore>()(
       set((state) => {
         state.eraseMethod = eraseMode;
       }),
-    setEraseThickens: (pencileThickens) =>
+    setEraseThickens: (penThickens) =>
       set((state) => {
-        state.thicknes = pencileThickens.thicknes;
-        state.thicknesId = pencileThickens.thicknesId;
+        state.thicknes = penThickens.thicknes;
+        state.thicknesId = penThickens.thicknesId;
       }),
   }))
 );

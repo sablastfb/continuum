@@ -1,4 +1,4 @@
-import { MouseInputPoint } from "../../Types";
+import type { MouseInputPoint } from "../../data/types/PointTypes";
 
 export enum MouseButton {
   Left = 0,

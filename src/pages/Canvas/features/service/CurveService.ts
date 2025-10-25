@@ -4,7 +4,7 @@
  */
 
 import { PaperScope } from "paper/dist/paper-core";
-import { SimplePoint } from "../../Types";
+import { SimplePoint } from "../../data/types/PointTypes";
 import { Graphics } from "pixi.js";
 
 export namespace Continuum_CurveService {

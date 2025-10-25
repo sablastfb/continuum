@@ -1,7 +1,7 @@
 import {
-  circlePickeSize,
-  defaultOutlineColor,
-} from "../../data/constants/CanvasConstants";
+  CirclePickeSize,
+  DefaultOutlineColor,
+} from "../../data/types/CanvasConstants";
 import {
   ThicknesId,
   ThicknesPalet,
@@ -14,30 +14,36 @@ const maxSize = 30;
 export type CircleThicknesPickerParm = {
   thicknesId: ThicknesId;
   selected: boolean;
-  action: () => void
+  action: () => void;
 };
 
-function CircleThicknesPicker({
+const CircleThicknesPicker = ({
   thicknesId,
   selected,
   action,
-}: CircleThicknesPickerParm) {
+}: CircleThicknesPickerParm) => {
   return (
-    <div
-      onClick={()=> action()}
-      className={` ${circlePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2  ${
-        selected ? `${defaultOutlineColor}` : "outline-gray-500"
-      }`}
-    >
+    <div>
       <div
-        style={{
-          width: baseSize * (1 + (sigma * ThicknesPalet.getThicknes(thicknesId)) / maxSize),
-          height: baseSize * (1 + (sigma * ThicknesPalet.getThicknes(thicknesId)) / maxSize),
-        }}
-        className={`bg-amber-600 dark:bg-amber-100 rounded-full max-w-7 max-h-7 items-center`}
-      ></div>
+        onClick={() => action()}
+        className={` ${CirclePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2  ${
+          selected ? `${DefaultOutlineColor}` : "outline-gray-500"
+        }`}
+      >
+        <div
+          style={{
+            width:
+              baseSize *
+              (1 + (sigma * ThicknesPalet.getThicknes(thicknesId)) / maxSize),
+            height:
+              baseSize *
+              (1 + (sigma * ThicknesPalet.getThicknes(thicknesId)) / maxSize),
+          }}
+          className={`bg-amber-600 dark:bg-amber-100 rounded-full max-w-7 max-h-7 items-center`}
+        ></div>
+      </div>
     </div>
   );
-}
+};
 
 export default CircleThicknesPicker;

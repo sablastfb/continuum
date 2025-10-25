@@ -1,10 +1,9 @@
 import { ZoomedEvent } from "pixi-viewport/dist/types";
-import { ZoomSensitivity } from "../../data/constants/CanvasConstants";
+import { ZoomSensitivity } from "../../data/types/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_CanvasViewport } from "./Viewport";
-import useSettingsStore from "../../data/store/BacgroundStore";
 import { Continuum_TailBacground } from "./TailBackground";
 
 export namespace Continuum_ResizeService {
@@ -65,12 +64,12 @@ export namespace Continuum_ResizeService {
     );
     Continuum_Canvas.appInstance.renderer.resize(
       window.innerWidth,
-      window.innerHeight
+      window.innerHeight*0.97
     );
 
     if (Continuum_CanvasBacground.backgroundTilingSprite) {
       Continuum_CanvasBacground.backgroundTilingSprite.width =
-        window.innerWidth;
+        window.innerWidth*0.5;
       Continuum_CanvasBacground.backgroundTilingSprite.height =
         window.innerHeight;
     }

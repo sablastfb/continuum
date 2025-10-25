@@ -1,12 +1,12 @@
 import { Graphics, Point } from "pixi.js";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
-import { usePencileStore } from "../../../data/store/PencileStore";
+import { usePenStore } from "../../../data/store/PenStore";
 import { Continuum_CanvasViewport } from "../../service/Viewport";
-import { Continuum_ToolManager, ITool } from "../ToolManager";
+import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import { MouseInputPoint } from "../../../Types";
+import type { MouseInputPoint, SimplePoint } from "../../../data/types/PointTypes";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
@@ -16,11 +16,11 @@ import {
   Continuum_MouseService,
 } from "../../service/MouseService";
 import { PenStyle } from "./Pen";
-import { PencileStyle } from "./Pencile";
 import { MarkerStyle } from "./Marker";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { ToolType } from "../../../data/types/ToolTypes";
 
-export type CruveStyle = "pen" | "pencile" | "marker";
+export type CruveStyle = "pen" | "marker";
 
 export interface ICurveStyle {
   draw(info: any): void;
@@ -28,7 +28,7 @@ export interface ICurveStyle {
 }
 
 export class Curve implements ITool {
-  type: Continuum_ToolManager.ToolType = "base";
+  type: ToolType = "base";
   private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
@@ -40,12 +40,8 @@ export class Curve implements ITool {
         this.type = 'pen';
         this.curveStyle = new PenStyle();
         break;
-      case "pencile":
-        this.type = 'pencile';
-        this.curveStyle = new PencileStyle();
-        break;
       case "marker":
-        this.type = 'marker';
+        this.type = 'highlighter';
         this.curveStyle = new MarkerStyle();
         break;
     }
@@ -63,18 +59,10 @@ export class Curve implements ITool {
     switch (this.curveStyleType) {
       case "pen":
         this.activeColor = Continuum_CanvasPalet.getColor(
-          usePencileStore.getState().pencilColorId
+          usePenStore.getState().penColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(
-          usePencileStore.getState().thicknesId
-        );
-        break;
-      case "pencile":
-         this.activeColor = Continuum_CanvasPalet.getColor(
-          usePencileStore.getState().pencilColorId
-        );
-        this.activeThicknes = ThicknesPalet.getThicknes(
-          usePencileStore.getState().thicknesId
+          usePenStore.getState().thicknesId
         );
         break;
       case "marker":
@@ -91,14 +79,14 @@ export class Curve implements ITool {
     this.activeCurve.moveTo(worldPos.x, worldPos.y);
   }
 
-  public draw<P extends MouseInputPoint>(e: P) {
+  public draw<P extends MouseInputPoint>(e: P,ee: SimplePoint) {
     if (Continuum_Canvas.drawing === false) return;
     if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(ee);
     this.line.push(worldPos);
     this.activeCurve.lineTo(worldPos.x, worldPos.y);
 
@@ -155,10 +143,10 @@ export class Curve implements ITool {
 
   public updateCursor() {
     switch (this.type){
-      case "pencile":
+      case "pen":
         CrossHairCursor.draw();
         break;
-      case "marker":
+      case "highlighter":
         CrossHairCursor.draw();
     }
   }

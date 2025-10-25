@@ -8,10 +8,6 @@ export type Theme = "dark" | "light";
 export type LayoutPositon = "top" | "bottom" | "left" | "right";
 
 export interface BacgroundData {
-  layout: {
-    toolButtons: LayoutPositon;
-    toolMenue: LayoutPositon;
-  };
   theme: Theme;
   background: TileBacgroundSettings;
 }
@@ -22,8 +18,6 @@ export interface BacgroundStore extends BacgroundData {
     bacgroundSettings: DeepPartial<TileBacgroundSettings>
   ) => void;
   reserToDefaultSettings: () => void;
-  setLayoutToolsMenue: (positon: LayoutPositon) => void;
-  setLayoutToolsButton: (positon: LayoutPositon) => void;
   setTheme: (theme: Theme) => void;
 }
 
@@ -53,10 +47,6 @@ export const BacgroundDefault: BacgroundData = {
     backgroundColors: backgroundColors,
   },
   theme: "dark",
-  layout: {
-    toolButtons: "right",
-    toolMenue: "top",
-  },
 };
 
 export const useSettingsStore = create<BacgroundStore>()(
@@ -69,16 +59,6 @@ export const useSettingsStore = create<BacgroundStore>()(
     setTheme: (theme: Theme) => {
       set((state) => {
         state.theme = theme;
-      });
-    },
-    setLayoutToolsMenue: (positon: LayoutPositon) => {
-      set((state) => {
-        state.layout.toolMenue = positon;
-      });
-    },
-    setLayoutToolsButton: (positon: LayoutPositon) => {
-      set((state) => {
-        state.layout.toolButtons = positon;
       });
     },
     discardSettings: (settings) => {

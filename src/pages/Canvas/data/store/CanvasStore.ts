@@ -1,24 +1,27 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { Continuum_ToolManager } from "../../features/tools/ToolManager";
 
 export interface CanvasStore {
   zoome: number;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
-  activeTool: Continuum_ToolManager.ToolType;
   canvasCursorActive: boolean;
   historyPosition: number;
   historyCount: number;
+  editingModOn: boolean;
+  advanceToolsActive: boolean;
+  layoutEditableVisible: boolean;
   setZoom: (zoom: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   setSettingVisible: (visible: boolean) => void;
   setInfoVisible: (visible: boolean) => void;
   setExportVisible: (visible: boolean) => void;
-  setActiveTool: (activeTool: Continuum_ToolManager.ToolType) => void;
   setHistoryPosition: (historyCount: number) => void;
   setHistoryCount: (historyPosition: number) => void;
+  setAdvanceToolsVisibility: (advanceTools: boolean) => void;
+  setEdditingMod: (advanceTools: boolean) => void;
+  setLayoutEditableVisible: (layoutActive: boolean) => void;
 }
 
 const useCanvasStore = create<CanvasStore>()(
@@ -27,10 +30,16 @@ const useCanvasStore = create<CanvasStore>()(
     settingVisible: false,
     infoVisible: false,
     exportVisible: false,
-    activeTool: "pencile",
     canvasCursorActive: true,
     historyPosition: -1,
     historyCount: 0,
+    advanceToolsActive: false,
+    editingModOn: true,
+    layoutEditableVisible: false,
+    setLayoutEditableVisible: (layoutActive: boolean) =>
+      set((state) => {
+        state.layoutEditableVisible = layoutActive;
+      }),
     setHistoryCount: (historyCount) =>
       set((state) => {
         state.historyCount = historyCount;
@@ -55,13 +64,18 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.exportVisible = exportVisible;
       }),
-    setActiveTool: (activeTool) =>
-      set((state) => {
-        state.activeTool = activeTool;
-      }),
+
     setCanvasCursorActive: (canvasCursorActive) =>
       set((state) => {
         state.canvasCursorActive = canvasCursorActive;
+      }),
+    setAdvanceToolsVisibility: (advanceTools: boolean) =>
+      set((state) => {
+        state.advanceToolsActive = advanceTools;
+      }),
+    setEdditingMod: (advanceTools: boolean) =>
+      set((state) => {
+        state.editingModOn = advanceTools;
       }),
   }))
 );

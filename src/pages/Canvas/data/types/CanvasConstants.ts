@@ -1,0 +1,11 @@
+export const ZoomSensitivity: number = 0.1;
+export const DefaultIconSize = 32;
+export const DefaultButtonsBackground = "bg-black/20 dark:bg-white/20  backdrop-blur-sm";
+export const DefaultOutline = "outline-4 outline-amber-300  p-0.5 rounded-xl";
+export const DefaultOutlineColor = "outline-4 outline-amber-300  p-0.5";
+export const DefaultDialogBacground = "h-[90vh]  w-[min(80vw,900px)] bg-white/20 backdrop-blur-sm rounded-l-2xl p-2";
+export const CirclePickeSize = "w-8 h-8";
+export const DefaultToolBarHeight = "h-11"
+export const DefaultToolBarWith = "w-11"
+export const DefaultToolBarPadding = "px-1"
+export const DefaultToolBarVPadding = "py-1 px-0.5"

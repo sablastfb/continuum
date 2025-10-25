@@ -8,10 +8,9 @@ export class PenStyle implements ICurveStyle {
       cap: "round",
       join: "round",
     });
-    info.activeCurve.tint = info.activeColor;
+        info.activeCurve.tint = info.activeColor;
+
   }
-
-
   stopDrawingStyle(info: any): void {
     if (info.line.length == 2) {
       const firstCurve = info.optimizedPath.curves[0];

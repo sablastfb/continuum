@@ -1,57 +1,22 @@
-import { useEffect, useRef } from "react";
-import HeaderToolsMenue from "./components/tools/HeaderToolMenue/HeaderToolsMenue";
-import SettingsDialog from "./components/dialog/Settings/SettingsDialog/SettingsDialog";
-import ExportDialog from "./components/dialog/ExportDialog";
-import InfoDialog from "./components/dialog/InfoDialog";
-import { Continuum_Canvas } from "./features/CanvasApp";
-import CursorEffect from "./components/effects/CursorEffect";
-import BackgroundEffect from "./components/effects/BackgroundEffect";
-import useCanvasStore from "./data/store/CanvasStore";
-import ToolOptions from "./components/tools/HeaderToolMenue/ToolOptions";
+import ContinumLayout from "../../components/Layout/Layout";
+import { MyDockviewLayout } from "../../components/Layout/DockviewLayout";
+import BarrelDialogs from "./components/dialog/BarrelDialogs";
+import BarrelEffect from "./components/effects/BarrelEffect";
+import PixiCanvasComponent from "./components/toolBoxes/CanvasComponent";
+import ToolLayout from "./components/toolBoxes/ToolLayout";
+import "dockview-core/dist/styles/dockview.css";
 
-function CanvasPage() {
-  const canvasContainer = useRef<HTMLDivElement>(null);
-  const setCanvasCursorActive = useCanvasStore(
-    (state) => state.setCanvasCursorActive
-  );
-
-  useEffect(() => {
-    document.documentElement.classList.add("dark");
-
-    async function SetUpPixi() {
-      const app = await Continuum_Canvas.creatPixiApp();
-      if (canvasContainer?.current && app && app?.canvas !== undefined) {
-        canvasContainer.current.appendChild(app?.canvas);
-      }
-    }
-    SetUpPixi();
-  }, []);
-
+const CanvasPage = () => {
   return (
-    <div className="relative h-screen w-screen">
-      <div
-        onMouseEnter={() => {
-          setCanvasCursorActive(true);
-        }}
-        onMouseLeave={() => {
-          setCanvasCursorActive(false);
-        }}
-      >
-        <div
-          ref={canvasContainer}
-          className="absolute inset-0"
-          style={{ cursor: "none" }}
-        />
+    <>
+      <div className="relative h-full w-full">
+        <ToolLayout />
+        <PixiCanvasComponent />
+        <BarrelDialogs />
+        <BarrelEffect />
       </div>
-
-      <HeaderToolsMenue />
-      <SettingsDialog />
-      <InfoDialog />
-      <ExportDialog />
-      <CursorEffect />
-      <BackgroundEffect />
-    </div>
+    </>
   );
-}
+};
 
 export default CanvasPage;

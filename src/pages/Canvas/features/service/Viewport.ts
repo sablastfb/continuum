@@ -4,11 +4,10 @@ import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 import { Continuum_ResizeService } from "./Resize";
 import { Continuum_CanvasBacground } from "./Background";
 import { Continuum_ToolManager } from "../tools/ToolManager";
-import { Geometry, GlProgram, Mesh, Shader, uniformParsers } from "pixi.js";
+import { Geometry, GlProgram, Mesh, Shader } from "pixi.js";
 
 import fragment from "./../shaders/shader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
-import { values } from "lodash";
 
 export namespace Continuum_CanvasViewport {
   export let viewport: Viewport | null = null;
@@ -22,7 +21,7 @@ export namespace Continuum_CanvasViewport {
       passiveWheel: true,
     });
 
-    test();
+    // test();
   }
   export let shader: Shader;
   export function test() {
@@ -32,16 +31,7 @@ export namespace Continuum_CanvasViewport {
     const geometry = new Geometry({
       attributes: {
         aVertexPosition: {
-          buffer: new Float32Array([
-            -1,
-            -1, 
-            1,
-            -1,
-            1,
-            1,
-            -1,
-            1,
-          ]),
+          buffer: new Float32Array([-1, -1, 1, -1, 1, 1, -1, 1]),
           size: 2,
         },
       },
@@ -57,8 +47,8 @@ export namespace Continuum_CanvasViewport {
       glProgram: program,
       resources: {
         uniforms: {
-          resolution: { value: [100,100], type: "vec2<f32>" },
-          cursor: { value: [400.0,100.0], type: "vec2<f32>" },
+          resolution: { value: [100, 100], type: "vec2<f32>" },
+          cursor: { value: [400.0, 100.0], type: "vec2<f32>" },
         },
       },
     });
@@ -72,8 +62,7 @@ export namespace Continuum_CanvasViewport {
     viewport?.addChild(redSquare);
   }
 
-  export function testZoom(zoom: number) {
-  }
+  export function testZoom(zoom: number) {}
 
   export function setUpViewportAndEvent() {
     if (viewport === null) return;

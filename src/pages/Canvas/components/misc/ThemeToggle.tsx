@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { PrimeReactContext } from "primereact/api";
-import { AppConstants } from "../../data/constants/AppConstants";
+import { AppConstants } from "../../data/types/AppConstants";
 import { Button } from "primereact/button";
 import useSettingsStore from "../../data/store/BacgroundStore";
 
