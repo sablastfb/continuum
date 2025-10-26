@@ -1,4 +1,5 @@
 import { FederatedPointerEvent } from "pixi.js";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export enum PointerType {
   MOUSE = "mouse",
@@ -46,12 +47,29 @@ export class Continuum_InputState {
     tiltY: 0,
   };
 
-  init() {
+  public init() {
     window.addEventListener("keydown", (e) => this.handleKeyDown(e));
     window.addEventListener("keyup", (e) => this.handleKeyUp(e));
   }
 
-  updateaStaet(e: FederatedPointerEvent) {}
+  public mouseDown(e: FederatedPointerEvent) {
+    this.state.mouseButtons.add(e.button as MouseButton);
+  }
+  public mouseUp(e: FederatedPointerEvent) {
+    this.state.mouseButtons.delete(e.button as MouseButton);
+  }
+  public mouseMove(e: MouseEvent) {
+    const canvas = Continuum_Canvas.appInstance?.canvas;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.state.mousePosition = {
+      x,
+      y,
+    };
+  }
 
   private handleKeyDown(e: KeyboardEvent) {
     this.state.keyDown.add(e.key.toLowerCase());
@@ -63,7 +81,7 @@ export class Continuum_InputState {
     this.updateModifiers(e);
   }
 
-  private  updateModifiers(e: KeyboardEvent | MouseEvent | Event) {
+  private updateModifiers(e: KeyboardEvent | MouseEvent | Event) {
     if ("ctrlKey" in e) {
       this.state.ctrl = e.ctrlKey;
       this.state.shift = e.shiftKey;

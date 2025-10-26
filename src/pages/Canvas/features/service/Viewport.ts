@@ -18,8 +18,6 @@ export namespace Continuum_CanvasViewport {
       passiveWheel: true,
     });
   }
- 
-
 
   export function setUpViewportAndEvent() {
     if (viewport === null) return;
@@ -30,48 +28,16 @@ export namespace Continuum_CanvasViewport {
       })
       .wheel();
     viewport
-      .on("touchstart", (e) => {
-        Continuum_InputState.updateaStaet(e);
-      })
-      .on("touchstart", (e) => {
-        Continuum_InputState.updateaStaet(e);
-      })
       .on("pointerdown", (e) => {
-        if (Continuum_Canvas.drawing) return;
-        Continuum_Canvas.drawing = true;
-        Continuum_ToolManager.startDrawing(e);
-      })
-      .on("touchmove", (e) => {
-        Continuum_ToolManager.draw(e);
-        Continuum_CanvasCursor.moveCursor(e);
-      })
-      .on("pointerdown", (e) => {
-        if (Continuum_Canvas.drawing) return;
-        Continuum_Canvas.drawing = true;
-        Continuum_ToolManager.startDrawing(e);
+        Continuum_Canvas.continuumInputState.mouseDown(e);
       })
       .on("pointermove", (e) => {
-        Continuum_ToolManager.draw(e);
-        Continuum_CanvasCursor.moveCursor(e);
+        Continuum_Canvas.continuumInputState.mouseMove(e);
       })
       .on("pointerup", (e) => {
-        if (!Continuum_Canvas.drawing) return;
-        Continuum_Canvas.drawing = false;
-        Continuum_ToolManager.stopDrawing(e);
+        Continuum_Canvas.continuumInputState.mouseUp(e);
       })
-      .on("pointerupoutside", (e) => {
-        Continuum_Canvas.drawing = false;
-        Continuum_ToolManager.stopDrawing(e);
-      })
-      .on("pointerout", (e) => {
-        Continuum_Canvas.drawing = false;
-        Continuum_ToolManager.stopDrawing(e);
-      })
-      .on("zoomed", (e) => {
-        Continuum_ResizeService.viewportZoom(e);
-      })
-      .on("moved", () => {
-        
-      });
+      .on("zoomed", (e) => {})
+      .on("moved", () => {});
   }
 }

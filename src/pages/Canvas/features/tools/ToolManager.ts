@@ -81,8 +81,8 @@ export class Continuum_ToolManager {
     const rect = canvas.getBoundingClientRect();
     
     // Calculate coordinates relative to canvas
-      const x = e.clientX;
-      const y = e.clientY ;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
       Continuum_ToolManager.currentTool.draw(e, {x,y});
     }
   }, 8);

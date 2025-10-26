@@ -54,7 +54,6 @@ export namespace Continuum_Canvas {
     Continuum_CanvasCursor.updateCursor();
 
     continuumInputState.init();
-
   }
 
   export function IsCanvasReady() {
