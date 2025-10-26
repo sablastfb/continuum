@@ -7,12 +7,14 @@ import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
-import { Continuum_ShortcutManagerSystem as Continuum_ShortcutManager } from "./service/ShortcutManagerSystem";
+import { Continuum_InputState } from "./input/InputState";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export let drawing = false;
   export const commandManage = new Continuum_CommandManager();
+
+  export const continuumInputState = new Continuum_InputState();
 
   export async function creatPixiApp() {
     if (appInstance) {
@@ -42,7 +44,6 @@ export namespace Continuum_Canvas {
     Continuum_CanvasViewport.init();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
-    Continuum_ShortcutManager.init();
 
     if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
@@ -52,18 +53,8 @@ export namespace Continuum_Canvas {
     Continuum_ResizeService.setUpResize();
     Continuum_CanvasCursor.updateCursor();
 
-  Continuum_ShortcutManager.register('undo', () => {
-      // Continuum_HistoryManager.undo();
-      console.log('Undo');
-    });
+    continuumInputState.init();
 
-    Continuum_ShortcutManager.register('redo', () => {
-      // Continuum_HistoryManager.redo();
-      console.log('Redo');
-    });
-      // Continuum_CanvasBacground.changeBackground(
-    //   useSettingsStore.getState().background
-    // );
   }
 
   export function IsCanvasReady() {

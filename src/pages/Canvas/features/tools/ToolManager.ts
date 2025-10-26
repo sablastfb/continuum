@@ -12,7 +12,7 @@ export type ITool = Partial<{
   initTool(): void;
   disposeTool(): void;
   startDrawing<P extends MouseInputPoint>(e: P): void;
-  draw<P extends MouseInputPoint>(e: P, simpe: SimplePoint): void;
+  draw<P extends MouseInputPoint>(simpe: P): void;
   stopDrawing<P extends MouseInputPoint>(e: P): void;
   updateCursor(): void;
 }>;
@@ -81,8 +81,8 @@ export class Continuum_ToolManager {
     const rect = canvas.getBoundingClientRect();
     
     // Calculate coordinates relative to canvas
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const x = e.clientX;
+      const y = e.clientY ;
       Continuum_ToolManager.currentTool.draw(e, {x,y});
     }
   }, 8);

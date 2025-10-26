@@ -3,6 +3,8 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 import { Continuum_ResizeService } from "./Resize";
 import { Continuum_ToolManager } from "../tools/ToolManager";
+import { Geometry, GlProgram, Mesh, Shader } from "pixi.js";
+import { Continuum_InputState } from "../input/InputState";
 
 export namespace Continuum_CanvasViewport {
   export let viewport: Viewport | null = null;
@@ -29,9 +31,10 @@ export namespace Continuum_CanvasViewport {
       .wheel();
     viewport
       .on("touchstart", (e) => {
-        if (Continuum_Canvas.drawing) return;
-        Continuum_Canvas.drawing = true;
-        Continuum_ToolManager.startDrawing(e);
+        Continuum_InputState.updateaStaet(e);
+      })
+      .on("touchstart", (e) => {
+        Continuum_InputState.updateaStaet(e);
       })
       .on("pointerdown", (e) => {
         if (Continuum_Canvas.drawing) return;
