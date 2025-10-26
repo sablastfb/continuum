@@ -7,6 +7,7 @@ import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
+import { Continuum_ShortcutManagerSystem as Continuum_ShortcutManager } from "./service/ShortcutManagerSystem";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -21,12 +22,8 @@ export namespace Continuum_Canvas {
     }
 
     await setUpAplication();
-    Continuum_CanvasViewport.setUpViewportAndEvent();
-    Continuum_ResizeService.setUpResize();
-    Continuum_CanvasCursor.updateCursor();
-    // Continuum_CanvasBacground.changeBackground(
-    //   useSettingsStore.getState().background
-    // );
+
+  
     return appInstance;
   }
 
@@ -45,11 +42,28 @@ export namespace Continuum_Canvas {
     Continuum_CanvasViewport.init();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
-    // Continuum_CanvasBacground.init();
+    Continuum_ShortcutManager.init();
 
     if (!Continuum_CanvasViewport.viewport) return;
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
     appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
+
+    Continuum_CanvasViewport.setUpViewportAndEvent();
+    Continuum_ResizeService.setUpResize();
+    Continuum_CanvasCursor.updateCursor();
+
+  Continuum_ShortcutManager.register('undo', () => {
+      // Continuum_HistoryManager.undo();
+      console.log('Undo');
+    });
+
+    Continuum_ShortcutManager.register('redo', () => {
+      // Continuum_HistoryManager.redo();
+      console.log('Redo');
+    });
+      // Continuum_CanvasBacground.changeBackground(
+    //   useSettingsStore.getState().background
+    // );
   }
 
   export function IsCanvasReady() {

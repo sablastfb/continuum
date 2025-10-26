@@ -2,6 +2,7 @@ import DoUnDoComponent from "./DoUnDoComponent";
 import { Direction } from "../../data/store/LayoutStore";
 import {
   DefaultButtonsBackground,
+  DefaultIconSize,
   DefaultToolBarHeight,
   DefaultToolBarWith,
 } from "../../data/types/CanvasConstants";
@@ -13,6 +14,7 @@ import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
 import ScrollableContainer from "./ScrollableContainer";
+import { Type, Image, Clipboard, Link } from "lucide-react";
 
 export interface ToolsMenueParameter {
   direction: Direction;
@@ -42,8 +44,20 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           <SelectionToolMenue />
           <EraserToolMenue />
           <ShapeToolMenue />
+          <div>
+            <Type size={DefaultIconSize} />
+          </div>
+          <div>
+            <Image size={DefaultIconSize} />
+          </div>
+          <div>
+            <Clipboard size={DefaultIconSize} />
+          </div>
+          <div>
+            <Link size={DefaultIconSize} />
+          </div>
           <BookmankrButton />
-           <ArrayDivider direction={direction} />
+          <ArrayDivider direction={direction} />
           <DoUnDoComponent />
         </ScrollableContainer>
       )}

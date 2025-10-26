@@ -3,10 +3,6 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 import { Continuum_ResizeService } from "./Resize";
 import { Continuum_ToolManager } from "../tools/ToolManager";
-import { Geometry, GlProgram, Mesh, Shader } from "pixi.js";
-
-import fragment from "./../shaders/shader.frag?raw";
-import vertex from "./../shaders/shader.vert?raw";
 
 export namespace Continuum_CanvasViewport {
   export let viewport: Viewport | null = null;
@@ -19,47 +15,8 @@ export namespace Continuum_CanvasViewport {
       events: Continuum_Canvas.appInstance.renderer.events,
       passiveWheel: true,
     });
-
-    // test();
   }
-  export let shader: Shader;
-  export function test() {
-    const fragmentShader = fragment;
-    const vertexShader = vertex;
-
-    const geometry = new Geometry({
-      attributes: {
-        aVertexPosition: {
-          buffer: new Float32Array([-1, -1, 1, -1, 1, 1, -1, 1]),
-          size: 2,
-        },
-      },
-      indexBuffer: new Uint16Array([0, 1, 2, 0, 2, 3]),
-    });
-
-    const program = new GlProgram({
-      vertex: vertexShader,
-      fragment: fragmentShader,
-    });
-
-    shader = new Shader({
-      glProgram: program,
-      resources: {
-        uniforms: {
-          resolution: { value: [100, 100], type: "vec2<f32>" },
-          cursor: { value: [400.0, 100.0], type: "vec2<f32>" },
-        },
-      },
-    });
-
-    // Create mesh and add to stage
-    const redSquare = new Mesh({
-      geometry: geometry,
-      shader: shader,
-    });
-
-    viewport?.addChild(redSquare);
-  }
+ 
 
 
   export function setUpViewportAndEvent() {
