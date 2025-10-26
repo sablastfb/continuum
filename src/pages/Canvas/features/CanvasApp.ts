@@ -49,7 +49,6 @@ export namespace Continuum_Canvas {
     appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
     appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
 
-    Continuum_CanvasViewport.setUpViewportAndEvent();
     Continuum_ResizeService.setUpResize();
     Continuum_CanvasCursor.updateCursor();
 

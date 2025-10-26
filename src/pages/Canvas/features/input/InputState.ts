@@ -50,7 +50,47 @@ export class Continuum_InputState {
   public init() {
     window.addEventListener("keydown", (e) => this.handleKeyDown(e));
     window.addEventListener("keyup", (e) => this.handleKeyUp(e));
+    const canvas = Continuum_Canvas.appInstance?.canvas;
+    if (canvas) {
+    //   canvas.addEventListener("pointerdown", (e) =>
+    //     this.handlePointerDown(e as PointerEvent)
+    //   );
+    //   canvas.addEventListener("pointermove", (e) =>
+    //     this.handlePointerMove(e as PointerEvent)
+    //   );
+    //   canvas.addEventListener("pointerup", (e) =>
+    //     this.handlePointerUp(e as PointerEvent)
+    //   );
+    //   canvas.addEventListener("pointercancel", (e) =>
+    //     this.handlePointerCancel(e as PointerEvent)
+    //   );
+
+      // Enable touch action for proper touch handling
+      canvas.style.touchAction = "none";
+      this.takeStateSnappshot();
+    }
   }
+
+  public updateState(e: FederatedPointerEvent) {
+    const originalEvent = e.nativeEvent || e;
+    this.state.mousePosition = {
+      x: e.global.x,
+      y: e.global.y,
+    };
+
+    if ("pressure" in originalEvent) {
+      this.state.pressure = (originalEvent as any).pressure || 0;
+    }
+    if ("tiltX" in originalEvent && "tiltY" in originalEvent) {
+      this.state.tiltX = (originalEvent as any).tiltX || 0;
+      this.state.tiltY = (originalEvent as any).tiltY || 0;
+    }
+  }
+
+  public takeStateSnappshot(){
+    console.table(this.state);
+  }
+
 
   public mouseDown(e: FederatedPointerEvent) {
     this.state.mouseButtons.add(e.button as MouseButton);
@@ -59,6 +99,7 @@ export class Continuum_InputState {
     this.state.mouseButtons.delete(e.button as MouseButton);
   }
   public mouseMove(e: MouseEvent) {
+    // Header padding removed
     const canvas = Continuum_Canvas.appInstance?.canvas;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
@@ -73,12 +114,24 @@ export class Continuum_InputState {
 
   private handleKeyDown(e: KeyboardEvent) {
     this.state.keyDown.add(e.key.toLowerCase());
-    this.updateModifiers(e);
   }
 
   private handleKeyUp(e: KeyboardEvent) {
     this.state.keyDown.delete(e.key.toLowerCase());
-    this.updateModifiers(e);
+  }
+
+  private updatePointerType(pointerType: any) {
+    const typeStr = String(pointerType).toLowerCase();
+
+    if (typeStr === "pen") {
+      this.state.pointerType = PointerType.PEN;
+    } else if (typeStr === "touch") {
+      this.state.pointerType = PointerType.TOUCH;
+    } else if (typeStr === "mouse") {
+      this.state.pointerType = PointerType.MOUSE;
+    } else {
+      this.state.pointerType = PointerType.UNKNOWN;
+    }
   }
 
   private updateModifiers(e: KeyboardEvent | MouseEvent | Event) {
