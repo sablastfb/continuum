@@ -11,15 +11,13 @@ import { Continuum_InputState } from "./input/InputState";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
-  export let drawing = false;
   export const commandManage = new Continuum_CommandManager();
-
   export const continuumInputState = new Continuum_InputState();
 
   export async function creatPixiApp() {
     if (appInstance) {
-      Continuum_CanvasCursor.updateCursor();
-      Continuum_CanvasCursor.updateCursorVisibilty(true);
+      // Continuum_CanvasCursor.updateCursor();
+      // Continuum_CanvasCursor.updateCursorVisibilty(true);
       return appInstance;
     }
 
@@ -52,7 +50,7 @@ export namespace Continuum_Canvas {
     Continuum_ResizeService.setUpResize();
     Continuum_CanvasCursor.updateCursor();
 
-    continuumInputState.init();
+    continuumInputState.subscribeEvents();
   }
 
   export function IsCanvasReady() {
