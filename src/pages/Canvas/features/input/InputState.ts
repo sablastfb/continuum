@@ -59,8 +59,6 @@ export class Continuum_InputState {
     this.state.pointerType = this.setPointerType(e.pointerType);
     this.state.mouseButtons = e.buttons;
     this.updateMousePoint(e);
-
-    this.takeStateSnappshot();
     
   }
 
@@ -83,10 +81,6 @@ export class Continuum_InputState {
 
   private updateKeyUp(e: KeyboardEvent) {
     this.state.keyDown.delete(e.key.toLowerCase());
-  }
-
-  public takeStateSnappshot() {
-    console.table(this.state);
   }
 
   private setPointerType(pointerType: string) {

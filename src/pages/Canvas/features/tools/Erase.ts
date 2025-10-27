@@ -6,8 +6,6 @@ import { CircleCursor } from "../cursor/Circle";
 import { Continuum_CollisionService } from "../service/ColisionDetection";
 import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
-import { Continuum_Canvas } from "../CanvasApp";
-import { MouseButton, Continuum_MouseService } from "../service/MouseService";
 import type { EraserToolType } from "../../data/types/ToolTypes";
 import type { MouseInputPoint} from "../../data/types/PointTypes";
 
@@ -16,9 +14,6 @@ export class Erase implements ITool {
   delteGraphics: GraphicsData[] = [];
 
   public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
-      return;
-    }
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.delteGraphics = [];
@@ -27,9 +22,6 @@ export class Erase implements ITool {
   }
 
   public draw<P extends MouseInputPoint>(e: P) {
-    if (Continuum_Canvas.drawing === false) return;
-    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
-
     const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
     if (!activePoint) return;
     const radius = ThicknesPalet.getThicknes(
@@ -56,9 +48,6 @@ export class Erase implements ITool {
   }
 
   public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
-      return;
-    }
     GraphicsCommand.removeGraphics(this.delteGraphics);
     this.delteGraphics = [];
   }

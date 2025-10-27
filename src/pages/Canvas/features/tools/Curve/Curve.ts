@@ -11,10 +11,6 @@ import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
 import { Continuum_Canvas } from "../../CanvasApp";
-import {
-  MouseButton,
-  Continuum_MouseService,
-} from "../../service/MouseService";
 import { PenStyle } from "./Pen";
 import { MarkerStyle } from "./Marker";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
