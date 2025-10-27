@@ -3,6 +3,8 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
 import { Continuum_CanvasViewport } from "../service/Viewport";
 
+export type AppCanvasState = "IDELE" | "DARWING";
+
 export enum PointerType {
   MOUSE = "mouse",
   PEN = "pen",
@@ -26,8 +28,9 @@ export type InputState = {
   tiltY: number;
 };
 
-export class Continuum_InputState {
-  private state: InputState = {
+export class InputStateManager {
+  private currentAppCanvasState:AppCanvasState = "IDELE";
+  private inputState: InputState = {
     keyDown: new Set<string>(),
     mouseButtons: 0,
     mousePosition: {
@@ -43,44 +46,52 @@ export class Continuum_InputState {
   public subscribeEvents() {
     window.addEventListener("keydown", (e) => this.updateKeyDown(e));
     window.addEventListener("keyup", (e) => this.updateKeyUp(e));
-    if (  Continuum_CanvasViewport.viewport) {
-      Continuum_CanvasViewport.viewport.on("pointerdown", (e) => this.updatePointerEvent(e));
-      Continuum_CanvasViewport.viewport.on("pointermove", (e) => this.updatePointerEvent(e));
-      Continuum_CanvasViewport.viewport.on("pointerup", (e) => this.updatePointerEvent(e));
-      Continuum_CanvasViewport.viewport.on("pointercancel", (e) => this.updatePointerEvent(e));
+    if (Continuum_CanvasViewport.viewport) {
+      Continuum_CanvasViewport.viewport.on("pointerdown", (e) =>
+        this.updatePointerEvent(e)
+      );
+      Continuum_CanvasViewport.viewport.on("pointermove", (e) =>
+        this.updatePointerEvent(e)
+      );
+      Continuum_CanvasViewport.viewport.on("pointerup", (e) =>
+        this.updatePointerEvent(e)
+      );
+      Continuum_CanvasViewport.viewport.on("pointercancel", (e) =>
+        this.updatePointerEvent(e)
+      );
     }
   }
 
   public updatePointerEvent(e: FederatedPointerEvent) {
     const originalEvent = e;
-    this.state.pressure = originalEvent.pressure || 0;
-    this.state.tiltX = originalEvent.tiltX || 0;
-    this.state.tiltY = originalEvent.tiltY || 0;
-    this.state.pointerType = this.setPointerType(e.pointerType);
-    this.state.mouseButtons = e.buttons;
-    this.updateMousePoint(e);
-    
-  }
-
-  private updateMousePoint(e: FederatedPointerEvent) {
+    this.inputState.pressure = originalEvent.pressure || 0;
+    this.inputState.tiltX = originalEvent.tiltX || 0;
+    this.inputState.tiltY = originalEvent.tiltY || 0;
+    this.inputState.pointerType = this.setPointerType(e.pointerType);
+    this.inputState.mouseButtons = e.buttons;
     const canvas = Continuum_Canvas.appInstance?.canvas;
+
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    this.state.mousePosition = {
+    this.inputState.mousePosition = {
       x,
       y,
     };
+
+    this.runCanvasAction();
   }
 
   private updateKeyDown(e: KeyboardEvent) {
-    this.state.keyDown.add(e.key.toLowerCase());
+    this.inputState.keyDown.add(e.key.toLowerCase());
+    this.runCanvasAction();
   }
 
   private updateKeyUp(e: KeyboardEvent) {
-    this.state.keyDown.delete(e.key.toLowerCase());
+    this.inputState.keyDown.delete(e.key.toLowerCase());
+    this.runCanvasAction();
   }
 
   private setPointerType(pointerType: string) {
@@ -95,4 +106,12 @@ export class Continuum_InputState {
         return PointerType.UNKNOWN;
     }
   }
+
+  
+  // BAD name
+  private runCanvasAction() {
+    const biding = Continuum_Canvas.inputBidings.getBiding(this.inputState, this.currentAppCanvasState);
+    biding.action(this.inputState);
+  }
+
 }

@@ -7,12 +7,14 @@ import { Continuum_CanvasCursor } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
-import { Continuum_InputState } from "./input/InputState";
+import { InputStateManager } from "./input/InputState";
+import { InputBidings } from "./input/InputBiding";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export const commandManage = new Continuum_CommandManager();
-  export const continuumInputState = new Continuum_InputState();
+  export const inputStateManager = new InputStateManager();
+  export const inputBidings  = new InputBidings();
 
   export async function creatPixiApp() {
     if (appInstance) {
@@ -50,7 +52,7 @@ export namespace Continuum_Canvas {
     Continuum_ResizeService.setUpResize();
     Continuum_CanvasCursor.updateCursor();
 
-    continuumInputState.subscribeEvents();
+    inputStateManager.subscribeEvents();
   }
 
   export function IsCanvasReady() {

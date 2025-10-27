@@ -12,6 +12,7 @@ export interface CanvasStore {
   editingModOn: boolean;
   advanceToolsActive: boolean;
   layoutEditableVisible: boolean;
+  drawWithFinger: boolean;
   setZoom: (zoom: number) => void;
   setCanvasCursorActive: (canvasCursorActive: boolean) => void;
   setSettingVisible: (visible: boolean) => void;
@@ -36,6 +37,7 @@ const useCanvasStore = create<CanvasStore>()(
     advanceToolsActive: false,
     editingModOn: true,
     layoutEditableVisible: false,
+    drawWithFinger: false,
     setLayoutEditableVisible: (layoutActive: boolean) =>
       set((state) => {
         state.layoutEditableVisible = layoutActive;

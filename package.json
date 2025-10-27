@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-os": "^2.3.2",
     "@types/lodash": "^4.17.20",
     "detect-collisions": "^6.3.7",
     "immer": "^10.1.1",
