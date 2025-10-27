@@ -15,6 +15,7 @@ import { PenStyle } from "./Pen";
 import { MarkerStyle } from "./Marker";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { ToolType } from "../../../data/types/ToolTypes";
+import { InputState } from "../../input/InputState";
 
 export type CruveStyle = "pen" | "marker";
 
@@ -43,10 +44,7 @@ export class Curve implements ITool {
     }
   }
 
-  public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
-      return;
-    }
+  public startDrawing(e: InputState) {
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.activeCurve = new Graphics();
@@ -75,14 +73,12 @@ export class Curve implements ITool {
     this.activeCurve.moveTo(worldPos.x, worldPos.y);
   }
 
-  public draw<P extends MouseInputPoint>(e: P,ee: SimplePoint) {
-    if (Continuum_Canvas.drawing === false) return;
-    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
+  public draw(e: InputState) {
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(ee);
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e.mousePosition);
     this.line.push(worldPos);
     this.activeCurve.lineTo(worldPos.x, worldPos.y);
 
@@ -95,14 +91,7 @@ export class Curve implements ITool {
 
   }
 
-  public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (
-      Continuum_Canvas.drawing === true &&
-      !Continuum_MouseService.isButtonReleased(e, MouseButton.Left)
-    ) {
-      return;
-    }
-
+  public stopDrawing(e: InputState) {
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;

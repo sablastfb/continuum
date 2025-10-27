@@ -8,21 +8,22 @@ import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
 import type { EraserToolType } from "../../data/types/ToolTypes";
 import type { MouseInputPoint} from "../../data/types/PointTypes";
+import { InputState } from "../input/InputState";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";
   delteGraphics: GraphicsData[] = [];
 
-  public startDrawing<P extends MouseInputPoint>(e: P) {
+  public startDrawing(e: InputState) {
     if (!Continuum_CanvasViewport.viewport) return;
 
     this.delteGraphics = [];
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e.mousePosition);
     Continuum_CollisionService.StartContinouseColison(activePoint);
   }
 
-  public draw<P extends MouseInputPoint>(e: P) {
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
+  public draw(e: InputState) {
+    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e.mousePosition);
     if (!activePoint) return;
     const radius = ThicknesPalet.getThicknes(
       useEraseStore.getState().thicknesId
@@ -47,7 +48,7 @@ export class Erase implements ITool {
     }
   }
 
-  public stopDrawing<P extends MouseInputPoint>(e: P) {
+  public stopDrawing(e: InputState) {
     GraphicsCommand.removeGraphics(this.delteGraphics);
     this.delteGraphics = [];
   }

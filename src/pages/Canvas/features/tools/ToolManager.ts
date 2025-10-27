@@ -6,14 +6,15 @@ import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
 import type { MouseInputPoint, SimplePoint } from "../../data/types/PointTypes";
 import { Continuum_Canvas } from "../CanvasApp";
+import { InputState } from "../input/InputState";
 
 export type ITool = Partial<{
   type: ToolType;
   initTool(): void;
   disposeTool(): void;
-  startDrawing<P extends MouseInputPoint>(e: P): void;
-  draw<P extends MouseInputPoint>(simpe: P): void;
-  stopDrawing<P extends MouseInputPoint>(e: P): void;
+  startDrawing(e: InputState): void;
+  draw(simpe: InputState): void;
+  stopDrawing(e: InputState): void;
   updateCursor(): void;
 }>;
 

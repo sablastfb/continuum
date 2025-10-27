@@ -111,7 +111,13 @@ export class InputStateManager {
   // BAD name
   private runCanvasAction() {
     const biding = Continuum_Canvas.inputBidings.getBiding(this.inputState, this.currentAppCanvasState);
-    biding.action(this.inputState);
+    if(biding.length){
+      biding[0].action(this.inputState);
+    }
+  }
+
+  public SwitchState(canvasState: AppCanvasState){
+    this.currentAppCanvasState = canvasState;
   }
 
 }
