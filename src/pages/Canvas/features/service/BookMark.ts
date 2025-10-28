@@ -1,6 +1,6 @@
 import { Bookmark, useBookmark } from "../../data/store/BookmarkStore";
 import { Continuum_Canvas } from "../CanvasApp";
-import { Continuum_CanvasViewport } from "./Viewport";
+import { CanvasViewport } from "./Viewport";
 import { v4 as uuidv4 } from "uuid";
 
 export namespace Continuum_Bookmark {

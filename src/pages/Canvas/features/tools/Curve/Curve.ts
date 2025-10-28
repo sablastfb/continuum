@@ -2,7 +2,7 @@ import { Graphics, Point } from "pixi.js";
 import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePenStore } from "../../../data/store/PenStore";
-import { Continuum_CanvasViewport } from "../../service/Viewport";
+import { CanvasViewport } from "../../service/Viewport";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";

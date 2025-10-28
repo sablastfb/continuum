@@ -2,7 +2,7 @@ import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_ResizeService } from "./Resize";
 
-export class Continuum_CanvasViewport {
+export class CanvasViewport {
   public viewport: Viewport | null = null;
 
   constructor() {

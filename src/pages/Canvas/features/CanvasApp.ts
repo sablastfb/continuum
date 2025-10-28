@@ -4,7 +4,7 @@ import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
 import useSettingsStore from "../data/store/BacgroundStore";
 import { Continuum_ResizeService } from "./service/Resize";
 import { CursorManager } from "./cursor/CursorManager";
-import { Continuum_CanvasViewport } from "./service/Viewport";
+import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
 import { InputStateManager } from "./input/InputState";
@@ -16,7 +16,7 @@ export namespace Continuum_Canvas {
   export const inputStateManager = new InputStateManager();
   export const inputBidings = new InputBidings();
   export const cursorManager = new CursorManager();
-  export let viewportManager: Continuum_CanvasViewport;
+  export let viewportManager: CanvasViewport;
 
   export async function creatPixiApp() {
     if (appInstance) {
@@ -38,7 +38,7 @@ export namespace Continuum_Canvas {
         useSettingsStore.getState().background.color
       ),
     });
-    Continuum_Canvas.viewportManager = new Continuum_CanvasViewport();
+    Continuum_Canvas.viewportManager = new CanvasViewport();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
 

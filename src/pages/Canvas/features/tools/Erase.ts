@@ -1,6 +1,6 @@
 import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
-import { Continuum_CanvasViewport } from "../service/Viewport";
+import { CanvasViewport } from "../service/Viewport";
 import { ITool } from "./ToolManager";
 import { CircleCursor } from "../cursor/Circle";
 import { Continuum_CollisionService } from "../service/ColisionDetection";

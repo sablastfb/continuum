@@ -1,7 +1,7 @@
 import { Graphics } from "pixi.js";
 import { Simplify } from "simplify-ts";
 import { SimplePoint } from "../../data/types/PointTypes";
-import { Continuum_CanvasViewport } from "./Viewport";
+import { CanvasViewport } from "./Viewport";
 import { Continuum_Canvas } from "../CanvasApp";
 
 
