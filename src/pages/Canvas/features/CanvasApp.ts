@@ -17,6 +17,8 @@ export namespace Continuum_Canvas {
   export const inputBidings = new InputBidings();
   export const cursorManager = new CursorManager();
   export const toolManager = new ToolManager();
+  export const palet = new Continuum_CanvasPalet();
+
   export let viewportManager: CanvasViewport;
 
   export async function creatPixiApp() {
@@ -35,7 +37,7 @@ export namespace Continuum_Canvas {
       antialias: true,
       resolution: window.devicePixelRatio || 1,
       autoDensity: true,
-      background: Continuum_CanvasPalet.getColor(
+      background: palet.getColor(
         useSettingsStore.getState().background.color
       ),
     });

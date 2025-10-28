@@ -55,7 +55,7 @@ export class Curve implements ITool {
     Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
     switch (this.curveStyleType) {
       case "pen":
-        this.activeColor = Continuum_CanvasPalet.getColor(
+        this.activeColor = Continuum_Canvas.palet.getColor(
           usePenStore.getState().penColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(
@@ -63,7 +63,7 @@ export class Curve implements ITool {
         );
         break;
       case "marker":
-        this.activeColor = Continuum_CanvasPalet.getColor(
+        this.activeColor = Continuum_Canvas.palet.getColor(
           useMarkerStore.getState().markerColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(

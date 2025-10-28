@@ -10,7 +10,7 @@ export class CrossHairCursor  {
      Continuum_Canvas.cursorManager.cursor.clear();
     const lineWidth = 1;
     const outlineWidth = 1;
-    const color = Continuum_CanvasPalet.getColor(
+    const color = Continuum_Canvas.palet.getColor(
       usePenStore.getState().penColorId
     );
 
@@ -24,7 +24,7 @@ export class CrossHairCursor  {
       .stroke({
         alignment: 0,
         width: outlineWidth,
-        color: Continuum_CanvasPalet.getColor("c-1"),
+        color: Continuum_Canvas.palet.getColor("c-1"),
       })
       .circle(0, 0, radius)
       .fill(color)

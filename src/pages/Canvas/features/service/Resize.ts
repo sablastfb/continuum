@@ -2,9 +2,9 @@ import { ZoomedEvent } from "pixi-viewport/dist/types";
 import { ZoomSensitivity } from "../../data/types/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
-import { CanvasViewport } from "./Viewport";
-export namespace Continuum_ResizeService {
 
+
+export namespace Continuum_ResizeService {
   export function manualZoom(zoomeDirection: number) {
     if ( Continuum_Canvas.viewportManager.viewport === null) return;
     const zoome = useCanvasStore.getState().zoome;

@@ -51,8 +51,8 @@ export namespace Continuum_TailBacground {
     const width = grid.sizeOfGrid ;
     // const line =  1 ;
 
-    const color = Continuum_CanvasPalet.getColor(grid.gridBorderColor);
-    const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
+    const color = Continuum_Canvas.palet.getColor(grid.gridBorderColor);
+    const bacground = Continuum_Canvas.palet.getColor(bacgroundColorId);
     graphics
       .rect(0, 0, width, width)
       .fill(bacground)
@@ -81,14 +81,14 @@ export namespace Continuum_TailBacground {
 
     const width = dots.tileWidth*zoom ;
     const radius = dots.dotRadius*zoom ;
-    const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
+    const bacground = Continuum_Canvas.palet.getColor(bacgroundColorId);
 
     const graphics = new Graphics()
       .rect(0, 0, width, width)
       .fill({ color: bacground})
       .circle(radius, radius, radius)
       .fill({
-        color: Continuum_CanvasPalet.getColor(dots.dotColor),
+        color: Continuum_Canvas.palet.getColor(dots.dotColor),
       });
 
     const renderTexture = RenderTexture.create({
@@ -113,7 +113,7 @@ export namespace Continuum_TailBacground {
     const graphics = new Graphics();
     const height = line.spaceBetween * zoom;
     const color = line.lineColor;
-    const bacground = Continuum_CanvasPalet.getColor(bacgroundColorId);
+    const bacground = Continuum_Canvas.palet.getColor(bacgroundColorId);
 
     // Draw horizontal line at the bottom of the tile
     graphics
@@ -122,7 +122,7 @@ export namespace Continuum_TailBacground {
       .fill()
       .rect(0, 0, height, 1)
       .rect(0, height, height, 1)
-      .fill(Continuum_CanvasPalet.getColor(color));
+      .fill(Continuum_Canvas.palet.getColor(color));
 
     const renderTexture = RenderTexture.create({
       width: height,
