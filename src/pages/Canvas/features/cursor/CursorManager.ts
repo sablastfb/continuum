@@ -1,6 +1,7 @@
 import { throttle } from "lodash";
 import { FederatedPointerEvent, Graphics } from "pixi.js";
 import { Continuum_ToolManager } from "../tools/ToolManager";
+import { InputState } from "../input/InputState";
 
 export namespace Continuum_CanvasCursor {
   export let cursor: Graphics;
@@ -8,7 +9,7 @@ export namespace Continuum_CanvasCursor {
     Continuum_CanvasCursor.cursor = new Graphics();
   }
 
-  export function updateCursor() {
+  export function updateCursorGraphics() {
     Continuum_ToolManager.updateCursor();
   }
 
@@ -18,9 +19,18 @@ export namespace Continuum_CanvasCursor {
     }
   }
 
-  export const moveCursor = throttle((e: FederatedPointerEvent) => {
-    Continuum_CanvasCursor.cursor.x = e.global.x;
-    Continuum_CanvasCursor.cursor.y = e.global.y;
+  export const moveCursor = throttle((e: InputState) => {
+    Continuum_CanvasCursor.cursor.x = e.globalPosition.x;
+    Continuum_CanvasCursor.cursor.y = e.globalPosition.y;
   }, 1);
 
+  export function updateCursorState(e: InputState) {
+    if (e.pointerOwer) {
+      Continuum_CanvasCursor.cursor.visible = true;
+      Continuum_CanvasCursor.cursor.x = e.globalPosition.x;
+      Continuum_CanvasCursor.cursor.y = e.globalPosition.y;
+    } else {
+      Continuum_CanvasCursor.cursor.visible = false;
+    }
+  }
 }

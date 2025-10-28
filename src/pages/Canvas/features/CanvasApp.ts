@@ -50,7 +50,7 @@ export namespace Continuum_Canvas {
     appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
 
     Continuum_ResizeService.setUpResize();
-    Continuum_CanvasCursor.updateCursor();
+    Continuum_CanvasCursor.updateCursorGraphics();
 
     inputStateManager.subscribeEvents();
   }

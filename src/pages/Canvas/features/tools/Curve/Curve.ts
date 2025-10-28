@@ -68,7 +68,7 @@ export class Curve implements ITool {
         );
         break;
     }
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
+    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e.mousePosition);
     this.line.push(worldPos);
     this.activeCurve.moveTo(worldPos.x, worldPos.y);
   }

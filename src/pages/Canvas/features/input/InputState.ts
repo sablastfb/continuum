@@ -2,8 +2,10 @@ import { FederatedPointerEvent } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
 import { Continuum_CanvasViewport } from "../service/Viewport";
+import { Continuum_CurveService } from "../service/CurveService";
+import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 
-export type AppCanvasState = "IDELE" | "DARWING";
+export type AppCanvasState = "IDLE" | "DARWING" | "KEY_PUSHED";
 
 export enum PointerType {
   MOUSE = "mouse",
@@ -22,14 +24,17 @@ export type InputState = {
   keyDown: Set<string>;
   mouseButtons: number;
   mousePosition: SimplePoint;
+  globalPosition: SimplePoint;
   pointerType: PointerType;
   pressure: number;
   tiltX: number;
   tiltY: number;
+  pointerDown: boolean;
+  pointerOwer: boolean;
 };
 
 export class InputStateManager {
-  private currentAppCanvasState:AppCanvasState = "IDELE";
+  private currentAppCanvasState: AppCanvasState = "IDLE";
   private inputState: InputState = {
     keyDown: new Set<string>(),
     mouseButtons: 0,
@@ -37,28 +42,48 @@ export class InputStateManager {
       x: 0,
       y: 0,
     },
+    globalPosition: {
+      x: 0,
+      y: 0,
+    },
     pointerType: PointerType.MOUSE,
     pressure: 0,
     tiltX: 0,
     tiltY: 0,
+    pointerDown: false,
+    pointerOwer: false,
   };
 
   public subscribeEvents() {
     window.addEventListener("keydown", (e) => this.updateKeyDown(e));
     window.addEventListener("keyup", (e) => this.updateKeyUp(e));
     if (Continuum_CanvasViewport.viewport) {
-      Continuum_CanvasViewport.viewport.on("pointerdown", (e) =>
-        this.updatePointerEvent(e)
-      );
-      Continuum_CanvasViewport.viewport.on("pointermove", (e) =>
-        this.updatePointerEvent(e)
-      );
-      Continuum_CanvasViewport.viewport.on("pointerup", (e) =>
-        this.updatePointerEvent(e)
-      );
-      Continuum_CanvasViewport.viewport.on("pointercancel", (e) =>
-        this.updatePointerEvent(e)
-      );
+      Continuum_CanvasViewport.viewport.on("pointerdown", (e) => {
+        this.inputState.pointerDown = true;
+        this.inputState.pointerOwer = true;
+        this.updatePointerEvent(e);
+      });
+      Continuum_CanvasViewport.viewport.on("pointermove", (e) => {
+        this.inputState.pointerOwer = true;
+
+        this.updatePointerEvent(e);
+      });
+      Continuum_CanvasViewport.viewport.on("pointerup", (e) => {
+        this.inputState.pointerDown = false;
+        this.inputState.pointerOwer = true;
+
+        this.updatePointerEvent(e);
+      });
+      Continuum_CanvasViewport.viewport.on("pointercancel", (e) => {
+        this.inputState.pointerDown = false;
+        this.inputState.pointerOwer = false;
+        this.updatePointerEvent(e);
+      });
+      Continuum_CanvasViewport.viewport.on("pointerout", (e) => {
+        this.inputState.pointerDown = false;
+        this.inputState.pointerOwer = false;
+        this.updatePointerEvent(e);
+      });
     }
   }
 
@@ -68,6 +93,7 @@ export class InputStateManager {
     this.inputState.tiltX = originalEvent.tiltX || 0;
     this.inputState.tiltY = originalEvent.tiltY || 0;
     this.inputState.pointerType = this.setPointerType(e.pointerType);
+
     this.inputState.mouseButtons = e.buttons;
     const canvas = Continuum_Canvas.appInstance?.canvas;
 
@@ -80,7 +106,12 @@ export class InputStateManager {
       x,
       y,
     };
+    this.inputState.globalPosition = {
+      x: e.global.x,
+      y: e.global.y,
+    };
 
+    Continuum_CanvasCursor.updateCursorState(this.inputState);
     this.runCanvasAction();
   }
 
@@ -107,17 +138,20 @@ export class InputStateManager {
     }
   }
 
-  
   // BAD name
   private runCanvasAction() {
-    const biding = Continuum_Canvas.inputBidings.getBiding(this.inputState, this.currentAppCanvasState);
-    if(biding.length){
+    const biding = Continuum_Canvas.inputBidings.getBiding(
+      this.inputState,
+      this.currentAppCanvasState
+    );
+    if (biding.length) {
       biding[0].action(this.inputState);
     }
   }
 
-  public SwitchState(canvasState: AppCanvasState){
+  public EndState() {}
+
+  public SwitchState(canvasState: AppCanvasState) {
     this.currentAppCanvasState = canvasState;
   }
-
 }

@@ -1,34 +1,28 @@
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_ToolManager } from "../tools/ToolManager";
+import { drawingBidings } from "./DrawingState";
+import { idleBidings } from "./IdleState";
 import { AppCanvasState, InputState, MouseButton } from "./InputState";
 
-type InputBinding = {
+export type InputBinding = {
   keys?: string[];
+  pointerDown?: boolean,
   mouseButtons?: MouseButton[];
   action: (state: InputState) => void;
-  appState: AppCanvasState;
+  appState: AppCanvasState[];
 };
 
 export class InputBidings {
   private bindings: InputBinding[] = [
-    {
-      mouseButtons: [MouseButton.LEFT],
-      action: (e) => {
-          return Continuum_ToolManager.currentTool!.draw!(e);
-      },
-      appState: "DARWING",
-    },
-    {
-      mouseButtons: [MouseButton.LEFT],
-      action: () => {Continuum_Canvas.inputStateManager.SwitchState("DARWING");},
-      appState: "IDELE",
-    },
+    ...drawingBidings,
+    ...idleBidings
   ];
 
   public getBiding(inputState: InputState, appState: AppCanvasState) {
-    const match =this.bindings.filter(
+    const match = this.bindings.filter(
       (x) =>
-        x.appState === appState &&
+        inputState.pointerDown === x.pointerDown && 
+        x.appState.includes(appState) &&
         this.matchMouse(inputState, x.mouseButtons)
     );
     return match;

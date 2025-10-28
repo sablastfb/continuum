@@ -18,7 +18,7 @@ const BackgroundEffect = () => {
 
   useEffect(() =>{
     Continuum_ToolManager.setTool(activeTool);
-    Continuum_CanvasCursor.updateCursor();
+    Continuum_CanvasCursor.updateCursorGraphics();
   }, [activeTool]);
   return <></>;
 }

@@ -34,14 +34,14 @@ export class Continuum_ToolManager {
     // Continuum_ToolManager.tools.set("shape", new Shape('circle'));
   }
 
-  public static startDrawing<P extends MouseInputPoint>(e: P) {
+  public static startDrawing(e: InputState) {
     if (Continuum_ToolManager.currentTool && 
       Continuum_ToolManager.currentTool.startDrawing) {
       Continuum_ToolManager.currentTool.startDrawing(e);
     }
   }
 
- public static stopDrawing<P extends MouseInputPoint>(e: P) {
+ public static stopDrawing(e: InputState) {
     if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.stopDrawing) {
       Continuum_ToolManager.currentTool.stopDrawing(e);
     }
@@ -75,16 +75,16 @@ export class Continuum_ToolManager {
     return Continuum_ToolManager.currentTool;
   }
 
-  public static draw = throttle((e: FederatedPointerEvent) => {
-    if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.draw) {
-      const canvas = Continuum_Canvas.appInstance?.canvas;
-      if (!canvas) return
-    const rect = canvas.getBoundingClientRect();
+  // public static draw = throttle((e: FederatedPointerEvent) => {
+  //   if (Continuum_ToolManager.currentTool && Continuum_ToolManager.currentTool.draw) {
+  //     const canvas = Continuum_Canvas.appInstance?.canvas;
+  //     if (!canvas) return
+  //   const rect = canvas.getBoundingClientRect();
     
-    // Calculate coordinates relative to canvas
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      Continuum_ToolManager.currentTool.draw(e, {x,y});
-    }
-  }, 8);
+  //   // Calculate coordinates relative to canvas
+  //     const x = e.clientX - rect.left;
+  //     const y = e.clientY - rect.top;
+  //     Continuum_ToolManager.currentTool.draw(e, {x,y});
+  //   }
+  // }, 8);
 }
