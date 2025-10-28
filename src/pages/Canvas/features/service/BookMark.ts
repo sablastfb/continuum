@@ -1,14 +1,13 @@
 import { Bookmark, useBookmark } from "../../data/store/BookmarkStore";
 import { Continuum_Canvas } from "../CanvasApp";
-import { CanvasViewport } from "./Viewport";
 import { v4 as uuidv4 } from "uuid";
 
-export namespace Continuum_Bookmark {
-  let lastNumber = 0;
-  export function addBookmark() {
+export class BookmarkService {
+  private lastNumber = 0;
+  public addBookmark() {
     if (!Continuum_Canvas.viewportManager.viewport) return;
     const bookmakr: Bookmark = {
-      name: `New Bookmark ${++lastNumber}`,
+      name: `New Bookmark ${++this.lastNumber}`,
       id: uuidv4(),
       position: {
         x: Continuum_Canvas.viewportManager.viewport.center.x,
@@ -19,17 +18,17 @@ export namespace Continuum_Bookmark {
     useBookmark.getState().addBookmark(bookmakr);
   }
 
-  export function moveToBookmarkHome() {
+  public moveToBookmarkHome() {
     const bookmark = useBookmark.getState().homeBookmakrs;
-    if (bookmark) moveToBookmark(bookmark);
+    if (bookmark) this.moveToBookmark(bookmark);
   }
 
-  export function moveToBookmarkId(id: string) {
+  public moveToBookmarkId(id: string) {
     const bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
-    if (bookmark) moveToBookmark(bookmark);
+    if (bookmark) this.moveToBookmark(bookmark);
   }
 
-  export function moveToBookmark(bookmark: Bookmark) {
+  public moveToBookmark(bookmark: Bookmark) {
     if (!Continuum_Canvas.viewportManager.viewport) return;
     Continuum_Canvas.viewportManager.viewport.animate({
       time: 500,
@@ -39,13 +38,13 @@ export namespace Continuum_Bookmark {
     });
   }
 
-  export function removeBookmark(id: string | null) {
+  public removeBookmark(id: string | null) {
     if (!id) return;
     if (id === "home") return;
     useBookmark.getState().removeBookmark(id);
   }
 
-  export function renameBookmark(id: string, name: string) {
+  public renameBookmark(id: string, name: string) {
     const bookmark = useBookmark.getState().bookmarks.find((x) => x.id === id);
     if (!bookmark) return;
     const updatedBookmark: Bookmark = { ...bookmark, name };

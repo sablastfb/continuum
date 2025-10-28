@@ -9,6 +9,7 @@ import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
 import { InputStateManager } from "./input/InputState";
 import { InputBidings } from "./input/InputBiding";
+import { BookmarkService } from "./service/BookMark";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -19,6 +20,7 @@ export namespace Continuum_Canvas {
   export const toolManager = new ToolManager();
   export const colorPalet = new ColorPalet();
   export const resizeService = new ResizeService();
+  export const bookMarkService =  new BookmarkService();
 
   export let viewportManager: CanvasViewport;
 
