@@ -1,8 +1,8 @@
 import { Application } from "pixi.js";
 import { ToolManager } from "./tools/ToolManager";
-import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
+import { ColorPalet } from "../data/palet/PaletContainer";
 import useSettingsStore from "../data/store/BacgroundStore";
-import { Continuum_ResizeService } from "./service/Resize";
+import { ResizeService } from "./service/Resize";
 import { CursorManager } from "./cursor/CursorManager";
 import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
@@ -17,7 +17,8 @@ export namespace Continuum_Canvas {
   export const inputBidings = new InputBidings();
   export const cursorManager = new CursorManager();
   export const toolManager = new ToolManager();
-  export const palet = new Continuum_CanvasPalet();
+  export const colorPalet = new ColorPalet();
+  export const resizeService = new ResizeService();
 
   export let viewportManager: CanvasViewport;
 
@@ -37,7 +38,7 @@ export namespace Continuum_Canvas {
       antialias: true,
       resolution: window.devicePixelRatio || 1,
       autoDensity: true,
-      background: palet.getColor(
+      background: colorPalet.getColor(
         useSettingsStore.getState().background.color
       ),
     });
@@ -48,7 +49,7 @@ export namespace Continuum_Canvas {
     appInstance!.stage.addChild(viewportManager.viewport);
     appInstance!.stage.addChild(Continuum_Canvas.cursorManager.cursor);
 
-    Continuum_ResizeService.setUpResize();
+    Continuum_Canvas.resizeService.setUpResize();
     Continuum_Canvas.cursorManager.updateCursorGraphics();
 
     inputStateManager.subscribeEvents();

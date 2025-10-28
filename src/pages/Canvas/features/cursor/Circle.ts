@@ -1,4 +1,4 @@
-import { Continuum_CanvasPalet } from "../../data/palet/PaletContainer";
+import { ColorPalet } from "../../data/palet/PaletContainer";
 import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { useEraseStore } from "../../data/store/EraseStore";
@@ -13,7 +13,7 @@ export class CircleCursor {
      Continuum_Canvas.cursorManager.cursor.clear();
      Continuum_Canvas.cursorManager.cursor
       .circle(0, 0, radius)
-      .fill({ color: Continuum_Canvas.palet.getColor("c-2"), alpha: 0.5 })
-      .stroke({ width: 1, color: Continuum_Canvas.palet.getColor("c-2") });
+      .fill({ color: Continuum_Canvas.colorPalet.getColor("c-2"), alpha: 0.5 })
+      .stroke({ width: 1, color: Continuum_Canvas.colorPalet.getColor("c-2") });
   }
 }

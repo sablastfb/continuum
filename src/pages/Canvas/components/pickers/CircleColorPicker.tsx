@@ -20,7 +20,7 @@ const CircleColorPicker = ({
       onClick={() => {
         action();
       }}
-      style={{ backgroundColor: Continuum_Canvas.palet.getColor(colorId) }}
+      style={{ backgroundColor: Continuum_Canvas.colorPalet.getColor(colorId) }}
       className={`rounded-full w-7 h-7 hover:cursor-pointer ${
         selected ? DefaultOutlineColor : ""
       } `}

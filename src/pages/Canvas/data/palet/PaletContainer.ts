@@ -5,7 +5,7 @@ import useSettingsStore from "../store/BacgroundStore";
 export type Color = string;
 export type ColorId = (typeof PaletContainer)[number]["id"];
 
-export class Continuum_CanvasPalet {
+export class ColorPalet {
   public colorContainer = keyBy(PaletContainer, "id");
 
   public getColor(colorId: ColorId) {

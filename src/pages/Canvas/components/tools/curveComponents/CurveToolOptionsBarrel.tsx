@@ -10,7 +10,7 @@ import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 import { usePenStore } from "../../../data/store/PenStore";
-import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
+import { ColorPalet } from "../../../data/palet/PaletContainer";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
@@ -31,7 +31,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("pen"); lastCureveTool("pen");}}
       >
-        <Pen size={DefaultIconSize} fill={Continuum_Canvas.palet.getColor( penStore.penColorId )}/>
+        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penColorId )}/>
       </div>
       <div
         className={`cursor-pointer ${
@@ -39,7 +39,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("highlighter"); lastCureveTool("highlighter"); }}
       >
-        <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.palet.getColor( markerStore.markerColorId )}/>
+        <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( markerStore.markerColorId )}/>
       </div>
       <ArrayDivider direction={toolOptionsDirection} />
       {activeTool === "pen" && <PenToolQuickOptions />}

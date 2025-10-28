@@ -1,6 +1,5 @@
 import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
-import { Continuum_ResizeService } from "./Resize";
 
 export class CanvasViewport {
   public viewport: Viewport | null = null;
@@ -21,7 +20,7 @@ export class CanvasViewport {
       .wheel();
     this.viewport
       .on("zoomed", (e) => {
-        Continuum_ResizeService.viewportZoom(e);
+        Continuum_Canvas.resizeService.viewportZoom(e);
       })
       .on("moved", () => {});
   }

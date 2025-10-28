@@ -1,5 +1,5 @@
 import { Graphics, Point } from "pixi.js";
-import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
+import { ColorPalet } from "../../../data/palet/PaletContainer";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePenStore } from "../../../data/store/PenStore";
 import { CanvasViewport } from "../../service/Viewport";
@@ -55,7 +55,7 @@ export class Curve implements ITool {
     Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
     switch (this.curveStyleType) {
       case "pen":
-        this.activeColor = Continuum_Canvas.palet.getColor(
+        this.activeColor = Continuum_Canvas.colorPalet.getColor(
           usePenStore.getState().penColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(
@@ -63,7 +63,7 @@ export class Curve implements ITool {
         );
         break;
       case "marker":
-        this.activeColor = Continuum_Canvas.palet.getColor(
+        this.activeColor = Continuum_Canvas.colorPalet.getColor(
           useMarkerStore.getState().markerColorId
         );
         this.activeThicknes = ThicknesPalet.getThicknes(
