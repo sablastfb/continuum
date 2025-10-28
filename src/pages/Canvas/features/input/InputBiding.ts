@@ -1,5 +1,3 @@
-import { Continuum_Canvas } from "../CanvasApp";
-import { Continuum_ToolManager } from "../tools/ToolManager";
 import { drawingBidings } from "./DrawingState";
 import { idleBidings } from "./IdleState";
 import { AppCanvasState, InputState, MouseButton } from "./InputState";

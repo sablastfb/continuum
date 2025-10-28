@@ -1,7 +1,7 @@
 import { throttle } from "lodash";
-import { FederatedPointerEvent, Graphics } from "pixi.js";
-import { Continuum_ToolManager } from "../tools/ToolManager";
+import {  Graphics } from "pixi.js";
 import { InputState } from "../input/InputState";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export class CursorManager {
   public cursor: Graphics;
@@ -10,7 +10,8 @@ export class CursorManager {
   }
 
   public updateCursorGraphics() {
-    Continuum_ToolManager.updateCursor();
+    if ( Continuum_Canvas.toolManager.currentTool)
+    Continuum_Canvas.toolManager.currentTool.updateCursor!();
   }
 
   public updateCursorVisibilty(visible: boolean) {

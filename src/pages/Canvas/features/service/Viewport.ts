@@ -21,7 +21,6 @@ export class CanvasViewport {
       .wheel();
     this.viewport
       .on("zoomed", (e) => {
-        debugger;
         Continuum_ResizeService.viewportZoom(e);
       })
       .on("moved", () => {});

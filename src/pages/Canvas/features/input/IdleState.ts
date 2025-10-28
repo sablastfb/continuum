@@ -1,7 +1,6 @@
 import { Continuum_Canvas } from "../CanvasApp";
-import { Continuum_ToolManager } from "../tools/ToolManager";
 import { InputBinding } from "./InputBiding";
-import { MouseButton, PointerType } from "./InputState";
+import { PointerType } from "./InputState";
 
 export const idleBidings: InputBinding[] = [
   // DRAWING
@@ -11,7 +10,7 @@ export const idleBidings: InputBinding[] = [
       if (e.pointerType === PointerType.MOUSE) {
         if (e.mouseButtons & 1) {
           Continuum_Canvas.inputStateManager.SwitchState("DARWING");
-          Continuum_ToolManager.currentTool!.startDrawing!(e);
+          Continuum_Canvas.toolManager.currentTool!.startDrawing!(e);
         }
       }
     },

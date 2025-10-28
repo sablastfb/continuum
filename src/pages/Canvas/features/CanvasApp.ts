@@ -1,5 +1,5 @@
 import { Application } from "pixi.js";
-import { Continuum_ToolManager } from "./tools/ToolManager";
+import { ToolManager } from "./tools/ToolManager";
 import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
 import useSettingsStore from "../data/store/BacgroundStore";
 import { Continuum_ResizeService } from "./service/Resize";
@@ -16,6 +16,7 @@ export namespace Continuum_Canvas {
   export const inputStateManager = new InputStateManager();
   export const inputBidings = new InputBidings();
   export const cursorManager = new CursorManager();
+  export const toolManager = new ToolManager();
   export let viewportManager: CanvasViewport;
 
   export async function creatPixiApp() {
@@ -40,7 +41,6 @@ export namespace Continuum_Canvas {
     });
     Continuum_Canvas.viewportManager = new CanvasViewport();
     Continuum_CurveService.init();
-    Continuum_ToolManager.init();
 
     if (!viewportManager.viewport) return;
     appInstance!.stage.addChild(viewportManager.viewport);
