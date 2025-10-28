@@ -3,7 +3,7 @@ import { Continuum_ToolManager } from "./tools/ToolManager";
 import { Continuum_CanvasPalet } from "../data/palet/PaletContainer";
 import useSettingsStore from "../data/store/BacgroundStore";
 import { Continuum_ResizeService } from "./service/Resize";
-import { Continuum_CanvasCursor } from "./cursor/CursorManager";
+import { CursorManager } from "./cursor/CursorManager";
 import { Continuum_CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
@@ -14,23 +14,21 @@ export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export const commandManage = new Continuum_CommandManager();
   export const inputStateManager = new InputStateManager();
-  export const inputBidings  = new InputBidings();
+  export const inputBidings = new InputBidings();
+  export const cursorManager = new CursorManager();
+  export let viewportManager: Continuum_CanvasViewport;
 
   export async function creatPixiApp() {
     if (appInstance) {
-      // Continuum_CanvasCursor.updateCursor();
-      // Continuum_CanvasCursor.updateCursorVisibilty(true);
       return appInstance;
     }
 
     await setUpAplication();
 
-  
     return appInstance;
   }
 
   async function setUpAplication() {
-
     appInstance = new Application();
     await appInstance.init({
       antialias: true,
@@ -40,17 +38,16 @@ export namespace Continuum_Canvas {
         useSettingsStore.getState().background.color
       ),
     });
-    Continuum_CanvasCursor.init();
-    Continuum_CanvasViewport.init();
+    Continuum_Canvas.viewportManager = new Continuum_CanvasViewport();
     Continuum_CurveService.init();
     Continuum_ToolManager.init();
 
-    if (!Continuum_CanvasViewport.viewport) return;
-    appInstance!.stage.addChild(Continuum_CanvasViewport.viewport);
-    appInstance!.stage.addChild(Continuum_CanvasCursor.cursor);
+    if (!viewportManager.viewport) return;
+    appInstance!.stage.addChild(viewportManager.viewport);
+    appInstance!.stage.addChild(Continuum_Canvas.cursorManager.cursor);
 
     Continuum_ResizeService.setUpResize();
-    Continuum_CanvasCursor.updateCursorGraphics();
+    Continuum_Canvas.cursorManager.updateCursorGraphics();
 
     inputStateManager.subscribeEvents();
   }

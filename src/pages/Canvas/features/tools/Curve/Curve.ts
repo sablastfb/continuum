@@ -6,7 +6,10 @@ import { Continuum_CanvasViewport } from "../../service/Viewport";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import type { MouseInputPoint, SimplePoint } from "../../../data/types/PointTypes";
+import type {
+  MouseInputPoint,
+  SimplePoint,
+} from "../../../data/types/PointTypes";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
@@ -34,22 +37,22 @@ export class Curve implements ITool {
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
-        this.type = 'pen';
+        this.type = "pen";
         this.curveStyle = new PenStyle();
         break;
       case "marker":
-        this.type = 'highlighter';
+        this.type = "highlighter";
         this.curveStyle = new MarkerStyle();
         break;
     }
   }
 
   public startDrawing(e: InputState) {
-    if (!Continuum_CanvasViewport.viewport) return;
+    if (!Continuum_Canvas.viewportManager.viewport) return;
 
     this.activeCurve = new Graphics();
 
-    Continuum_CanvasViewport.viewport.addChild(this.activeCurve);
+    Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
     switch (this.curveStyleType) {
       case "pen":
         this.activeColor = Continuum_CanvasPalet.getColor(
@@ -68,7 +71,9 @@ export class Curve implements ITool {
         );
         break;
     }
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e.mousePosition);
+    const worldPos = Continuum_Canvas.viewportManager.viewport.toWorld(
+      e.mousePosition
+    );
     this.line.push(worldPos);
     this.activeCurve.moveTo(worldPos.x, worldPos.y);
   }
@@ -77,8 +82,10 @@ export class Curve implements ITool {
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
-    if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e.mousePosition);
+    if (!Continuum_Canvas.viewportManager.viewport) return;
+    const worldPos = Continuum_Canvas.viewportManager.viewport.toWorld(
+      e.mousePosition
+    );
     this.line.push(worldPos);
     this.activeCurve.lineTo(worldPos.x, worldPos.y);
 
@@ -88,15 +95,13 @@ export class Curve implements ITool {
       activeThicknes: this.activeThicknes,
       activeColor: this.activeColor,
     });
-
   }
 
   public stopDrawing(e: InputState) {
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
-    if (!Continuum_CanvasViewport.viewport) return;
-    
+    if (!Continuum_Canvas.viewportManager.viewport) return;
 
     const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
     const optimizedCruveGraphics =
@@ -113,8 +118,8 @@ export class Curve implements ITool {
     };
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
-    Continuum_CanvasViewport.viewport?.removeChild(this.activeCurve);
-    Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
+    Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
+    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
 
     this.curveStyle.stopDrawingStyle({
       optimizedCruveGraphics,
@@ -127,7 +132,7 @@ export class Curve implements ITool {
   }
 
   public updateCursor() {
-    switch (this.type){
+    switch (this.type) {
       case "pen":
         CrossHairCursor.draw();
         break;

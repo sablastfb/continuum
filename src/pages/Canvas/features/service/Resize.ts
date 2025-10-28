@@ -4,12 +4,13 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_CanvasViewport } from "./Viewport";
 export namespace Continuum_ResizeService {
+
   export function manualZoom(zoomeDirection: number) {
-    if (Continuum_CanvasViewport.viewport === null) return;
+    if ( Continuum_Canvas.viewportManager.viewport === null) return;
     const zoome = useCanvasStore.getState().zoome;
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
-    Continuum_CanvasViewport.viewport.setZoom(zomeValue);
+     Continuum_Canvas.viewportManager.viewport.setZoom(zomeValue, true);
   }
 
   export function viewportZoom(e: ZoomedEvent) {
@@ -27,9 +28,9 @@ export namespace Continuum_ResizeService {
   }
 
   export function handleResize() {
-    if (!Continuum_Canvas.appInstance || !Continuum_CanvasViewport.viewport)
+    if (!Continuum_Canvas.appInstance || ! Continuum_Canvas.viewportManager.viewport)
       return;
-    Continuum_CanvasViewport.viewport.resize(
+    Continuum_Canvas.viewportManager.viewport.resize(
       window.innerWidth,
       window.innerHeight,
       1024,

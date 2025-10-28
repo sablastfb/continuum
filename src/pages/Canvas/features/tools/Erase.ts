@@ -9,21 +9,22 @@ import { GraphicsCommand } from "../commands/Graphics";
 import type { EraserToolType } from "../../data/types/ToolTypes";
 import type { MouseInputPoint} from "../../data/types/PointTypes";
 import { InputState } from "../input/InputState";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";
   delteGraphics: GraphicsData[] = [];
 
   public startDrawing(e: InputState) {
-    if (!Continuum_CanvasViewport.viewport) return;
+    if (! Continuum_Canvas.viewportManager.viewport) return;
 
     this.delteGraphics = [];
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e.mousePosition);
+    const activePoint = Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     Continuum_CollisionService.StartContinouseColison(activePoint);
   }
 
   public draw(e: InputState) {
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e.mousePosition);
+    const activePoint =  Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     if (!activePoint) return;
     const radius = ThicknesPalet.getThicknes(
       useEraseStore.getState().thicknesId

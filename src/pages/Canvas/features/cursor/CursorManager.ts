@@ -3,34 +3,34 @@ import { FederatedPointerEvent, Graphics } from "pixi.js";
 import { Continuum_ToolManager } from "../tools/ToolManager";
 import { InputState } from "../input/InputState";
 
-export namespace Continuum_CanvasCursor {
-  export let cursor: Graphics;
-  export function init() {
-    Continuum_CanvasCursor.cursor = new Graphics();
+export class CursorManager {
+  public cursor: Graphics;
+  constructor() {
+    this.cursor = new Graphics();
   }
 
-  export function updateCursorGraphics() {
+  public updateCursorGraphics() {
     Continuum_ToolManager.updateCursor();
   }
 
-  export function updateCursorVisibilty(visible: boolean) {
-    if (Continuum_CanvasCursor.cursor) {
-      Continuum_CanvasCursor.cursor.visible = visible;
+  public updateCursorVisibilty(visible: boolean) {
+    if (this.cursor) {
+      this.cursor.visible = visible;
     }
   }
 
-  export const moveCursor = throttle((e: InputState) => {
-    Continuum_CanvasCursor.cursor.x = e.globalPosition.x;
-    Continuum_CanvasCursor.cursor.y = e.globalPosition.y;
+  moveCursor = throttle((e: InputState) => {
+    this.cursor.x = e.globalPosition.x;
+    this.cursor.y = e.globalPosition.y;
   }, 1);
 
-  export function updateCursorState(e: InputState) {
+  public updateCursorState(e: InputState) {
     if (e.pointerOwer) {
-      Continuum_CanvasCursor.cursor.visible = true;
-      Continuum_CanvasCursor.cursor.x = e.globalPosition.x;
-      Continuum_CanvasCursor.cursor.y = e.globalPosition.y;
+      this.cursor.visible = true;
+      this.cursor.x = e.globalPosition.x;
+      this.cursor.y = e.globalPosition.y;
     } else {
-      Continuum_CanvasCursor.cursor.visible = false;
+      this.cursor.visible = false;
     }
   }
 }

@@ -1,9 +1,6 @@
 import { FederatedPointerEvent } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
-import { Continuum_CanvasViewport } from "../service/Viewport";
-import { Continuum_CurveService } from "../service/CurveService";
-import { Continuum_CanvasCursor } from "../cursor/CursorManager";
 
 export type AppCanvasState = "IDLE" | "DARWING" | "KEY_PUSHED";
 
@@ -57,34 +54,34 @@ export class InputStateManager {
   public subscribeEvents() {
     window.addEventListener("keydown", (e) => this.updateKeyDown(e));
     window.addEventListener("keyup", (e) => this.updateKeyUp(e));
-    if (Continuum_CanvasViewport.viewport) {
-      Continuum_CanvasViewport.viewport.on("pointerdown", (e) => {
-        this.inputState.pointerDown = true;
-        this.inputState.pointerOwer = true;
-        this.updatePointerEvent(e);
-      });
-      Continuum_CanvasViewport.viewport.on("pointermove", (e) => {
-        this.inputState.pointerOwer = true;
+    if (!Continuum_Canvas.viewportManager.viewport) return;
 
-        this.updatePointerEvent(e);
-      });
-      Continuum_CanvasViewport.viewport.on("pointerup", (e) => {
-        this.inputState.pointerDown = false;
-        this.inputState.pointerOwer = true;
+    Continuum_Canvas.viewportManager.viewport.on("pointerdown", (e) => {
+      this.inputState.pointerDown = true;
+      this.inputState.pointerOwer = true;
+      this.updatePointerEvent(e);
+    });
+    Continuum_Canvas.viewportManager.viewport.on("pointermove", (e) => {
+      this.inputState.pointerOwer = true;
 
-        this.updatePointerEvent(e);
-      });
-      Continuum_CanvasViewport.viewport.on("pointercancel", (e) => {
-        this.inputState.pointerDown = false;
-        this.inputState.pointerOwer = false;
-        this.updatePointerEvent(e);
-      });
-      Continuum_CanvasViewport.viewport.on("pointerout", (e) => {
-        this.inputState.pointerDown = false;
-        this.inputState.pointerOwer = false;
-        this.updatePointerEvent(e);
-      });
-    }
+      this.updatePointerEvent(e);
+    });
+    Continuum_Canvas.viewportManager.viewport.on("pointerup", (e) => {
+      this.inputState.pointerDown = false;
+      this.inputState.pointerOwer = true;
+
+      this.updatePointerEvent(e);
+    });
+    Continuum_Canvas.viewportManager.viewport.on("pointercancel", (e) => {
+      this.inputState.pointerDown = false;
+      this.inputState.pointerOwer = false;
+      this.updatePointerEvent(e);
+    });
+    Continuum_Canvas.viewportManager.viewport.on("pointerout", (e) => {
+      this.inputState.pointerDown = false;
+      this.inputState.pointerOwer = false;
+      this.updatePointerEvent(e);
+    });
   }
 
   public updatePointerEvent(e: FederatedPointerEvent) {
@@ -111,7 +108,7 @@ export class InputStateManager {
       y: e.global.y,
     };
 
-    Continuum_CanvasCursor.updateCursorState(this.inputState);
+     Continuum_Canvas.cursorManager.updateCursorState(this.inputState);
     this.runCanvasAction();
   }
 

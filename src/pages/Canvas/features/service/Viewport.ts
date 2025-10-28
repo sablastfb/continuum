@@ -2,25 +2,26 @@ import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Continuum_ResizeService } from "./Resize";
 
-export namespace Continuum_CanvasViewport {
-  export let viewport: Viewport | null = null;
+export class Continuum_CanvasViewport {
+  public viewport: Viewport | null = null;
 
-  export function init() {
+  constructor() {
     if (!Continuum_Canvas.appInstance) return;
-    Continuum_CanvasViewport.viewport = new Viewport({
+    this.viewport = new Viewport({
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
       events: Continuum_Canvas.appInstance.renderer.events,
       passiveWheel: true,
     });
-    Continuum_CanvasViewport.viewport
+    this.viewport
       .drag({ mouseButtons: "middle" })
       .pinch({
         noDrag: true,
       })
       .wheel();
-    Continuum_CanvasViewport.viewport
+    this.viewport
       .on("zoomed", (e) => {
+        debugger;
         Continuum_ResizeService.viewportZoom(e);
       })
       .on("moved", () => {});
