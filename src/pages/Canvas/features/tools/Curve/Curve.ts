@@ -58,7 +58,7 @@ export class Curve implements ITool {
         this.activeColor = Continuum_Canvas.colorPalet.getColor(
           usePenStore.getState().penColorId
         );
-        this.activeThicknes = ThicknesPalet.getThicknes(
+        this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           usePenStore.getState().thicknesId
         );
         break;
@@ -66,7 +66,7 @@ export class Curve implements ITool {
         this.activeColor = Continuum_Canvas.colorPalet.getColor(
           useMarkerStore.getState().markerColorId
         );
-        this.activeThicknes = ThicknesPalet.getThicknes(
+        this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useMarkerStore.getState().thicknesId
         );
         break;

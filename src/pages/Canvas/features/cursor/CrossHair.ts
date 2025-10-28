@@ -16,7 +16,7 @@ export class CrossHairCursor  {
 
     const zoom = useCanvasStore.getState().zoome;
     const radius =
-      zoom * ThicknesPalet.getThicknes(usePenStore.getState().thicknesId);
+      zoom * Continuum_Canvas.thicknesPalet.getThicknes(usePenStore.getState().thicknesId);
     const outerRadius = Math.max(radius, 10);
     const lineDistance = 30 + outerRadius;
      Continuum_Canvas.cursorManager.cursor

@@ -10,6 +10,7 @@ import { Continuum_CurveService } from "./service/CurveService";
 import { InputStateManager } from "./input/InputState";
 import { InputBidings } from "./input/InputBiding";
 import { BookmarkService } from "./service/BookMark";
+import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -18,10 +19,11 @@ export namespace Continuum_Canvas {
   export const inputBidings = new InputBidings();
   export const cursorManager = new CursorManager();
   export const toolManager = new ToolManager();
-  export const colorPalet = new ColorPalet();
   export const resizeService = new ResizeService();
   export const bookMarkService =  new BookmarkService();
-
+  export const colorPalet = new ColorPalet();
+  export const thicknesPalet = new ThicknesPalet();
+  
   export let viewportManager: CanvasViewport;
 
   export async function creatPixiApp() {

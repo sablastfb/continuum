@@ -6,6 +6,7 @@ import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const EraseToolQuickOptions = () => {
   const eraseSettings = useEraseStore();
@@ -42,7 +43,7 @@ const EraseToolQuickOptions = () => {
           <CircleThicknesPicker
             action={() => {
               setEraseThickens({
-                thicknes: ThicknesPalet.getThicknes(id),
+                thicknes: Continuum_Canvas.thicknesPalet.getThicknes(id),
                 thicknesId: id,
               });
             }}

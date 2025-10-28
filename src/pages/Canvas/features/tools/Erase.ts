@@ -26,7 +26,7 @@ export class Erase implements ITool {
   public draw(e: InputState) {
     const activePoint =  Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     if (!activePoint) return;
-    const radius = ThicknesPalet.getThicknes(
+    const radius = Continuum_Canvas.thicknesPalet.getThicknes(
       useEraseStore.getState().thicknesId
     );
 

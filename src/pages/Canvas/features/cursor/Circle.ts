@@ -9,7 +9,7 @@ export class CircleCursor {
     const zoom = useCanvasStore.getState().zoome;
 
     const radius =
-      zoom * ThicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
+      zoom * Continuum_Canvas.thicknesPalet.getThicknes(useEraseStore.getState().thicknesId);
      Continuum_Canvas.cursorManager.cursor.clear();
      Continuum_Canvas.cursorManager.cursor
       .circle(0, 0, radius)

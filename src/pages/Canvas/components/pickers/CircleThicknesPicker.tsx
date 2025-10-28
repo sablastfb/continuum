@@ -6,6 +6,7 @@ import {
   ThicknesId,
   ThicknesPalet,
 } from "../../data/thicknes/ThickneContainer";
+import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const baseSize = 4;
 const sigma = 6;
@@ -34,10 +35,10 @@ const CircleThicknesPicker = ({
           style={{
             width:
               baseSize *
-              (1 + (sigma * ThicknesPalet.getThicknes(thicknesId)) / maxSize),
+              (1 + (sigma * Continuum_Canvas.thicknesPalet.getThicknes(thicknesId)) / maxSize),
             height:
               baseSize *
-              (1 + (sigma * ThicknesPalet.getThicknes(thicknesId)) / maxSize),
+              (1 + (sigma *  Continuum_Canvas.thicknesPalet.getThicknes(thicknesId)) / maxSize),
           }}
           className={`bg-amber-600 dark:bg-amber-100 rounded-full max-w-7 max-h-7 items-center`}
         ></div>

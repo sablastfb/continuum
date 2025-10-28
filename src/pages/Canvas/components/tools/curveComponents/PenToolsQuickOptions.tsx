@@ -5,6 +5,7 @@ import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const PenToolQuickOptions = () => {
   const penSettings = usePenStore();
@@ -23,7 +24,7 @@ const PenToolQuickOptions = () => {
           <CircleThicknesPicker
             action={() => {
               setPenThickens({
-                thicknes: ThicknesPalet.getThicknes(id),
+                thicknes: Continuum_Canvas.thicknesPalet.getThicknes(id),
                 thicknesId: id,
               });
             }}
