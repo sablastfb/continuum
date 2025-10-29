@@ -7,7 +7,7 @@ import {
 import { useRef, useState, useEffect, type ReactNode } from "react";
 import {
   DefaultIconSize,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 
 type Direction = "horizontal" | "vertical";
 

@@ -2,7 +2,7 @@ import { Eye, PencilRuler } from "lucide-react";
 import {
   DefaultButtonsBackground,
   DefaultIconSize,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 
 const HideQuickToolSettings = () => {

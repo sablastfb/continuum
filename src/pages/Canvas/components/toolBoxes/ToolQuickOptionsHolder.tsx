@@ -12,7 +12,7 @@ import {
   DefaultToolBarHeight,
   DefaultToolBarPadding,
   DefaultToolBarVPadding,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import ScrollableContainer from "./ScrollableContainer";
 
 export interface ToolOptionParameters {

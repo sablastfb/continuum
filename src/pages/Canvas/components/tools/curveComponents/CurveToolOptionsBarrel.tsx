@@ -3,7 +3,7 @@ import { Highlighter, Pen } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline as DefaultOutlineSelection,
-} from "../../../data/types/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolQuickOptions from "./PenToolsQuickOptions";
 import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";

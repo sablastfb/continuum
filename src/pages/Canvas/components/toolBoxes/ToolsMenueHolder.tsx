@@ -5,7 +5,7 @@ import {
   DefaultIconSize,
   DefaultToolBarHeight,
   DefaultToolBarWith,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
 import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
 import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";

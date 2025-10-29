@@ -2,7 +2,7 @@ import { Highlighter, Pen } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/types/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 import { usePenStore } from "../../../data/store/PenStore";
 import { useMarkerStore } from "../../../data/store/MarkerStore";

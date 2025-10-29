@@ -1,5 +1,5 @@
 import { Home, Plus, Trash, X } from "lucide-react";
-import { DefaultButtonsBackground } from "../../../data/types/CanvasConstants";
+import { DefaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import { useState } from "react";
 import { useBookmark } from "../../../data/store/BookmarkStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";

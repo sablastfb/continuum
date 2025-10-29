@@ -1,6 +1,6 @@
 import "./BackgroundSettings.css";
 import CircleColorPicker from "../../../pickers/CircleColorPicker";
-import { DefaultOutline } from "../../../../data/types/CanvasConstants";
+import { DefaultOutline } from "../../../../data/constants/CanvasConstants";
 import useSettingsStore from "../../../../data/store/BacgroundStore";
 import { Continuum_Canvas } from "../../../../features/CanvasApp";
 

@@ -1,6 +1,6 @@
 import { Circle, LineSquiggle } from "lucide-react";
 import { useEraseStore } from "../../../data/store/EraseStore";
-import { DefaultOutline } from "../../../data/types/CanvasConstants";
+import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";

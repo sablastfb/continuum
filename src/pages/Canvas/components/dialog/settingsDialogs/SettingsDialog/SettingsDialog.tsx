@@ -10,7 +10,7 @@ import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
 import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
-import { DefaultDialogBacground } from "../../../../data/types/CanvasConstants";
+import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
 
 const SettingsDialog = () => {
   const setTheme = useSettingsStore().setTheme;

@@ -1,7 +1,7 @@
 import { Download, Keyboard, Settings } from "lucide-react";
 
 import useCanvasStore from "../../data/store/CanvasStore";
-import { DefaultButtonsBackground, DefaultIconSize } from "../../data/types/CanvasConstants";
+import { DefaultButtonsBackground, DefaultIconSize } from "../../data/constants/CanvasConstants";
 
 const OptionButton = () => {
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);

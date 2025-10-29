@@ -1,4 +1,4 @@
-import { DefaultOutlineColor } from "../../data/types/CanvasConstants";
+import { DefaultOutlineColor } from "../../data/constants/CanvasConstants";
 import { ColorId } from "../../data/palet/PaletContainer";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 

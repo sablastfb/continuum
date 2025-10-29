@@ -3,7 +3,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import {
   DefaultButtonsBackground,
   DefaultIconSize,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const ZoomingButton = () => {

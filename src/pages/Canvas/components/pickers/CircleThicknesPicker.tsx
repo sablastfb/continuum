@@ -1,7 +1,7 @@
 import {
   CirclePickeSize,
   DefaultOutlineColor,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import {
   ThicknesId,
   ThicknesPalet,

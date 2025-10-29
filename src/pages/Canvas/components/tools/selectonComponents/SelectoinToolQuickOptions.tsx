@@ -7,7 +7,7 @@ import {
 import {
   DefaultIconSize,
   DefaultOutline as DefaultOutlineSelection,
-} from "../../../data/types/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 import { SelectionToolType } from "../../../data/types/ToolTypes";
 import { JSX } from "react";
