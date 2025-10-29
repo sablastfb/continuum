@@ -28,6 +28,9 @@ const PixiCanvasComponent = () => {
          style={{ cursor: "none" }}
         ref={canvasContainer}
         onMouseEnter={() => {
+          debugger;
+
+          
           setCanvasCursorActive(true);
         }}
         onMouseLeave={() => {

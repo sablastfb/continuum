@@ -14,7 +14,7 @@ import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
 import ScrollableContainer from "./ScrollableContainer";
-import { Type, Image, Clipboard, Link } from "lucide-react";
+import { Type, Image, Clipboard, Link, ChartSpline } from "lucide-react";
 
 export interface ToolsMenueParameter {
   direction: Direction;
@@ -49,6 +49,9 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           </div>
           <div>
             <Image size={DefaultIconSize} />
+          </div>
+          <div>
+            <ChartSpline size={DefaultIconSize} />
           </div>
           <div>
             <Clipboard size={DefaultIconSize} />

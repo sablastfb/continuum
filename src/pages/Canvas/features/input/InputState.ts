@@ -58,28 +58,22 @@ export class InputStateManager {
 
     Continuum_Canvas.viewportManager.viewport.on("pointerdown", (e) => {
       this.inputState.pointerDown = true;
-      this.inputState.pointerOwer = true;
       this.updatePointerEvent(e);
     });
     Continuum_Canvas.viewportManager.viewport.on("pointermove", (e) => {
-      this.inputState.pointerOwer = true;
-
       this.updatePointerEvent(e);
     });
     Continuum_Canvas.viewportManager.viewport.on("pointerup", (e) => {
       this.inputState.pointerDown = false;
-      this.inputState.pointerOwer = true;
 
       this.updatePointerEvent(e);
     });
     Continuum_Canvas.viewportManager.viewport.on("pointercancel", (e) => {
       this.inputState.pointerDown = false;
-      this.inputState.pointerOwer = false;
       this.updatePointerEvent(e);
     });
     Continuum_Canvas.viewportManager.viewport.on("pointerout", (e) => {
       this.inputState.pointerDown = false;
-      this.inputState.pointerOwer = false;
       this.updatePointerEvent(e);
     });
   }
@@ -108,7 +102,7 @@ export class InputStateManager {
       y: e.global.y,
     };
 
-     Continuum_Canvas.cursorManager.updateCursorState(this.inputState);
+    Continuum_Canvas.cursorManager.updateCursorState(this.inputState);
     this.runCanvasAction();
   }
 
