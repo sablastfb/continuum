@@ -14,31 +14,35 @@ import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
+  export let initPromise: Promise<Application> | null = null;
+
   export const commandManage = new Continuum_CommandManager();
   export const inputStateManager = new InputStateManager();
   export const inputBidings = new InputBidings();
   export const cursorManager = new CursorManager();
   export const toolManager = new ToolManager();
   export const resizeService = new ResizeService();
-  export const bookMarkService =  new BookmarkService();
+  export const bookMarkService = new BookmarkService();
   export const colorPalet = new ColorPalet();
   export const thicknesPalet = new ThicknesPalet();
-  
-  export let viewportManager: CanvasViewport;
 
+  export let viewportManager: CanvasViewport;
   export async function creatPixiApp() {
     if (appInstance) {
       return appInstance;
     }
+    if (initPromise) {
+      return initPromise;
+    }
 
-    await setUpAplication();
-
+    initPromise = setUpAplication();
+    appInstance = await initPromise;
     return appInstance;
   }
 
-  async function setUpAplication() {
-    appInstance = new Application();
-    await appInstance.init({
+  async function setUpAplication(): Promise<Application> {
+    const app = new Application();
+    await app.init({
       antialias: true,
       resolution: window.devicePixelRatio || 1,
       autoDensity: true,
@@ -46,17 +50,22 @@ export namespace Continuum_Canvas {
         useSettingsStore.getState().background.color
       ),
     });
+
+    Continuum_Canvas.appInstance = app;
     Continuum_Canvas.viewportManager = new CanvasViewport();
     Continuum_CurveService.init();
 
-    if (!viewportManager.viewport) return;
-    appInstance!.stage.addChild(viewportManager.viewport);
-    appInstance!.stage.addChild(Continuum_Canvas.cursorManager.cursor);
+    if (Continuum_Canvas.viewportManager.viewport) {
+      app.stage.addChild(Continuum_Canvas.viewportManager.viewport);
+      app.stage.addChild(Continuum_Canvas.cursorManager.cursor);
+    }
 
     Continuum_Canvas.resizeService.setUpResize();
     Continuum_Canvas.cursorManager.updateCursorGraphics();
 
     inputStateManager.subscribeEvents();
+
+    return app;
   }
 
   export function IsCanvasReady() {
