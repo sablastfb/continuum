@@ -46,19 +46,26 @@ export class CanvasViewport {
   private backgroundShader: Filter | null = null;
   private backgroundGraphics: Graphics | null = null;
 
-  private test() {
+private test() {
     const fragmentShader = fragment;
     const vertexShader = vertex;
     const program = GlProgram.from({
       vertex: vertexShader,
       fragment: fragmentShader,
     });
+    
+    // Use viewport's actual screen dimensions!
+    const viewportScreenWidth = this.viewport!.screenWidth;
+    const viewportScreenHeight = this.viewport!.screenHeight;
+    
+    console.log('Using viewport screen size:', viewportScreenWidth, viewportScreenHeight);
+    
     this.backgroundShader = new Filter({
       glProgram: program,
       resources: {
         uniforms: {
           resolution: {
-            value: [500, 500],
+            value: [viewportScreenWidth, viewportScreenHeight],
             type: "vec2<f32>",
           },
           viewportPosition: {
@@ -72,19 +79,30 @@ export class CanvasViewport {
         },
       },
     });
-    // Create full-screen background
+    
+    // Size the background to match viewport screen size
     this.backgroundGraphics = new Graphics()
-      .rect(0, 0, window.innerWidth, window.innerHeight)
+      .rect(0, 0, viewportScreenWidth, viewportScreenHeight)
       .fill("white");
     this.backgroundGraphics.filters = [this.backgroundShader];
-    // Add to stage (not viewport) so it stays full-screen
+    
     Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
-    if (this.viewport)
-      this.viewport?.addChild(
-        new Graphics()
-          .circle(this.viewport!.x, this.viewport!.y, 100)
-          .fill("red")
-      );
+    
+    if (this.viewport) {
+      const originCircle = new Graphics()
+        .circle(0, 0, 50)
+        .fill({ color: 0xff0000, alpha: 0.3 })
+        .stroke({ color: 0xff0000, width: 2 });
+      this.viewport.addChild(originCircle);
+      
+      const testCircle = new Graphics()
+        .circle(100, 100, 30)
+        .fill({ color: 0x0000ff, alpha: 0.3 })
+        .stroke({ color: 0x0000ff, width: 2 });
+      this.viewport.addChild(testCircle);
+    }
+    
+    this.updateBackgroundUniforms();
   }
 
   private updateBackgroundUniforms() {
@@ -92,11 +110,11 @@ export class CanvasViewport {
       const uniforms = this.backgroundShader.resources.uniforms.uniforms;
 
       uniforms.viewportPosition = [
-        -this.viewport.x / this.viewport.scale.x,
-        -this.viewport.y / this.viewport.scale.y,
+        this.viewport.corner.x,
+        this.viewport.corner.y,
       ];
 
-      uniforms.viewportZoom = this.viewport.scale.x; // assuming uniform zoom
+      uniforms.viewportZoom = this.viewport.scale.x;
     }
   }
 }
