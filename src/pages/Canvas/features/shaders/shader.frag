@@ -10,53 +10,62 @@ uniform sampler2D uTexture;
 void main(void) {
     // Get screen pixel coordinates and flip Y axis
     vec2 screenCoord = gl_FragCoord.xy;
-    screenCoord.y = iResolution.y - screenCoord.y; // Flip Y to match PixiJS coordinates
+    screenCoord.y = iResolution.y - screenCoord.y;
     
     // Convert to world coordinates
     vec2 worldCoord = viewportPosition + (screenCoord / viewportZoom);
     
-    // DEBUG: Draw circles at specific world positions
-    // Circle at world origin (0, 0) - RED
-    float distToOrigin = length(worldCoord - vec2(0.0, 0.0));
-    if (distToOrigin < 50.0) {
-        finalColor = vec4(1.0, 0.0, 0.0, 0.5);
-        return;
-    }
+    // Grid settings
+    float gridSize = 50.0;
+    float lineWidth = 1.0 / viewportZoom;
     
-    // Circle at (100, 100) - BLUE
-    float distTo100 = length(worldCoord - vec2(100.0, 100.0));
-    if (distTo100 < 30.0) {
-        finalColor = vec4(0.0, 0.0, 1.0, 0.5);
-        return;
-    }
+    // Calculate position within grid cell
+    vec2 gridPos = mod(worldCoord, gridSize);
     
-    // Circle at (-100, -100) - GREEN
-    float distToNeg100 = length(worldCoord - vec2(-100.0, -100.0));
-    if (distToNeg100 < 30.0) {
-        finalColor = vec4(0.0, 1.0, 0.0, 0.5);
-        return;
-    }
+    // Distance to nearest grid line
+    float distToGrid = min(gridPos.x, gridPos.y);
+    distToGrid = min(distToGrid, min(gridSize - gridPos.x, gridSize - gridPos.y));
     
-    // Dot pattern settings
-    float dotSpacing = 50.0;  // Spacing in world units
-    float dotRadius = 3.0;     // Radius in world units (fixed size)
+    // Anti-aliased grid lines
+    float aaWidth = 0.5 / viewportZoom;
+    float grid = 1.0 - smoothstep(lineWidth - aaWidth, lineWidth + aaWidth, distToGrid);
     
-    // Find nearest dot center
-    vec2 cellCenter = floor(worldCoord / dotSpacing) * dotSpacing + dotSpacing * 0.5;
+    // Add subtle glow
+    float glowWidth = lineWidth * 2.5;
+    float glow = 1.0 - smoothstep(lineWidth, glowWidth, distToGrid);
+    glow = glow * glow * 0.25;
+    grid = grid + glow;
     
-    // Distance from current point to nearest dot center
-    float distToDot = length(worldCoord - cellCenter);
+    // Calculate axis lines
+    float distToXAxis = abs(worldCoord.y);
+    float distToYAxis = abs(worldCoord.x);
     
-    // Create smooth dot (radius in world units, not affected by zoom)
-    float worldDotRadius = dotRadius;
-    float smoothEdge = 1.0; // Smooth edge width in world units
-    float dotMask = smoothstep(worldDotRadius + smoothEdge, worldDotRadius, distToDot);
+    float axisLineWidth = 1.5 / viewportZoom;
+    float xAxis = 1.0 - smoothstep(axisLineWidth - aaWidth, axisLineWidth + aaWidth, distToXAxis);
+    float yAxis = 1.0 - smoothstep(axisLineWidth - aaWidth, axisLineWidth + aaWidth, distToYAxis);
+    
+    // Add glow to axes
+    float axisGlowWidth = axisLineWidth * 2.5;
+    float xAxisGlow = 1.0 - smoothstep(axisLineWidth, axisGlowWidth, distToXAxis);
+    float yAxisGlow = 1.0 - smoothstep(axisLineWidth, axisGlowWidth, distToYAxis);
+    xAxis = xAxis + xAxisGlow * xAxisGlow * 0.3;
+    yAxis = yAxis + yAxisGlow * yAxisGlow * 0.3;
     
     // Colors
-    vec3 backgroundColor = vec3(0.95, 0.95, 0.97);
-    vec3 dotColor = vec3(0.7, 0.7, 0.75);
+    vec3 backgroundColor = vec3(0.11, 0.11, 0.12);
+    vec3 gridColor = vec3(0.18, 0.18, 0.19);
+    vec3 xAxisColor = vec3(0.6, 0.25, 0.25);  // Red
+    vec3 yAxisColor = vec3(0.25, 0.6, 0.25);  // Green
     
-    vec3 color = mix(backgroundColor, dotColor, dotMask);
+    // Combine everything
+    vec3 color = backgroundColor;
+    color = mix(color, gridColor, grid * 0.7);
+    
+    // Subtle vignette
+    vec2 uv = screenCoord / iResolution;
+    vec2 center = uv - 0.5;
+    float vignette = 1.0 - dot(center, center) * 0.15;
+    color *= vignette;
     
     finalColor = vec4(color, 1.0);
 }
