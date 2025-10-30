@@ -6,15 +6,14 @@ uniform vec2 iResolution;
 uniform vec2 viewportPosition;
 uniform float viewportZoom;
 uniform sampler2D uTexture;
-uniform vec2 shapeOffset;  // NEW: Add this to offset for shapes
 
 void main(void) {
     // Get screen pixel coordinates and flip Y axis
     vec2 screenCoord = gl_FragCoord.xy;
     screenCoord.y = iResolution.y - screenCoord.y;
     
-    // Convert to world coordinates, accounting for shape offset
-    vec2 worldCoord = viewportPosition + (screenCoord / viewportZoom) - shapeOffset;
+    // Convert to world coordinates
+    vec2 worldCoord = viewportPosition + (screenCoord / viewportZoom);
     
     // Grid settings
     float gridSize = 50.0;
@@ -61,8 +60,6 @@ void main(void) {
     // Combine everything
     vec3 color = backgroundColor;
     color = mix(color, gridColor, grid * 0.7);
-    color = mix(color, xAxisColor, xAxis * 0.8);
-    color = mix(color, yAxisColor, yAxis * 0.8);
     
     // Subtle vignette
     vec2 uv = screenCoord / iResolution;
