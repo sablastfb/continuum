@@ -64,7 +64,7 @@ private test() {
       glProgram: program,
       resources: {
         uniforms: {
-          resolution: {
+          iResolution: {
             value: [viewportScreenWidth, viewportScreenHeight],
             type: "vec2<f32>",
           },

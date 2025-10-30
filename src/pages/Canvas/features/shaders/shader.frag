@@ -2,51 +2,44 @@ in vec2 vTextureCoord;
 in vec2 vPosition;
 out vec4 finalColor;
 
-uniform vec2 resolution;
+uniform vec2 iResolution;
 uniform vec2 viewportPosition;
 uniform float viewportZoom;
 uniform sampler2D uTexture;
 
 void main(void) {
-    // Get screen pixel coordinates
-    vec2 screenCoord = vTextureCoord * resolution;
-    
-    // Fix aspect ratio - normalize coordinates
-    float aspect = resolution.x / resolution.y;
-    vec2 normalizedCoord = screenCoord;
-    normalizedCoord.x /= aspect;
+    // Get screen pixel coordinates and flip Y axis
+    vec2 screenCoord = gl_FragCoord.xy;
+    screenCoord.y = iResolution.y - screenCoord.y; // Flip Y to match PixiJS coordinates
     
     // Convert to world coordinates
-    vec2 worldCoord = viewportPosition + (normalizedCoord / viewportZoom);
+    vec2 worldCoord = viewportPosition + (screenCoord / viewportZoom);
     
     // DEBUG: Draw circles at specific world positions
-    float debugCircle = 0.0;
-    
     // Circle at world origin (0, 0) - RED
     float distToOrigin = length(worldCoord - vec2(0.0, 0.0));
-    if (distToOrigin < 50.0 / viewportZoom) {
+    if (distToOrigin < 50.0) {
         finalColor = vec4(1.0, 0.0, 0.0, 0.5);
         return;
     }
     
     // Circle at (100, 100) - BLUE
     float distTo100 = length(worldCoord - vec2(100.0, 100.0));
-    if (distTo100 < 30.0 / viewportZoom) {
+    if (distTo100 < 30.0) {
         finalColor = vec4(0.0, 0.0, 1.0, 0.5);
         return;
     }
     
     // Circle at (-100, -100) - GREEN
     float distToNeg100 = length(worldCoord - vec2(-100.0, -100.0));
-    if (distToNeg100 < 30.0 / viewportZoom) {
+    if (distToNeg100 < 30.0) {
         finalColor = vec4(0.0, 1.0, 0.0, 0.5);
         return;
     }
     
     // Dot pattern settings
-    float dotSpacing = 50.0;
-    float dotRadius = 3.0;
-    float worldDotRadius = dotRadius / viewportZoom;
+    float dotSpacing = 50.0;  // Spacing in world units
+    float dotRadius = 3.0;     // Radius in world units (fixed size)
     
     // Find nearest dot center
     vec2 cellCenter = floor(worldCoord / dotSpacing) * dotSpacing + dotSpacing * 0.5;
@@ -54,8 +47,10 @@ void main(void) {
     // Distance from current point to nearest dot center
     float distToDot = length(worldCoord - cellCenter);
     
-    // Create smooth dot
-    float dotMask = smoothstep(worldDotRadius + 1.0/viewportZoom, worldDotRadius, distToDot);
+    // Create smooth dot (radius in world units, not affected by zoom)
+    float worldDotRadius = dotRadius;
+    float smoothEdge = 1.0; // Smooth edge width in world units
+    float dotMask = smoothstep(worldDotRadius + smoothEdge, worldDotRadius, distToDot);
     
     // Colors
     vec3 backgroundColor = vec3(0.95, 0.95, 0.97);
