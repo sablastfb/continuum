@@ -113,11 +113,17 @@ private test() {
         },
       },
     });
-        Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
+        // Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
+
+    const circle = new Graphics().circle(250,250,250).fill("white")
+      .stroke({width:5, color:"red"})
+;
 
     const backgroundGraphics43 = new Graphics()
-      .rect(40, 50, 500, 500)
+      .rect(0, 0, 500, 500)
       .fill("white");
+      backgroundGraphics43.addChild(circle);
+      backgroundGraphics43.mask = circle;
     backgroundGraphics43.filters = [shapeShader];
 
     if(this.viewport)
