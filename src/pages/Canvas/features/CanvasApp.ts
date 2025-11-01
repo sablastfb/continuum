@@ -66,7 +66,7 @@ export namespace Continuum_Canvas {
 
     Continuum_Canvas.cursorManager.updateCursorGraphics();
     inputStateManager.subscribeEvents();
-
+    Continuum_Canvas.resizeService.handleResize();
     return app;
   }
 
