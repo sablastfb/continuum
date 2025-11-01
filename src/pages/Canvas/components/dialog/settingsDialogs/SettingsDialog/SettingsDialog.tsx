@@ -9,13 +9,13 @@ import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
-import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
+import useBacgroundStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
 import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
 
 const SettingsDialog = () => {
-  const setTheme = useSettingsStore().setTheme;
+  const setTheme = useBacgroundStore().setTheme;
   const settingVisible = useCanvasStore((state) => state.settingVisible);
-  const canvasSettings = useSettingsStore((state) => state);
+  const canvasSettings = useBacgroundStore((state) => state);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const [currentCanvasSettings, setCurrentCanvasSettings] =
     useState<BacgroundData>(BacgroundDefault);
@@ -27,8 +27,8 @@ const SettingsDialog = () => {
     useState(false);
   const defaultButton = useRef(null);
 
-  const reserToDefaultSettings = useSettingsStore().reserToDefaultSettings;
-  const discardSettings = useSettingsStore().discardSettings;
+  const reserToDefaultSettings = useBacgroundStore().reserToDefaultSettings;
+  const discardSettings = useBacgroundStore().discardSettings;
   type SettingTabs = "background" | "layout";
   const items = [
     {

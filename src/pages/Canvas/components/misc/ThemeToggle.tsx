@@ -2,12 +2,12 @@ import { useContext } from "react";
 import { PrimeReactContext } from "primereact/api";
 import { AppConstants } from "../../data/constants/AppConstants";
 import { Button } from "primereact/button";
-import useSettingsStore from "../../data/store/BacgroundStore";
+import useBacgroundStore from "../../data/store/BacgroundStore";
 
 const ThemeToggle = () => {
   const { changeTheme } = useContext(PrimeReactContext)!;
-  const theme = useSettingsStore().theme;
-  const setTheme = useSettingsStore().setTheme;
+  const theme = useBacgroundStore().theme;
+  const setTheme = useBacgroundStore().setTheme;
   const isLight = theme === "light";
 
   const toggle = () => {

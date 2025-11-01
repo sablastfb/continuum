@@ -12,6 +12,7 @@ import {
 } from "pixi.js";
 import fragment from "./../shaders/shader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
+
 export class CanvasViewport {
   public viewport: Viewport | null = null;
 
@@ -40,25 +41,29 @@ export class CanvasViewport {
       .on("moved", () => {
         this.updateBackgroundUniforms();
       });
-    this.test();
+    // this.test();
   }
 
   private backgroundShader: Filter | null = null;
   private backgroundGraphics: Graphics | null = null;
 
-private test() {
+  private test() {
     const fragmentShader = fragment;
     const vertexShader = vertex;
     const program = GlProgram.from({
       vertex: vertexShader,
       fragment: fragmentShader,
     });
-    
+
     const viewportScreenWidth = this.viewport!.screenWidth;
     const viewportScreenHeight = this.viewport!.screenHeight;
-    
-    console.log('Using viewport screen size:', viewportScreenWidth, viewportScreenHeight);
-    
+
+    console.log(
+      "Using viewport screen size:",
+      viewportScreenWidth,
+      viewportScreenHeight
+    );
+
     // Background shader (no offset)
     this.backgroundShader = new Filter({
       glProgram: program,
@@ -83,12 +88,12 @@ private test() {
         },
       },
     });
-    
+
     this.backgroundGraphics = new Graphics()
       .rect(0, 0, viewportScreenWidth, viewportScreenHeight)
-      .fill("white");
-    this.backgroundGraphics.filters = [this.backgroundShader];
-    
+      .fill("red");
+    // this.backgroundGraphics.filters = [this.backgroundShader];
+
     // Shape shader (with offset for world position)
     const shapeShader = new Filter({
       glProgram: program,
@@ -107,45 +112,79 @@ private test() {
             type: "f32",
           },
           shapeOffset: {
-            value: [40, 50],  // Position of the shape in world space
+            value: [40, 50], // Position of the shape in world space
             type: "vec2<f32>",
           },
         },
       },
     });
-        // Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
+    Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
 
-    const circle = new Graphics().circle(250,250,250).fill("white")
-      .stroke({width:5, color:"red"})
-;
-
-    const backgroundGraphics43 = new Graphics()
-      .rect(0, 0, 500, 500)
+    const circle = new Graphics()
+      .roundRect(0, 0, 500,500)
       .fill("white");
-      backgroundGraphics43.addChild(circle);
-      backgroundGraphics43.mask = circle;
-    backgroundGraphics43.filters = [shapeShader];
 
-    if(this.viewport)
-      this.viewport.addChild(backgroundGraphics43);
-    
+    // Create a container for the shader
+    const shaderContainer = new Graphics().rect(-0, -0, 500, 500).fill("white");
+    shaderContainer.filters = [this.backgroundShader];
+
+    // Use the circle as a mask
+    shaderContainer.mask = circle;
+    const stroke = new Graphics()
+      .roundRect(0, 0, 500,500)
+    .stroke({width:5, color:"white"});
+    stroke.tint='blue';
+    // Add both to a parent container
+    const container = new Container();
+    container.addChild(shaderContainer);
+    container.addChild(circle);
+    container.addChild(stroke);
+
+
+
+    const circle2 = new Graphics()
+      .circle(0, 0, 500)
+      .fill("white");
+
+    // Create a container for the shader
+    const shaderContainer2 = new Graphics().rect(-500, -500, 1000, 500).fill("white");
+    shaderContainer.filters = [this.backgroundShader];
+
+    // Use the circle as a mask
+    shaderContainer2.mask = circle2;
+    const stroke2 = new Graphics()
+      .circle(0, 0, 500)
+    .stroke({width:5, color:"white"});
+    stroke2.tint='blue';
+    // Add both to a parent container
+    const container2 = new Container();
+    container2.addChild(shaderContainer2);
+    container2.addChild(circle2);
+    container2.addChild(stroke2)
+    container2.x=1000;
+    container2.y=1000;
+
+
+    if (this.viewport) this.viewport.addChild(container);
+    if (this.viewport) this.viewport.addChild(container2);
+
     if (this.viewport) {
       const originCircle = new Graphics()
         .circle(0, 0, 50)
         .fill({ color: 0xff0000, alpha: 0.3 })
         .stroke({ color: 0xff0000, width: 2 });
       this.viewport.addChild(originCircle);
-      
+
       const testCircle = new Graphics()
         .circle(100, 100, 30)
         .fill({ color: 0x0000ff, alpha: 0.3 })
         .stroke({ color: 0x0000ff, width: 2 });
       this.viewport.addChild(testCircle);
     }
-    
+
     // Store the shape shader reference
     this.shapeShader = shapeShader;
-    
+
     this.updateBackgroundUniforms();
   }
 
@@ -160,14 +199,6 @@ private test() {
       ];
       uniforms.viewportZoom = this.viewport.scale.x;
     }
-    
-    if (this.shapeShader && this.viewport) {
-      const uniforms = this.shapeShader.resources.uniforms.uniforms;
-      uniforms.viewportPosition = [
-        this.viewport.corner.x,
-        this.viewport.corner.y,
-      ];
-      uniforms.viewportZoom = this.viewport.scale.x;
-    }
+
   }
 }

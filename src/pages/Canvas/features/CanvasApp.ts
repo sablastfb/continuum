@@ -1,7 +1,7 @@
 import { Application } from "pixi.js";
 import { ToolManager } from "./tools/ToolManager";
 import { ColorPalet } from "../data/palet/PaletContainer";
-import useSettingsStore from "../data/store/BacgroundStore";
+import useBacgroundStore from "../data/store/BacgroundStore";
 import { ResizeService } from "./service/Resize";
 import { CursorManager } from "./cursor/CursorManager";
 import { CanvasViewport as CanvasViewport } from "./service/Viewport";
@@ -11,11 +11,14 @@ import { InputStateManager } from "./input/InputState";
 import { InputBidings } from "./input/InputBiding";
 import { BookmarkService } from "./service/BookMark";
 import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
+import { BacgroundService } from "./service/Bacgroun";
+import { ShaderService } from "./service/ShaderService";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
   export let initPromise: Promise<Application> | null = null;
 
+  export let viewportManager: CanvasViewport;
   export const commandManage = new Continuum_CommandManager();
   export const inputStateManager = new InputStateManager();
   export const inputBidings = new InputBidings();
@@ -25,8 +28,9 @@ export namespace Continuum_Canvas {
   export const bookMarkService = new BookmarkService();
   export const colorPalet = new ColorPalet();
   export const thicknesPalet = new ThicknesPalet();
+  export const shaderService = new ShaderService();
+  export const bacgroundService = new BacgroundService();
 
-  export let viewportManager: CanvasViewport;
   export async function creatPixiApp() {
     if (appInstance) {
       return appInstance;
@@ -47,22 +51,20 @@ export namespace Continuum_Canvas {
       resolution: window.devicePixelRatio || 1,
       autoDensity: true,
       background: colorPalet.getColor(
-        useSettingsStore.getState().background.color
+        useBacgroundStore.getState().background.color
       ),
     });
 
     Continuum_Canvas.appInstance = app;
     Continuum_Canvas.viewportManager = new CanvasViewport();
     Continuum_CurveService.init();
-
+    Continuum_Canvas.bacgroundService.init();
     if (Continuum_Canvas.viewportManager.viewport) {
       app.stage.addChild(Continuum_Canvas.viewportManager.viewport);
       app.stage.addChild(Continuum_Canvas.cursorManager.cursor);
     }
 
-    Continuum_Canvas.resizeService.setUpResize();
     Continuum_Canvas.cursorManager.updateCursorGraphics();
-
     inputStateManager.subscribeEvents();
 
     return app;

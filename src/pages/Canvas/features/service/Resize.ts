@@ -5,29 +5,26 @@ import { Continuum_Canvas } from "../CanvasApp";
 
 export class ResizeService {
   public manualZoom(zoomeDirection: number) {
-    if ( Continuum_Canvas.viewportManager.viewport === null) return;
+    if (Continuum_Canvas.viewportManager.viewport === null) return;
     const zoome = useCanvasStore.getState().zoome;
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
-     Continuum_Canvas.viewportManager.viewport.setZoom(zomeValue, true);
+    Continuum_Canvas.viewportManager.viewport.setZoom(zomeValue, true);
   }
 
   public viewportZoom(e: ZoomedEvent) {
     useCanvasStore.getState().setZoom(e?.viewport.scale.x);
-
-      // HERE I CHANGE bacground 
   }
-  public move(){
-      
-  }
-
-  public setUpResize() {
+  constructor() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   }
 
   public handleResize() {
-    if (!Continuum_Canvas.appInstance || ! Continuum_Canvas.viewportManager.viewport)
+    if (
+      !Continuum_Canvas.appInstance ||
+      !Continuum_Canvas.viewportManager.viewport
+    )
       return;
     Continuum_Canvas.viewportManager.viewport.resize(
       window.innerWidth,
@@ -39,5 +36,11 @@ export class ResizeService {
       window.innerWidth,
       window.innerHeight
     );
+    // bacground
+    Continuum_Canvas.bacgroundService.backgroundGraphics.setSize(
+      window.innerWidth,
+      window.innerHeight
+    );
+
   }
 }

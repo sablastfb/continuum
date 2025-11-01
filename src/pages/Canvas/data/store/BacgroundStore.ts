@@ -46,7 +46,7 @@ export const BacgroundDefault: BacgroundData = {
   theme: "dark",
 };
 
-export const useSettingsStore = create<BacgroundStore>()(
+export const useBacgroundStore = create<BacgroundStore>()(
   immer((set) => ({
     ...BacgroundDefault,
     setBackgroundSettings: (settings) =>
@@ -70,4 +70,4 @@ export const useSettingsStore = create<BacgroundStore>()(
   }))
 );
 
-export default useSettingsStore;
+export default useBacgroundStore;
