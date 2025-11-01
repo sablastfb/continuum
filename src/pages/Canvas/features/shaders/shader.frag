@@ -6,6 +6,7 @@ uniform vec2 iResolution;
 uniform vec2 viewportPosition;
 uniform float viewportZoom;
 uniform sampler2D uTexture;
+uniform vec3 backgroundColor;
 uniform vec2 shapeOffset;  // NEW: Add this to offset for shapes
 
 void main(void) {
@@ -53,7 +54,6 @@ void main(void) {
     yAxis = yAxis + yAxisGlow * yAxisGlow * 0.3;
     
     // Colors
-    vec3 backgroundColor = vec3(0.11, 0.11, 0.12);
     vec3 gridColor = vec3(0.18, 0.18, 0.19);
     vec3 xAxisColor = vec3(0.6, 0.25, 0.25);  // Red
     vec3 yAxisColor = vec3(0.25, 0.6, 0.25);  // Green
@@ -63,12 +63,6 @@ void main(void) {
     color = mix(color, gridColor, grid * 0.7);
     color = mix(color, xAxisColor, xAxis * 0.8);
     color = mix(color, yAxisColor, yAxis * 0.8);
-    
-    // Subtle vignette
-    vec2 uv = screenCoord / iResolution;
-    vec2 center = uv - 0.5;
-    float vignette = 1.0 - dot(center, center) * 0.15;
-    color *= vignette;
     
     finalColor = vec4(color, 1.0);
 }

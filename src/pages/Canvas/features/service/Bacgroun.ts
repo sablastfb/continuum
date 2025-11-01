@@ -1,22 +1,51 @@
 import { Filter, Graphics } from "pixi.js";
-import { BacgroundStore } from "../../data/store/BacgroundStore";
+import useBacgroundStore, {
+  BacgroundStore,
+} from "../../data/store/BacgroundStore";
 import { Continuum_Canvas } from "../CanvasApp";
 
 // hold bacground container
 export class BacgroundService {
-  public backgroundGraphics?: Graphics;
+  private backgroundGraphics?: Graphics;
   public backgroundShader?: Filter;
 
   public init() {
     this.backgroundGraphics = new Graphics()
       .rect(0, 0, window.innerWidth, window.innerHeight)
       .fill("white");
+
     Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
-    this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
-    this.backgroundGraphics.filters = [this.backgroundShader];
+    this.updateBacground(useBacgroundStore.getState());
   }
 
-  public updateBacground(bacgroundSettings: BacgroundStore) {}
+  public updateBacground(bacgroundSettings: BacgroundStore) {
+    if (!this.backgroundGraphics) return;
+    const color = Continuum_Canvas.colorPalet.getColor(
+      bacgroundSettings.background.color
+    );
+    if (this.backgroundGraphics) {
+      this.backgroundGraphics.tint = color;
+    }
+
+    if (bacgroundSettings.background.activeBacgroundType === "dots") {
+      this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
+      Continuum_Canvas.shaderService.updateShaderColor(
+        this.backgroundShader,
+        color
+      );
+      this.backgroundGraphics.filters = [this.backgroundShader];
+    }
+
+    if (bacgroundSettings.background.activeBacgroundType === "grid") {
+      this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
+      Continuum_Canvas.shaderService.updateShaderColor(
+        this.backgroundShader,
+        color
+      );
+      this.backgroundGraphics.filters = [this.backgroundShader];
+    }
+    this.updateBackgroundUniforms();
+  }
 
   public updateBackgroundUniforms() {
     if (this.backgroundShader && Continuum_Canvas.viewportManager.viewport) {
