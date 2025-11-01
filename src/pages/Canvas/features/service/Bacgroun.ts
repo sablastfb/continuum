@@ -28,7 +28,7 @@ export class BacgroundService {
     }
 
     if (bacgroundSettings.background.activeBacgroundType === "dots") {
-      this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
+      this.backgroundShader = Continuum_Canvas.shaderService.getDotShader();
       Continuum_Canvas.shaderService.updateShaderColor(
         this.backgroundShader,
         color
