@@ -36,12 +36,6 @@ export class ResizeService {
       window.innerWidth,
       window.innerHeight
     );
-    // bacground
-    
-    Continuum_Canvas.bacgroundService?.backgroundGraphics?.setSize(
-      window.innerWidth,
-      window.innerHeight
-    );
-
+    Continuum_Canvas.bacgroundService.resize();
   }
 }

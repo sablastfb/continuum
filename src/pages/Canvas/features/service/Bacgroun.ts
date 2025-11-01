@@ -5,7 +5,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 // hold bacground container
 export class BacgroundService {
   public backgroundGraphics?: Graphics;
-  private backgroundShader?: Filter;
+  public backgroundShader?: Filter;
 
   public init() {
     this.backgroundGraphics = new Graphics()
@@ -15,6 +15,8 @@ export class BacgroundService {
     this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
     this.backgroundGraphics.filters = [this.backgroundShader];
   }
+
+  public updateBacground(bacgroundSettings: BacgroundStore) {}
 
   public updateBackgroundUniforms() {
     if (this.backgroundShader && Continuum_Canvas.viewportManager.viewport) {
@@ -27,5 +29,18 @@ export class BacgroundService {
     }
   }
 
-  public updateBacground(bacgroundSettings: BacgroundStore) {}
+  resize() {
+    Continuum_Canvas.bacgroundService?.backgroundGraphics?.setSize(
+      window.innerWidth,
+      window.innerHeight
+    );
+    if (Continuum_Canvas.bacgroundService?.backgroundShader) {
+      const uniforms =
+        Continuum_Canvas.bacgroundService.backgroundShader.resources.uniforms
+          .uniforms;
+      uniforms.iResolution = [window.innerWidth, window.innerHeight];
+    }
+
+    Continuum_Canvas.bacgroundService?.updateBackgroundUniforms();
+  }
 }
