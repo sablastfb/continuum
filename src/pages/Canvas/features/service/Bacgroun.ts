@@ -21,12 +21,12 @@ export class BacgroundService {
   public updateBacground(bacgroundSettings: BacgroundStore) {
     if (!this.backgroundGraphics) return;
     const color = Continuum_Canvas.colorPalet.getColor(
-      bacgroundSettings.background.fillColorId
+      bacgroundSettings.fillColorId
     );
     if (this.backgroundGraphics) {
       this.backgroundGraphics.tint = color;
     }
-    const activeType = bacgroundSettings.background.activeBacgroundType;
+    const activeType = bacgroundSettings.activeBacgroundType;
     switch (activeType) {
       case "color": {
         this.backgroundGraphics.filters = [];

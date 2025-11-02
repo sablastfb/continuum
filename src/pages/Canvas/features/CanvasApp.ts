@@ -51,7 +51,7 @@ export namespace Continuum_Canvas {
       resolution: window.devicePixelRatio || 1,
       autoDensity: true,
       background: colorPalet.getColor(
-        useBacgroundStore.getState().background.fillColorId
+        useBacgroundStore.getState().fillColorId
       ),
     });
 

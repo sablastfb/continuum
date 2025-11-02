@@ -34,6 +34,7 @@ const ShapeToolMenue = () => {
       >
         {shapesStore.shape === "square" && (
           <Square
+            strokeWidth={3}
             size={DefaultIconSize}
             fill={fillColor}
             stroke={strokeColor}

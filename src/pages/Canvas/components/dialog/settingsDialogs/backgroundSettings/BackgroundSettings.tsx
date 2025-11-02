@@ -6,7 +6,7 @@ import { Continuum_Canvas } from "../../../../features/CanvasApp";
 
 const BacgroundPickerColor = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;
-  const background = useBacgroundStore().background;
+  const background = useBacgroundStore();
   return (
     <>
       <div
@@ -24,7 +24,7 @@ const BacgroundPickerColor = ({ selected }: { selected: boolean }) => {
 
 const BacgroundPickerGrid = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;
-  const background = useBacgroundStore().background;
+  const background = useBacgroundStore();
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer grid-pattern ${
@@ -44,7 +44,7 @@ const BacgroundPickerGrid = ({ selected }: { selected: boolean }) => {
 
 const BacgroundPickerDots = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;
-  const background = useBacgroundStore().background;
+  const background = useBacgroundStore();
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer dot-pattern ${
@@ -66,7 +66,7 @@ const BacgroundPickerDots = ({ selected }: { selected: boolean }) => {
 
 const BacgroundPickerLine = ({ selected }: { selected: boolean }) => {
   const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;
-  const background = useBacgroundStore().background;
+  const background = useBacgroundStore();
   return (
     <div
       className={`w-20 h-20 outline-2 rounded-sm  cursor-pointer line-pattern ${
@@ -86,7 +86,7 @@ const BacgroundPickerLine = ({ selected }: { selected: boolean }) => {
 
 const BackgroundSettings = () => {
   const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;
-  const background = useBacgroundStore().background;
+  const background = useBacgroundStore();
 
   return (
     <div className="p-4  ">

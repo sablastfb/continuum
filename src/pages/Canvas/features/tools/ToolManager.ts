@@ -3,7 +3,7 @@ import { Erase } from "./Erase";
 import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
 import { InputState } from "../input/InputState";
-import { ShapeTool } from "./ShapeTool";
+import { ShapeTool } from "../../components/tools/shapesComponents/ShapeTool";
 
 export type ITool ={
   type: ToolType;

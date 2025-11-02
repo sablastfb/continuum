@@ -5,12 +5,8 @@ import { DeepPartial } from "../types/UtilTypes";
 import { TileBacgroundSettings } from "../../features/service/TailBackground";
 
 export type Theme = "dark" | "light";
-export type LayoutPositon = "top" | "bottom" | "left" | "right";
 
-export interface BacgroundData {
-  theme: Theme;
-  background: TileBacgroundSettings;
-}
+export type BacgroundData = TileBacgroundSettings;
 
 export interface BacgroundStore extends BacgroundData {
   discardSettings: (settings: BacgroundData) => void;
@@ -18,32 +14,28 @@ export interface BacgroundStore extends BacgroundData {
     bacgroundSettings: DeepPartial<TileBacgroundSettings>
   ) => void;
   reserToDefaultSettings: () => void;
-  setTheme: (theme: Theme) => void;
 }
 
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const BacgroundDefault: BacgroundData = {
-  background: {
-    activeBacgroundType: "dots",
-    fillColorId: backgroundColors[0],
-    fillColors: backgroundColors,
-    grid: {
-      gridBorderColor: "bgt-1",
-      sizeOfGrid: 50,
-      widthOfGridLine: 1,
-    },
-    dots: {
-      dotColor: "bgt-1",
-      dotRadius: 2,
-      tileWidth: 50,
-    },
-    line: {
-      lineColor: "bgt-1",
-      spaceBetween: 50,
-    },
+  activeBacgroundType: "dots",
+  fillColorId: backgroundColors[0],
+  fillColors: backgroundColors,
+  grid: {
+    gridBorderColor: "bgt-1",
+    sizeOfGrid: 50,
+    widthOfGridLine: 1,
   },
-  theme: "dark",
+  dots: {
+    dotColor: "bgt-1",
+    dotRadius: 2,
+    tileWidth: 50,
+  },
+  line: {
+    lineColor: "bgt-1",
+    spaceBetween: 50,
+  },
 };
 
 export const useBacgroundStore = create<BacgroundStore>()(
@@ -51,13 +43,8 @@ export const useBacgroundStore = create<BacgroundStore>()(
     ...BacgroundDefault,
     setBackgroundSettings: (settings) =>
       set((state) => {
-       state.background = merge({},state.background, settings);
+        state = merge({}, state, settings);
       }),
-    setTheme: (theme: Theme) => {
-      set((state) => {
-        state.theme = theme;
-      });
-    },
     discardSettings: (settings) => {
       set((state) => {
         merge(state, settings);
