@@ -93,7 +93,7 @@ export const ShapeToolFillPicker = () => {
 
 const ShapeToolQuickOptions = () => {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
-  const store = useShapesStore();
+  const shapeStore = useShapesStore();
 
   return (
     <>
@@ -102,13 +102,26 @@ const ShapeToolQuickOptions = () => {
       <ArrayDivider direction={toolOptionsDirection} />
       <ShapeToolFillPicker />
       <ArrayDivider direction={toolOptionsDirection} />
-      <div className="flex">
-        {store.fillColors.map((id) => (
+      <div className={`flex gap-3 ${toolOptionsDirection === 'vertical' ? 'flex-col' : ''}`}>
+        {shapeStore.fillColors.map((id) => (
           <CircleColorPicker
             key={id}
             colorId={id}
-            selected={false}
-            action={() => {}}
+            selected={id === shapeStore.fillColorId}
+            action={() => {shapeStore.updateShape({fillColorId: id})}}
+          />
+        ))}
+      </div>
+      <ArrayDivider direction={toolOptionsDirection} />
+
+      <div className={`flex gap-3 ${toolOptionsDirection === 'vertical' ? 'flex-col' : ''}`}>
+        {shapeStore.strokeColors.map((id) => (
+          <CircleColorPicker
+            key={id}
+            colorId={id}
+            selected={id === shapeStore.strokeColorId}
+            variant="stroek"
+            action={() => {shapeStore.updateShape({strokeColorId: id})}}
           />
         ))}
       </div>

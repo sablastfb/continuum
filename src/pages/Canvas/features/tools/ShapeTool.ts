@@ -51,32 +51,29 @@ export class ShapeTool implements ITool {
     const height = Math.abs(p1.y - p2.y);
     const start = { x: Math.min(p1.x, p2.x), y: Math.min(p1.y, p2.y) };
     const colorId = useShapesStore.getState().fillColorId;
-    const color = Continuum_Canvas.colorPalet.getColor(colorId);
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
 
     this.shapeGraphics
       .roundRect(start.x, start.y, width, height, 50)
-      .fill("blue");
+      .fill(fillColor);
   }
 
   private drawCircle(p1: SimplePoint, p2: SimplePoint) {
     if (!this.shapeGraphics) return;
 
-    // Calculate the bounding box
     const width = Math.abs(p1.x - p2.x);
     const height = Math.abs(p1.y - p2.y);
 
-    // Calculate center point (midpoint between start and current)
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
 
-    // Radii are half the width and height
     const radiusX = width / 2;
     const radiusY = height / 2;
 
     const colorId = useShapesStore.getState().fillColorId;
     const color = Continuum_Canvas.colorPalet.getColor(colorId);
 
-    this.shapeGraphics.ellipse(centerX, centerY, radiusX, radiusY).fill("blue");
+    this.shapeGraphics.ellipse(centerX, centerY, radiusX, radiusY).fill(color);
   }
 
   private drawPoligon(p1: SimplePoint, p2: SimplePoint) {
@@ -90,8 +87,8 @@ export class ShapeTool implements ITool {
     const centerY = (p1.y + p2.y) / 2;
 
     const colorId = useShapesStore.getState().fillColorId;
-    const color = Continuum_Canvas.colorPalet.getColor(colorId);
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
 
-    this.shapeGraphics.roundPoly(centerX, centerY, radius, 6, 0).fill("blue");
+    this.shapeGraphics.roundPoly(centerX, centerY, radius, 6, 0).fill(fillColor);
   }
 }
