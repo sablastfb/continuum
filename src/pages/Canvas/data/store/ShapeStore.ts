@@ -7,29 +7,33 @@ export type Shape = "square" | "circle" | "poligon";
 export type ShapeFillType = "outline-only" | "fill-only" | "outline-fill";
 
 const shapeBackgroundColors = [
- "shape-background-slate-blue",
- "shape-background-emerald-green",
+  "shape-background-slate-blue",
+  "shape-background-emerald-green",
   "shape-background-rose-pink",
 ];
 
 const shapeOutlineColors = [
   "shape-outline-indigo-blue",
   "shape-outline-lime-green",
- "shape-outline-hot-pink",
+  "shape-outline-hot-pink",
 ];
 
 export type ShapeData = TileBacgroundSettings & {
   shape: Shape;
   strokeColors: ColorId[];
   strokeColorId: ColorId;
-  outlineWidth: number;
+  stroke: number;
+  numberOfCorners: number,
+  cornerRadius: number;
   fillType: ShapeFillType;
 };
 
 export const DefaultShapeSettings: ShapeData = {
   shape: "square",
   fillType: "outline-fill",
-  outlineWidth: 5,
+  stroke: 5,
+  cornerRadius: 20,
+  numberOfCorners: 6,
   activeBacgroundType: "color",
   strokeColorId: shapeOutlineColors[0],
   strokeColors: shapeOutlineColors,
