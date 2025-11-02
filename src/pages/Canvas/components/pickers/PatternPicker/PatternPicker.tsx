@@ -3,7 +3,6 @@ import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import "./PatternPicker.css";
 import { PatternType } from "../../../data/types/PatternTypes";
 
-
 interface PatternPickerProps {
   selectedPattern: PatternType;
   backgroundColor: string;
@@ -24,54 +23,66 @@ const PatternPicker: FC<PatternPickerProps> = ({
   return (
     <div className="flex gap-5">
       {/* Solid Color */}
-      <div
-        className={`w-20 h-20  outline-2 rounded-sm cursor-pointer ${
-          selectedPattern === "color" ? DefaultOutline : "outline-gray-800"
-        }`}
-        style={{
-          backgroundColor: backgroundColor,
-        }}
-        onClick={() => onPatternSelect("color")}
-      />
+      <div className="flex flex-col items-center gap-2">
+        <div
+          className={`w-20 h-20  outline-2 rounded-sm cursor-pointer ${
+            selectedPattern === "color" ? DefaultOutline : "outline-gray-800"
+          }`}
+          style={{
+            backgroundColor: backgroundColor,
+          }}
+          onClick={() => onPatternSelect("color")}
+        />
+        <span className="text-xs">Solid Color</span>
+      </div>
 
       {/* Grid Pattern */}
-      <div
-        className={`w-20 h-20  outline-2 rounded-sm cursor-pointer grid-pattern ${
-          selectedPattern === "grid" ? DefaultOutline : "outline-gray-800"
-        }`}
-        style={{
-          backgroundColor: backgroundColor,
-          // @ts-ignore
-          "--grid-color": gridColor || backgroundColor,
-        }}
-        onClick={() => onPatternSelect("grid")}
-      />
+      <div className="flex flex-col items-center gap-2">
+        <div
+          className={`w-20 h-20  outline-2 rounded-sm cursor-pointer grid-pattern ${
+            selectedPattern === "grid" ? DefaultOutline : "outline-gray-800"
+          }`}
+          style={{
+            backgroundColor: backgroundColor,
+            // @ts-ignore
+            "--grid-color": gridColor || backgroundColor,
+          }}
+          onClick={() => onPatternSelect("grid")}
+        />
+        <span className="text-xs">Simple Grid</span>
+      </div>
 
       {/* Dots Pattern */}
-      <div
-        className={`w-20 h-20  outline-2 rounded-sm cursor-pointer dot-pattern ${
-          selectedPattern === "dots" ? DefaultOutline : "outline-gray-800"
-        }`}
-        style={{
-          backgroundColor: backgroundColor,
-          // @ts-ignore
-          "--dot-color": dotColor || backgroundColor,
-        }}
-        onClick={() => onPatternSelect("dots")}
-      />
+      <div className="flex flex-col items-center gap-2">
+        <div
+          className={`w-20 h-20  outline-2 rounded-sm cursor-pointer dot-pattern ${
+            selectedPattern === "dots" ? DefaultOutline : "outline-gray-800"
+          }`}
+          style={{
+            backgroundColor: backgroundColor,
+            // @ts-ignore
+            "--dot-color": dotColor || backgroundColor,
+          }}
+          onClick={() => onPatternSelect("dots")}
+        />
+        <span className="text-xs">Dots</span>
+      </div>
 
       {/* Line Pattern */}
-      <div
-        className={`w-20 h-20 outline outline-2 rounded-sm cursor-pointer line-pattern ${
-          selectedPattern === "line" ? DefaultOutline : "outline-gray-800"
-        }`}
-        style={{
-          backgroundColor: backgroundColor,
-          // @ts-ignore
-          "--line-color": lineColor || backgroundColor,
-        }}
-        onClick={() => onPatternSelect("line")}
-      />
+      <div className="flex flex-col items-center gap-2">
+        <div
+          className={`w-20 h-20  outline-2 rounded-sm cursor-pointer line-pattern ${
+            selectedPattern === "line" ? DefaultOutline : "outline-gray-800"
+          }`}
+          style={{
+            backgroundColor: backgroundColor,
+            // @ts-ignore
+            "--line-color": lineColor || backgroundColor,
+          }}
+          onClick={() => onPatternSelect("line")}
+        />
+        <span className="text-xs">Line</span>
+      </div>
     </div>
   );
 };
