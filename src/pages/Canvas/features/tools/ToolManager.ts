@@ -10,7 +10,7 @@ export type ITool = Partial<{
   disposeTool(): void;
   startDrawing(e: InputState): void;
   draw(simpe: InputState): void;
-  stopDrawing(e: InputState): void;
+  endDrawing(e: InputState): void;
   updateCursor(): void;
 }>;
 

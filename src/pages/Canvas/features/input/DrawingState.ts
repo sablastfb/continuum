@@ -14,7 +14,7 @@ export const drawingBidings: InputBinding[] = [
   {
     pointerDown: false,
     action: (e) => {
-      Continuum_Canvas.toolManager.currentTool!.stopDrawing!(e);
+      Continuum_Canvas.toolManager.currentTool!.endDrawing!(e);
       Continuum_Canvas.inputStateManager.SwitchState("IDLE");
     },
     appState: ["DARWING"],

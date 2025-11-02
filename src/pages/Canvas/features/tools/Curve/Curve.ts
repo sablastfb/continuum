@@ -97,7 +97,7 @@ export class Curve implements ITool {
     });
   }
 
-  public stopDrawing(e: InputState) {
+  public endDrawing(e: InputState) {
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
