@@ -20,6 +20,7 @@ export class BacgroundService {
 
   public updateBacground(bacgroundSettings: BacgroundStore) {
     if (!this.backgroundGraphics) return;
+    debugger;
     const color = Continuum_Canvas.colorPalet.getColor(
       bacgroundSettings.fillColorId
     );

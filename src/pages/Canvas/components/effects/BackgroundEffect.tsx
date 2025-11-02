@@ -8,6 +8,7 @@ const BackgroundEffect = () => {
   const activeTool = useToolStore().activeTool;
 
   useEffect(() => {
+    debugger;
     Continuum_Canvas.bacgroundService.updateBacground(bacgroundSettings);
   }, [bacgroundSettings]);
 

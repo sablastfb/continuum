@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
 import { useRef, useState } from "react";
 import "./SettingsDialog.css";
-import BackgroundSettings from "../backgroundSettings/BackgroundSettings";
+import BackgroundSettings from "../BackgroundSettings";
 import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
@@ -91,7 +91,7 @@ const SettingsDialog = () => {
               message="Are you sure you want to proceed?"
               icon="pi pi-exclamation-triangle"
               accept={() => {
-                setTheme(BacgroundDefault.theme);
+                // setTheme(BacgroundDefault.theme);
                 reserToDefaultSettings();
                 hide({
                   preventDefault: () => {},

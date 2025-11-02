@@ -2,6 +2,8 @@ import { Slider, SliderChangeEvent } from "primereact/slider";
 import { Minus, Plus } from "lucide-react";
 import { useShapesStore } from "../../../data/store/ShapeStore";
 import { TexturePatterPicker } from "../../pickers/TexturePatterPicker";
+import PatternPicker from "../../pickers/PatternPicker/PatternPicker";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const StrokeSlider = () => {
   const shapeStore = useShapesStore();
@@ -151,6 +153,14 @@ const ShapeAdvanceSettings = () => {
       {shapeStore.shape === "square" && <SquareSettings />}
       {shapeStore.shape === "circle" && <CircleSettings />}
       {shapeStore.shape === "poligon" && <PoligonSettings />}
+         <PatternPicker
+            selectedPattern={shapeStore.activeBacgroundType}
+            backgroundColor={Continuum_Canvas.colorPalet.getColor(shapeStore.fillColorId)}
+            gridColor={Continuum_Canvas.colorPalet.getColor(shapeStore.grid.gridBorderColor)}
+            dotColor={Continuum_Canvas.colorPalet.getColor(shapeStore.dots.dotColor)}
+            lineColor={Continuum_Canvas.colorPalet.getColor(shapeStore.line.lineColor)}
+            onPatternSelect={() => {}}
+          />
     </div>
   );
 };

@@ -43,7 +43,7 @@ export const useBacgroundStore = create<BacgroundStore>()(
     ...BacgroundDefault,
     setBackgroundSettings: (settings) =>
       set((state) => {
-        state = merge({}, state, settings);
+        state = Object.assign(state,settings);
       }),
     discardSettings: (settings) => {
       set((state) => {
