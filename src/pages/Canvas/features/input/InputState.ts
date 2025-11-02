@@ -93,10 +93,15 @@ export class InputStateManager {
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+
+    const worldCords = Continuum_Canvas.viewportManager.viewport!.toWorld(
+      {x,y}
+    );
     this.inputState.mousePosition = {
-      x,
-      y,
+      x:worldCords.x,
+      y:worldCords.y,
     };
+
     this.inputState.globalPosition = {
       x: e.global.x,
       y: e.global.y,

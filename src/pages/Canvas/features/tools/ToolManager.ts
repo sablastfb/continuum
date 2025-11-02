@@ -8,7 +8,7 @@ import { ShapeTool } from "./ShapeTool";
 export type ITool ={
   type: ToolType;
   startDrawing(e: InputState): void;
-  draw(simpe: InputState): void;
+  draw(e: InputState): void;
   endDrawing(e: InputState): void;
   updateCursor(): void;
   initTool?(): void;

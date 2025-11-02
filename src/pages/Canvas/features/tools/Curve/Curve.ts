@@ -71,11 +71,8 @@ export class Curve implements ITool {
         );
         break;
     }
-    const worldPos = Continuum_Canvas.viewportManager.viewport.toWorld(
-      e.mousePosition
-    );
-    this.line.push(worldPos);
-    this.activeCurve.moveTo(worldPos.x, worldPos.y);
+    this.line.push(  new Point(e.mousePosition.x,e.mousePosition.y));
+    this.activeCurve.moveTo(  e.mousePosition.x,   e.mousePosition.y);
   }
 
   public draw(e: InputState) {
@@ -83,11 +80,9 @@ export class Curve implements ITool {
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_Canvas.viewportManager.viewport) return;
-    const worldPos = Continuum_Canvas.viewportManager.viewport.toWorld(
-      e.mousePosition
-    );
-    this.line.push(worldPos);
-    this.activeCurve.lineTo(worldPos.x, worldPos.y);
+
+    this.line.push(new Point(e.mousePosition.x,e.mousePosition.y));
+    this.activeCurve.lineTo(  e.mousePosition.x,   e.mousePosition.y);
 
     this.curveStyle.draw({
       activeCurve: this.activeCurve,
