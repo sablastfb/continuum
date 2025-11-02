@@ -19,6 +19,14 @@ export class ShapeTool implements ITool {
     this.startPoint = { ...e.mousePosition };
     Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
     Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
+    // get shader and set it up
+    const colorId = useShapesStore.getState().fillColorId;
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const shader = Continuum_Canvas.shaderService.getGridShader();
+    console.log(fillColor)
+    Continuum_Canvas.shaderService.updateShaderColor(shader, fillColor);
+
+    this.shapeGraphics.filters = [shader];
   }
   // update graphic
   draw(e: InputState): void {
@@ -33,7 +41,8 @@ export class ShapeTool implements ITool {
     const curentShape = useShapesStore.getState().shape;
     const fillType = useShapesStore.getState().fillType;
     const drawFill = fillType === "fill-only" || fillType === "outline-fill";
-    const drawStroke = fillType === "outline-only" || fillType === "outline-fill";
+    const drawStroke =
+      fillType === "outline-only" || fillType === "outline-fill";
 
     switch (curentShape) {
       case "square":
@@ -73,7 +82,6 @@ export class ShapeTool implements ITool {
     const radius = useShapesStore.getState().cornerRadius;
     const stroke = useShapesStore.getState().stroke;
     if (drawFill) {
-  
       this.shapeGraphics
         .roundRect(start.x, start.y, width, height, radius)
         .fill("white");
@@ -143,7 +151,6 @@ export class ShapeTool implements ITool {
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
 
-    
     const numberOfCorners = useShapesStore.getState().numberOfCorners;
     const cornerRadius = useShapesStore.getState().cornerRadius;
     const stroke = useShapesStore.getState().stroke;
@@ -157,7 +164,7 @@ export class ShapeTool implements ITool {
     if (drawFill) {
       this.shapeGraphics
         .roundPoly(centerX, centerY, radius, numberOfCorners, cornerRadius)
-        .fill('white');
+        .fill("white");
       this.shapeGraphics.tint = fillColor;
     }
     if (drawStroke) {

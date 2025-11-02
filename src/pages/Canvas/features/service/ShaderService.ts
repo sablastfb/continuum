@@ -1,7 +1,7 @@
 import { Filter, GlProgram } from "pixi.js";
-import fragment from "./../shaders/shader.frag?raw";
-import dotShader from "./../shaders/dotShader.frag?raw";
-import hexagonShader from "./../shaders/hexagonShader.frag?raw";
+import fragment from "./../shaders/background/shader.frag?raw";
+import dotShader from "./../shaders/background/dotShader.frag?raw";
+import hexagonShader from "./../shaders/background/hexagonShader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
 import { Continuum_Canvas } from "../CanvasApp";
 
@@ -69,7 +69,7 @@ export class ShaderService {
             type: "f32",
           },
           shapeOffset: {
-            value: [0, 0],
+            value: [5, 5],
             type: "vec2<f32>",
           },
           backgroundColor: {
@@ -102,8 +102,8 @@ export class ShaderService {
     }
   }
 
-  public rgbStringToVec3(rgbString: string): [number, number, number] {
-    const match = rgbString.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+ public rgbStringToVec3(rgbString: string): [number, number, number] {
+    const match = rgbString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
     if (!match) {
       throw new Error("Invalid RGB string format");
     }
@@ -113,5 +113,5 @@ export class ShaderService {
     const b = parseInt(match[3]) / 255;
 
     return [r, g, b];
-  }
+}
 }
