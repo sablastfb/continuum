@@ -40,10 +40,10 @@ export class ShapeTool implements ITool {
         this.drawRect(this.startPoint, currentPoint, fill, stroke);
         break;
       case "circle":
-        this.drawCircle(this.startPoint, currentPoint);
+        this.drawCircle(this.startPoint, currentPoint, fill, stroke);
         break;
       case "poligon":
-        this.drawPoligon(this.startPoint, currentPoint);
+        this.drawPoligon(this.startPoint, currentPoint, fill, stroke);
         break;
     }
   }
@@ -80,13 +80,19 @@ export class ShapeTool implements ITool {
     if (stroke) {
       this.strokeGraphics
         .roundRect(start.x, start.y, width, height, 50)
-        .stroke({width:5, color: 'white'});
-        this.strokeGraphics.tint = strokeColor;
+        .stroke({ width: 5, color: "white" });
+      this.strokeGraphics.tint = strokeColor;
     }
   }
 
-  private drawCircle(p1: SimplePoint, p2: SimplePoint) {
+  private drawCircle(
+    p1: SimplePoint,
+    p2: SimplePoint,
+    fill: boolean,
+    stroke: boolean
+  ) {
     if (!this.shapeGraphics) return;
+    if (!this.strokeGraphics) return;
 
     const width = Math.abs(p1.x - p2.x);
     const height = Math.abs(p1.y - p2.y);
@@ -98,13 +104,33 @@ export class ShapeTool implements ITool {
     const radiusY = height / 2;
 
     const colorId = useShapesStore.getState().fillColorId;
-    const color = Continuum_Canvas.colorPalet.getColor(colorId);
+    const strokeColorId = useShapesStore.getState().strokeColorId;
 
-    this.shapeGraphics.ellipse(centerX, centerY, radiusX, radiusY).fill(color);
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
+
+    if (fill) {
+      this.shapeGraphics
+        .ellipse(centerX, centerY, radiusX, radiusY)
+        .fill("white");
+      this.shapeGraphics.tint = fillColor;
+    }
+    if (stroke) {
+      this.strokeGraphics
+        .ellipse(centerX, centerY, radiusX, radiusY)
+        .stroke({ width: 10, color: "white" });
+      this.strokeGraphics.tint = strokeColor;
+    }
   }
 
-  private drawPoligon(p1: SimplePoint, p2: SimplePoint) {
+  private drawPoligon(
+    p1: SimplePoint,
+    p2: SimplePoint,
+    fill: boolean,
+    stroke: boolean
+  ) {
     if (!this.shapeGraphics) return;
+    if (!this.strokeGraphics) return;
 
     const width = Math.abs(p1.x - p2.x);
     const height = Math.abs(p1.y - p2.y);
@@ -113,11 +139,23 @@ export class ShapeTool implements ITool {
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
 
-    const colorId = useShapesStore.getState().fillColorId;
-    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+       const colorId = useShapesStore.getState().fillColorId;
+    const strokeColorId = useShapesStore.getState().strokeColorId;
 
-    this.shapeGraphics
-      .roundPoly(centerX, centerY, radius, 6, 0)
-      .fill(fillColor);
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
+
+    if (fill) {
+      this.shapeGraphics
+        .roundPoly(centerX, centerY, radius, 6, 0)
+        .fill('white');
+      this.shapeGraphics.tint = fillColor;
+    }
+    if (stroke) {
+      this.strokeGraphics
+        .roundPoly(centerX, centerY, radius, 6, 0)
+        .stroke({ width: 5, color: "white" });
+      this.strokeGraphics.tint = strokeColor;
+    }
   }
 }
