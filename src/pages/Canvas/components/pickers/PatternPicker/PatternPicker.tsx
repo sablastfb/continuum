@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import "./PatternPicker.css";
+import { PatternType } from "../../../data/types/PatternTypes";
 
-export type PatternType = "color" | "grid" | "dots" | "line";
 
 interface PatternPickerProps {
   selectedPattern: PatternType;

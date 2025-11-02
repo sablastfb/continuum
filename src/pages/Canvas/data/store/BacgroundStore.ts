@@ -2,16 +2,16 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
 import { DeepPartial } from "../types/UtilTypes";
-import { TileBacgroundSettings } from "../../features/service/TailBackground";
+import { PatternSettings } from "../types/PatternTypes";
 
 export type Theme = "dark" | "light";
 
-export type BacgroundData = TileBacgroundSettings;
+export type BacgroundData = PatternSettings;
 
 export interface BacgroundStore extends BacgroundData {
   discardSettings: (settings: BacgroundData) => void;
   setBackgroundSettings: (
-    bacgroundSettings: DeepPartial<TileBacgroundSettings>
+    bacgroundSettings: DeepPartial<PatternSettings>
   ) => void;
   reserToDefaultSettings: () => void;
 }

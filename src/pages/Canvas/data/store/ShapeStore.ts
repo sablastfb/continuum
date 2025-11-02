@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { TileBacgroundSettings } from "../../features/service/TailBackground";
+import { PatternSettings } from "../types/PatternTypes";
 import { ColorId } from "../palet/PaletContainer";
 
 export type Shape = "square" | "circle" | "poligon";
@@ -16,7 +16,7 @@ const shapeOutlineColors = [
   "shape-outline-stone"
 ];
 
-export type ShapeData = TileBacgroundSettings & {
+export type ShapeData = PatternSettings & {
   shape: Shape;
   strokeColors: ColorId[];
   strokeColorId: ColorId;
