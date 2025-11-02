@@ -7,8 +7,6 @@ export type Shape = "square" | "circle" | "poligon";
 export type ShapeFillType = "outline-only" | "fill-only" | "outline-fill";
 
 const shapeBackgroundColors = [
-  "bg-1",
-  "bg-2",
   "shape-background-cornflower-blue",
   "shape-background-mint-green",
   "shape-background-blush-pink",
@@ -22,8 +20,8 @@ const shapeOutlineColors = [
 
 export type ShapeData = TileBacgroundSettings & {
   shape: Shape;
-  outlineColors: ColorId[];
-  outlineColor: ColorId;
+  strokeColors: ColorId[];
+  strokeColorId: ColorId;
   outlineWidth: number;
   fillType: ShapeFillType;
 };
@@ -31,12 +29,12 @@ export type ShapeData = TileBacgroundSettings & {
 export const DefaultShapeSettings: ShapeData = {
   shape: "square",
   fillType: "outline-fill",
-  outlineColors: shapeOutlineColors,
-  outlineColor: shapeOutlineColors[0],
   outlineWidth: 5,
   activeBacgroundType: "color",
-  backgroundColors: shapeBackgroundColors,
-  color: shapeBackgroundColors[0],
+  strokeColorId: shapeOutlineColors[0],
+  strokeColors: shapeOutlineColors,
+  fillColorId: shapeBackgroundColors[0],
+  fillColors: shapeBackgroundColors,
   grid: {
     gridBorderColor: "bgt-1",
     sizeOfGrid: 50,

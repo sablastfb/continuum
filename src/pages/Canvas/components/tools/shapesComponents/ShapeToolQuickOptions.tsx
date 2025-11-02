@@ -11,7 +11,8 @@ import {
   ShapeStore,
   useShapesStore,
 } from "../../../data/store/ShapeStore";
-
+import { Continuum_Canvas } from "../../../features/CanvasApp";
+import CircleColorPicker from "../../pickers/CircleColorPicker";
 
 export const ShapeToolShapePicker = () => {
   const store = useShapesStore();
@@ -92,12 +93,25 @@ export const ShapeToolFillPicker = () => {
 
 const ShapeToolQuickOptions = () => {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
+  const store = useShapesStore();
+
   return (
     <>
       <ToolOptionHeaderComponent />
       <ShapeToolShapePicker />
       <ArrayDivider direction={toolOptionsDirection} />
       <ShapeToolFillPicker />
+      <ArrayDivider direction={toolOptionsDirection} />
+      <div className="flex">
+        {store.fillColors.map((id) => (
+          <CircleColorPicker
+            key={id}
+            colorId={id}
+            selected={false}
+            action={() => {}}
+          />
+        ))}
+      </div>
     </>
   );
 };

@@ -26,8 +26,8 @@ const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 export const BacgroundDefault: BacgroundData = {
   background: {
     activeBacgroundType: "dots",
-    color: backgroundColors[0],
-    backgroundColors: backgroundColors,
+    fillColorId: backgroundColors[0],
+    fillColors: backgroundColors,
     grid: {
       gridBorderColor: "bgt-1",
       sizeOfGrid: 50,

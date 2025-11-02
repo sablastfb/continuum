@@ -14,7 +14,7 @@ const BacgroundPickerColor = ({ selected }: { selected: boolean }) => {
           selected ? `${DefaultOutline}` : "outline-gray-800"
         }`}
         style={{
-          backgroundColor: Continuum_Canvas.colorPalet.getColor(background.color),
+          backgroundColor: Continuum_Canvas.colorPalet.getColor(background.fillColorId),
         }}
         onClick={() => setBackgroundSettings({ activeBacgroundType: "color" })}
       />
@@ -31,10 +31,10 @@ const BacgroundPickerGrid = ({ selected }: { selected: boolean }) => {
         selected ? `${DefaultOutline}` : "outline-gray-800"
       }`}
       style={{
-        backgroundColor: Continuum_Canvas.colorPalet.getColor(background.color),
+        backgroundColor: Continuum_Canvas.colorPalet.getColor(background.fillColorId),
         //@ts-ignore
         "--grid-color": Continuum_Canvas.colorPalet.getColor(
-          background.color
+          background.fillColorId
         ),
       }}
       onClick={() => setBackgroundSettings({ activeBacgroundType: "grid" })}
@@ -51,7 +51,7 @@ const BacgroundPickerDots = ({ selected }: { selected: boolean }) => {
         selected ? `${DefaultOutline} ` : "outline-gray-800"
       }`}
       style={{
-        backgroundColor: Continuum_Canvas.colorPalet.getColor(background.color),
+        backgroundColor: Continuum_Canvas.colorPalet.getColor(background.fillColorId),
         //@ts-ignore
         "--dot-color": Continuum_Canvas.colorPalet.getColor(background.dots.dotColor),
       }}
@@ -73,7 +73,7 @@ const BacgroundPickerLine = ({ selected }: { selected: boolean }) => {
         selected ? `${DefaultOutline} ` : "outline-gray-800"
       }`}
       style={{
-        backgroundColor: Continuum_Canvas.colorPalet.getColor(background.color),
+        backgroundColor: Continuum_Canvas.colorPalet.getColor(background.fillColorId),
         //@ts-ignore
         "--line-color": Continuum_Canvas.colorPalet.getColor(
           background.line.lineColor
@@ -114,13 +114,13 @@ const BackgroundSettings = () => {
           <>
             <div className="text-xl">Background color</div>
             <div className="flex gap-5">
-              {background.backgroundColors.map((colorId) => (
+              {background.fillColors.map((colorId) => (
                 <CircleColorPicker
                   key={colorId}
                   colorId={colorId}
-                  selected={background.color === colorId}
+                  selected={background.fillColorId === colorId}
                   action={() => {
-                    setBackgroundSettings({ color: colorId });
+                    setBackgroundSettings({ fillColorId: colorId });
                   }}
                 />
               ))}

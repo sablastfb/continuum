@@ -34,11 +34,11 @@ export type TileBacground =
 
 export type TileBacgroundSettings = {
   activeBacgroundType: BackgroundTypes;
-  color: SolidColorBackground;
+  fillColorId: ColorId;
+  fillColors: ColorId[];
   grid: GridBackground;
   dots: DotBackground;
   line: LineBackground;
-  backgroundColors: ColorId[];
 };
 
 export namespace Continuum_TailBacground {
