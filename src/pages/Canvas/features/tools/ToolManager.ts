@@ -3,16 +3,17 @@ import { Erase } from "./Erase";
 import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
 import { InputState } from "../input/InputState";
+import { ShapeTool } from "./ShapeTool";
 
-export type ITool = Partial<{
+export type ITool ={
   type: ToolType;
-  initTool(): void;
-  disposeTool(): void;
   startDrawing(e: InputState): void;
   draw(simpe: InputState): void;
   endDrawing(e: InputState): void;
   updateCursor(): void;
-}>;
+  initTool?(): void;
+  disposeTool?(): void;
+};
 
 export class ToolManager {
   public tools: Map<ToolType, ITool> = new Map();
@@ -27,6 +28,7 @@ export class ToolManager {
     this.tools.set("pen", new Curve("pen"));
     this.tools.set("highlighter", new Curve("marker"));
     this.tools.set("eraser", new Erase());
+    this.tools.set("shape", new ShapeTool());
   }
 
   public setTool(toolType: ToolType) {

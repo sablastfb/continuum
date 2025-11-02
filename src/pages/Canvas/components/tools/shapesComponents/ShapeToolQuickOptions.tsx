@@ -12,74 +12,79 @@ import {
   useShapesStore,
 } from "../../../data/store/ShapeStore";
 
-// interface ShapeToolProps {
-//   fillType?: ShapeFillType;
-//   bacgroundType?: BackgroundTypes;
-// }
 
-// export function SahpeColorPicker({ shapeType }: ShapeToolProps) {
-//   const updateShape = useShapesStore((state) => state.updateShape);
-//   const shapeData = useShapesStore((state) => state.shapes[shapeType]);
-//   return (
-//     <>
-//       {shapeData.backgroundColors.map((colorId, ix) => {
-//         return (
-//           <CircleColorPicker
-//             colorId={colorId}
-//             key={ix}
-//             selected={colorId === shapeData.color}
-//             action={() => updateShape(shapeType, { color: colorId })}
-//           />
-//         );
-//       })}
-//     </>
-//   );
-// }
+export const ShapeToolShapePicker = () => {
+  const store = useShapesStore();
 
-// export function ShapeTypeBacground({
-//   shapeType,
-//   bacgroundType,
-// }: ShapeToolProps) {
-//   const updateShape = useShapesStore((state) => state.updateShape);
+  return (
+    <>
+      <div
+        onClick={() => store.updateShape({ shape: "square" })}
+        className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.shape === "square" ? DefaultOutlineColor : ""
+        }`}
+      >
+        <Square size={DefaultIconSize} />
+      </div>
+      <div
+        onClick={() => store.updateShape({ shape: "circle" })}
+        className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.shape === "circle" ? DefaultOutlineColor : ""
+        }`}
+      >
+        <Circle size={DefaultIconSize} />
+      </div>
+      <div
+        onClick={() => store.updateShape({ shape: "poligon" })}
+        className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.shape === "poligon" ? DefaultOutlineColor : ""
+        }`}
+      >
+        <HexagonIcon size={DefaultIconSize} />
+      </div>
+    </>
+  );
+};
 
-//   return (
-//     <div
-//       onClick={() => {
-//         updateShape(shapeType, { activeBacgroundType: bacgroundType });
-//       }}
-//     >
-//       {bacgroundType}
-//     </div>
-//   );
-// }
-
-export const ShapeToolFill = () => {
+export const ShapeToolFillPicker = () => {
   const store = useShapesStore();
   return (
     <>
       <div
-        onClick={() => store.updateShape({fillType:'outline-fill'})}
-        className={`cursor-pointer rounded-xl hover:cursor-pointer flex justify-center items-center ${
-          store.fillType === 'outline-fill' ? DefaultOutlineColor : ""
+        onClick={() => store.updateShape({ fillType: "outline-fill" })}
+        className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.fillType === "outline-fill" ? DefaultOutlineColor : ""
         }`}
       >
-        <Square className="fill-gray-400  stroke-3 stroke-gray-100" size={DefaultIconSize}/>
+        <Square
+          className="fill-gray-400  stroke-3 stroke-gray-100"
+          size={DefaultIconSize}
+        />
       </div>
       <div
-        onClick={() => store.updateShape({fillType:"fill-only"})}
-        className={`cursor-pointer rounded-xl hover:cursor-pointer flex justify-center items-center ${
-          store.fillType ===  "fill-only" ? DefaultOutlineColor : ""
+        onClick={() => store.updateShape({ fillType: "fill-only" })}
+        className={` rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.fillType === "fill-only" ? DefaultOutlineColor : ""
         }`}
       >
-        <Square fill="white" className="fill-gray-400 stroke-0 " size={DefaultIconSize} />
+        <Square
+          fill="white"
+          className="fill-gray-400 stroke-0 "
+          size={DefaultIconSize}
+        />
       </div>
       <div
-        onClick={() =>  store.updateShape({fillType:'outline-only'})}
-        className={`cursor-pointer rounded-xl hover:cursor-pointer flex justify-center items-center ${
-          store.fillType ==="outline-only"? DefaultOutlineColor : ""
+        onClick={() => store.updateShape({ fillType: "outline-only" })}
+        className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.fillType === "outline-only" ? DefaultOutlineColor : ""
         }`}
       >
-        <Square fill="none"  className="  stroke-3 stroke-gray-100" strokeWidth={2} size={DefaultIconSize} />
+        <Square
+          fill="none"
+          className="  stroke-3 stroke-gray-100"
+          strokeWidth={2}
+          size={DefaultIconSize}
+        />
       </div>
     </>
   );
@@ -90,12 +95,9 @@ const ShapeToolQuickOptions = () => {
   return (
     <>
       <ToolOptionHeaderComponent />
-      {/* shapes */}
-      <Square size={DefaultIconSize} />
-      <Circle size={DefaultIconSize} />
-      <HexagonIcon size={DefaultIconSize} />
+      <ShapeToolShapePicker />
       <ArrayDivider direction={toolOptionsDirection} />
-      <ShapeToolFill />
+      <ShapeToolFillPicker />
     </>
   );
 };

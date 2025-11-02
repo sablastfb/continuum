@@ -21,7 +21,7 @@ void main(void) {
 
     // Dot pattern settings
     float dotSpacing = 50.0;  // Spacing in world units
-    float dotRadius = 3.5;     // Radius in world units (fixed size)
+    float dotRadius = 1.5;     // Radius in world units (fixed size)
     
     // Find nearest dot center
     vec2 cellCenter = floor(worldCoord / dotSpacing) * dotSpacing + dotSpacing * 0.5;
@@ -35,7 +35,7 @@ void main(void) {
     float dotMask = smoothstep(worldDotRadius + smoothEdge, worldDotRadius, distToDot);
     
     // Colors
-    vec3 dotColor = vec3(0.5, 0.5 , 0.5);
+    vec3 dotColor = vec3(0.25);
     
     vec3 color = mix(backgroundColor, dotColor, dotMask);
     
