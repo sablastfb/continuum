@@ -6,13 +6,9 @@ import {
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
-import {
-  ShapeData,
-  ShapeStore,
-  useShapesStore,
-} from "../../../data/store/ShapeStore";
-import { Continuum_Canvas } from "../../../features/CanvasApp";
+
 import CircleColorPicker from "../../pickers/CircleColorPicker";
+import { useShapesStore } from "../../../data/store/ShapeStore";
 
 export const ShapeToolShapePicker = () => {
   const store = useShapesStore();

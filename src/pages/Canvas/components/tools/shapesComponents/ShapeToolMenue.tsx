@@ -3,9 +3,9 @@ import {
   DefaultIconSize,
   DefaultOutline,
 } from "../../../data/constants/CanvasConstants";
-import { useShapesStore } from "../../../data/store/ShapeStore";
 import useToolStore from "../../../data/store/ToolStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
+import { useShapesStore } from "../../../data/store/ShapeStore";
 
 const ShapeToolMenue = () => {
   const canvasStore = useToolStore();
@@ -34,7 +34,7 @@ const ShapeToolMenue = () => {
       >
         {shapesStore.shape === "square" && (
           <Square
-            strokeWidth={3}
+            strokeWidth={2}
             size={DefaultIconSize}
             fill={fillColor}
             stroke={strokeColor}

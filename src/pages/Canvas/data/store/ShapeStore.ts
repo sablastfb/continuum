@@ -7,15 +7,13 @@ export type Shape = "square" | "circle" | "poligon";
 export type ShapeFillType = "outline-only" | "fill-only" | "outline-fill";
 
 const shapeBackgroundColors = [
-  "shape-background-slate-blue",
-  "shape-background-emerald-green",
-  "shape-background-rose-pink",
+  "shape-background-mist-blue",
+  "shape-background-cool-gray",
 ];
 
 const shapeOutlineColors = [
-  "shape-outline-indigo-blue",
-  "shape-outline-lime-green",
-  "shape-outline-hot-pink",
+  "shape-outline-ash",
+  "shape-outline-stone"
 ];
 
 export type ShapeData = TileBacgroundSettings & {

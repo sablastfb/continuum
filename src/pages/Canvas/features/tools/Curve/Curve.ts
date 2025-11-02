@@ -71,8 +71,8 @@ export class Curve implements ITool {
         );
         break;
     }
-    this.line.push(  new Point(e.mousePosition.x,e.mousePosition.y));
-    this.activeCurve.moveTo(  e.mousePosition.x,   e.mousePosition.y);
+    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
   }
 
   public draw(e: InputState) {
@@ -81,8 +81,8 @@ export class Curve implements ITool {
     if (this.activeColor === null) return;
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
-    this.line.push(new Point(e.mousePosition.x,e.mousePosition.y));
-    this.activeCurve.lineTo(  e.mousePosition.x,   e.mousePosition.y);
+    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
 
     this.curveStyle.draw({
       activeCurve: this.activeCurve,
