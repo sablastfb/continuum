@@ -1,10 +1,16 @@
 import { Circle, HexagonIcon, Square } from "lucide-react";
 import {
   DefaultIconSize,
+  DefaultOutlineColor,
 } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import {
+  ShapeData,
+  ShapeStore,
+  useShapesStore,
+} from "../../../data/store/ShapeStore";
 
 // interface ShapeToolProps {
 //   fillType?: ShapeFillType;
@@ -47,28 +53,37 @@ import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponen
 //   );
 // }
 
-// export function ShapeToolFill({ shapeType, fillType }: ShapeToolProps) {
-//   const updateShape = useShapesStore((state) => state.updateShape);
-//   const shapeData = useShapesStore((state) => state.shapes[shapeType]);
-//   return (
-//     <div
-//       onClick={() => updateShape(shapeType, { fillType })}
-//       className={`rounded-full w-7 h-7 hover:cursor-pointer flex justify-center items-center ${
-//         shapeData.fillType === fillType ? DefaultOutlineColor : ""
-//       }`}
-//     >
-//       {fillType === "outline-fill" && (
-//         <Square className="fill-gray-100  stroke-black stroke-2" />
-//       )}
-//       {fillType === "fill-only" && (
-//         <Square fill="white" className="fill-gray-100 stroke-0 " />
-//       )}
-//       {fillType === "outline-only" && (
-//         <Square fill="none" stroke="currentColor" strokeWidth={2} />
-//       )}
-//     </div>
-//   );
-// }
+export const ShapeToolFill = () => {
+  const store = useShapesStore();
+  return (
+    <>
+      <div
+        onClick={() => store.updateShape({fillType:'outline-fill'})}
+        className={`cursor-pointer rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.fillType === 'outline-fill' ? DefaultOutlineColor : ""
+        }`}
+      >
+        <Square className="fill-gray-400  stroke-3 stroke-gray-100" size={DefaultIconSize}/>
+      </div>
+      <div
+        onClick={() => store.updateShape({fillType:"fill-only"})}
+        className={`cursor-pointer rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.fillType ===  "fill-only" ? DefaultOutlineColor : ""
+        }`}
+      >
+        <Square fill="white" className="fill-gray-400 stroke-0 " size={DefaultIconSize} />
+      </div>
+      <div
+        onClick={() =>  store.updateShape({fillType:'outline-only'})}
+        className={`cursor-pointer rounded-xl hover:cursor-pointer flex justify-center items-center ${
+          store.fillType ==="outline-only"? DefaultOutlineColor : ""
+        }`}
+      >
+        <Square fill="none"  className="  stroke-3 stroke-gray-100" strokeWidth={2} size={DefaultIconSize} />
+      </div>
+    </>
+  );
+};
 
 const ShapeToolQuickOptions = () => {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
@@ -80,8 +95,9 @@ const ShapeToolQuickOptions = () => {
       <Circle size={DefaultIconSize} />
       <HexagonIcon size={DefaultIconSize} />
       <ArrayDivider direction={toolOptionsDirection} />
+      <ShapeToolFill />
     </>
   );
-}
+};
 
 export default ShapeToolQuickOptions;

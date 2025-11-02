@@ -26,24 +26,32 @@ export class BacgroundService {
     if (this.backgroundGraphics) {
       this.backgroundGraphics.tint = color;
     }
-
-    if (bacgroundSettings.background.activeBacgroundType === "dots") {
-      this.backgroundShader = Continuum_Canvas.shaderService.getDotShader();
-      Continuum_Canvas.shaderService.updateShaderColor(
-        this.backgroundShader,
-        color
-      );
-      this.backgroundGraphics.filters = [this.backgroundShader];
+    const activeType = bacgroundSettings.background.activeBacgroundType;
+    switch (activeType) {
+      case "color": {
+        this.backgroundGraphics.filters = [];
+        break;
+      }
+      case "dots": {
+        this.backgroundShader = Continuum_Canvas.shaderService.getDotShader();
+        Continuum_Canvas.shaderService.updateShaderColor(
+          this.backgroundShader,
+          color
+        );
+        this.backgroundGraphics.filters = [this.backgroundShader];
+        break;
+      }
+      case "grid": {
+        this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
+        Continuum_Canvas.shaderService.updateShaderColor(
+          this.backgroundShader,
+          color
+        );
+        this.backgroundGraphics.filters = [this.backgroundShader];
+        break;
+      }
     }
 
-    if (bacgroundSettings.background.activeBacgroundType === "grid") {
-      this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
-      Continuum_Canvas.shaderService.updateShaderColor(
-        this.backgroundShader,
-        color
-      );
-      this.backgroundGraphics.filters = [this.backgroundShader];
-    }
     this.updateBackgroundUniforms();
   }
 

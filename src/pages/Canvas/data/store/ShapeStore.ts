@@ -3,7 +3,7 @@ import { immer } from "zustand/middleware/immer";
 import { TileBacgroundSettings } from "../../features/service/TailBackground";
 import { ColorId } from "../palet/PaletContainer";
 
-export type Shape = "square" | "circle" |  "poligon";
+export type Shape = "square" | "circle" | "poligon";
 export type ShapeFillType = "outline-only" | "fill-only" | "outline-fill";
 
 const shapeBackgroundColors = [
@@ -21,7 +21,7 @@ const shapeOutlineColors = [
 ];
 
 export type ShapeData = TileBacgroundSettings & {
-  shape: Shape,
+  shape: Shape;
   outlineColors: ColorId[];
   outlineColor: ColorId;
   outlineWidth: number;
@@ -29,7 +29,7 @@ export type ShapeData = TileBacgroundSettings & {
 };
 
 export const DefaultShapeSettings: ShapeData = {
-  shape: 'square',
+  shape: "square",
   fillType: "outline-fill",
   outlineColors: shapeOutlineColors,
   outlineColor: shapeOutlineColors[0],
@@ -38,29 +38,31 @@ export const DefaultShapeSettings: ShapeData = {
   backgroundColors: shapeBackgroundColors,
   color: shapeBackgroundColors[0],
   grid: {
-    bacgroundColor: shapeBackgroundColors[0],
     gridBorderColor: "bgt-1",
     sizeOfGrid: 50,
     widthOfGridLine: 0.5,
   },
   dots: {
-    bacgroundColor: shapeBackgroundColors[0],
     dotColor: "bgt-1",
     dotRadius: 2,
     tileWidth: 50,
   },
   line: {
-    bacgroundColor: shapeBackgroundColors[0],
     lineColor: "bgt-1",
     spaceBetween: 50,
-  }
+  },
 };
 
 export interface ShapeStore extends ShapeData {
+  updateShape: (state: Partial<ShapeData>) => void;
 }
 
-export const useShapesStore = create<ShapeData>()(
-  immer(() => ({
+export const useShapesStore = create<ShapeStore>()(
+  immer((set) => ({
     ...DefaultShapeSettings,
+    updateShape: (partialState) =>
+      set((state) => {
+        Object.assign(state, partialState);
+      }),
   }))
 );

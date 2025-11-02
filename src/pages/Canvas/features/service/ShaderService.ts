@@ -1,6 +1,7 @@
 import { Filter, GlProgram } from "pixi.js";
 import fragment from "./../shaders/shader.frag?raw";
 import dotShader from "./../shaders/dotShader.frag?raw";
+import hexagonShader from "./../shaders/hexagonShader.frag?raw";
 import vertex from "./../shaders/shader.vert?raw";
 import { Continuum_Canvas } from "../CanvasApp";
 

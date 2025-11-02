@@ -14,6 +14,7 @@ import {
   DefaultToolBarVPadding,
 } from "../../data/constants/CanvasConstants";
 import ScrollableContainer from "./ScrollableContainer";
+import ShapeAdvanceSettings from "../tools/shapesComponents/ShapeAdvanceSettings";
 
 export interface ToolOptionParameters {
   direction: Direction;
@@ -42,6 +43,7 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
       break;
     case "shape":
       activeToolComponent = <ShapeToolQuickOptions />;
+      advanceSettingsComponent = <ShapeAdvanceSettings />;
       break;
     default:
       activeToolComponent = null;
