@@ -1,10 +1,9 @@
 import { Filter, GlProgram, Graphics } from "pixi.js";
 import dotShader from "./../shaders/background/dotShader.frag?raw";
-import gridShader from "./../shaders/background/shader.frag?raw";
+import simpleGrid from "./../shaders/background/simpleGrid.frag?raw";
 import standardVetex from "./../shaders/shader.vert?raw";
 import gridShapeShader from "./../shaders/shape/gridShape.vert?raw";
 import { Continuum_Canvas } from "../CanvasApp";
-import { SimplePoint } from "../../data/types/PointTypes";
 
 export type ShadeType = "grid" | "dot" | "shapeGrid";
 export type ShaderUpdateType = "bacground" | "shape";
@@ -22,7 +21,7 @@ export class ShaderService {
   private glProgrmas: { [key in ShadeType]: GlProgram } = {
     grid: GlProgram.from({
       vertex: standardVetex,
-      fragment: gridShader,
+      fragment: simpleGrid,
     }),
     dot: GlProgram.from({
       vertex: standardVetex,
@@ -89,8 +88,6 @@ export class ShaderService {
       };
     } else {
       if (g && Continuum_Canvas.viewportManager.viewport) {
-        // Shape position should be in world coordinates
-        // If g.x and g.y are already in world space, use them directly
         return {
           uniforms: {
             iResolution: {
@@ -100,11 +97,6 @@ export class ShaderService {
             viewportZoom: {
               value: Continuum_Canvas.viewportManager.viewport.scale.x,
               type: "f32",
-            },
-            shapeSize: {
-              // NEW: pass shape dimensions
-              value: [g.width || 100, g.height || 100],
-              type: "vec2<f32>",
             },
             backgroundColor: {
               value: [127, 127, 127],
@@ -145,13 +137,6 @@ export class ShaderService {
           uniforms.shapeOffset = [obj.shape.x, obj.shape.y];
         }
       }
-    }
-  }
-
-  public updateShapeSize(shader: Filter, size: SimplePoint){
-        if (shader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = shader.resources.uniforms.uniforms;
-      uniforms.shapeSize = [size.x,size.y];
     }
   }
 

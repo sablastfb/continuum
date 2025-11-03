@@ -2,15 +2,11 @@ in vec2 vTextureCoord;
 in vec2 vPosition;
 out vec4 finalColor;
 
-uniform vec2 iResolution;
 uniform float viewportZoom;
-uniform sampler2D uTexture;
 uniform vec3 backgroundColor;
 uniform vec2 shapeSize;
 
 void main(void) {
-    // Convert texture coords (0-1) to world pixel coordinates
-    // This makes the grid size independent of shape size
     vec2 shapeCoord = vTextureCoord * shapeSize;
     
     // Grid settings - this is now in actual pixels

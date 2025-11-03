@@ -1,7 +1,6 @@
 import { Slider, SliderChangeEvent } from "primereact/slider";
 import { Minus, Plus } from "lucide-react";
 import { useShapesStore } from "../../../data/store/ShapeStore";
-import { TexturePatterPicker } from "../../pickers/TexturePatterPicker";
 import PatternPicker from "../../pickers/PatternPicker/PatternPicker";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
@@ -149,7 +148,6 @@ const ShapeAdvanceSettings = () => {
   return (
     <div className="p-4 flex flex-col gap-4 rounded-lg">
       <h3 className="text-lg font-semibold  mb-2">Shape Settings</h3>
-      <TexturePatterPicker/>
       {shapeStore.shape === "square" && <SquareSettings />}
       {shapeStore.shape === "circle" && <CircleSettings />}
       {shapeStore.shape === "poligon" && <PoligonSettings />}

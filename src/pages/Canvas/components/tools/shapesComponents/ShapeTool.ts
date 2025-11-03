@@ -5,7 +5,6 @@ import { ITool } from "../../../features/tools/ToolManager";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import { SimplePoint } from "../../../data/types/PointTypes";
 import { useShapesStore } from "../../../data/store/ShapeStore";
-import { ContinumShader } from "../../../features/service/ShaderService";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";
@@ -13,7 +12,6 @@ export class ShapeTool implements ITool {
   strokeGraphics: Graphics | null = null;
   // create graphic depending on state,
   startPoint: SimplePoint = { x: 0, y: 0 };
-  shader: ContinumShader | null = null;
   startDrawing(e: InputState): void {
     this.shapeGraphics = new Graphics();
     this.strokeGraphics = new Graphics();
@@ -23,12 +21,15 @@ export class ShapeTool implements ITool {
     // get shader and set it up
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    console.log( {x:this.shapeGraphics.x, y:this.shapeGraphics.y});
-    this.shader = Continuum_Canvas.shaderService.getNewShader('shapeGrid','shape',  this.shapeGraphics);
-    Continuum_Canvas.shaderService.updateShaderColor(this.shader.filter, fillColor);
-    this.shapeGraphics.filters = [this.shader.filter];
+    const shader = Continuum_Canvas.shaderService.getNewShader(
+      "shapeGrid",
+      "shape",
+      this.shapeGraphics
+    );
+    Continuum_Canvas.shaderService.updateShaderColor(shader.filter, fillColor);
+    this.shapeGraphics.filters = [shader.filter];
   }
-  // update graphic
+
   draw(e: InputState): void {
     if (!this.shapeGraphics) return;
     if (!this.strokeGraphics) return;
@@ -55,11 +56,6 @@ export class ShapeTool implements ITool {
         this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
     }
-
-      const x = this.shapeGraphics.width;
-      const y = this.shapeGraphics.height;
-      if (this.shader?.filter)
-    Continuum_Canvas.shaderService.updateShapeSize(this.shader?.filter, {x,y} );
   }
   // save graphic to
   endDrawing(e: InputState): void {
