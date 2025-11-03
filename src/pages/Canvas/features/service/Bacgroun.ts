@@ -1,14 +1,14 @@
-import { Filter, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 import useBacgroundStore, {
   BacgroundStore,
 } from "../../data/store/BacgroundStore";
 import { Continuum_Canvas } from "../CanvasApp";
+import { ContinumShader } from "./ShaderService";
 
 // hold bacground container
 export class BacgroundService {
   private backgroundGraphics?: Graphics;
-  public backgroundShader?: Filter;
-
+  private backgroundShader?: ContinumShader;
   public init() {
     this.backgroundGraphics = new Graphics()
       .rect(0, 0, window.innerWidth, window.innerHeight)
@@ -33,36 +33,29 @@ export class BacgroundService {
         break;
       }
       case "dots": {
-        this.backgroundShader = Continuum_Canvas.shaderService.getDotShader();
+        this.backgroundShader = Continuum_Canvas.shaderService.getNewShader(
+          "dot",
+          "bacground"
+        );
         Continuum_Canvas.shaderService.updateShaderColor(
-          this.backgroundShader,
+          this.backgroundShader.filter,
           color
         );
-        this.backgroundGraphics.filters = [this.backgroundShader];
+        this.backgroundGraphics.filters = [this.backgroundShader.filter];
         break;
       }
       case "grid": {
-        this.backgroundShader = Continuum_Canvas.shaderService.getGridShader();
+        this.backgroundShader = Continuum_Canvas.shaderService.getNewShader(
+          "grid",
+          "bacground"
+        );
         Continuum_Canvas.shaderService.updateShaderColor(
-          this.backgroundShader,
+          this.backgroundShader.filter,
           color
         );
-        this.backgroundGraphics.filters = [this.backgroundShader];
+        this.backgroundGraphics.filters = [this.backgroundShader.filter];
         break;
       }
-    }
-
-    this.updateBackgroundUniforms();
-  }
-
-  public updateBackgroundUniforms() {
-    if (this.backgroundShader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = this.backgroundShader.resources.uniforms.uniforms;
-      uniforms.viewportPosition = [
-        Continuum_Canvas.viewportManager.viewport.corner.x,
-        Continuum_Canvas.viewportManager.viewport.corner.y,
-      ];
-      uniforms.viewportZoom = Continuum_Canvas.viewportManager.viewport.scale.x;
     }
   }
 
@@ -71,13 +64,14 @@ export class BacgroundService {
       window.innerWidth,
       window.innerHeight
     );
-    if (Continuum_Canvas.bacgroundService?.backgroundShader) {
+    const filter = Continuum_Canvas.bacgroundService?.backgroundShader?.filter;
+    if (filter) {
       const uniforms =
-        Continuum_Canvas.bacgroundService.backgroundShader.resources.uniforms
+       filter.resources.uniforms
           .uniforms;
       uniforms.iResolution = [window.innerWidth, window.innerHeight];
     }
 
-    Continuum_Canvas.bacgroundService?.updateBackgroundUniforms();
+    Continuum_Canvas.shaderService?.updateUniforms();
   }
 }

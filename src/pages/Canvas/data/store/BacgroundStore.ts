@@ -19,7 +19,7 @@ export interface BacgroundStore extends BacgroundData {
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const BacgroundDefault: BacgroundData = {
-  activeBacgroundType: "dots",
+  activeBacgroundType: "grid",
   fillColorId: backgroundColors[0],
   fillColors: backgroundColors,
   grid: {
