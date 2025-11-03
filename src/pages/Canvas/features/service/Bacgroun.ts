@@ -9,6 +9,7 @@ import { ContinumShader } from "./ShaderService";
 export class BacgroundService {
   private backgroundGraphics?: Graphics;
   private backgroundShader?: ContinumShader;
+
   public init() {
     this.backgroundGraphics = new Graphics()
       .rect(0, 0, window.innerWidth, window.innerHeight)
@@ -66,12 +67,14 @@ export class BacgroundService {
     );
     const filter = Continuum_Canvas.bacgroundService?.backgroundShader?.filter;
     if (filter) {
-      const uniforms =
-       filter.resources.uniforms
-          .uniforms;
+      const uniforms = filter.resources.uniforms.uniforms;
       uniforms.iResolution = [window.innerWidth, window.innerHeight];
     }
 
     Continuum_Canvas.shaderService?.updateUniforms();
+  }
+
+  public getShader(){
+    return this.backgroundShader;
   }
 }

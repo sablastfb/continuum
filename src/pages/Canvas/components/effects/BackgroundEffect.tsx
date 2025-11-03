@@ -5,11 +5,18 @@ import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const BackgroundEffect = () => {
   const bacgroundSettings = useBacgroundStore((state) => state);
+  const mainAxses = useBacgroundStore((state) => state).mainAxisVisible;
   const activeTool = useToolStore().activeTool;
 
   useEffect(() => {
     Continuum_Canvas.bacgroundService.updateBacground(bacgroundSettings);
   }, [bacgroundSettings]);
+
+  useEffect(() => {
+    const shader = Continuum_Canvas.bacgroundService.getShader();
+    if (shader)
+    Continuum_Canvas.shaderService.updateMainAxises(shader ,mainAxses);
+  }, [mainAxses]);
 
   useEffect(() => {
     Continuum_Canvas.toolManager.setTool(activeTool);

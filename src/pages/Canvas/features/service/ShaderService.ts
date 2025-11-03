@@ -5,6 +5,7 @@ import standardVetex from "./../shaders/shader.vert?raw";
 import gridShapeShader from "./../shaders/shape/gridShape.vert?raw";
 import { Continuum_Canvas } from "../CanvasApp";
 import { values } from "lodash";
+import useBacgroundStore from "../../data/store/BacgroundStore";
 
 export type ShadeType = "grid" | "dot" | "shapeGrid";
 export type ShaderUpdateType = "bacground" | "shape";
@@ -85,7 +86,7 @@ export class ShaderService {
             value: [127, 127, 127],
             type: "vec3<f32>",
           },
-          showAxis:  {value: 1, type: "f32"},
+          showAxis:  {value: useBacgroundStore.getState().mainAxisVisible, type: "f32"},
           minZoomForGrid: {value: 0.5, type: "f32"}
         },
       };
@@ -140,6 +141,14 @@ export class ShaderService {
           uniforms.shapeOffset = [obj.shape.x, obj.shape.y];
         }
       }
+    }
+  }
+
+
+  public updateMainAxises(continumShader: ContinumShader, visible: boolean){
+    if (continumShader.updateType === 'bacground'){
+      const uniforms = continumShader.filter.resources.uniforms.uniforms;
+      uniforms.showAxis =  visible
     }
   }
 

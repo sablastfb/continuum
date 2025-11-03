@@ -6,12 +6,14 @@ import { PatternSettings } from "../types/PatternTypes";
 
 export type Theme = "dark" | "light";
 
-export type BacgroundData = PatternSettings;
+export type BacgroundData = PatternSettings & {
+    mainAxisVisible: boolean,
+};
 
 export interface BacgroundStore extends BacgroundData {
   discardSettings: (settings: BacgroundData) => void;
   setBackgroundSettings: (
-    bacgroundSettings: DeepPartial<PatternSettings>
+    bacgroundSettings: DeepPartial<BacgroundData>
   ) => void;
   reserToDefaultSettings: () => void;
 }
@@ -22,6 +24,7 @@ export const BacgroundDefault: BacgroundData = {
   activeBacgroundType: "grid",
   fillColorId: backgroundColors[0],
   fillColors: backgroundColors,
+  mainAxisVisible: false,
   grid: {
     gridBorderColor: "bgt-1",
     sizeOfGrid: 50,
