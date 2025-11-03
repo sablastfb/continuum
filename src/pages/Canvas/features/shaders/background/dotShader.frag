@@ -3,7 +3,6 @@ out vec4 finalColor;
 uniform vec2 iResolution;
 uniform vec2 viewportPosition;
 uniform float viewportZoom;
-uniform sampler2D uTexture;
 uniform vec3 backgroundColor;
 uniform float showAxis;
 uniform float minZoomForGrid;  // Dots fade out below this zoom level

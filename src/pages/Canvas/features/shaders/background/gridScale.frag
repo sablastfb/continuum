@@ -1,5 +1,3 @@
-in vec2 vTextureCoord;
-in vec2 vPosition;
 out vec4 finalColor;
 
 uniform vec2 iResolution;

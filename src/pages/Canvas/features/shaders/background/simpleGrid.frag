@@ -30,7 +30,7 @@ void main(void) {
     grid = grid + glow;
     
     // Fade out grid when zoomed out too far
-  float gridFade = smoothstep(minZoomForGrid * 0.5, minZoomForGrid, viewportZoom);
+  float gridFade = smoothstep(minZoomForGrid * 0.2, minZoomForGrid, viewportZoom);
     gridFade = mix(0.1, 1.0, gridFade);  // Never goes below 15% opacity
     grid *= gridFade;
     
@@ -49,8 +49,8 @@ void main(void) {
     yAxis = yAxis + yAxisGlow * yAxisGlow * 0.3;
     
     // Apply axis visibility flags
-    xAxis *= showAxis*gridFade;
-    yAxis *= showAxis*gridFade;
+    xAxis *= showAxis;
+    yAxis *= showAxis;
     
     vec3 gridColor = vec3(0.18, 0.18, 0.19);
     vec3 yAxisColor = vec3(0.25, 0.6, 0.25);  

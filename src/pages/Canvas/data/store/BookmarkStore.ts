@@ -27,8 +27,8 @@ export const useBookmark = create<BookmarkStore>()(
       id: "home",
       name: "home",
       position: {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
+        x: 0,
+        y: 0,
       },
       scale: 1,
     },

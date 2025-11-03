@@ -86,7 +86,7 @@ export class ShaderService {
             type: "vec3<f32>",
           },
           showAxis:  {value: 1, type: "f32"},
-          minZoomForGrid: {value: 0.2, type: "f32"}
+          minZoomForGrid: {value: 0.5, type: "f32"}
         },
       };
     } else {

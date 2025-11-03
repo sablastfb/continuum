@@ -1,11 +1,8 @@
-in vec2 vTextureCoord;
-in vec2 vPosition;
 out vec4 finalColor;
 
 uniform vec2 iResolution;
 uniform vec2 viewportPosition;
 uniform float viewportZoom;
-uniform sampler2D uTexture;
 
 void main(void) {
     // Get screen pixel coordinates and flip Y axis
