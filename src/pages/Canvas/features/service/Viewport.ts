@@ -17,6 +17,10 @@ export class CanvasViewport {
       events: Continuum_Canvas.appInstance!.renderer.events,
       passiveWheel: true,
     });
+    const worldCenterX = this.viewport.worldWidth / 2;
+    const worldCenterY = this.viewport.worldHeight / 2;
+    this.viewport.moveCenter(worldCenterX, worldCenterY);
+
     this.viewport
       .drag({ mouseButtons: "middle" })
       .pinch({ noDrag: true })

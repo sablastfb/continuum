@@ -4,6 +4,8 @@ uniform vec2 iResolution;
 uniform vec2 viewportPosition;
 uniform float viewportZoom;
 uniform vec3 backgroundColor;
+uniform float showAxis;
+uniform float minZoomForGrid;
 
 void main(void) {
     vec2 screenCoord = gl_FragCoord.xy;
@@ -11,8 +13,9 @@ void main(void) {
     vec2 worldCoord = viewportPosition + (screenCoord / viewportZoom);
     
     float gridSize = 50.0;
-    float lineWidth = 1.0 / viewportZoom;
+    float lineWidth = 0.5 / viewportZoom;
     
+    // Calculate grid lines
     vec2 gridPos = mod(worldCoord, gridSize);
     
     float distToGrid = min(gridPos.x, gridPos.y);
@@ -26,10 +29,16 @@ void main(void) {
     glow = glow * glow * 0.25;
     grid = grid + glow;
     
+    // Fade out grid when zoomed out too far
+  float gridFade = smoothstep(minZoomForGrid * 0.5, minZoomForGrid, viewportZoom);
+    gridFade = mix(0.1, 1.0, gridFade);  // Never goes below 15% opacity
+    grid *= gridFade;
+    
+    // Calculate axes - NOW SCALES WITH ZOOM (removed division by viewportZoom)
     float distToXAxis = abs(worldCoord.y);
     float distToYAxis = abs(worldCoord.x);
     
-    float axisLineWidth = 1.5 / viewportZoom;
+    float axisLineWidth = 1.5;  // Fixed world-space width (scales with zoom)
     float xAxis = 1.0 - smoothstep(axisLineWidth - aaWidth, axisLineWidth + aaWidth, distToXAxis);
     float yAxis = 1.0 - smoothstep(axisLineWidth - aaWidth, axisLineWidth + aaWidth, distToYAxis);
     
@@ -38,6 +47,10 @@ void main(void) {
     float yAxisGlow = 1.0 - smoothstep(axisLineWidth, axisGlowWidth, distToYAxis);
     xAxis = xAxis + xAxisGlow * xAxisGlow * 0.3;
     yAxis = yAxis + yAxisGlow * yAxisGlow * 0.3;
+    
+    // Apply axis visibility flags
+    xAxis *= showAxis*gridFade;
+    yAxis *= showAxis*gridFade;
     
     vec3 gridColor = vec3(0.18, 0.18, 0.19);
     vec3 yAxisColor = vec3(0.25, 0.6, 0.25);  

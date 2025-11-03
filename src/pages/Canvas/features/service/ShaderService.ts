@@ -4,6 +4,7 @@ import simpleGrid from "./../shaders/background/simpleGrid.frag?raw";
 import standardVetex from "./../shaders/shader.vert?raw";
 import gridShapeShader from "./../shaders/shape/gridShape.vert?raw";
 import { Continuum_Canvas } from "../CanvasApp";
+import { values } from "lodash";
 
 export type ShadeType = "grid" | "dot" | "shapeGrid";
 export type ShaderUpdateType = "bacground" | "shape";
@@ -84,6 +85,8 @@ export class ShaderService {
             value: [127, 127, 127],
             type: "vec3<f32>",
           },
+          showAxis:  {value: 1, type: "f32"},
+          minZoomForGrid: {value: 0.2, type: "f32"}
         },
       };
     } else {

@@ -10,6 +10,7 @@ export class ResizeService {
     const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
     useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
     Continuum_Canvas.viewportManager.viewport.setZoom(zomeValue, true);
+    this.handleResize();
   }
 
   public viewportZoom(e: ZoomedEvent) {
