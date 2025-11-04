@@ -1,62 +1,54 @@
 import { Filter, GlProgram, Graphics } from "pixi.js";
-import dotShader from "./../shaders/background/dotShader.frag?raw";
-import simpleGrid from "./../shaders/background/simpleGrid.frag?raw";
 import standardVetex from "./../shaders/shader.vert?raw";
-import gridShapeShader from "./../shaders/shape/gridShape.vert?raw";
+import gridShapeShader from "./../shaders/shape.frag?raw";
+import bacgrounShader from "./../shaders/bacground.frag?raw";
 import { Continuum_Canvas } from "../CanvasApp";
-import { values } from "lodash";
 import useBacgroundStore from "../../data/store/BacgroundStore";
 
-export type ShadeType = "grid" | "dot" | "shapeGrid";
-export type ShaderUpdateType = "bacground" | "shape";
+export type ShaderType = "bacground" | "shape";
+export type BacgroundShaders = "simpleGridShader" | "dotShader" |  "gridScale";
+export type ShapeShaders = "dotShader" |  "gridScale";
 
 export type ContinumShader = {
   filter: Filter;
+  shaderType: ShaderType;
   id: number;
-  updateType: ShaderUpdateType;
-  shape: Graphics;
 };
 
 export class ShaderService {
   private lastId = 0;
   private shaders: ContinumShader[] = [];
-  private glProgrmas: { [key in ShadeType]: GlProgram } = {
-    grid: GlProgram.from({
+  private glProgrmas: { [key in ShaderType]: GlProgram } = {
+    bacground: GlProgram.from({
       vertex: standardVetex,
-      fragment: simpleGrid,
+      fragment: bacgrounShader,
     }),
-    dot: GlProgram.from({
-      vertex: standardVetex,
-      fragment: dotShader,
-    }),
-    shapeGrid: GlProgram.from({
+    shape: GlProgram.from({
       vertex: standardVetex,
       fragment: gridShapeShader,
     }),
   };
 
   public getNewShader(
-    shaderType: ShadeType,
-    updateType: ShaderUpdateType,
-    g?: Graphics
+    shaderType: ShaderType,
+    updateType: ShaderType,
   ) {
     const glProgram = this.glProgrmas[shaderType];
-    const resources = this.gerResources(updateType, g);
+    const resources = this.gerResources(updateType);
     const filter = new Filter({
       glProgram,
       resources,
     });
     const shader = {
       filter,
-      updateType: updateType,
+      shaderType: updateType,
       id: this.lastId++,
-      shape: g,
     } as ContinumShader;
     this.shaders.push(shader);
     return shader;
   }
 
-  public gerResources(shaderType: ShaderUpdateType, g?: Graphics) {
+  public gerResources(shaderType: ShaderType) {
     if (
       shaderType === "bacground" &&
       Continuum_Canvas.viewportManager.viewport
@@ -86,12 +78,19 @@ export class ShaderService {
             value: [127, 127, 127],
             type: "vec3<f32>",
           },
-          showAxis:  {value: useBacgroundStore.getState().mainAxisVisible, type: "f32"},
-          minZoomForGrid: {value: 0.5, type: "f32"}
+          shaderType: {
+            value: 0,
+            type: "f32",
+          },
+          showAxis: {
+            value: useBacgroundStore.getState().mainAxisVisible,
+            type: "f32",
+          },
+          minZoomForGrid: { value: 0.5, type: "f32" },
         },
       };
     } else {
-      if (g && Continuum_Canvas.viewportManager.viewport) {
+      if (Continuum_Canvas.viewportManager.viewport) {
         return {
           uniforms: {
             iResolution: {
@@ -102,9 +101,26 @@ export class ShaderService {
               value: Continuum_Canvas.viewportManager.viewport.scale.x,
               type: "f32",
             },
-            backgroundColor: {
+            uBackgroundColor: {
               value: [127, 127, 127],
               type: "vec3<f32>",
+            },
+            uGridSize: {
+              value: 15,
+              type: "f32",
+            },
+            uLineWidth: {
+              value: 0.04,
+              type: "f32",
+            },
+
+            uGridColor: {
+              value: [0.5, 0, 0],
+              type: "vec3<f32>",
+            },
+            uOpacity: {
+              value: 0.5,
+              type: "f32",
             },
           },
         };
@@ -115,7 +131,7 @@ export class ShaderService {
   public updateUniforms() {
     for (const obj of this.shaders) {
       const shader = obj.filter;
-      if (obj.updateType === "bacground") {
+      if (obj.shaderType === "bacground") {
         if (shader && Continuum_Canvas.viewportManager.viewport) {
           const uniforms = shader.resources.uniforms.uniforms;
           uniforms.viewportPosition = [
@@ -126,29 +142,14 @@ export class ShaderService {
             Continuum_Canvas.viewportManager.viewport.scale.x;
           uniforms.shapeOffset = [0, 0];
         }
-      } else if (obj.updateType === "shape" && obj.shape) {
-        if (shader && Continuum_Canvas.viewportManager.viewport) {
-          const uniforms = shader.resources.uniforms.uniforms;
-          // Update viewport position for shapes too
-          uniforms.viewportPosition = [
-            Continuum_Canvas.viewportManager.viewport.corner.x,
-            Continuum_Canvas.viewportManager.viewport.corner.y,
-          ];
-          uniforms.viewportZoom =
-            Continuum_Canvas.viewportManager.viewport.scale.x;
-
-          // Use world coordinates directly
-          uniforms.shapeOffset = [obj.shape.x, obj.shape.y];
-        }
       }
     }
   }
 
-
-  public updateMainAxises(continumShader: ContinumShader, visible: boolean){
-    if (continumShader.updateType === 'bacground'){
+  public updateMainAxises(continumShader: ContinumShader, visible: boolean) {
+    if (continumShader.shaderType === "bacground") {
       const uniforms = continumShader.filter.resources.uniforms.uniforms;
-      uniforms.showAxis =  visible
+      uniforms.showAxis = visible;
     }
   }
 
