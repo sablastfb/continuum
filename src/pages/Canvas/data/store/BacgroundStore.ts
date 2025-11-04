@@ -2,11 +2,23 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
 import { DeepPartial } from "../types/UtilTypes";
-import { PatternSettings } from "../types/PatternTypes";
+import { DotBackground, GridBackground, LineBackground } from "../types/PatternTypes";
+import { ColorId } from "../palet/PaletContainer";
 
 export type Theme = "dark" | "light";
 
-export type BacgroundData = PatternSettings & {
+export type BacgroundPatternType = "color" | "grid" | "dots" | "line";
+
+export type BacgroundPatternSettings = {
+  activeBacgroundType: BacgroundPatternType
+  fillColorId: ColorId;
+  fillColors: ColorId[];
+  grid: GridBackground;
+  dots: DotBackground;
+  line: LineBackground;
+}
+
+export type BacgroundData = BacgroundPatternSettings & {
     mainAxisVisible: boolean,
 };
 

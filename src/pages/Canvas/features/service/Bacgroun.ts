@@ -3,12 +3,9 @@ import useBacgroundStore, {
   BacgroundStore,
 } from "../../data/store/BacgroundStore";
 import { Continuum_Canvas } from "../CanvasApp";
-import { ContinumShader } from "./ShaderService";
 
-// hold bacground container
 export class BacgroundService {
   private backgroundGraphics?: Graphics;
-  private backgroundShader?: ContinumShader;
 
   public init() {
     this.backgroundGraphics = new Graphics()
@@ -17,6 +14,9 @@ export class BacgroundService {
 
     Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
     this.updateBacground(useBacgroundStore.getState());
+    this.backgroundGraphics.filters = [
+      Continuum_Canvas.bacgroundShaderService.getBacgroundShader(),
+    ];
   }
 
   public updateBacground(bacgroundSettings: BacgroundStore) {
@@ -28,36 +28,7 @@ export class BacgroundService {
       this.backgroundGraphics.tint = color;
     }
     const activeType = bacgroundSettings.activeBacgroundType;
-    switch (activeType) {
-      case "color": {
-        this.backgroundGraphics.filters = [];
-        break;
-      }
-      case "dots": {
-        this.backgroundShader = Continuum_Canvas.shaderService.getNewShader(
-          "dot",
-          "bacground"
-        );
-        Continuum_Canvas.shaderService.updateShaderColor(
-          this.backgroundShader.filter,
-          color
-        );
-        this.backgroundGraphics.filters = [this.backgroundShader.filter];
-        break;
-      }
-      case "grid": {
-        this.backgroundShader = Continuum_Canvas.shaderService.getNewShader(
-          "grid",
-          "bacground"
-        );
-        Continuum_Canvas.shaderService.updateShaderColor(
-          this.backgroundShader.filter,
-          color
-        );
-        this.backgroundGraphics.filters = [this.backgroundShader.filter];
-        break;
-      }
-    }
+    Continuum_Canvas.bacgroundShaderService.updateBacgroundType(activeType);
   }
 
   resize() {
@@ -65,16 +36,6 @@ export class BacgroundService {
       window.innerWidth,
       window.innerHeight
     );
-    const filter = Continuum_Canvas.bacgroundService?.backgroundShader?.filter;
-    if (filter) {
-      const uniforms = filter.resources.uniforms.uniforms;
-      uniforms.iResolution = [window.innerWidth, window.innerHeight];
-    }
-
-    Continuum_Canvas.shaderService?.updateUniforms();
-  }
-
-  public getShader(){
-    return this.backgroundShader;
+    Continuum_Canvas.bacgroundShaderService?.updateBacgroundUniforms();
   }
 }

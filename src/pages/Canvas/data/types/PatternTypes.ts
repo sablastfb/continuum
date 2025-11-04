@@ -1,10 +1,5 @@
+import { ColorId } from "../palet/PaletContainer";
 
-
-import {
-  ColorId,
-} from "../palet/PaletContainer";
-
-export type PatternType = "color" | "grid" | "dots" | "line";
 export type SolidColorBackground = ColorId;
 export type GridBackground = {
   gridBorderColor: ColorId;
@@ -19,13 +14,4 @@ export type DotBackground = {
 export type LineBackground = {
   lineColor: ColorId;
   spaceBetween: number;
-};
-
-export type PatternSettings = {
-  activeBacgroundType: PatternType;
-  fillColorId: ColorId;
-  fillColors: ColorId[];
-  grid: GridBackground;
-  dots: DotBackground;
-  line: LineBackground;
 };

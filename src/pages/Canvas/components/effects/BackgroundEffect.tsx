@@ -13,9 +13,7 @@ const BackgroundEffect = () => {
   }, [bacgroundSettings]);
 
   useEffect(() => {
-    const shader = Continuum_Canvas.bacgroundService.getShader();
-    if (shader)
-    Continuum_Canvas.shaderService.updateMainAxises(shader ,mainAxses);
+    Continuum_Canvas.bacgroundShaderService.updateMainAxises(mainAxses);
   }, [mainAxses]);
 
   useEffect(() => {

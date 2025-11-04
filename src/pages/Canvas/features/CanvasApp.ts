@@ -12,7 +12,8 @@ import { InputBidings } from "./input/InputBiding";
 import { BookmarkService } from "./service/BookMark";
 import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
 import { BacgroundService } from "./service/Bacgroun";
-import { ShaderService } from "./service/ShaderService";
+import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
+import { BacgroundShaderService } from "./service/Shader/BacgroundShaderService";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -28,8 +29,9 @@ export namespace Continuum_Canvas {
   export const bookMarkService = new BookmarkService();
   export const colorPalet = new ColorPalet();
   export const thicknesPalet = new ThicknesPalet();
-  export const shaderService = new ShaderService();
+  export const shapeShaderService = new ShapeShaderService();
   export const bacgroundService = new BacgroundService();
+  export const bacgroundShaderService = new BacgroundShaderService();
 
   export async function creatPixiApp() {
     if (appInstance) {

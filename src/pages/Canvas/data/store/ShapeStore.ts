@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { PatternSettings } from "../types/PatternTypes";
+import { DotBackground, GridBackground, LineBackground } from "../types/PatternTypes";
 import { ColorId } from "../palet/PaletContainer";
 
 export type Shape = "square" | "circle" | "poligon";
@@ -15,8 +15,19 @@ const shapeOutlineColors = [
   "shape-outline-ash",
   "shape-outline-stone"
 ];
+export type ShapePatternTypes = "color" | "grid" | "dots" | "line";
 
-export type ShapeData = PatternSettings & {
+export type ShapePatternSettings = {
+  activeBacgroundType: ShapePatternTypes;
+  fillColorId: ColorId;
+  fillColors: ColorId[];
+  grid: GridBackground;
+  dots: DotBackground;
+  line: LineBackground;
+};
+
+
+export type ShapeData = ShapePatternSettings & {
   shape: Shape;
   strokeColors: ColorId[];
   strokeColorId: ColorId;

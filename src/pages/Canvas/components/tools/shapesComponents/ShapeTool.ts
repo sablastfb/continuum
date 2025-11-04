@@ -21,13 +21,13 @@ export class ShapeTool implements ITool {
     // get shader and set it up
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    const shader = Continuum_Canvas.shaderService.getNewShader(
-      "shapeGrid",
-      "shape",
-      this.shapeGraphics
-    );
-    Continuum_Canvas.shaderService.updateShaderColor(shader.filter, fillColor);
-    this.shapeGraphics.filters = [shader.filter];
+    // const shader = Continuum_Canvas.shapeShaderService.createShapeShader(
+    //   "shapeGrid",
+    //   "shape",
+    //   this.shapeGraphics
+    // );
+    // Continuum_Canvas.shapeShaderService.updateShaderColor(shader.filter, fillColor);
+    // this.shapeGraphics.filters = [shader.filter];
   }
 
   draw(e: InputState): void {
