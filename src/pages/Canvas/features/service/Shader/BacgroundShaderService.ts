@@ -41,10 +41,6 @@ export class BacgroundShaderService {
           value: Continuum_Canvas.viewportManager.viewport.scale.x,
           type: "f32",
         },
-        shapeOffset: {
-          value: [0, 0],
-          type: "vec2<f32>",
-        },
         backgroundColor: {
           value: [0, 0, 0],
           type: "vec3<f32>",
@@ -57,7 +53,6 @@ export class BacgroundShaderService {
           value: useBacgroundStore.getState().mainAxisVisible,
           type: "f32",
         },
-        minZoomForGrid: { value: 0.5, type: "f32" },
       },
     };
     const filter = new Filter({
@@ -89,7 +84,6 @@ export class BacgroundShaderService {
         Continuum_Canvas.viewportManager.viewport.corner.y,
       ];
       uniforms.viewportZoom = Continuum_Canvas.viewportManager.viewport.scale.x;
-      uniforms.shapeOffset = [0, 0];
       uniforms.iResolution = [window.innerWidth, window.innerHeight];
     }
   }
