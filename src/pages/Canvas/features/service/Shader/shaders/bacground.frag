@@ -6,7 +6,7 @@ uniform float viewportZoom;
 uniform vec3 backgroundColor;
 uniform float showAxis;
 uniform float minZoomForGrid;
-uniform float shaderType;
+uniform float patternId;
 
 void simpleGridShader() {
     vec2 screenCoord = gl_FragCoord.xy;
@@ -252,11 +252,11 @@ void gridScale(){
 
 void main(void) {
     // simpleGridShader = 0
-        simpleGridShader();
-    if(shaderType < 0.5) {
-    } else if (shaderType < 1.5) {
+    if(patternId < 0.5) {
+        finalColor = vec4(backgroundColor, 1.0);
+    } else if (patternId < 1.5) {
         dotShader();
-    } else if (shaderType < 2.5) {
-        gridScale();
+    } else if (patternId < 2.5) {
+        simpleGridShader();
     } 
 }

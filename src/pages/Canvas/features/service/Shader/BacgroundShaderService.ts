@@ -15,6 +15,13 @@ export class BacgroundShaderService {
     fragment: bacgrounShader,
   });
 
+  private patternMapper: Record<BacgroundPatternType, number> = {
+    color: 0,
+    dots: 1,
+    grid: 2,
+    line: 3,
+  };
+
   public createBacgroundShader() {
     if (!Continuum_Canvas.viewportManager.viewport) return;
     const bacgroundResurces = {
@@ -67,7 +74,10 @@ export class BacgroundShaderService {
   }
 
   public updateBacgroundType(pattern: BacgroundPatternType) {
+    debugger;
     if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
+      uniforms.patternId = this.patternMapper[pattern];
     }
   }
 
@@ -90,9 +100,9 @@ export class BacgroundShaderService {
     uniforms.showAxis = visible;
   }
 
-  public updateShaderColor(shader: Filter, color: string) {
-    if (shader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = shader.resources.uniforms.uniforms;
+  public updateShaderColor(color: string) {
+    if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
       uniforms.backgroundColor = ShaderUtils.rgbStringToVec3(color);
     }
   }

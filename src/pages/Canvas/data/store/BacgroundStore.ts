@@ -5,7 +5,6 @@ import { DeepPartial } from "../types/UtilTypes";
 import { DotBackground, GridBackground, LineBackground } from "../types/PatternTypes";
 import { ColorId } from "../palet/PaletContainer";
 
-export type Theme = "dark" | "light";
 
 export type BacgroundPatternType = "color" | "grid" | "dots" | "line";
 
@@ -33,7 +32,7 @@ export interface BacgroundStore extends BacgroundData {
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const BacgroundDefault: BacgroundData = {
-  activeBacgroundType: "grid",
+  activeBacgroundType: "dots",
   fillColorId: backgroundColors[0],
   fillColors: backgroundColors,
   mainAxisVisible: false,
