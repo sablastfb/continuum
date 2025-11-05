@@ -49,8 +49,6 @@ export namespace Continuum_Canvas {
   async function setUpAplication(): Promise<Application> {
     const app = new Application();
     await app.init({
-      antialias: true,
-      resolution: window.devicePixelRatio || 1,
       autoDensity: true,
       background: colorPalet.getColor(
         useBacgroundStore.getState().fillColorId

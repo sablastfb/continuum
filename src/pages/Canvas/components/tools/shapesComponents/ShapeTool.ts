@@ -5,6 +5,7 @@ import { ITool } from "../../../features/tools/ToolManager";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import { SimplePoint } from "../../../data/types/PointTypes";
 import { useShapesStore } from "../../../data/store/ShapeStore";
+import { ShapeCursor } from "../../../features/cursor/ShapeCursor";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";
@@ -65,8 +66,7 @@ export class ShapeTool implements ITool {
     this.shapeGraphics = null;
   }
 
-  // craete some sort of cursor
-  updateCursor(): void {}
+
 
   private drawRect(
     p1: SimplePoint,
@@ -183,5 +183,13 @@ export class ShapeTool implements ITool {
     //     x: this.shapeGraphics.width,
     //     y: this.shapeGraphics.height,
     //   });
+
+    
+  }
+
+    // craete some sort of cursor
+  updateCursor(): void {
+      Continuum_Canvas.cursorManager.cursor = new Graphics().rect(0,0,100,100).fill("red");
+      debugger;
   }
 }

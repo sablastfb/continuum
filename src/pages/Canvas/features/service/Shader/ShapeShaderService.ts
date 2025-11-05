@@ -68,7 +68,6 @@ export class ShapeShaderService {
       const shader = c.filter;
       if (shader && Continuum_Canvas.viewportManager.viewport) {
         const uniforms = shader.resources.uniforms.uniforms;
-        debugger;
         uniforms.viewportZoom = Continuum_Canvas.viewportManager.viewport.scale.x;
       }
     }
