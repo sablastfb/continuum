@@ -1,4 +1,4 @@
-import { Graphics } from "pixi.js";
+import { Filter, Graphics } from "pixi.js";
 import { ToolType } from "../../../data/types/ToolTypes";
 import { InputState } from "../../../features/input/InputState";
 import { ITool } from "../../../features/tools/ToolManager";
@@ -12,22 +12,25 @@ export class ShapeTool implements ITool {
   strokeGraphics: Graphics | null = null;
   // create graphic depending on state,
   startPoint: SimplePoint = { x: 0, y: 0 };
+  curenetfilter?: Filter;
+  
   startDrawing(e: InputState): void {
     this.shapeGraphics = new Graphics();
     this.strokeGraphics = new Graphics();
     this.startPoint = { ...e.mousePosition };
     Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
     Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
-    // get shader and set it up
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    // const shader = Continuum_Canvas.shapeShaderService.createShapeShader(
-    //   "shapeGrid",
-    //   "shape",
-    //   this.shapeGraphics
-    // );
-    // Continuum_Canvas.shapeShaderService.updateShaderColor(shader.filter, fillColor);
-    // this.shapeGraphics.filters = [shader.filter];
+    const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
+    if (shader) {
+      this.curenetfilter = shader?.filter;
+      Continuum_Canvas.shapeShaderService.updateShaderColor(
+        shader.filter,
+        fillColor
+      );
+      this.shapeGraphics.filters = [shader.filter];
+    }
   }
 
   draw(e: InputState): void {

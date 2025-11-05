@@ -191,7 +191,7 @@ void main(void) {
         color = gridScalePattern(worldCoord, screenCoord);
     }
 
-    if(showAxis < 0.5) {
+    if(showAxis > 0.5) {
         vec3 axes = calculateAxes(worldCoord, 1.0);
         color = color * (1.0 - clamp(length(axes), 0.0, 1.0)) + axes;
     }
