@@ -1,6 +1,7 @@
 in vec2 aPosition;
 
 out vec2 vTextureCoord;
+out vec2 vTextureSize;
 
 uniform vec4 uInputSize;
 uniform vec4 uOutputFrame;
@@ -20,4 +21,5 @@ vec2 filterTextureCoord() {
 void main(void) {
     gl_Position = filterVertexPosition();
     vTextureCoord = filterTextureCoord();
+    vTextureSize = uInputSize.xy;
 }

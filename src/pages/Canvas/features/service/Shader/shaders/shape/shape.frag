@@ -1,14 +1,32 @@
 in vec2 vTextureCoord;
+in vec2 vTextureSize;
 out vec4 finalColor;
 
 uniform sampler2D uTexture;
-uniform vec3 uFillColor;
+uniform vec3 uBackgroundColor;
+uniform vec3 uGridColor;
+uniform float uGridSize;
+uniform float uLineWidth;
+uniform float uOpacity;
 
 void main(void) {
     // Get the original texture alpha (shape mask)
     vec4 texColor = texture(uTexture, vTextureCoord);
     
-    // Use the alpha channel to determine if we're inside the shape
-    // Fill with color only where the shape exists
-    finalColor = vec4(texColor.a,0.0,0.0, texColor.a);
+    // Convert texture coords to pixel space for grid
+    vec2 pixelCoord = vTextureCoord * vTextureSize;
+    
+    // Calculate grid pattern
+    vec2 gridPos = mod(pixelCoord, uGridSize);
+    float distToGrid = min(gridPos.x, gridPos.y);
+    distToGrid = min(distToGrid, min(uGridSize - gridPos.x, uGridSize - gridPos.y));
+    
+    // Create grid lines with anti-aliasing
+    float grid = 1.0 - smoothstep(uLineWidth - 0.5, uLineWidth + 0.5, distToGrid);
+    
+    // Mix background and grid colors
+    vec3 color = mix(uBackgroundColor, uGridColor, grid * uOpacity);
+    
+    // Apply shape mask (only show pattern inside the shape)
+    finalColor = vec4(color*texColor.a, texColor.a);
 }

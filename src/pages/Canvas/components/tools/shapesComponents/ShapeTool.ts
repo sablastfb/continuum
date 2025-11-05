@@ -13,7 +13,7 @@ export class ShapeTool implements ITool {
   // create graphic depending on state,
   startPoint: SimplePoint = { x: 0, y: 0 };
   curenetfilter?: Filter;
-  
+
   startDrawing(e: InputState): void {
     this.shapeGraphics = new Graphics();
     this.strokeGraphics = new Graphics();
@@ -177,5 +177,11 @@ export class ShapeTool implements ITool {
         .stroke({ width: stroke, color: "white" });
       this.strokeGraphics.tint = strokeColor;
     }
+
+    // if (this.curenetfilter)
+    //   Continuum_Canvas.shapeShaderService.updateShapeSize(this.curenetfilter, {
+    //     x: this.shapeGraphics.width,
+    //     y: this.shapeGraphics.height,
+    //   });
   }
 }
