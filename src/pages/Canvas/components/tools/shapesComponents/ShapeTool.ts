@@ -1,4 +1,13 @@
-import { Filter, Graphics } from "pixi.js";
+import {
+  Filter,
+  Geometry,
+  Graphics,
+  Mesh,
+  MeshGeometry,
+  MeshSimple,
+  Shader,
+  Texture,
+} from "pixi.js";
 import { ToolType } from "../../../data/types/ToolTypes";
 import { InputState } from "../../../features/input/InputState";
 import { ITool } from "../../../features/tools/ToolManager";
@@ -16,21 +25,27 @@ export class ShapeTool implements ITool {
   curenetfilter?: Filter;
 
   startDrawing(e: InputState): void {
-    this.shapeGraphics = new Graphics();
-    this.strokeGraphics = new Graphics();
-    this.startPoint = { ...e.mousePosition };
-    Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
-    Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
-    const colorId = useShapesStore.getState().fillColorId;
-    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
-    if (shader) {
-      this.curenetfilter = shader?.filter;
-      Continuum_Canvas.shapeShaderService.updateShaderColor(
-        shader.filter,
-        fillColor
-      );
-      this.shapeGraphics.filters = [shader.filter];
+    // this.shapeGraphics = new Graphics();
+    // this.strokeGraphics = new Graphics();
+    // this.startPoint = { ...e.mousePosition };
+    // Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
+    // Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
+    // const colorId = useShapesStore.getState().fillColorId;
+    // const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    // const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
+    // if (shader) {
+    //   this.curenetfilter = shader?.filter;
+    //   Continuum_Canvas.shapeShaderService.updateShaderColor(
+    //     shader.filter,
+    //     fillColor
+    //   );
+    //   this.shapeGraphics.filters = [shader.filter];
+    // }
+
+    const square = this.createSquareMesh();
+    if (Continuum_Canvas.viewportManager.viewport) {
+      debugger;
+      Continuum_Canvas.viewportManager.viewport.addChild(square);
     }
   }
 
@@ -66,7 +81,75 @@ export class ShapeTool implements ITool {
     this.shapeGraphics = null;
   }
 
+  createSquareMesh() {
+    const geometry = new MeshGeometry({
+      positions: new Float32Array([
+        0,
+        0, // top-left
+        100,
+        0, // top-right
+        100,
+        100, // bottom-right
+        0,
+        100, // bottom-left
+      ]),
+      uvs: new Float32Array([
+        0,
+        0, // top-left UV
+        1,
+        0, // top-right UV
+        1,
+        1, // bottom-right UV
+        0,
+        1, // bottom-left UV
+      ]),
+      indices: new Uint32Array([0, 1, 2, 0, 2, 3]),
+    });
 
+    const shader = Shader.from({
+      gl: {
+        vertex: `
+        precision mediump float;
+        
+        // PixiJS standard attributes
+        attribute vec2 aPosition;
+        attribute vec2 aUV;
+        
+        // PixiJS standard uniforms for transformations
+        uniform mat3 uProjectionMatrix;
+        uniform mat3 uWorldTransformMatrix;
+        uniform mat3 uTransformMatrix;
+        
+        varying vec2 vUV;
+        
+        void main() {
+            // Apply PixiJS transformations
+            mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
+            vec2 position = (mvp * vec3(aPosition, 1.0)).xy;
+            
+            gl_Position = vec4(position, 0.0, 1.0);
+            vUV = aUV;
+        }
+      `,
+        fragment: `
+        precision mediump float;
+        varying vec2 vUV;
+        
+        void main() {
+            // Display UV coordinates as colors (red = U, green = V)
+            gl_FragColor = vec4(vUV.x, vUV.y, 0.0, 1.0);
+        }
+      `,
+      },
+      resources: {},
+    });
+
+    const mesh = new Mesh({
+      geometry: geometry,
+      shader: shader,
+    });
+    return mesh;
+  }
 
   private drawRect(
     p1: SimplePoint,
@@ -183,13 +266,12 @@ export class ShapeTool implements ITool {
     //     x: this.shapeGraphics.width,
     //     y: this.shapeGraphics.height,
     //   });
-
-    
   }
 
-    // craete some sort of cursor
+  // craete some sort of cursor
   updateCursor(): void {
-      Continuum_Canvas.cursorManager.cursor = new Graphics().rect(0,0,100,100).fill("red");
-      debugger;
+    Continuum_Canvas.cursorManager.cursor = new Graphics()
+      .rect(0, 0, 100, 100)
+      .fill("red");
   }
 }

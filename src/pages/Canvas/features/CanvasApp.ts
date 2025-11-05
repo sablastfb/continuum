@@ -50,9 +50,10 @@ export namespace Continuum_Canvas {
     const app = new Application();
     await app.init({
       autoDensity: true,
-      background: colorPalet.getColor(
-        useBacgroundStore.getState().fillColorId
-      ),
+      antialias: true,
+      resolution: window.devicePixelRatio || 1,
+
+      background: colorPalet.getColor(useBacgroundStore.getState().fillColorId),
     });
 
     Continuum_Canvas.appInstance = app;
