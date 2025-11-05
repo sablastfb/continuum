@@ -1,6 +1,6 @@
 import { Filter, GlProgram } from "pixi.js";
-import standardVetex from "./shaders/shader.vert?raw";
-import gridShapeShader from "./shaders/shape.frag?raw";
+import standardVetex from "./shaders/shape/shape.vert?raw";
+import gridShapeShader from "./shaders/shape/shape.frag?raw";
 import { Continuum_Canvas } from "../../CanvasApp";
 import { ShaderUtils } from "./ShaderUtils";
 
@@ -19,7 +19,8 @@ export class ShapeShaderService {
 
   public createShapeShader() {
     if (!Continuum_Canvas.viewportManager.viewport) return;
-
+    
+    /// will update to my needs 
     const shapeResurces = {
       uniforms: {
         iResolution: {
@@ -58,12 +59,17 @@ export class ShapeShaderService {
       glProgram: this.shapeGlProgram,
       resources: shapeResurces,
     });
+    
     const shader = {
       filter,
       id: this.lastId++,
     } as ContinumShader;
     this.shapeShaders.push(shader);
     return shader;
+  }
+
+  public updateShapeSize(shader: Filter){
+
   }
 
   public updateShaderColor(shader: Filter, color: string) {

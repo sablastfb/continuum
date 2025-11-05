@@ -1,6 +1,6 @@
 import { Filter, GlProgram } from "pixi.js";
-import standardVetex from "./shaders/shader.vert?raw";
-import bacgrounShader from "./shaders/bacground.frag?raw";
+import standardVetex from "./shaders/bacground/bacground.vert?raw";
+import bacgrounShader from "./shaders/bacground/bacground.frag?raw";
 import { Continuum_Canvas } from "../../CanvasApp";
 import useBacgroundStore, {
   BacgroundPatternType,
@@ -69,7 +69,6 @@ export class BacgroundShaderService {
   }
 
   public updateBacgroundType(pattern: BacgroundPatternType) {
-    debugger;
     if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
       const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
       uniforms.patternId = this.patternMapper[pattern];
