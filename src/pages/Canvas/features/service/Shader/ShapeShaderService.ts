@@ -44,6 +44,10 @@ export class ShapeShaderService {
           value: 0.7, // Grid line opacity
           type: "f32",
         },
+        viewportZoom: {
+          value: Continuum_Canvas.viewportManager.viewport.scale.x,
+          type: "f32",
+        },
       },
     };
     const filter = new Filter({
@@ -59,10 +63,14 @@ export class ShapeShaderService {
     return shader;
   }
 
-  public updateShapeSize(shader: Filter, size: SimplePoint) {
-    if (shader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = shader.resources.uniforms.uniforms;
-      // uniforms.backgroundColor = ShaderUtils.rgbStringToVec3(color);
+  public updateShapeSize() {
+    for(const c of this.shapeShaders){
+      const shader = c.filter;
+      if (shader && Continuum_Canvas.viewportManager.viewport) {
+        const uniforms = shader.resources.uniforms.uniforms;
+        debugger;
+        uniforms.viewportZoom = Continuum_Canvas.viewportManager.viewport.scale.x;
+      }
     }
   }
 
