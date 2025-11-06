@@ -44,8 +44,11 @@ export class ShapeTool implements ITool {
 
     const square = this.createSquareMesh();
     if (Continuum_Canvas.viewportManager.viewport) {
-      debugger;
       Continuum_Canvas.viewportManager.viewport.addChild(square);
+      square.x = e.mousePosition.x;
+      square.y = e.mousePosition.y;
+      square.width*=10*Math.random();
+      square.height*=10*Math.random();
     }
   }
 
@@ -81,68 +84,85 @@ export class ShapeTool implements ITool {
     this.shapeGraphics = null;
   }
 
-  createSquareMesh() {
-    const geometry = new MeshGeometry({
-      positions: new Float32Array([
-        0,
-        0, // top-left
-        100,
-        0, // top-right
-        100,
-        100, // bottom-right
-        0,
-        100, // bottom-left
-      ]),
-      uvs: new Float32Array([
-        0,
-        0, // top-left UV
-        1,
-        0, // top-right UV
-        1,
-        1, // bottom-right UV
-        0,
-        1, // bottom-left UV
-      ]),
-      indices: new Uint32Array([0, 1, 2, 0, 2, 3]),
-    });
+createSquareMesh() {
+  const width = 100;
+  const height = 100;
+  
+  const geometry = new MeshGeometry({
+    positions: new Float32Array([
+      -width/2, -height/2,  // top-left (centered)
+       width/2, -height/2,  // top-right
+       width/2,  height/2,  // bottom-right
+      -width/2,  height/2   // bottom-left
+    ]),
 
-    const shader = Shader.from({
-      gl: {
-        vertex: `
+    
+    uvs: new Float32Array([
+      0, 0,  
+      1, 0,  
+      1, 1,  
+      0, 1
+    ]),
+    indices: new Uint32Array([0, 1, 2, 0, 2, 3]),
+  });
+
+  const shader = Shader.from({
+    gl: {
+      vertex: `
         precision mediump float;
         
-        // PixiJS standard attributes
         attribute vec2 aPosition;
         attribute vec2 aUV;
         
-        // PixiJS standard uniforms for transformations
         uniform mat3 uProjectionMatrix;
         uniform mat3 uWorldTransformMatrix;
         uniform mat3 uTransformMatrix;
         
         varying vec2 vUV;
+        varying vec2 vPosition; // Pass actual position to fragment shader
         
         void main() {
-            // Apply PixiJS transformations
             mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
             vec2 position = (mvp * vec3(aPosition, 1.0)).xy;
             
             gl_Position = vec4(position, 0.0, 1.0);
             vUV = aUV;
+            vPosition = aPosition; // World space position
         }
       `,
-        fragment: `
+      fragment: `
         precision mediump float;
+        
         varying vec2 vUV;
+        varying vec2 vPosition;
+        
+        uniform vec2 uDimensions;  // Width and height of mesh
+        uniform float uSquareSize; // Size of each checkerboard square
         
         void main() {
-            // Display UV coordinates as colors (red = U, green = V)
-            gl_FragColor = vec4(vUV.x, vUV.y, 0.0, 1.0);
+            // Convert position to pattern space
+            // Map from [-width/2, width/2] to [0, width]
+            vec2 pos = vPosition + uDimensions * 0.5;
+            
+            // Calculate checkerboard in pixel space
+            vec2 grid = floor(pos / uSquareSize);
+            float checker = mod(grid.x + grid.y, 2.0);
+            
+            vec3 color1 = vec3(0.2, 0.3, 0.6);
+            vec3 color2 = vec3(0.8, 0.9, 1.0);
+            vec3 color = mix(color1, color2, checker);
+            
+            gl_FragColor = vec4(color, 1.0);
         }
       `,
-      },
-      resources: {},
-    });
+    },
+    resources: {
+        uniforms: {
+          uDimensions: { value: [width, height], type: 'vec2<f32>' },
+          uSquareSize: { value: 20.0, type: 'f32' } // 20 pixels per square
+      }
+    },
+  });
 
     const mesh = new Mesh({
       geometry: geometry,
