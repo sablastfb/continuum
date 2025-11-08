@@ -1,13 +1,4 @@
-import {
-  Filter,
-  Geometry,
-  Graphics,
-  Mesh,
-  MeshGeometry,
-  MeshSimple,
-  Shader,
-  Texture,
-} from "pixi.js";
+import { Filter, Graphics } from "pixi.js";
 import { ToolType } from "../../../data/types/ToolTypes";
 import { InputState } from "../../../features/input/InputState";
 import { ITool } from "../../../features/tools/ToolManager";
@@ -25,30 +16,21 @@ export class ShapeTool implements ITool {
   curenetfilter?: Filter;
 
   startDrawing(e: InputState): void {
-    // this.shapeGraphics = new Graphics();
-    // this.strokeGraphics = new Graphics();
-    // this.startPoint = { ...e.mousePosition };
-    // Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
-    // Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
-    // const colorId = useShapesStore.getState().fillColorId;
-    // const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    // const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
-    // if (shader) {
-    //   this.curenetfilter = shader?.filter;
-    //   Continuum_Canvas.shapeShaderService.updateShaderColor(
-    //     shader.filter,
-    //     fillColor
-    //   );
-    //   this.shapeGraphics.filters = [shader.filter];
-    // }
-
-    const square = this.createSquareMesh();
-    if (Continuum_Canvas.viewportManager.viewport) {
-      Continuum_Canvas.viewportManager.viewport.addChild(square);
-      square.x = e.mousePosition.x;
-      square.y = e.mousePosition.y;
-      square.width*=10*Math.random();
-      square.height*=10*Math.random();
+    this.shapeGraphics = new Graphics();
+    this.strokeGraphics = new Graphics();
+    this.startPoint = { ...e.mousePosition };
+    Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
+    Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
+    const colorId = useShapesStore.getState().fillColorId;
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
+    if (shader) {
+      this.curenetfilter = shader?.filter;
+      Continuum_Canvas.shapeShaderService.updateShaderColor(
+        shader.filter,
+        fillColor
+      );
+      this.shapeGraphics.filters = [shader.filter];
     }
   }
 
@@ -84,92 +66,7 @@ export class ShapeTool implements ITool {
     this.shapeGraphics = null;
   }
 
-createSquareMesh() {
-  const width = 100;
-  const height = 100;
-  
-  const geometry = new MeshGeometry({
-    positions: new Float32Array([
-      -width/2, -height/2,  // top-left (centered)
-       width/2, -height/2,  // top-right
-       width/2,  height/2,  // bottom-right
-      -width/2,  height/2   // bottom-left
-    ]),
 
-    
-    uvs: new Float32Array([
-      0, 0,  
-      1, 0,  
-      1, 1,  
-      0, 1
-    ]),
-    indices: new Uint32Array([0, 1, 2, 0, 2, 3]),
-  });
-
-  const shader = Shader.from({
-    gl: {
-      vertex: `
-        precision mediump float;
-        
-        attribute vec2 aPosition;
-        attribute vec2 aUV;
-        
-        uniform mat3 uProjectionMatrix;
-        uniform mat3 uWorldTransformMatrix;
-        uniform mat3 uTransformMatrix;
-        
-        varying vec2 vUV;
-        varying vec2 vPosition; // Pass actual position to fragment shader
-        
-        void main() {
-            mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
-            vec2 position = (mvp * vec3(aPosition, 1.0)).xy;
-            
-            gl_Position = vec4(position, 0.0, 1.0);
-            vUV = aUV;
-            vPosition = aPosition; // World space position
-        }
-      `,
-      fragment: `
-        precision mediump float;
-        
-        varying vec2 vUV;
-        varying vec2 vPosition;
-        
-        uniform vec2 uDimensions;  // Width and height of mesh
-        uniform float uSquareSize; // Size of each checkerboard square
-        
-        void main() {
-            // Convert position to pattern space
-            // Map from [-width/2, width/2] to [0, width]
-            vec2 pos = vPosition + uDimensions * 0.5;
-            
-            // Calculate checkerboard in pixel space
-            vec2 grid = floor(pos / uSquareSize);
-            float checker = mod(grid.x + grid.y, 2.0);
-            
-            vec3 color1 = vec3(0.2, 0.3, 0.6);
-            vec3 color2 = vec3(0.8, 0.9, 1.0);
-            vec3 color = mix(color1, color2, checker);
-            
-            gl_FragColor = vec4(color, 1.0);
-        }
-      `,
-    },
-    resources: {
-        uniforms: {
-          uDimensions: { value: [width, height], type: 'vec2<f32>' },
-          uSquareSize: { value: 20.0, type: 'f32' } // 20 pixels per square
-      }
-    },
-  });
-
-    const mesh = new Mesh({
-      geometry: geometry,
-      shader: shader,
-    });
-    return mesh;
-  }
 
   private drawRect(
     p1: SimplePoint,
@@ -177,6 +74,8 @@ createSquareMesh() {
     drawFill: boolean,
     drawStroke: boolean
   ) {
+    const mesh = new Mesh{};
+    MessageChannel.germetry ; 
     if (!this.shapeGraphics) return;
     if (!this.strokeGraphics) return;
     const width = Math.abs(p1.x - p2.x);
@@ -288,10 +187,8 @@ createSquareMesh() {
     //   });
   }
 
-  // craete some sort of cursor
+    // craete some sort of cursor
   updateCursor(): void {
-    Continuum_Canvas.cursorManager.cursor = new Graphics()
-      .rect(0, 0, 100, 100)
-      .fill("red");
+      Continuum_Canvas.cursorManager.cursor = new Graphics().rect(0,0,100,100).fill("red");
   }
 }
