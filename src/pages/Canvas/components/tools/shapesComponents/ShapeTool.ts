@@ -1,4 +1,4 @@
-import { Filter, Graphics } from "pixi.js";
+import { Filter, Graphics, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { ToolType } from "../../../data/types/ToolTypes";
 import { InputState } from "../../../features/input/InputState";
 import { ITool } from "../../../features/tools/ToolManager";
@@ -74,8 +74,49 @@ export class ShapeTool implements ITool {
     drawFill: boolean,
     drawStroke: boolean
   ) {
-    const mesh = new Mesh{};
-    MessageChannel.germetry ; 
+  const geometry = new MeshGeometry({
+    positions: new Float32Array([0, 0, 100, 0, 100, 100, 0, 100]),
+    uvs: new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]),
+    indices: new Uint32Array([0, 1, 2, 0, 2, 3]),
+  });
+const shader = Shader.from({
+  gl: {
+    vertex: `
+      attribute vec2 aPosition;
+      attribute vec2 aUV;
+      
+      uniform mat3 uProjectionMatrix;
+      uniform mat3 uWorldTransformMatrix;
+      uniform mat3 uTransformMatrix;
+      
+      varying vec2 vUV;
+      
+      void main() {
+        mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
+        gl_Position = vec4((mvp * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
+        vUV = aUV;
+      }
+    `,
+    fragment: `
+      precision mediump float;
+      varying vec2 vUV;
+      
+      void main() {
+        gl_FragColor = vec4(vUV.x, vUV.y, 0.0, 1.0);
+      }
+    `,
+  },
+});
+
+const mesh = new Mesh({ geometry, shader });
+mesh.position.set(200, 200); // Now this will work!
+
+    Continuum_Canvas.viewportManager.viewport?.addChild(mesh);
+    debugger;
+
+
+
+
     if (!this.shapeGraphics) return;
     if (!this.strokeGraphics) return;
     const width = Math.abs(p1.x - p2.x);
