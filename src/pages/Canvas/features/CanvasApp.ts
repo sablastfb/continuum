@@ -14,6 +14,7 @@ import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
 import { BacgroundService } from "./service/Bacgroun";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
 import { BacgroundShaderService } from "./service/Shader/BacgroundShaderService";
+import { MeshCreator } from "./service/MeshUtils";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -32,6 +33,7 @@ export namespace Continuum_Canvas {
   export const shapeShaderService = new ShapeShaderService();
   export const bacgroundService = new BacgroundService();
   export const bacgroundShaderService = new BacgroundShaderService();
+  export const meshCreator = new MeshCreator();
 
   export async function creatPixiApp() {
     if (appInstance) {
