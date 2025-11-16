@@ -1,22 +1,16 @@
-in vec2 vTextureCoord;
-in vec2 vObjectCoord; // NOW this is 0-1 across entire object!
+precision mediump float;
+varying vec2 vUV;
+varying vec2 vWorldPosition; // Add this
+uniform vec2 iResolution;
 
-uniform sampler2D uTexture;
-uniform float uWaveAmplitude;
-uniform float uWaveFrequency;
-uniform float uTime;
+void main() {
+    
+    float f = -vUV.x*vUV.x + vUV.y;
+    if (f  <= 0.01 && f >= 0.0){
+    gl_FragColor = vec4(1.0,0.0,0.0, 1.0);
+    } else {
 
-void main(void) {
-    // vObjectCoord is now stable across the entire geometry
-    vec2 coord = vObjectCoord;
-    
-    // Apply wave based on object-space coordinates
-    float wave = sin(coord.x * uWaveFrequency + uTime) * uWaveAmplitude;
-    vec2 distortedCoord = vTextureCoord + vec2(0.0, wave * 0.01);
-    
-    vec4 color = texture(uTexture, distortedCoord);
-    gl_FragColor = vec4(coord, 0.0,1.0);
-    
-    // Or for testing:
-    // gl_FragColor = vec4(coord.xy, 0.0, 1.0);
+    gl_FragColor = vec4(0.0,0.0,0.0, 1.0);
+    }
+
 }

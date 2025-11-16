@@ -1,33 +1,12 @@
 import { earcut, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
-
+import vertex from "./Shader/shaders/shape/shape.vert?raw";
+import gridShapeShader from "./Shader/shaders/shape/shape.frag?raw";
 export class MeshCreator {
   shader = Shader.from({
     gl: {
-      vertex: `
-      attribute vec2 aPosition;
-      attribute vec2 aUV;
-      
-      uniform mat3 uProjectionMatrix;
-      uniform mat3 uWorldTransformMatrix;
-      uniform mat3 uTransformMatrix;
-      
-      varying vec2 vUV;
-      
-      void main() {
-        mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
-        gl_Position = vec4((mvp * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
-        vUV = aUV;
-      }
-    `,
-      fragment: `
-      precision mediump float;
-      varying vec2 vUV;
-      
-      void main() {
-        gl_FragColor = vec4(vUV.x, vUV.y, 0.0, 1.0);
-      }
-    `,
+      vertex: vertex,
+      fragment: gridShapeShader,
     },
     resources: {
       shaderToyUniforms: {
@@ -38,7 +17,7 @@ export class MeshCreator {
   });
 
   public createRoundedRectangle() {
-    const geometry = this.rectangleGeometry();
+    const geometry = this.roundedRectangleGeometry(1, 1, 0.05); // width, height, radius
     return new Mesh({ geometry, shader: this.shader });
   }
 
@@ -49,6 +28,56 @@ export class MeshCreator {
     for (let i = 0; i < positions.length; i += 2) {
       uvs.push(positions[i], positions[i + 1]);
     }
+    return new MeshGeometry({
+      positions,
+      uvs: new Float32Array(uvs),
+      indices: new Uint32Array(indices),
+    });
+  }
+
+  private roundedRectangleGeometry(
+    width: number = 2, 
+    height: number = 1, 
+    radius: number = 0.0, 
+    cornerSegments: number = 8
+  ) {
+    const coords: number[] = [];
+    
+    // Helper to add corner arc
+    const addCorner = (cx: number, cy: number, startAngle: number) => {
+      for (let i = 0; i <= cornerSegments; i++) {
+        const angle = startAngle + (i / cornerSegments) * (Math.PI / 2);
+        coords.push(
+          cx + Math.cos(angle) * radius,
+          cy + Math.sin(angle) * radius
+        );
+      }
+    };
+    
+    // Top-right corner (starting from top, going right)
+    addCorner(width - radius, radius, -Math.PI / 2);
+    
+    // Bottom-right corner (starting from right, going down)
+    addCorner(width - radius, height - radius, 0);
+    
+    // Bottom-left corner (starting from bottom, going left)
+    addCorner(radius, height - radius, Math.PI / 2);
+    
+    // Top-left corner (starting from left, going up)
+    addCorner(radius, radius, Math.PI);
+    
+    const positions = new Float32Array(coords);
+    const indices = earcut(positions);
+    
+    // Generate UVs normalized to 0-1
+    const uvs: number[] = [];
+    for (let i = 0; i < positions.length; i += 2) {
+      uvs.push(
+        positions[i] / width,
+        positions[i + 1] / height
+      );
+    }
+    
     return new MeshGeometry({
       positions,
       uvs: new Float32Array(uvs),

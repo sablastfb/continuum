@@ -1,28 +1,19 @@
-in vec2 aPosition;
-out vec2 vTextureCoord;
-out vec2 vObjectCoord; // Normalized across FULL object
+attribute vec2 aPosition;
+attribute vec2 aUV;
 
-uniform vec4 uInputSize;
-uniform vec4 uOutputFrame;
-uniform vec4 uOutputTexture;
-uniform vec4 uObjectBounds; // [x, y, width, height]
+uniform mat3 uProjectionMatrix;
+uniform mat3 uWorldTransformMatrix;
+uniform mat3 uTransformMatrix;
 
-vec4 filterVertexPosition(void) {
-    vec2 position = aPosition * uOutputFrame.zw + uOutputFrame.xy;
-    position.x = position.x * (2.0 / uOutputTexture.x) - 1.0;
-    position.y = position.y * (2.0 * uOutputTexture.z / uOutputTexture.y) - uOutputTexture.z;
-    return vec4(position, 0.0, 1.0);
-}
+varying vec2 vUV;
+varying vec2 vWorldPosition; // Add this
 
-vec2 filterTextureCoord(void) {
-    return aPosition * (uOutputFrame.zw * uInputSize.zw);
-}
-
-void main(void) {
-    gl_Position = filterVertexPosition();
-    vTextureCoord = filterTextureCoord();
+void main() {
+    mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
+    gl_Position = vec4((mvp * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
+    vUV = aUV;
     
-    // Convert to world space, then normalize by object bounds
-    vec2 worldPos = aPosition * uOutputFrame.zw + uOutputFrame.xy;
-    vObjectCoord = (worldPos - uObjectBounds.xy) / uObjectBounds.zw;
+    // Calculate world position
+    vec3 worldPos = uWorldTransformMatrix * uTransformMatrix * vec3(aPosition, 1.0);
+    vWorldPosition = worldPos.xy; // Add this
 }

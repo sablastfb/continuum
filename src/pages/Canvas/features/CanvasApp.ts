@@ -14,7 +14,7 @@ import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
 import { BacgroundService } from "./service/Bacgroun";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
 import { BacgroundShaderService } from "./service/Shader/BacgroundShaderService";
-import { MeshCreator } from "./service/MeshUtils";
+import { MeshCreator } from "./service/MeshCreator";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;

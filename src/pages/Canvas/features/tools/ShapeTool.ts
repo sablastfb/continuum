@@ -6,7 +6,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
 import { useShapesStore } from "../../data/store/ShapeStore";
 import { ShapeCursor } from "../cursor/ShapeCursor";
-import { MeshCreator } from "../service/MeshUtils";
+import { MeshCreator } from "../service/MeshCreator";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";
@@ -40,7 +40,7 @@ export class ShapeTool implements ITool {
     if (!this.strokeGraphics) return;
 
     const currentPoint = { ...e.mousePosition };
-
+    this.shapeGraphics.tint = "0xFFFFFF";
     // this.shapeGraphics.clear();
     this.strokeGraphics.clear();
 
