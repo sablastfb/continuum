@@ -1,4 +1,4 @@
-import { Filter, GlProgram } from "pixi.js";
+import { Filter, GlProgram, Graphics } from "pixi.js";
 import standardVetex from "./shaders/shape/shape.vert?raw";
 import gridShapeShader from "./shaders/shape/shape.frag?raw";
 import { Continuum_Canvas } from "../../CanvasApp";
@@ -48,6 +48,10 @@ export class ShapeShaderService {
           value: Continuum_Canvas.viewportManager.viewport.scale.x,
           type: "f32",
         },
+        uObjectBounds: {
+          value: [0,0,0,0],
+          type: "vec4<f32>"
+        },
       },
     };
     const filter = new Filter({
@@ -62,6 +66,19 @@ export class ShapeShaderService {
     this.shapeShaders.push(shader);
     return shader;
   }
+
+
+  public updateShapeBounds(shader: Filter, graphic: Graphics){
+      if (shader && Continuum_Canvas.viewportManager.viewport) {
+        const bounds = graphic.getBounds();
+      const uniforms = shader.resources.uniforms.uniforms;
+      uniforms.uObjectBounds  =[
+        bounds.x,bounds.y, bounds.width, bounds.height
+      ];
+      console.log(bounds);
+    }
+  }
+
 
   public updateShapeSize() {
     for(const c of this.shapeShaders){

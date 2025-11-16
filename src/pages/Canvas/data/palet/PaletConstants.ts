@@ -1,4 +1,4 @@
-import { ShapeColors } from "../../components/tools/shapesComponents/ShapeColor";
+import { ShapeColors } from "./ShapeColor";
 import { BacgroundColors } from "./BacgroundColor";
 import { MarkerColors } from "./MarkerColors";
 import { PenColors } from "./PenColor";
