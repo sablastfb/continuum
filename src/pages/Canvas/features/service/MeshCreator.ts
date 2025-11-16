@@ -9,9 +9,8 @@ export class MeshCreator {
       fragment: gridShapeShader,
     },
     resources: {
-      shaderToyUniforms: {
-        iResolution: { value: [640, 360, 1], type: "vec3<f32>" },
-        iTime: { value: 0, type: "f32" },
+      uniforms: {
+        iResolution: { value: [640, 360], type: "vec2<f32>" },
       },
     },
   });
@@ -33,6 +32,14 @@ export class MeshCreator {
       uvs: new Float32Array(uvs),
       indices: new Uint32Array(indices),
     });
+  }
+
+    public updateShapeSize(w:number,h:number) {
+      const shader = this.shader;
+      if (shader && Continuum_Canvas.viewportManager.viewport) {
+        const uniforms = shader.resources.uniforms.uniforms;
+        uniforms.iResolution = [w,h];
+      }
   }
 
   private roundedRectangleGeometry(

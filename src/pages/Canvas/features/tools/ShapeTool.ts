@@ -61,6 +61,8 @@ export class ShapeTool implements ITool {
         this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
     }
+
+    Continuum_Canvas.meshCreator.updateShapeSize(this.shapeGraphics.width, this.shapeGraphics.height);
   }
   // save graphic to
   endDrawing(e: InputState): void {
