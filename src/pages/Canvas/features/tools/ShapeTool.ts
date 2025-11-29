@@ -41,11 +41,11 @@ export class ShapeTool implements ITool {
 
     const currentPoint = { ...e.mousePosition };
     this.shapeGraphics.tint = "0xFFFFFF";
-    Continuum_Canvas.meshCreator.setGeometry();
-    // this.shapeGraphics.clear();
-    this.strokeGraphics.clear();
 
-    const curentShape = useShapesStore.getState().shape;
+    // this.shapeGraphics.clear();
+    // this.strokeGraphics.clear();
+
+     const curentShape = useShapesStore.getState().shape;
     const fillType = useShapesStore.getState().fillType;
     const drawFill = fillType === "fill-only" || fillType === "outline-fill";
     const drawStroke =
@@ -88,9 +88,8 @@ export class ShapeTool implements ITool {
     const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
     const radius = useShapesStore.getState().cornerRadius;
     const stroke = useShapesStore.getState().stroke;
-    this.shapeGraphics.position.set(start.x, start.y);
-    this.shapeGraphics.width = width;
-    this.shapeGraphics.height = height;
+    Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics,width,height);
+
 
 
     // if (drawFill) {
