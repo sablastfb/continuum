@@ -3,7 +3,15 @@ import { Continuum_Canvas } from "../CanvasApp";
 import vertex from "./Shader/shaders/shape/shape.vert?raw";
 import gridShapeShader from "./Shader/shaders/shape/shape.frag?raw";
 export class MeshCreator {
-  shader = Shader.from({
+  setGeometry(mesh: Mesh) {
+    mesh.geometry.updateBuffer('aPosition', positions);
+  mesh.geometry.updateBuffer('aUV', new Float32Array(uvs));
+  mesh.geometry.updateBuffer('indices', new Uint32Array(indices));
+  }
+
+
+  public createMesh() {
+    const shader = Shader.from({
     gl: {
       vertex: vertex,
       fragment: gridShapeShader,
@@ -15,10 +23,14 @@ export class MeshCreator {
     },
   });
 
-  public createRoundedRectangle() {
-    const geometry = this.roundedRectangleGeometry(1, 1, 0.05); // width, height, radius
-    return new Mesh({ geometry, shader: this.shader });
+     const geometry = new MeshGeometry({
+      positions: new Float32Array([]),
+      uvs: new Float32Array([]),
+      indices: new Uint32Array([]),
+    });
+    return new Mesh({ geometry, shader: shader });
   }
+
 
   private rectangleGeometry() {
     const positions = new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]);
@@ -35,11 +47,11 @@ export class MeshCreator {
   }
 
     public updateShapeSize(w:number,h:number) {
-      const shader = this.shader;
-      if (shader && Continuum_Canvas.viewportManager.viewport) {
-        const uniforms = shader.resources.uniforms.uniforms;
-        uniforms.iResolution = [w,h];
-      }
+      // const shader = this.shader;
+      // if (shader && Continuum_Canvas.viewportManager.viewport) {
+      //   const uniforms = shader.resources.uniforms.uniforms;
+      //   uniforms.iResolution = [w,h];
+      // }
   }
 
   private roundedRectangleGeometry(
@@ -93,30 +105,30 @@ export class MeshCreator {
   }
 
   private circleGeometry(n: number = 100) {
-    if (!Continuum_Canvas.appInstance) return;
-    Continuum_Canvas.appInstance.ticker.add(() => {
-      this.shader.resources.shaderToyUniforms.uniforms.iTime +=
-        Continuum_Canvas.appInstance!.ticker.elapsedMS / 1000;
-    });
+  //   if (!Continuum_Canvas.appInstance) return;
+  //   Continuum_Canvas.appInstance.ticker.add(() => {
+  //     this.shader.resources.shaderToyUniforms.uniforms.iTime +=
+  //       Continuum_Canvas.appInstance!.ticker.elapsedMS / 1000;
+  //   });
 
-    const coords = [];
-    for (let i = 0; i < n; i += 1) {
-      const alpha = (i / n) * 2 * Math.PI;
-      const x = Math.cos(alpha);
-      const y = Math.sin(alpha);
-      coords.push(x);
-      coords.push(y);
-    }
-    const positions = new Float32Array(coords);
-    const indices = earcut(positions);
-    const uvs = [];
-    for (let i = 0; i < positions.length; i += 2) {
-      uvs.push((positions[i] + 1) * 0.5, (positions[i + 1] + 1) * 0.5);
-    }
-    return new MeshGeometry({
-      positions,
-      uvs: new Float32Array(uvs),
-      indices: new Uint32Array(indices),
-    });
-  }
+  //   const coords = [];
+  //   for (let i = 0; i < n; i += 1) {
+  //     const alpha = (i / n) * 2 * Math.PI;
+  //     const x = Math.cos(alpha);
+  //     const y = Math.sin(alpha);
+  //     coords.push(x);
+  //     coords.push(y);
+  //   }
+  //   const positions = new Float32Array(coords);
+  //   const indices = earcut(positions);
+  //   const uvs = [];
+  //   for (let i = 0; i < positions.length; i += 2) {
+  //     uvs.push((positions[i] + 1) * 0.5, (positions[i + 1] + 1) * 0.5);
+  //   }
+  //   return new MeshGeometry({
+  //     positions,
+  //     uvs: new Float32Array(uvs),
+  //     indices: new Uint32Array(indices),
+  //   });
+  // }
 }

@@ -17,7 +17,7 @@ export class ShapeTool implements ITool {
   curenetfilter?: Filter;
 
   startDrawing(e: InputState): void {
-    this.shapeGraphics = Continuum_Canvas.meshCreator.createRoundedRectangle();
+    this.shapeGraphics = Continuum_Canvas.meshCreator.createMesh();
     this.strokeGraphics = new Graphics();
     this.startPoint = { ...e.mousePosition };
     Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
@@ -41,6 +41,7 @@ export class ShapeTool implements ITool {
 
     const currentPoint = { ...e.mousePosition };
     this.shapeGraphics.tint = "0xFFFFFF";
+    Continuum_Canvas.meshCreator.setGeometry();
     // this.shapeGraphics.clear();
     this.strokeGraphics.clear();
 
@@ -62,7 +63,6 @@ export class ShapeTool implements ITool {
         break;
     }
 
-    Continuum_Canvas.meshCreator.updateShapeSize(this.shapeGraphics.width, this.shapeGraphics.height);
   }
   // save graphic to
   endDrawing(e: InputState): void {
