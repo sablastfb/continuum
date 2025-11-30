@@ -18,6 +18,7 @@ export class ShapeShaderService {
       resources: {
         uniforms: {
           iResolution: { value: [0, 0], type: "vec2<f32>" },
+          patternId: { value: 0.0, type: "f32" },
           backgroundColor: { value: [0, 0, 0], type: "vec3<f32>" },
         },
       },

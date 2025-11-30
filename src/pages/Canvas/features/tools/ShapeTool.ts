@@ -14,11 +14,8 @@ export class ShapeTool implements ITool {
   startPoint: SimplePoint = { x: 0, y: 0 };
 
   startDrawing(e: InputState): void {
-
-    
     this.shapeGraphics = Continuum_Canvas.meshCreator.createMesh(
-        Continuum_Canvas.shapeShaderService.createShader()
-
+      Continuum_Canvas.shapeShaderService.createShader()
     );
     this.strokeGraphics = new Graphics();
     this.startPoint = { ...e.mousePosition };
@@ -27,10 +24,10 @@ export class ShapeTool implements ITool {
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
 
-
-         Continuum_Canvas.shapeShaderService.updateShaderColor(
-        this.shapeGraphics.shader,fillColor
-      );
+    Continuum_Canvas.shapeShaderService.updateShaderColor(
+      this.shapeGraphics.shader,
+      fillColor
+    );
     // const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
     // if (shader) {
     //   this.curenetfilter = shader?.filter;
