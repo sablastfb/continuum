@@ -53,19 +53,6 @@ export class MeshManager {
     return new Mesh({ geometry, shader: shader });
   }
 
-  private rectangleGeometry(width: number, height: number) {
-    const positions = new Float32Array([
-      0,
-      0,
-      width,
-      0,
-      width,
-      width,
-      0,
-      width,
-    ]);
-    return positions;
-  }
 
   public updateShapeResolution(mesh: Mesh<MeshGeometry, Shader>, w: number, h: number) {
     const shader = mesh.shader;

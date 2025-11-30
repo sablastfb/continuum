@@ -28,14 +28,6 @@ export class ShapeTool implements ITool {
       this.shapeGraphics.shader,
       fillColor
     );
-    // const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
-    // if (shader) {
-    //   this.curenetfilter = shader?.filter;
-    //   Continuum_Canvas.shapeShaderService.updateShaderColor(
-    //     shader.filter,
-    //     fillColor
-    //   );
-    // }
   }
 
   draw(e: InputState): void {
