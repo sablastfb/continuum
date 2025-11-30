@@ -20,7 +20,6 @@ export class MeshManager {
     var rect = new Rectangle(x, y, width, height);
     var path = new Path.Rectangle(rect, new Size(radius, radius));
     const coords: number[] = [];
-    debugger;
     path.flatten(5);
 
     path.segments.forEach((segment) => {

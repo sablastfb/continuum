@@ -11,9 +11,7 @@ export class ShapeTool implements ITool {
   type: ToolType = "shape";
   shapeGraphics: Mesh<MeshGeometry, Shader> | null = null;
   strokeGraphics: Graphics | null = null;
-  // create graphic depending on state,
   startPoint: SimplePoint = { x: 0, y: 0 };
-  curenetfilter?: Filter;
 
   startDrawing(e: InputState): void {
     this.shapeGraphics = Continuum_Canvas.meshCreator.createMesh();
@@ -23,14 +21,14 @@ export class ShapeTool implements ITool {
     Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
-    if (shader) {
-      this.curenetfilter = shader?.filter;
-      Continuum_Canvas.shapeShaderService.updateShaderColor(
-        shader.filter,
-        fillColor
-      );
-    }
+    // const shader = Continuum_Canvas.shapeShaderService.createShapeShader();
+    // if (shader) {
+    //   this.curenetfilter = shader?.filter;
+    //   Continuum_Canvas.shapeShaderService.updateShaderColor(
+    //     shader.filter,
+    //     fillColor
+    //   );
+    // }
   }
 
   draw(e: InputState): void {
@@ -54,10 +52,8 @@ export class ShapeTool implements ITool {
         this.drawRect(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "circle":
-        this.drawCircle(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "poligon":
-        this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
     }
   }
@@ -86,19 +82,20 @@ export class ShapeTool implements ITool {
 
     if (drawFill) {
       const newGeometry = Continuum_Canvas.meshCreator.getRectangleGeometry(
-        0,0,
+        0,
+        0,
         width,
         height,
         radius
       );
-      this.shapeGraphics.x= start.x;
-      this.shapeGraphics.x= start.x;
       Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
       Continuum_Canvas.shapeShaderService.updateShapeSize(
-            this.shapeGraphics.shader,
+        this.shapeGraphics.shader,
         width,
         height
       );
+      this.shapeGraphics.x = start.x;
+      this.shapeGraphics.y = start.y;
     }
 
     if (drawStroke) {
@@ -110,7 +107,6 @@ export class ShapeTool implements ITool {
     }
   }
 
- 
   private drawPoligon(
     p1: SimplePoint,
     p2: SimplePoint,
