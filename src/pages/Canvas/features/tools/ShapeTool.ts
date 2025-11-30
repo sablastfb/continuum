@@ -5,8 +5,6 @@ import { ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
 import { useShapesStore } from "../../data/store/ShapeStore";
-import { ShapeCursor } from "../cursor/ShapeCursor";
-import { MeshManager } from "../service/MeshCreator";
 import { CrossHairCursor } from "../cursor/CrossHair";
 
 export class ShapeTool implements ITool {
@@ -32,7 +30,6 @@ export class ShapeTool implements ITool {
         shader.filter,
         fillColor
       );
-      // this.shapeGraphics.filters = [shader.filter];
     }
   }
 
@@ -84,15 +81,28 @@ export class ShapeTool implements ITool {
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
     const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
-    const radius = useShapesStore.getState().cornerRadius;
     const stroke = useShapesStore.getState().stroke;
-    const newGeometry =     Continuum_Canvas.meshCreator.getRectangleGeometry(start.x,start.y, width,height,radius);
-    Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics,newGeometry);
-    Continuum_Canvas.meshCreator.updateShapeResolution(this.shapeGraphics, width, height);
+    const radius = useShapesStore.getState().cornerRadius;
 
+    if (drawFill) {
+      const newGeometry = Continuum_Canvas.meshCreator.getRectangleGeometry(
+        0,0,
+        width,
+        height,
+        radius
+      );
+      this.shapeGraphics.x= start.x;
+      this.shapeGraphics.x= start.x;
+      Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
+      Continuum_Canvas.shapeShaderService.updateShapeSize(
+            this.shapeGraphics.shader,
+        width,
+        height
+      );
+    }
 
     if (drawStroke) {
-           this.strokeGraphics.clear();
+      this.strokeGraphics.clear();
       this.strokeGraphics
         .roundRect(start.x, start.y, width, height, radius)
         .stroke({ width: stroke, color: "white" });
@@ -100,39 +110,7 @@ export class ShapeTool implements ITool {
     }
   }
 
-  private drawCircle(
-    p1: SimplePoint,
-    p2: SimplePoint,
-    drawFill: boolean,
-    drawStroke: boolean
-  ) {
-    // if (!this.shapeGraphics) return;
-    // if (!this.strokeGraphics) return;
-    // const width = Math.abs(p1.x - p2.x);
-    // const height = Math.abs(p1.y - p2.y);
-    // const centerX = (p1.x + p2.x) / 2;
-    // const centerY = (p1.y + p2.y) / 2;
-    // const radiusX = width / 2;
-    // const radiusY = height / 2;
-    // const stroke = useShapesStore.getState().stroke;
-    // const colorId = useShapesStore.getState().fillColorId;
-    // const strokeColorId = useShapesStore.getState().strokeColorId;
-    // const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    // const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
-    // if (drawFill) {
-    //   this.shapeGraphics
-    //     .ellipse(centerX, centerY, radiusX, radiusY)
-    //     .fill("white");
-    //   this.shapeGraphics.tint = fillColor;
-    // }
-    // if (drawStroke) {
-    //   this.strokeGraphics
-    //     .ellipse(centerX, centerY, radiusX, radiusY)
-    //     .stroke({ width: stroke, color: "white" });
-    //   this.strokeGraphics.tint = strokeColor;
-    // }
-  }
-
+ 
   private drawPoligon(
     p1: SimplePoint,
     p2: SimplePoint,
@@ -174,7 +152,6 @@ export class ShapeTool implements ITool {
 
   // craete some sort of cursor
   updateCursor(): void {
-          CrossHairCursor.draw();
-  
+    CrossHairCursor.draw();
   }
 }

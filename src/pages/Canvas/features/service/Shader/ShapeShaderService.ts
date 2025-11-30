@@ -1,9 +1,8 @@
-import { Filter, GlProgram, Graphics } from "pixi.js";
+import { Filter, GlProgram, Graphics, Shader } from "pixi.js";
 import standardVetex from "./shaders/shape/shape.vert?raw";
 import gridShapeShader from "./shaders/shape/shape.frag?raw";
 import { Continuum_Canvas } from "../../CanvasApp";
 import { ShaderUtils } from "./ShaderUtils";
-import { SimplePoint } from "../../../data/types/PointTypes";
 
 export type ContinumShader = {
   filter: Filter;
@@ -75,18 +74,14 @@ export class ShapeShaderService {
       uniforms.uObjectBounds  =[
         bounds.x,bounds.y, bounds.width, bounds.height
       ];
-      console.log(bounds);
     }
   }
 
 
-  public updateShapeSize() {
-    for(const c of this.shapeShaders){
-      const shader = c.filter;
-      if (shader && Continuum_Canvas.viewportManager.viewport) {
-        const uniforms = shader.resources.uniforms.uniforms;
-        uniforms.viewportZoom = Continuum_Canvas.viewportManager.viewport.scale.x;
-      }
+  public updateShapeSize(shader: Shader | null, w: number, h: number) {
+    if (shader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = shader.resources.uniforms.uniforms;
+      uniforms.iResolution = [w,h];
     }
   }
 

@@ -11,13 +11,15 @@ void main() {
     float gridSize = 20.0;
     vec2 grid = mod(position, gridSize);
     
-    // Create grid lines (2 pixels wide)
+    // Create grid lines (1 pixel wide)
     float lineWidth = 1.0;
     float gridLine = step(grid.x, lineWidth) + step(grid.y, lineWidth);
     gridLine = clamp(gridLine, 0.0, 1.0);
     
     // Set colors: white background, black grid lines
-    vec3 color = mix(vec3(0.0), vec3(0.2), gridLine);
+    vec3 backgroundColor = vec3(1.0); // white
+    vec3 gridColor = vec3(0.0); // black
+    vec3 color = mix(backgroundColor, gridColor, gridLine);
     
-    gl_FragColor = vec4(color, 1.0);
-}
+    gl_FragColor = vec4(color.xyz, 1.0);
+} 

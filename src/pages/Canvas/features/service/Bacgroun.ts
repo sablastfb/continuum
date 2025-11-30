@@ -39,6 +39,5 @@ export class BacgroundService {
       window.innerHeight
     );
     Continuum_Canvas.bacgroundShaderService?.updateBacgroundUniforms();
-    Continuum_Canvas.shapeShaderService?.updateShapeSize();
   }
 }

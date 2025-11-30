@@ -31,8 +31,6 @@ export class CanvasViewport {
         Continuum_Canvas.resizeService.viewportZoom(e);
       })
       .on("moved", () => {
-            Continuum_Canvas.shapeShaderService?.updateShapeSize();
-
         Continuum_Canvas.bacgroundShaderService.updateBacgroundUniforms();
       });
   }
