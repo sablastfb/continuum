@@ -1,4 +1,4 @@
-import { Filter, Graphics, Mesh, MeshGeometry, Shader } from "pixi.js";
+import { Graphics, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { ToolType } from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { ITool } from "./ToolManager";
@@ -83,6 +83,11 @@ export class ShapeTool implements ITool {
     const colorId = useShapesStore.getState().fillColorId;
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+
+    Continuum_Canvas.shapeShaderService.updateShaderColor(
+      this.shapeGraphics.shader,
+      fillColor
+    );
     const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
     const stroke = useShapesStore.getState().stroke;
     const radius = useShapesStore.getState().cornerRadius;
