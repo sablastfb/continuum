@@ -19,9 +19,10 @@ export class ShapeShaderService {
       resources: {
         uniforms: {
           iResolution: { value: [0, 0], type: "vec2<f32>" },
-          patternId: { value: 2.0, type: "f32" },
+          patternId: { value: 1.0, type: "f32" },
           lineWidth: { value: 1.0, type: "f32" },
           gridSize: { value: 20, type: "f32" },
+          marginPosition: { value: 0.1, type: "f32" },
           backgroundColor: { value: [0, 0, 0], type: "vec3<f32>" },
           viewportZoom: { value:  Continuum_Canvas.viewportManager.viewport!.scale.x, type: "f32" },
         },

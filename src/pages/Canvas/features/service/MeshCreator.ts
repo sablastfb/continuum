@@ -62,31 +62,4 @@ export class MeshManager {
     }
   }
 
-
-  //   if (!Continuum_Canvas.appInstance) return;
-  //   Continuum_Canvas.appInstance.ticker.add(() => {
-  //     this.shader.resources.shaderToyUniforms.uniforms.iTime +=
-  //       Continuum_Canvas.appInstance!.ticker.elapsedMS / 1000;
-  //   });
-
-  //   const coords = [];
-  //   for (let i = 0; i < n; i += 1) {
-  //     const alpha = (i / n) * 2 * Math.PI;
-  //     const x = Math.cos(alpha);
-  //     const y = Math.sin(alpha);
-  //     coords.push(x);
-  //     coords.push(y);
-  //   }
-  //   const positions = new Float32Array(coords);
-  //   const indices = earcut(positions);
-  //   const uvs = [];
-  //   for (let i = 0; i < positions.length; i += 2) {
-  //     uvs.push((positions[i] + 1) * 0.5, (positions[i + 1] + 1) * 0.5);
-  //   }
-  //   return new MeshGeometry({
-  //     positions,
-  //     uvs: new Float32Array(uvs),
-  //     indices: new Uint32Array(indices),
-  //   });
-  // }
 }
