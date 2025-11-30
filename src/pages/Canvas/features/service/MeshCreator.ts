@@ -44,19 +44,7 @@ export class MeshManager {
     mesh.geometry.uvs = geometry.uvs;
   }
 
-  public createMesh() {
-    const shader = Shader.from({
-      gl: {
-        vertex: vertex,
-        fragment: gridShapeShader,
-      },
-      resources: {
-        uniforms: {
-          iResolution: { value: [640, 360], type: "vec2<f32>" },
-        },
-      },
-    });
-
+  public createMesh(shader:Shader) {
     const geometry = new MeshGeometry({
       positions: new Float32Array([]),
       uvs: new Float32Array([]),

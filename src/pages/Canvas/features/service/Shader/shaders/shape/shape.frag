@@ -2,6 +2,7 @@ precision mediump float;
 
 varying vec2 vUV;
 uniform vec2 iResolution; 
+uniform vec3 backgroundColor; 
 
 void main() {
     // Convert UV coordinates to pixel position
@@ -17,7 +18,6 @@ void main() {
     gridLine = clamp(gridLine, 0.0, 1.0);
     
     // Set colors: white background, black grid lines
-    vec3 backgroundColor = vec3(1.0); // white
     vec3 gridColor = vec3(0.0); // black
     vec3 color = mix(backgroundColor, gridColor, gridLine);
     
