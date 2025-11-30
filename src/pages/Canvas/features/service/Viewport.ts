@@ -32,6 +32,7 @@ export class CanvasViewport {
       })
       .on("moved", () => {
         Continuum_Canvas.bacgroundShaderService.updateBacgroundUniforms();
+        Continuum_Canvas.shapeShaderService.updateAllShadersSize();
       });
   }
 }

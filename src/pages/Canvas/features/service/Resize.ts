@@ -16,6 +16,7 @@ export class ResizeService {
   public viewportZoom(e: ZoomedEvent) {
     useCanvasStore.getState().setZoom(e?.viewport.scale.x);
   }
+  
   constructor() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();

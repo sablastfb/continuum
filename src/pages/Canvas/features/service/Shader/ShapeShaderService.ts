@@ -3,14 +3,16 @@ import { Continuum_Canvas } from "../../CanvasApp";
 import { ShaderUtils } from "./ShaderUtils";
 import shapeVertex from "../Shader/shaders/shape/shape.vert?raw";
 import shapeFragmet from "../Shader/shaders/shape/shape.frag?raw";
+import { forEach } from "lodash";
 export type ContinumShader = {
   filter: Filter;
   id: number;
 };
 
 export class ShapeShaderService {
+  public allShader: Shader[] = [];
   createShader() {
-      const shader = Shader.from({
+    const shader = Shader.from({
       gl: {
         vertex: shapeVertex,
         fragment: shapeFragmet,
@@ -18,29 +20,20 @@ export class ShapeShaderService {
       resources: {
         uniforms: {
           iResolution: { value: [0, 0], type: "vec2<f32>" },
-          patternId: { value: 0.0, type: "f32" },
+          patternId: { value: 1.0, type: "f32" },
           backgroundColor: { value: [0, 0, 0], type: "vec3<f32>" },
+          viewportZoom: { value: 1.0, type: "f32" },
         },
       },
     });
+    this.allShader.push(shader);
     return shader;
   }
-
-  public updateShapeBounds(shader: Filter, graphic: Graphics){
-      if (shader && Continuum_Canvas.viewportManager.viewport) {
-        const bounds = graphic.getBounds();
-      const uniforms = shader.resources.uniforms.uniforms;
-      uniforms.uObjectBounds  =[
-        bounds.x,bounds.y, bounds.width, bounds.height
-      ];
-    }
-  }
-
 
   public updateShapeSize(shader: Shader | null, w: number, h: number) {
     if (shader && Continuum_Canvas.viewportManager.viewport) {
       const uniforms = shader.resources.uniforms.uniforms;
-      uniforms.iResolution = [w,h];
+      uniforms.iResolution = [w, h];
     }
   }
 
@@ -49,5 +42,14 @@ export class ShapeShaderService {
       const uniforms = shader.resources.uniforms.uniforms;
       uniforms.backgroundColor = ShaderUtils.rgbStringToVec3(color);
     }
+  }
+
+  public updateAllShadersSize() {
+    if (!Continuum_Canvas.viewportManager.viewport) return;
+    this.allShader.forEach((x) => {
+      const uniforms = x.resources.uniforms.uniforms;
+      uniforms.viewportZoom =
+        Continuum_Canvas.viewportManager.viewport!.scale.x;
+    });
   }
 }
