@@ -4,7 +4,7 @@ import { InputState } from "../input/InputState";
 import { ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
-import { useShapesStore } from "../../data/store/ShapeStore";
+import { ShapePatternTypes, useShapesStore } from "../../data/store/ShapeStore";
 import { CrossHairCursor } from "../cursor/CrossHair";
 
 export class ShapeTool implements ITool {
@@ -12,6 +12,12 @@ export class ShapeTool implements ITool {
   shapeGraphics: Mesh<MeshGeometry, Shader> | null = null;
   strokeGraphics: Graphics | null = null;
   startPoint: SimplePoint = { x: 0, y: 0 };
+  private patternMapper: Record<ShapePatternTypes, number> = {
+    color: 0,
+    dots: 1,
+    grid: 2,
+    line: 3,
+  };
 
   startDrawing(e: InputState): void {
     this.shapeGraphics = Continuum_Canvas.meshCreator.createMesh(
@@ -27,6 +33,10 @@ export class ShapeTool implements ITool {
     Continuum_Canvas.shapeShaderService.updateShaderColor(
       this.shapeGraphics.shader,
       fillColor
+    );
+   Continuum_Canvas.shapeShaderService.updateShaderPatter(
+      this.shapeGraphics.shader,
+      this.patternMapper[useShapesStore.getState().activeBacgroundType]
     );
   }
 

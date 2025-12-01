@@ -46,6 +46,13 @@ export class ShapeShaderService {
     }
   }
 
+    public updateShaderPatter(shader: Shader | null, patterId: number) {
+    if (shader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = shader.resources.uniforms.uniforms;
+      uniforms.patternId = patterId;
+    }
+  }
+
   public updateAllShadersSize() {
     if (!Continuum_Canvas.viewportManager.viewport) return;
     this.allShader.forEach((x) => {

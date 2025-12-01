@@ -17,6 +17,7 @@ const shapeOutlineColors = [
 ];
 export type ShapePatternTypes = "color" | "grid" | "dots" | "line";
 
+
 export type ShapePatternSettings = {
   activeBacgroundType: ShapePatternTypes;
   fillColorId: ColorId;
