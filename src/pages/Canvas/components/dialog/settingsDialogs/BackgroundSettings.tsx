@@ -1,8 +1,7 @@
 import { Checkbox } from "primereact/checkbox";
 import useBacgroundStore from "../../../data/store/BacgroundStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
-import PatternPicker from "../../pickers/PatternPicker/PatternPicker";
-import { PatternType } from "../../../data/types/PatternTypes";
+import PatternPicker, { PatternType } from "../../pickers/PatternPicker/PatternPicker";
 
 const BackgroundSettings = () => {
   const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;

@@ -14,8 +14,8 @@ export class ShapeTool implements ITool {
   startPoint: SimplePoint = { x: 0, y: 0 };
   private patternMapper: Record<ShapePatternTypes, number> = {
     color: 0,
-    dots: 1,
-    grid: 2,
+    grid: 1,
+    dots: 2,
     line: 3,
   };
 
@@ -45,8 +45,6 @@ export class ShapeTool implements ITool {
     if (!this.strokeGraphics) return;
 
     const currentPoint = { ...e.mousePosition };
-    this.shapeGraphics.tint = "0xFFFFFF";
-
     // this.shapeGraphics.clear();
     // this.strokeGraphics.clear();
 

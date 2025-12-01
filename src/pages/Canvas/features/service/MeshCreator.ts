@@ -1,7 +1,5 @@
 import { earcut, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
-import vertex from "./Shader/shaders/shape/shape.vert?raw";
-import gridShapeShader from "./Shader/shaders/shape/shape.frag?raw";
 import { Path, Rectangle, Size } from "paper/dist/paper-core";
 export type ContinuumMeshGeometry = {
   positions: Float32Array;

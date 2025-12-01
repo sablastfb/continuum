@@ -1,7 +1,7 @@
 import { Slider, SliderChangeEvent } from "primereact/slider";
 import { Minus, Plus } from "lucide-react";
 import { useShapesStore } from "../../../data/store/ShapeStore";
-import PatternPicker from "../../pickers/PatternPicker/PatternPicker";
+import PatternPicker, { PatternType } from "../../pickers/PatternPicker/PatternPicker";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const StrokeSlider = () => {
@@ -144,6 +144,10 @@ const PoligonSettings = () => {
 
 const ShapeAdvanceSettings = () => {
   const shapeStore = useShapesStore();
+  const handlePatternSelect = (pattern: PatternType) => {
+    shapeStore.updateShape({ activeBacgroundType: pattern });
+  };
+
 
   return (
     <div className="p-4 flex flex-col gap-4 rounded-lg">
@@ -157,7 +161,7 @@ const ShapeAdvanceSettings = () => {
             gridColor={Continuum_Canvas.colorPalet.getColor(shapeStore.grid.gridBorderColor)}
             dotColor={Continuum_Canvas.colorPalet.getColor(shapeStore.dots.dotColor)}
             lineColor={Continuum_Canvas.colorPalet.getColor(shapeStore.line.lineColor)}
-            onPatternSelect={() => {}}
+            onPatternSelect={handlePatternSelect}
           />
     </div>
   );
