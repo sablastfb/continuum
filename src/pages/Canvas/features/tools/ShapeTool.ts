@@ -34,7 +34,7 @@ export class ShapeTool implements ITool {
       this.shapeGraphics.shader,
       fillColor
     );
-   Continuum_Canvas.shapeShaderService.updateShaderPatter(
+    Continuum_Canvas.shapeShaderService.updateShaderPatter(
       this.shapeGraphics.shader,
       this.patternMapper[useShapesStore.getState().activeBacgroundType]
     );
@@ -59,8 +59,10 @@ export class ShapeTool implements ITool {
         this.drawRect(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "circle":
+        this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "poligon":
+        this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
     }
   }
@@ -94,8 +96,6 @@ export class ShapeTool implements ITool {
 
     if (drawFill) {
       const newGeometry = Continuum_Canvas.meshCreator.getRectangleGeometry(
-        0,
-        0,
         width,
         height,
         radius
@@ -125,37 +125,42 @@ export class ShapeTool implements ITool {
     drawFill: boolean,
     drawStroke: boolean
   ) {
-    // if (!this.shapeGraphics) return;
-    // if (!this.strokeGraphics) return;
-    // const width = Math.abs(p1.x - p2.x);
-    // const height = Math.abs(p1.y - p2.y);
-    // const radius = Math.min(width, height) / 2;
-    // const centerX = (p1.x + p2.x) / 2;
-    // const centerY = (p1.y + p2.y) / 2;
-    // const numberOfCorners = useShapesStore.getState().numberOfCorners;
-    // const cornerRadius = useShapesStore.getState().cornerRadius;
-    // const stroke = useShapesStore.getState().stroke;
-    // const colorId = useShapesStore.getState().fillColorId;
-    // const strokeColorId = useShapesStore.getState().strokeColorId;
-    // const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-    // const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
-    // if (drawFill) {
-    //   this.shapeGraphics
-    //     .roundPoly(centerX, centerY, radius, numberOfCorners, cornerRadius)
-    //     .fill("white");
-    //   this.shapeGraphics.tint = fillColor;
-    // }
-    // if (drawStroke) {
-    //   this.strokeGraphics
-    //     .roundPoly(centerX, centerY, radius, numberOfCorners, cornerRadius)
-    //     .stroke({ width: stroke, color: "white" });
-    //   this.strokeGraphics.tint = strokeColor;
-    // }
-    // if (this.curenetfilter)
-    //   Continuum_Canvas.shapeShaderService.updateShapeSize(this.curenetfilter, {
-    //     x: this.shapeGraphics.width,
-    //     y: this.shapeGraphics.height,
-    //   });
+    if (!this.shapeGraphics) return;
+    if (!this.strokeGraphics) return;
+    const width = Math.abs(p1.x - p2.x);
+    const height = Math.abs(p1.y - p2.y);
+    const radius = Math.min(width, height) / 2;
+    const centerX = (p1.x + p2.x) / 2;
+    const centerY = (p1.y + p2.y) / 2;
+    const numberOfCorners = useShapesStore.getState().numberOfCorners;
+    const cornerRadius = useShapesStore.getState().cornerRadius;
+    const stroke = useShapesStore.getState().stroke;
+    const colorId = useShapesStore.getState().fillColorId;
+    const strokeColorId = useShapesStore.getState().strokeColorId;
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
+     if (drawFill) {
+      const newGeometry = Continuum_Canvas.meshCreator.getPoligonGeometry(
+        radius,
+        numberOfCorners
+      );
+      Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
+      Continuum_Canvas.shapeShaderService.updateShapeSize(
+        this.shapeGraphics.shader,
+        width,
+        height
+      );
+      this.shapeGraphics.x = centerX;
+      this.shapeGraphics.y = centerY;
+    }
+
+    if (drawStroke) {
+      this.strokeGraphics.clear();
+      this.strokeGraphics
+        .regularPoly(centerX, centerY, radius, numberOfCorners)
+        .stroke({ width: stroke, color: "white" });
+      this.strokeGraphics.tint = strokeColor;
+    }
   }
 
   // craete some sort of cursor
