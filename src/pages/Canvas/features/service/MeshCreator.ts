@@ -38,7 +38,7 @@ export class MeshManager {
     radius: number,
     sides: number
   ) {
-    var center = new Point(50, 50);
+    var center = new Point(0, 0);
 
     var triangle = new Path.RegularPolygon(center, sides, radius);
 

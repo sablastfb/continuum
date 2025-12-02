@@ -133,22 +133,21 @@ export class ShapeTool implements ITool {
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
     const numberOfCorners = useShapesStore.getState().numberOfCorners;
-    const cornerRadius = useShapesStore.getState().cornerRadius;
     const stroke = useShapesStore.getState().stroke;
     const colorId = useShapesStore.getState().fillColorId;
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
     const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
+    const newGeometry = Continuum_Canvas.meshCreator.getPoligonGeometry(
+      radius,
+      numberOfCorners
+    );
      if (drawFill) {
-      const newGeometry = Continuum_Canvas.meshCreator.getPoligonGeometry(
-        radius,
-        numberOfCorners
-      );
       Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
       Continuum_Canvas.shapeShaderService.updateShapeSize(
         this.shapeGraphics.shader,
-        width,
-        height
+        radius,
+        radius
       );
       this.shapeGraphics.x = centerX;
       this.shapeGraphics.y = centerY;
@@ -157,10 +156,18 @@ export class ShapeTool implements ITool {
     if (drawStroke) {
       this.strokeGraphics.clear();
       this.strokeGraphics
-        .regularPoly(centerX, centerY, radius, numberOfCorners)
+        .poly([...newGeometry.positions])
         .stroke({ width: stroke, color: "white" });
+      this.strokeGraphics.x = centerX;
+      this.strokeGraphics.y = centerY;
       this.strokeGraphics.tint = strokeColor;
     }
+
+       Continuum_Canvas.shapeShaderService.updateShapeSize(
+        this.shapeGraphics.shader,
+        width,
+        height,
+      );
   }
 
   // craete some sort of cursor
