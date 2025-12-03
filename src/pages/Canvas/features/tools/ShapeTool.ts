@@ -165,8 +165,8 @@ export class ShapeTool implements ITool {
 
        Continuum_Canvas.shapeShaderService.updateShapeSize(
         this.shapeGraphics.shader,
-        width,
-        height,
+        radius,
+        radius,
       );
   }
 
