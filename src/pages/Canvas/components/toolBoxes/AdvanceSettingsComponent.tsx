@@ -1,4 +1,4 @@
-import { useEffect, useRef, RefObject } from 'react';
+import { useRef } from 'react';
 
 interface AdvanceSettingsComponentProps {
   settingsComponent: React.ReactNode;
@@ -7,36 +7,14 @@ interface AdvanceSettingsComponentProps {
   defaultButtonsBackground?: string;
 }
 
-const useClickOutside = <T extends HTMLElement = HTMLElement>(
-  ref: RefObject<T>,
-  callback: () => void,
-  isActive: boolean = true
-): void => {
-  useEffect(() => {
-    if (!isActive) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        callback();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [ref, callback, isActive]);
-};
 
 export const AdvanceSettingsComponent: React.FC<AdvanceSettingsComponentProps> = ({
   settingsComponent,
   isActive,
-  onClose,
   defaultButtonsBackground = ''
 }) => {
   const settingsRef = useRef<HTMLDivElement>(null);
 
-  useClickOutside(settingsRef, onClose, isActive);
 
   return (
     <>

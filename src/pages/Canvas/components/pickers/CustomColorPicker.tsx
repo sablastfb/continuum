@@ -33,7 +33,7 @@ const CustomColorPicker = ({ customColorId }: { customColorId: string }) => {
   return (
     <div
       style={{ background: color }}
-      className={`rounded-sm ${
+      className={` select-none rounded-sm ${
         pencilColorId === customColorId ? `${DefaultOutline}` : ""
       }`}
     >

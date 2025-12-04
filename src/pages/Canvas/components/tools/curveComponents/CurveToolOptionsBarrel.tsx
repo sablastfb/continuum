@@ -10,7 +10,6 @@ import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 import { usePenStore } from "../../../data/store/PenStore";
-import { ColorPalet } from "../../../data/palet/PaletContainer";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 

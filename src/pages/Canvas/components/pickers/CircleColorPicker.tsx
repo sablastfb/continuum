@@ -1,4 +1,3 @@
-import { DefaultOutlineColor } from "../../data/constants/CanvasConstants";
 import { ColorId } from "../../data/palet/PaletContainer";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
@@ -35,7 +34,7 @@ const CircleColorPicker = ({
                 border: `4px solid ${color}`,
               }
         }
-        className="rounded-full w-7 h-7 hover:cursor-pointer"
+        className="rounded-full w-7 h-7 hover:cursor-pointer select-none"
       ></div>
     </div>
   );

@@ -4,7 +4,6 @@ import {
 } from "../../data/constants/CanvasConstants";
 import {
   ThicknesId,
-  ThicknesPalet,
 } from "../../data/thicknes/ThickneContainer";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
@@ -26,8 +25,9 @@ const CircleThicknesPicker = ({
   return (
     <div>
       <div
+      
         onClick={() => action()}
-        className={` ${CirclePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2  ${
+        className={` ${CirclePickeSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2 select-none  ${
           selected ? `${DefaultOutlineColor}` : "outline-gray-500"
         }`}
       >

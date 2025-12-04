@@ -74,7 +74,6 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
     <>
       {advanceSettingsComponent && (
         <div
-          ref={advancedSettingsRef}
           className={`${DefaultButtonsBackground} rounded-lg min-w-[max(20vw,300px)] min-h-[max(20vw,300px)] pointer-events-auto overflow-hidden 
               transition-all duration-300 ease-in-out origin-center
               ${
