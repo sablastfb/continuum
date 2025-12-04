@@ -61,6 +61,32 @@ export class MeshManager {
     } as ContinuumMeshGeometry;
   }
 
+    getCircleGeometry(
+    radius: number,
+  ) {
+    var center = new Point(0, 0);
+
+    var triangle = new Path.Circle(center, radius);
+
+    const coords: number[] = [];
+    triangle.flatten(1);
+
+    triangle.segments.forEach((segment) => {
+      coords.push(segment.point.x, segment.point.y);
+    });
+    const uvs = [];
+    const indices = earcut(coords);
+    for (let i = 0; i < coords.length; i += 2) {
+      uvs.push(coords[i] / radius, coords[i + 1] / radius);
+    }
+
+    return {
+      positions: new Float32Array(coords),
+      indices: new Uint32Array(indices),
+      uvs: new Float32Array(uvs),
+    } as ContinuumMeshGeometry;
+  }
+
   setGeometry(mesh: Mesh<MeshGeometry, Shader>, geometry: ContinuumMeshGeometry) {
     mesh.geometry.positions = geometry.positions;
     mesh.geometry.indices = geometry.indices;

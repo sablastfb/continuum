@@ -59,7 +59,7 @@ export class ShapeTool implements ITool {
         this.drawRect(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "circle":
-        this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
+        this.drawCircle(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "poligon":
         this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
@@ -141,6 +141,56 @@ export class ShapeTool implements ITool {
     const newGeometry = Continuum_Canvas.meshCreator.getPoligonGeometry(
       radius,
       numberOfCorners
+    );
+     if (drawFill) {
+      Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
+      Continuum_Canvas.shapeShaderService.updateShapeSize(
+        this.shapeGraphics.shader,
+        radius,
+        radius
+      );
+      this.shapeGraphics.x = centerX;
+      this.shapeGraphics.y = centerY;
+    }
+
+    if (drawStroke) {
+      this.strokeGraphics.clear();
+      this.strokeGraphics
+        .poly([...newGeometry.positions])
+        .stroke({ width: stroke, color: "white" });
+      this.strokeGraphics.x = centerX;
+      this.strokeGraphics.y = centerY;
+      this.strokeGraphics.tint = strokeColor;
+    }
+
+       Continuum_Canvas.shapeShaderService.updateShapeSize(
+        this.shapeGraphics.shader,
+        radius,
+        radius,
+      );
+  }
+
+
+   private drawCircle(
+    p1: SimplePoint,
+    p2: SimplePoint,
+    drawFill: boolean,
+    drawStroke: boolean
+  ) {
+    if (!this.shapeGraphics) return;
+    if (!this.strokeGraphics) return;
+    const width = Math.abs(p1.x - p2.x);
+    const height = Math.abs(p1.y - p2.y);
+    const radius = Math.min(width, height) / 2;
+    const centerX = (p1.x + p2.x) / 2;
+    const centerY = (p1.y + p2.y) / 2;
+    const stroke = useShapesStore.getState().stroke;
+    const colorId = useShapesStore.getState().fillColorId;
+    const strokeColorId = useShapesStore.getState().strokeColorId;
+    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
+    const newGeometry = Continuum_Canvas.meshCreator.getCircleGeometry(
+      radius,
     );
      if (drawFill) {
       Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
