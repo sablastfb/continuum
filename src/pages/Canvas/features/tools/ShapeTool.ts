@@ -6,6 +6,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
 import { ShapePatternTypes, useShapesStore } from "../../data/store/ShapeStore";
 import { CrossHairCursor } from "../cursor/CrossHair";
+import { SimpleCross } from "../cursor/SimpleCross";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";
@@ -222,6 +223,6 @@ export class ShapeTool implements ITool {
 
   // craete some sort of cursor
   updateCursor(): void {
-    CrossHairCursor.draw();
+    SimpleCross.draw();
   }
 }

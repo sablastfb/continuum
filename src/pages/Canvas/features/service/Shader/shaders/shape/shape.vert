@@ -5,7 +5,6 @@ attribute vec2 aPosition;
 uniform mat3 uProjectionMatrix;
 uniform mat3 uWorldTransformMatrix;
 uniform mat3 uTransformMatrix;
-uniform vec2 uResolution;
 attribute vec2 aUV;
 
 varying vec2 vUV;
