@@ -1,5 +1,4 @@
 import type { JSX } from "react";
-import { useEffect, useRef } from "react";
 import { Direction } from "../../data/store/LayoutStore";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useToolStore from "../../data/store/ToolStore";
@@ -24,7 +23,6 @@ export interface ToolOptionParameters {
 const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
   const canvasStore = useCanvasStore();
   const activeTool = useToolStore((state) => state.activeTool);
-  const advancedSettingsRef = useRef<HTMLDivElement>(null);
 
   let activeToolComponent: JSX.Element | null = null;
   let advanceSettingsComponent: JSX.Element | null = null;
@@ -51,24 +49,6 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
     default:
       activeToolComponent = null;
   }
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        advancedSettingsRef.current &&
-        !advancedSettingsRef.current.contains(event.target as Node)
-      ) {
-        canvasStore.setAdvanceToolsVisibility(false);
-      }
-    };
-
-    if (canvasStore.advanceToolsActive) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [canvasStore.advanceToolsActive]);
 
   return (
     <>

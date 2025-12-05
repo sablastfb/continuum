@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
