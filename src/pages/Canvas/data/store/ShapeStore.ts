@@ -28,7 +28,6 @@ export type SolidColorBackground = ColorId;
 export type GridBackground = {};
 export type DotBackground = {
   dotRadius: number;
-  tileWidth: number;
 };
 export type LineBackground = {};
 
@@ -70,8 +69,7 @@ export const DefaultShapeSettings: ShapeData = {
   lineWidth: 0.5,
   grid: {},
   dots: {
-    dotRadius: 2,
-    tileWidth: 50,
+    dotRadius: 3,
   },
   line: {},
 };

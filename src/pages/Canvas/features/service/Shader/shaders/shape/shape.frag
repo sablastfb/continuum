@@ -6,23 +6,26 @@ uniform vec3 backgroundColor;
 uniform float patternId;
 uniform float viewportZoom;
 uniform float gridSize;
+uniform float dotRadius;
 uniform float lineWidth;
 uniform float marginPosition;
 const float minZoomForGrid = 0.5;
 
 vec3 simpleLine(vec2 worldCoord) {
     float lineWidthScaled = lineWidth / viewportZoom;
-
     vec2 gridPos = mod(worldCoord, gridSize);
-    float distToGrid = min(gridPos.y, gridSize - gridPos.y);
+    float distToGrid = min(gridPos.y, gridPos.y);
+    distToGrid = min(distToGrid, gridSize - gridPos.y);
 
     float aaWidth = 0.5 / viewportZoom;
     float grid = 1.0 - smoothstep(lineWidthScaled - aaWidth, lineWidthScaled + aaWidth, distToGrid);
 
-    float glowWidth = lineWidthScaled * 0.5;
+    float glowZoomFactor = smoothstep(0.5, 2.0, viewportZoom);
+    float glowWidth = lineWidthScaled * 2.0;
     float glow = 1.0 - smoothstep(lineWidthScaled, glowWidth, distToGrid);
-    glow = glow * glow * 0.2;
-    grid = grid + glow;
+    glow = glow * glow * 0.25 * glowZoomFactor;
+
+    grid = clamp(grid + glow, 0.0, 1.0);
 
     float gridFade = smoothstep(minZoomForGrid * 0.2, minZoomForGrid, viewportZoom);
     gridFade = mix(0.1, 1.0, gridFade);
@@ -30,7 +33,10 @@ vec3 simpleLine(vec2 worldCoord) {
 
     vec3 gridColor = vec3(0.18, 0.18, 0.19);
     vec3 color = backgroundColor;
-    color = mix(color, gridColor, grid * 0.7);
+
+    if(grid > 0.001) {
+        color = mix(color, gridColor, grid * 0.7);
+    }
 
     return color;
 }
@@ -44,11 +50,10 @@ vec3 simpleGridPattern(vec2 worldCoord) {
     float aaWidth = 0.5 / viewportZoom;
     float grid = 1.0 - smoothstep(lineWidthScaled - aaWidth, lineWidthScaled + aaWidth, distToGrid);
 
-    // Reduce glow intensity based on zoom level
     float glowZoomFactor = smoothstep(0.5, 2.0, viewportZoom); // Glow only visible when zoomed in
     float glowWidth = lineWidthScaled * 2.0;
     float glow = 1.0 - smoothstep(lineWidthScaled, glowWidth, distToGrid);
-    glow = glow * glow * 0.25 * glowZoomFactor; // Apply zoom-based reduction
+    glow = glow * glow * 0.25 * glowZoomFactor;
 
     grid = clamp(grid + glow, 0.0, 1.0);
 
@@ -67,10 +72,7 @@ vec3 simpleGridPattern(vec2 worldCoord) {
 }
 
 vec3 simpleDot(vec2 worldCoord) {
-    float dotSpacing = 25.0;
-    float dotRadius = 1.5;
-
-    vec2 cellCenter = floor(worldCoord / dotSpacing) * dotSpacing + dotSpacing * 0.5;
+    vec2 cellCenter = floor(worldCoord / gridSize) * gridSize + gridSize * 0.5;
     float distToDot = length(worldCoord - cellCenter);
 
     float worldDotRadius = dotRadius;
@@ -126,8 +128,6 @@ void main() {
         color = simpleDot(position);
     } else if(patternId < 3.5) {
         color = simpleLine(position);
-
-        // color = addMargin(color, position);
     }
 
     gl_FragColor = vec4(color, 1.0);

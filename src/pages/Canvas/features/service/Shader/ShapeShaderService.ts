@@ -25,6 +25,7 @@ export class ShapeShaderService {
           gridSize: { value: useShapesStore.getState().spaceBetweenLines, type: "f32" },
           marginPosition: { value: 0.1, type: "f32" },
           backgroundColor: { value: [0, 0, 0], type: "vec3<f32>" },
+          dotRadius:  { value: useShapesStore.getState().dots.dotRadius, type: "f32" },
           viewportZoom: { value:  Continuum_Canvas.viewportManager.viewport!.scale.x, type: "f32" },
         },
       },
