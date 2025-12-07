@@ -69,7 +69,7 @@ export class MeshManager {
     var triangle = new Path.Circle(center, radius);
 
     const coords: number[] = [];
-    triangle.flatten(1);
+    triangle.flatten(0.3);
 
     triangle.segments.forEach((segment) => {
       coords.push(segment.point.x, segment.point.y);

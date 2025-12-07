@@ -48,9 +48,9 @@ export const ShapeToolFillPicker = () => {
   return (
     <>
       <div
-        onClick={() => store.updateShape({ fillType: "outline-fill" })}
+        onClick={() => store.updateShape({ fillType: "outline-and-fill" })}
         className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
-          store.fillType === "outline-fill" ? DefaultOutlineColor : ""
+          store.fillType === "outline-and-fill" ? DefaultOutlineColor : ""
         }`}
       >
         <Square

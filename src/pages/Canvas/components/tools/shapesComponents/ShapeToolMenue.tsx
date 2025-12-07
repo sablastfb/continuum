@@ -13,12 +13,12 @@ const ShapeToolMenue = () => {
   const toolType = "shape";
   const fillColor =
     shapesStore.fillType === "fill-only" ||
-    shapesStore.fillType === "outline-fill"
+    shapesStore.fillType === "outline-and-fill"
       ? Continuum_Canvas.colorPalet.getColor(shapesStore.fillColorId)
       : "transparent";
   const strokeColor =
     shapesStore.fillType === "outline-only" ||
-    shapesStore.fillType === "outline-fill"
+    shapesStore.fillType === "outline-and-fill"
       ? Continuum_Canvas.colorPalet.getColor(shapesStore.strokeColorId)
       : "transparent";
   return (

@@ -4,8 +4,10 @@ import { InputState } from "../input/InputState";
 import { ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
-import { ShapePatternTypes, useShapesStore } from "../../data/store/ShapeStore";
-import { CrossHairCursor } from "../cursor/CrossHair";
+import {
+  shapePatternShaderIdMapper,
+  useShapesStore,
+} from "../../data/store/ShapeStore";
 import { SimpleCross } from "../cursor/SimpleCross";
 
 export class ShapeTool implements ITool {
@@ -13,12 +15,6 @@ export class ShapeTool implements ITool {
   shapeGraphics: Mesh<MeshGeometry, Shader> | null = null;
   strokeGraphics: Graphics | null = null;
   startPoint: SimplePoint = { x: 0, y: 0 };
-  private patternMapper: Record<ShapePatternTypes, number> = {
-    color: 0,
-    grid: 1,
-    dots: 2,
-    line: 3,
-  };
 
   startDrawing(e: InputState): void {
     this.shapeGraphics = Continuum_Canvas.meshCreator.createMesh(
@@ -37,7 +33,7 @@ export class ShapeTool implements ITool {
     );
     Continuum_Canvas.shapeShaderService.updateShaderPatter(
       this.shapeGraphics.shader,
-      this.patternMapper[useShapesStore.getState().activeBacgroundType]
+      shapePatternShaderIdMapper[useShapesStore.getState().activeBacgroundType]
     );
   }
 
@@ -51,9 +47,10 @@ export class ShapeTool implements ITool {
 
     const curentShape = useShapesStore.getState().shape;
     const fillType = useShapesStore.getState().fillType;
-    const drawFill = fillType === "fill-only" || fillType === "outline-fill";
+    const drawFill =
+      fillType === "fill-only" || fillType === "outline-and-fill";
     const drawStroke =
-      fillType === "outline-only" || fillType === "outline-fill";
+      fillType === "outline-only" || fillType === "outline-and-fill";
 
     switch (curentShape) {
       case "square":
@@ -86,21 +83,22 @@ export class ShapeTool implements ITool {
     const colorId = useShapesStore.getState().fillColorId;
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
-
+    const centerX = (p1.x + p2.x) / 2;
+    const centerY = (p1.y + p2.y) / 2;
     Continuum_Canvas.shapeShaderService.updateShaderColor(
       this.shapeGraphics.shader,
       fillColor
     );
     const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
-    const stroke = useShapesStore.getState().stroke;
+    const stroke = useShapesStore.getState().strokeSize;
     const radius = useShapesStore.getState().cornerRadius;
+    const newGeometry = Continuum_Canvas.meshCreator.getRectangleGeometry(
+      width,
+      height,
+      radius
+    );
 
     if (drawFill) {
-      const newGeometry = Continuum_Canvas.meshCreator.getRectangleGeometry(
-        width,
-        height,
-        radius
-      );
       Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
       Continuum_Canvas.shapeShaderService.updateShapeSize(
         this.shapeGraphics.shader,
@@ -112,10 +110,12 @@ export class ShapeTool implements ITool {
     }
 
     if (drawStroke) {
-      this.strokeGraphics.clear();
+     this.strokeGraphics.clear();
       this.strokeGraphics
-        .roundRect(start.x, start.y, width, height, radius)
+        .poly([...newGeometry.positions])
         .stroke({ width: stroke, color: "white" });
+           this.strokeGraphics.x = centerX-width/2;
+      this.strokeGraphics.y = centerY-height/2;
       this.strokeGraphics.tint = strokeColor;
     }
   }
@@ -134,7 +134,7 @@ export class ShapeTool implements ITool {
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
     const numberOfCorners = useShapesStore.getState().numberOfCorners;
-    const stroke = useShapesStore.getState().stroke;
+    const stroke = useShapesStore.getState().strokeSize;
     const colorId = useShapesStore.getState().fillColorId;
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
@@ -143,7 +143,7 @@ export class ShapeTool implements ITool {
       radius,
       numberOfCorners
     );
-     if (drawFill) {
+    if (drawFill) {
       Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
       Continuum_Canvas.shapeShaderService.updateShapeSize(
         this.shapeGraphics.shader,
@@ -164,15 +164,14 @@ export class ShapeTool implements ITool {
       this.strokeGraphics.tint = strokeColor;
     }
 
-       Continuum_Canvas.shapeShaderService.updateShapeSize(
-        this.shapeGraphics.shader,
-        radius,
-        radius,
-      );
+    Continuum_Canvas.shapeShaderService.updateShapeSize(
+      this.shapeGraphics.shader,
+      radius,
+      radius
+    );
   }
 
-
-   private drawCircle(
+  private drawCircle(
     p1: SimplePoint,
     p2: SimplePoint,
     drawFill: boolean,
@@ -185,15 +184,13 @@ export class ShapeTool implements ITool {
     const radius = Math.min(width, height) / 2;
     const centerX = (p1.x + p2.x) / 2;
     const centerY = (p1.y + p2.y) / 2;
-    const stroke = useShapesStore.getState().stroke;
+    const strokeSize = useShapesStore.getState().strokeSize;
     const colorId = useShapesStore.getState().fillColorId;
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
     const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
-    const newGeometry = Continuum_Canvas.meshCreator.getCircleGeometry(
-      radius,
-    );
-     if (drawFill) {
+    const newGeometry = Continuum_Canvas.meshCreator.getCircleGeometry(radius);
+    if (drawFill) {
       Continuum_Canvas.meshCreator.setGeometry(this.shapeGraphics, newGeometry);
       Continuum_Canvas.shapeShaderService.updateShapeSize(
         this.shapeGraphics.shader,
@@ -208,17 +205,17 @@ export class ShapeTool implements ITool {
       this.strokeGraphics.clear();
       this.strokeGraphics
         .poly([...newGeometry.positions])
-        .stroke({ width: stroke, color: "white" });
+        .stroke({ width: strokeSize, color: "white" });
       this.strokeGraphics.x = centerX;
       this.strokeGraphics.y = centerY;
       this.strokeGraphics.tint = strokeColor;
     }
 
-       Continuum_Canvas.shapeShaderService.updateShapeSize(
-        this.shapeGraphics.shader,
-        radius,
-        radius,
-      );
+    Continuum_Canvas.shapeShaderService.updateShapeSize(
+      this.shapeGraphics.shader,
+      radius,
+      radius
+    );
   }
 
   // craete some sort of cursor

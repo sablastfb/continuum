@@ -1,4 +1,4 @@
-import { Filter, Graphics, Shader } from "pixi.js";
+import { Filter, Shader } from "pixi.js";
 import { Continuum_Canvas } from "../../CanvasApp";
 import { ShaderUtils } from "./ShaderUtils";
 import shapeVertex from "../Shader/shaders/shape/shape.vert?raw";
@@ -20,7 +20,7 @@ export class ShapeShaderService {
         uniforms: {
           iResolution: { value: [0, 0], type: "vec2<f32>" },
           patternId: { value: 1.0, type: "f32" },
-          lineWidth: { value: 1.0, type: "f32" },
+          lineWidth: { value: 5.0, type: "f32" },
           gridSize: { value: 20, type: "f32" },
           marginPosition: { value: 0.1, type: "f32" },
           backgroundColor: { value: [0, 0, 0], type: "vec3<f32>" },
