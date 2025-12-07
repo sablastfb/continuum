@@ -22,9 +22,11 @@ export class ShapeTool implements ITool {
       Continuum_Canvas.shapeShaderService.createShader()
     );
     this.strokeGraphics = new Graphics();
-    this.startPoint = { ...e.mousePosition };
     Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
     Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
+
+    this.startPoint = { ...e.mousePosition };
+
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
 
@@ -64,7 +66,6 @@ export class ShapeTool implements ITool {
     }
   }
 
-  // save graphic to
   endDrawing(e: InputState): void {
     this.shapeGraphics = null;
   }
@@ -90,11 +91,12 @@ export class ShapeTool implements ITool {
     if (!this.strokeGraphics) return;
 
     const { width, height, centerX, centerY, start } = this.getPoints(p1, p2);
-    const radius = useShapesStore.getState().cornerRadius;
+    const cornerRadius = useShapesStore.getState().cornerRadius;
+
     const newGeometry = Continuum_Canvas.meshCreator.getRectangleGeometry(
       width,
       height,
-      radius
+      cornerRadius
     );
 
     if (drawFill) {
@@ -119,8 +121,7 @@ export class ShapeTool implements ITool {
   ) {
     if (!this.shapeGraphics) return;
     if (!this.strokeGraphics) return;
-    const { width, height, centerX, centerY } = this.getPoints(p1, p2);
-    const radius = Math.min(width, height) / 2;
+    const { centerX, centerY, radius } = this.getPoints(p1, p2);
     const numberOfCorners = useShapesStore.getState().numberOfCorners;
 
     const newGeometry = Continuum_Canvas.meshCreator.getPoligonGeometry(
@@ -129,17 +130,16 @@ export class ShapeTool implements ITool {
     );
     if (drawFill) {
       this.drawFill(newGeometry, centerX, centerY);
+      Continuum_Canvas.shapeShaderService.updateShapeSize(
+        this.shapeGraphics.shader,
+        radius,
+        radius
+      );
     }
 
     if (drawStroke) {
       this.drawStroke(newGeometry, centerX, centerY);
     }
-
-    Continuum_Canvas.shapeShaderService.updateShapeSize(
-      this.shapeGraphics.shader,
-      radius,
-      radius
-    );
   }
 
   private drawCircle(
@@ -150,7 +150,7 @@ export class ShapeTool implements ITool {
   ) {
     if (!this.shapeGraphics) return;
     if (!this.strokeGraphics) return;
-    const { width, height, centerX, centerY, radius } = this.getPoints(p1, p2);
+    const { width, height, centerX, centerY } = this.getPoints(p1, p2);
 
     const newGeometry = Continuum_Canvas.meshCreator.getCircleGeometry(
       width / 2,
@@ -161,7 +161,7 @@ export class ShapeTool implements ITool {
       Continuum_Canvas.shapeShaderService.updateShapeSize(
         this.shapeGraphics.shader,
         width / 2,
-         height / 2
+        height / 2
       );
     }
 
