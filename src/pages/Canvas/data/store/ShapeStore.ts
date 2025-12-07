@@ -51,7 +51,7 @@ export type ShapeData = ShapePatternSettings & {
   fillType: ShapeFillType;
   lineColor: ColorId;
   spaceBetweenLines: number;
-  widthOfLine: number;
+  lineWidth: number;
 };
 
 export const DefaultShapeSettings: ShapeData = {
@@ -67,7 +67,7 @@ export const DefaultShapeSettings: ShapeData = {
   fillColors: shapeBackgroundColors,
   lineColor: shapeBackgroundColors[1],
   spaceBetweenLines: 50,
-  widthOfLine: 0.5,
+  lineWidth: 0.5,
   grid: {},
   dots: {
     dotRadius: 2,

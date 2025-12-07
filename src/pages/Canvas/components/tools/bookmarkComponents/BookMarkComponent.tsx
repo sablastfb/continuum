@@ -53,7 +53,7 @@ const BookmakrContainer = () => {
             <div
               key={bookmark.id}
               className={`flex w-full cursor-pointer border-stone-500 ${
-                ix !== bookmarks.length - 1 && "border-b-1"
+                ix !== bookmarks.length - 1 && "border-b"
               }`}
               onClick={() => {
                 Continuum_Canvas.bookMarkService.moveToBookmark(bookmark);

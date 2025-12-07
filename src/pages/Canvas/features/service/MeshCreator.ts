@@ -62,11 +62,12 @@ export class MeshManager {
   }
 
     getCircleGeometry(
-    radius: number,
+    width: number,
+    height: number,
   ) {
     var center = new Point(0, 0);
 
-    var triangle = new Path.Circle(center, radius);
+    var triangle = new Path.Ellipse({center, radius:[width, height]});
 
     const coords: number[] = [];
     triangle.flatten(0.3);
@@ -77,7 +78,7 @@ export class MeshManager {
     const uvs = [];
     const indices = earcut(coords);
     for (let i = 0; i < coords.length; i += 2) {
-      uvs.push(coords[i] / radius, coords[i + 1] / radius);
+      uvs.push(coords[i] / width, coords[i + 1] / height);
     }
 
     return {

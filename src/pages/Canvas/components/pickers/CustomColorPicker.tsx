@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ColorPalet } from "../../data/palet/PaletContainer";
 import { usePenStore } from "../../data/store/PenStore";
 import { CirclePickeSize, DefaultOutline } from "../../data/constants/CanvasConstants";
 import { Continuum_Canvas } from "../../features/CanvasApp";
