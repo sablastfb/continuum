@@ -3,8 +3,8 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import {
   DefaultButtonsBackground,
   DefaultIconSize,
-} from "../../data/types/CanvasConstants";
-import { Continuum_ResizeService } from "../../features/service/Resize";
+} from "../../data/constants/CanvasConstants";
+import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const ZoomingButton = () => {
   const zoome = useCanvasStore((state) => state.zoome);
@@ -19,7 +19,7 @@ const ZoomingButton = () => {
               <ZoomIn
                 className="hover:cursor-pointer"
                 size={DefaultIconSize}
-                onClick={() => Continuum_ResizeService.manualZoom(1)}
+                onClick={() => Continuum_Canvas.resizeService.manualZoom(1)}
               />
               <div className="select-none text-xl w-20 text-center">
                 {(zoome * 100).toFixed(1)}%
@@ -27,7 +27,7 @@ const ZoomingButton = () => {
               <ZoomOut
                 className="hover:cursor-pointer"
                 size={DefaultIconSize}
-                onClick={() => Continuum_ResizeService.manualZoom(-1)}
+                onClick={() => Continuum_Canvas.resizeService.manualZoom(-1)}
               />
             </div>
           </>

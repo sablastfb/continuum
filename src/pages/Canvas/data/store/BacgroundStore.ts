@@ -2,65 +2,71 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
 import { DeepPartial } from "../types/UtilTypes";
-import { TileBacgroundSettings } from "../../features/service/TailBackground";
+import { ColorId } from "../palet/PaletContainer";
 
-export type Theme = "dark" | "light";
-export type LayoutPositon = "top" | "bottom" | "left" | "right";
+export type BacgroundPatternType = "color" | "grid" | "dots" | "line";
 
-export interface BacgroundData {
-  theme: Theme;
-  background: TileBacgroundSettings;
-}
+export type SolidColorBackground = ColorId;
+export type GridBackground = {
+  sizeOfGrid: number;
+  widthOfGridLine: number;
+};
+export type DotBackground = {
+  dotRadius: number;
+  tileWidth: number;
+};
+export type LineBackground = {
+  spaceBetween: number;
+};
+
+export type BacgroundPatternSettings = {
+  activeBacgroundType: BacgroundPatternType;
+  fillColorId: ColorId;
+  fillColors: ColorId[];
+  grid: GridBackground;
+  dots: DotBackground;
+  line: LineBackground;
+};
+
+export type BacgroundData = BacgroundPatternSettings & {
+  mainAxisVisible: boolean;
+};
 
 export interface BacgroundStore extends BacgroundData {
   discardSettings: (settings: BacgroundData) => void;
   setBackgroundSettings: (
-    bacgroundSettings: DeepPartial<TileBacgroundSettings>
+    bacgroundSettings: DeepPartial<BacgroundData>
   ) => void;
   reserToDefaultSettings: () => void;
-  setTheme: (theme: Theme) => void;
 }
 
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
 export const BacgroundDefault: BacgroundData = {
-  background: {
-    activeBacgroundType: "color",
-    color: backgroundColors[0],
-    grid: {
-      bacgroundColor: backgroundColors[0],
-      gridBorderColor: "bgt-1",
-      sizeOfGrid: 50,
-      widthOfGridLine: 1,
-    },
-    dots: {
-      bacgroundColor: backgroundColors[0],
-      dotColor: "bgt-1",
-      dotRadius: 2,
-      tileWidth: 50,
-    },
-    line: {
-      bacgroundColor: backgroundColors[0],
-      lineColor: "bgt-1",
-      spaceBetween: 50,
-    },
-    backgroundColors: backgroundColors,
+  activeBacgroundType: "dots",
+  fillColorId: backgroundColors[0],
+  fillColors: backgroundColors,
+  mainAxisVisible: false,
+  grid: {
+    sizeOfGrid: 50,
+    widthOfGridLine: 1,
   },
-  theme: "dark",
+  dots: {
+    dotRadius: 2,
+    tileWidth: 50,
+  },
+  line: {
+    spaceBetween: 50,
+  },
 };
 
-export const useSettingsStore = create<BacgroundStore>()(
+export const useBacgroundStore = create<BacgroundStore>()(
   immer((set) => ({
     ...BacgroundDefault,
     setBackgroundSettings: (settings) =>
       set((state) => {
-       state.background = merge({},state.background, settings);
+        state = Object.assign(state, settings);
       }),
-    setTheme: (theme: Theme) => {
-      set((state) => {
-        state.theme = theme;
-      });
-    },
     discardSettings: (settings) => {
       set((state) => {
         merge(state, settings);
@@ -73,4 +79,4 @@ export const useSettingsStore = create<BacgroundStore>()(
   }))
 );
 
-export default useSettingsStore;
+export default useBacgroundStore;

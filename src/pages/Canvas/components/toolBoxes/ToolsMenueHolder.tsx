@@ -1,4 +1,3 @@
-import { Clipboard, Image, Type, Link, Ruler } from "lucide-react";
 import DoUnDoComponent from "./DoUnDoComponent";
 import { Direction } from "../../data/store/LayoutStore";
 import {
@@ -6,7 +5,7 @@ import {
   DefaultIconSize,
   DefaultToolBarHeight,
   DefaultToolBarWith,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
 import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
 import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";
@@ -15,6 +14,7 @@ import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
 import ScrollableContainer from "./ScrollableContainer";
+import { Type, Image, Clipboard, Link, ChartSpline } from "lucide-react";
 
 export interface ToolsMenueParameter {
   direction: Direction;
@@ -44,8 +44,23 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           <SelectionToolMenue />
           <EraserToolMenue />
           <ShapeToolMenue />
+          <div>
+            <Type size={DefaultIconSize} />
+          </div>
+          <div>
+            <Image size={DefaultIconSize} />
+          </div>
+          <div>
+            <ChartSpline size={DefaultIconSize} />
+          </div>
+          <div>
+            <Clipboard size={DefaultIconSize} />
+          </div>
+          <div>
+            <Link size={DefaultIconSize} />
+          </div>
           <BookmankrButton />
-           <ArrayDivider direction={direction} />
+          <ArrayDivider direction={direction} />
           <DoUnDoComponent />
         </ScrollableContainer>
       )}

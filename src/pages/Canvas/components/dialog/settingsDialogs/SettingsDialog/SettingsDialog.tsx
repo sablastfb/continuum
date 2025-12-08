@@ -4,18 +4,19 @@ import { X } from "lucide-react";
 import { TabMenu } from "primereact/tabmenu";
 import { useRef, useState } from "react";
 import "./SettingsDialog.css";
-import BackgroundSettings from "../backgroundSettings/BackgroundSettings";
+import BackgroundSettings from "../BackgroundSettings";
 import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
-import useSettingsStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
-import { DefaultDialogBacground } from "../../../../data/types/CanvasConstants";
+import useBacgroundStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
+import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
+import useGlobalStore from "../../../../data/store/GlobalStore";
 
 const SettingsDialog = () => {
-  const setTheme = useSettingsStore().setTheme;
+  const setTheme = useGlobalStore().setTheme;
   const settingVisible = useCanvasStore((state) => state.settingVisible);
-  const canvasSettings = useSettingsStore((state) => state);
+  const canvasSettings = useBacgroundStore((state) => state);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const [currentCanvasSettings, setCurrentCanvasSettings] =
     useState<BacgroundData>(BacgroundDefault);
@@ -27,8 +28,8 @@ const SettingsDialog = () => {
     useState(false);
   const defaultButton = useRef(null);
 
-  const reserToDefaultSettings = useSettingsStore().reserToDefaultSettings;
-  const discardSettings = useSettingsStore().discardSettings;
+  const reserToDefaultSettings = useBacgroundStore().reserToDefaultSettings;
+  const discardSettings = useBacgroundStore().discardSettings;
   type SettingTabs = "background" | "layout";
   const items = [
     {
@@ -90,7 +91,7 @@ const SettingsDialog = () => {
               message="Are you sure you want to proceed?"
               icon="pi pi-exclamation-triangle"
               accept={() => {
-                setTheme(BacgroundDefault.theme);
+                // setTheme(BacgroundDefault.theme);
                 reserToDefaultSettings();
                 hide({
                   preventDefault: () => {},

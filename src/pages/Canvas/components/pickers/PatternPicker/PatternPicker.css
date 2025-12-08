@@ -1,0 +1,21 @@
+.grid-pattern {
+  background-image: 
+    repeating-linear-gradient(var(--grid-color) 0 1px, transparent 1px 100%),
+    repeating-linear-gradient(90deg, var(--grid-color) 0 1px, transparent 1px 100%);
+  background-size: 12px 12px;
+  background-position: -1px -1px;
+  overflow: hidden;
+}
+
+.dot-pattern {
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1.5px);
+  background-size: 12px 12px;
+  background-position: -1px -1px; 
+}
+
+.line-pattern {
+  background-image: repeating-linear-gradient(var(--line-color) 0 1px, transparent 1px 100%);
+  background-size: 10px 10px;
+  background-position: -1px 5px; 
+  overflow: hidden;
+}

@@ -3,6 +3,7 @@ import { useMarkerStore } from "../../../data/store/MarkerStore";
 import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 
 const HighlighterToolsQuickOptions = () => {
@@ -21,7 +22,7 @@ const HighlighterToolsQuickOptions = () => {
           <CircleThicknesPicker
             action={() => {
               setMarkerThickens({
-                thicknes: ThicknesPalet.getThicknes(id),
+                thicknes: Continuum_Canvas.thicknesPalet.getThicknes(id),
                 thicknesId: id,
               })
             }

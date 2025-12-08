@@ -2,7 +2,7 @@ import { Camera, Lasso, MousePointer2, SquareDashed } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/types/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 
 const SelectionToolMenue = () => {

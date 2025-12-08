@@ -1,26 +1,32 @@
 import { throttle } from "lodash";
-import { FederatedPointerEvent, Graphics } from "pixi.js";
-import { Continuum_ToolManager } from "../tools/ToolManager";
+import { Graphics } from "pixi.js";
+import { InputState } from "../input/InputState";
+import { Continuum_Canvas } from "../CanvasApp";
 
-export namespace Continuum_CanvasCursor {
-  export let cursor: Graphics;
-  export function init() {
-    Continuum_CanvasCursor.cursor = new Graphics();
+export class CursorManager {
+  public cursor: Graphics;
+  constructor() {
+    this.cursor = new Graphics();
   }
 
-  export function updateCursor() {
-    Continuum_ToolManager.updateCursor();
+  public updateCursorGraphics() {
+    if (Continuum_Canvas.toolManager.currentTool)
+      Continuum_Canvas.toolManager.currentTool.updateCursor!();
   }
 
-  export function updateCursorVisibilty(visible: boolean) {
-    if (Continuum_CanvasCursor.cursor) {
-      Continuum_CanvasCursor.cursor.visible = visible;
+  public updateCursorVisibilty(visible: boolean) {
+    if (this.cursor) {
+      this.cursor.visible = visible;
     }
   }
 
-  export const moveCursor = throttle((e: FederatedPointerEvent) => {
-    Continuum_CanvasCursor.cursor.x = e.global.x;
-    Continuum_CanvasCursor.cursor.y = e.global.y;
+  moveCursor = throttle((e: InputState) => {
+    this.cursor.x = e.globalPosition.x;
+    this.cursor.y = e.globalPosition.y;
   }, 1);
 
+  public updateCursorState(e: InputState) {
+    this.cursor.x = e.globalPosition.x;
+    this.cursor.y = e.globalPosition.y;
+  }
 }

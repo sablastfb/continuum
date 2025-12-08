@@ -1,7 +1,7 @@
+import { ShapeColors } from "./ShapeColor";
 import { BacgroundColors } from "./BacgroundColor";
 import { MarkerColors } from "./MarkerColors";
 import { PenColors } from "./PenColor";
-import { ShapeColors } from "./ShapeColor";
 
 export const PaletContainer = [
   { id: "bgt-1", light: "rgb(123, 123, 123)", dark: "rgb(123, 123, 123)" },

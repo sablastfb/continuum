@@ -1,7 +1,8 @@
 import { Graphics } from "pixi.js";
 import { Simplify } from "simplify-ts";
 import { SimplePoint } from "../../data/types/PointTypes";
-import { Continuum_CanvasViewport } from "./Viewport";
+import { CanvasViewport } from "./Viewport";
+import { Continuum_Canvas } from "../CanvasApp";
 
 
 export namespace Continuum_Debug {
@@ -15,7 +16,7 @@ export namespace Continuum_Debug {
       .moveTo(pointX.x, pointX.y)
       .lineTo(pointY.x, pointY.y)
       .stroke({ color: "green" });
-    Continuum_CanvasViewport.viewport?.addChild(line);
+    Continuum_Canvas.viewportManager.viewport?.addChild(line);
   }
 
   export function DrawPath<P extends SimplePoint>(
@@ -32,7 +33,7 @@ export namespace Continuum_Debug {
       g.lineTo(currentPoint.x, currentPoint.y);
     }
     g.stroke({ color, width: 1 });
-    Continuum_CanvasViewport.viewport?.addChild(g);
+    Continuum_Canvas.viewportManager.viewport?.addChild(g);
   }
 
   export function SimplePathOptmizationTest<P extends SimplePoint>(path: P[]) {

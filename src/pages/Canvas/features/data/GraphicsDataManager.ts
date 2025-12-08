@@ -17,12 +17,7 @@ export const graphicOnCanvas = new Map<Id, GraphicsData>();
 export type GraphicInfo = CurveGraphicInfo;
 export type GraphicType = "cruve";
 
-export namespace Continuum_Data {
-  ///
-  // export function add(graphics: Graphics) {
-    
-  // }
-}
+
 export type CurveGraphicInfo = {
   thicknes: number;
   path: paper.Path;

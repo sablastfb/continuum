@@ -1,8 +1,8 @@
 import { Home, Plus, Trash, X } from "lucide-react";
-import { DefaultButtonsBackground } from "../../../data/types/CanvasConstants";
+import { DefaultButtonsBackground } from "../../../data/constants/CanvasConstants";
 import { useState } from "react";
 import { useBookmark } from "../../../data/store/BookmarkStore";
-import { Continuum_Bookmark } from "../../../features/service/BookMark";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const BookmakrContainer = () => {
   const [editingId, seteditingId] = useState<string | null>(null);
@@ -30,13 +30,13 @@ const BookmakrContainer = () => {
           <div className="cursor-pointer rounded-full">
             <Plus
               size={25}
-              onClick={() => Continuum_Bookmark.addBookmark()}
+              onClick={() => Continuum_Canvas.bookMarkService.addBookmark()}
             />
           </div>
           <div className="cursor-pointer rounded-full">
             <Home
               size={25}
-              onClick={() => Continuum_Bookmark.moveToBookmarkHome()}
+              onClick={() => Continuum_Canvas.bookMarkService.moveToBookmarkHome()}
             />
           </div>
           <div className="cursor-pointer rounded-full">
@@ -53,10 +53,10 @@ const BookmakrContainer = () => {
             <div
               key={bookmark.id}
               className={`flex w-full cursor-pointer border-stone-500 ${
-                ix !== bookmarks.length - 1 && "border-b-1"
+                ix !== bookmarks.length - 1 && "border-b"
               }`}
               onClick={() => {
-                Continuum_Bookmark.moveToBookmark(bookmark);
+                Continuum_Canvas.bookMarkService.moveToBookmark(bookmark);
                 setSelectedId(bookmark.id);
               }}
               onDoubleClick={() => seteditingId(bookmark.id)}
@@ -70,7 +70,7 @@ const BookmakrContainer = () => {
                     className="p-inputtext-sm"
                     value={bookmark.name}
                     onChange={(e) => {
-                      Continuum_Bookmark.renameBookmark(
+                      Continuum_Canvas.bookMarkService.renameBookmark(
                         bookmark.id,
                         e.target.value
                       );
@@ -99,7 +99,7 @@ const BookmakrContainer = () => {
                         size={20}
                         onClick={() => {
                           if (selectedId) {
-                            Continuum_Bookmark.removeBookmark(selectedId);
+                            Continuum_Canvas.bookMarkService.removeBookmark(selectedId);
                             setSelectedId(null);
                           }
                         }}

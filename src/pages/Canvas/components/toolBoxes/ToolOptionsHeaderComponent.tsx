@@ -1,7 +1,7 @@
 import { Ellipsis, EllipsisVertical } from "lucide-react";
 import useLayoutStore from "../../data/store/LayoutStore";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { DefaultIconSize } from "../../data/types/CanvasConstants";
+import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 import ArrayDivider from "../misc/ArrayDivider";
 
 

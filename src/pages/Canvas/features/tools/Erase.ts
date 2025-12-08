@@ -1,38 +1,29 @@
-import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
 import { useEraseStore } from "../../data/store/EraseStore";
-import { Continuum_CanvasViewport } from "../service/Viewport";
 import { ITool } from "./ToolManager";
 import { CircleCursor } from "../cursor/Circle";
 import { Continuum_CollisionService } from "../service/ColisionDetection";
 import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
-import { Continuum_Canvas } from "../CanvasApp";
-import { MouseButton, Continuum_MouseService } from "../service/MouseService";
 import type { EraserToolType } from "../../data/types/ToolTypes";
-import type { MouseInputPoint} from "../../data/types/PointTypes";
+import { InputState } from "../input/InputState";
+import { Continuum_Canvas } from "../CanvasApp";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";
   delteGraphics: GraphicsData[] = [];
 
-  public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
-      return;
-    }
-    if (!Continuum_CanvasViewport.viewport) return;
+  public startDrawing(e: InputState) {
+    if (! Continuum_Canvas.viewportManager.viewport) return;
 
     this.delteGraphics = [];
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
+    const activePoint = Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     Continuum_CollisionService.StartContinouseColison(activePoint);
   }
 
-  public draw<P extends MouseInputPoint>(e: P) {
-    if (Continuum_Canvas.drawing === false) return;
-    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
-
-    const activePoint = Continuum_CanvasViewport.viewport?.toWorld(e);
+  public draw(e: InputState) {
+    const activePoint =  Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     if (!activePoint) return;
-    const radius = ThicknesPalet.getThicknes(
+    const radius = Continuum_Canvas.thicknesPalet.getThicknes(
       useEraseStore.getState().thicknesId
     );
 
@@ -55,10 +46,7 @@ export class Erase implements ITool {
     }
   }
 
-  public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonReleased(e, MouseButton.Left)) {
-      return;
-    }
+  public endDrawing(e: InputState) {
     GraphicsCommand.removeGraphics(this.delteGraphics);
     this.delteGraphics = [];
   }

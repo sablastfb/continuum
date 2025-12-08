@@ -12,8 +12,9 @@ import {
   DefaultToolBarHeight,
   DefaultToolBarPadding,
   DefaultToolBarVPadding,
-} from "../../data/types/CanvasConstants";
+} from "../../data/constants/CanvasConstants";
 import ScrollableContainer from "./ScrollableContainer";
+import ShapeAdvanceSettings from "../tools/shapesComponents/ShapeAdvanceSettings";
 
 export interface ToolOptionParameters {
   direction: Direction;
@@ -25,6 +26,7 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
 
   let activeToolComponent: JSX.Element | null = null;
   let advanceSettingsComponent: JSX.Element | null = null;
+  
   switch (activeTool) {
     case "pen":
     case "highlighter":
@@ -42,6 +44,7 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
       break;
     case "shape":
       activeToolComponent = <ShapeToolQuickOptions />;
+      advanceSettingsComponent = <ShapeAdvanceSettings />;
       break;
     default:
       activeToolComponent = null;
@@ -71,11 +74,11 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
         flex items-center gap-4  pointer-events-auto 
         ${
           direction === "vertical" &&
-          `flex-col ${DefaultToolBarVPadding}  sm:max-h-[80vh] max-h-[40vh] `
+          `flex-col ${DefaultToolBarVPadding}  sm:max-h-[75vh] max-h-[40vh] `
         } 
         ${
           direction === "horizontal" &&
-          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[80vw]`
+          `${DefaultToolBarHeight} ${DefaultToolBarPadding}  max-w-[85vw]`
         }
         `}
         >

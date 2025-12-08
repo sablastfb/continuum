@@ -1,27 +1,28 @@
 import { useEffect } from "react";
-import { Continuum_CanvasBacground } from "../../features/service/Background";
-import useSettingsStore from "../../data/store/BacgroundStore";
-import { Continuum_CanvasCursor } from "../../features/cursor/CursorManager";
-import { Continuum_ToolManager } from "../../features/tools/ToolManager";
+import useBacgroundStore from "../../data/store/BacgroundStore";
 import useToolStore from "../../data/store/ToolStore";
+import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const BackgroundEffect = () => {
-  const settings = useSettingsStore(
-    (state) => state
-  );
-
+  const bacgroundSettings = useBacgroundStore((state) => state);
+  const mainAxses = useBacgroundStore((state) => state).mainAxisVisible;
   const activeTool = useToolStore().activeTool;
 
   useEffect(() => {
-    Continuum_CanvasBacground.changeBackground(settings.background);
-  }, [settings]);
+    Continuum_Canvas.bacgroundService.updateBacground(bacgroundSettings);
+  }, [bacgroundSettings]);
 
+  useEffect(() => {
+    Continuum_Canvas.bacgroundShaderService.updateMainAxises(mainAxses);
+  }, [mainAxses]);
 
-  useEffect(() =>{
-    Continuum_ToolManager.setTool(activeTool);
-    Continuum_CanvasCursor.updateCursor();
+  useEffect(() => {
+    Continuum_Canvas.toolManager.setTool(activeTool);
+    Continuum_Canvas.cursorManager.updateCursorGraphics();
   }, [activeTool]);
+
+  useEffect(() => {}, [])
   return <></>;
-}
+};
 
 export default BackgroundEffect;

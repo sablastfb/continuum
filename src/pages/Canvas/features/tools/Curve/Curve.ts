@@ -1,24 +1,24 @@
 import { Graphics, Point } from "pixi.js";
-import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
+import { ColorPalet } from "../../../data/palet/PaletContainer";
 import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePenStore } from "../../../data/store/PenStore";
-import { Continuum_CanvasViewport } from "../../service/Viewport";
+import { CanvasViewport } from "../../service/Viewport";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import type { MouseInputPoint, SimplePoint } from "../../../data/types/PointTypes";
+import type {
+  MouseInputPoint,
+  SimplePoint,
+} from "../../../data/types/PointTypes";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
 import { Continuum_Canvas } from "../../CanvasApp";
-import {
-  MouseButton,
-  Continuum_MouseService,
-} from "../../service/MouseService";
 import { PenStyle } from "./Pen";
 import { MarkerStyle } from "./Marker";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { ToolType } from "../../../data/types/ToolTypes";
+import { InputState } from "../../input/InputState";
 
 export type CruveStyle = "pen" | "marker";
 
@@ -37,58 +37,52 @@ export class Curve implements ITool {
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
-        this.type = 'pen';
+        this.type = "pen";
         this.curveStyle = new PenStyle();
         break;
       case "marker":
-        this.type = 'highlighter';
+        this.type = "highlighter";
         this.curveStyle = new MarkerStyle();
         break;
     }
   }
 
-  public startDrawing<P extends MouseInputPoint>(e: P) {
-    if (!Continuum_MouseService.isButtonPressed(e, MouseButton.Left)) {
-      return;
-    }
-    if (!Continuum_CanvasViewport.viewport) return;
+  public startDrawing(e: InputState) {
+    if (!Continuum_Canvas.viewportManager.viewport) return;
 
     this.activeCurve = new Graphics();
 
-    Continuum_CanvasViewport.viewport.addChild(this.activeCurve);
+    Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
     switch (this.curveStyleType) {
       case "pen":
-        this.activeColor = Continuum_CanvasPalet.getColor(
+        this.activeColor = Continuum_Canvas.colorPalet.getColor(
           usePenStore.getState().penColorId
         );
-        this.activeThicknes = ThicknesPalet.getThicknes(
+        this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           usePenStore.getState().thicknesId
         );
         break;
       case "marker":
-        this.activeColor = Continuum_CanvasPalet.getColor(
+        this.activeColor = Continuum_Canvas.colorPalet.getColor(
           useMarkerStore.getState().markerColorId
         );
-        this.activeThicknes = ThicknesPalet.getThicknes(
+        this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useMarkerStore.getState().thicknesId
         );
         break;
     }
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(e);
-    this.line.push(worldPos);
-    this.activeCurve.moveTo(worldPos.x, worldPos.y);
+    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
   }
 
-  public draw<P extends MouseInputPoint>(e: P,ee: SimplePoint) {
-    if (Continuum_Canvas.drawing === false) return;
-    if (!Continuum_MouseService.isDragging(e, MouseButton.Left)) return;
+  public draw(e: InputState) {
     if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
-    if (!Continuum_CanvasViewport.viewport) return;
-    const worldPos = Continuum_CanvasViewport.viewport.toWorld(ee);
-    this.line.push(worldPos);
-    this.activeCurve.lineTo(worldPos.x, worldPos.y);
+    if (!Continuum_Canvas.viewportManager.viewport) return;
+
+    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
 
     this.curveStyle.draw({
       activeCurve: this.activeCurve,
@@ -96,22 +90,13 @@ export class Curve implements ITool {
       activeThicknes: this.activeThicknes,
       activeColor: this.activeColor,
     });
-
   }
 
-  public stopDrawing<P extends MouseInputPoint>(e: P) {
-    if (
-      Continuum_Canvas.drawing === true &&
-      !Continuum_MouseService.isButtonReleased(e, MouseButton.Left)
-    ) {
-      return;
-    }
-
+  public endDrawing(e: InputState) {
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
-    if (!Continuum_CanvasViewport.viewport) return;
-    
+    if (!Continuum_Canvas.viewportManager.viewport) return;
 
     const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
     const optimizedCruveGraphics =
@@ -128,8 +113,8 @@ export class Curve implements ITool {
     };
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
-    Continuum_CanvasViewport.viewport?.removeChild(this.activeCurve);
-    Continuum_CanvasViewport.viewport?.addChild(optimizedCruveGraphics);
+    Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
+    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
 
     this.curveStyle.stopDrawingStyle({
       optimizedCruveGraphics,
@@ -142,7 +127,7 @@ export class Curve implements ITool {
   }
 
   public updateCursor() {
-    switch (this.type){
+    switch (this.type) {
       case "pen":
         CrossHairCursor.draw();
         break;

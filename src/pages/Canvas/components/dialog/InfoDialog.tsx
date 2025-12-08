@@ -1,7 +1,7 @@
 import { Dialog } from "primereact/dialog";
 import { X } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
-import { DefaultDialogBacground } from "../../data/types/CanvasConstants";
+import { DefaultDialogBacground } from "../../data/constants/CanvasConstants";
 
 const  InfoDialog = () => {
   const infoVisible = useCanvasStore((state) => state.infoVisible);

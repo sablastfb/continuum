@@ -3,16 +3,15 @@ import { Highlighter, Pen } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline as DefaultOutlineSelection,
-} from "../../../data/types/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolQuickOptions from "./PenToolsQuickOptions";
 import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
 import { usePenStore } from "../../../data/store/PenStore";
-import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
-import { useHandleStyle } from "primereact/componentbase";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolOptions = () => {
   const setActiveTool = useToolStore((state) => state.setActiveTool);
@@ -31,7 +30,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("pen"); lastCureveTool("pen");}}
       >
-        <Pen size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( penStore.penColorId )}/>
+        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penColorId )}/>
       </div>
       <div
         className={`cursor-pointer ${
@@ -39,7 +38,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("highlighter"); lastCureveTool("highlighter"); }}
       >
-        <Highlighter size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( markerStore.markerColorId )}/>
+        <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( markerStore.markerColorId )}/>
       </div>
       <ArrayDivider direction={toolOptionsDirection} />
       {activeTool === "pen" && <PenToolQuickOptions />}

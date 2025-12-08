@@ -56,7 +56,7 @@ const ToolLayout = () => {
         )}
       </div>
       {/* <OptionButtons /> */}
-      <div className={`  absolute bottom-2 left-0 m-1 flex gap-5 items-center`}>
+      <div className={`  absolute bottom-0 left-0 m-1 flex gap-5 items-center`}>
         <ZoomingButton />
         <HideQuickToolSettings />
       </div>

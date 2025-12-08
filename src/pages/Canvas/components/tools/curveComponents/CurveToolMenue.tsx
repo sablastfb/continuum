@@ -1,16 +1,13 @@
-import { Highlighter, Pen, Pencil } from "lucide-react";
+import { Highlighter, Pen } from "lucide-react";
 import {
-  DefaultButtonsBackground,
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/types/CanvasConstants";
+} from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
-import useCanvasStore from "../../../data/store/CanvasStore";
-import CurveAdvanceSettings from "./CurveAdvanceSettings";
-import { useEffect, useRef, useState } from "react";
 import { usePenStore } from "../../../data/store/PenStore";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
-import { Continuum_CanvasPalet } from "../../../data/palet/PaletContainer";
+import { ColorPalet } from "../../../data/palet/PaletContainer";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolMenue = () => {
   const toolStore = useToolStore();
@@ -28,10 +25,10 @@ const CurveToolMenue = () => {
     
       >
         {toolStore.lastCureveTool === "pen" && (
-        <Pen size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( penStore.penColorId )}/>
+        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penColorId )}/>
         )}
         {toolStore.lastCureveTool === "highlighter" && (
-               <Highlighter size={DefaultIconSize} fill={Continuum_CanvasPalet.getColor( markerStore.markerColorId )}/>
+               <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( markerStore.markerColorId )}/>
        
         )}
       </div>
