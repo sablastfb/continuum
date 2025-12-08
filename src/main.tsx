@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from 'primereact/api';
 import { AppConstants } from './pages/Canvas/data/constants/AppConstants';
 
@@ -18,7 +17,7 @@ const createOrUpdateLink = (themePath: string) => {
   link.href = themePath;
 };
 
-createOrUpdateLink(`/themes/${AppConstants.primeReactDarkModeTheme}/theme.css`); 
+createOrUpdateLink(`https://unpkg.com/primereact/resources/themes/lara-dark-blue/theme.css`); 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

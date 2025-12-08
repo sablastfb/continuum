@@ -1,5 +1,4 @@
 import { Graphics } from "pixi.js";
-import { Simplify } from "simplify-ts";
 import { SimplePoint } from "../../data/types/PointTypes";
 import { Continuum_Canvas } from "../CanvasApp";
 
@@ -36,31 +35,8 @@ export namespace Continuum_Debug {
   }
 
   export function SimplePathOptmizationTest<P extends SimplePoint>(path: P[]) {
-    for (let i = 0; i < 10; i += 1) {
-      const simplePath = Simplify(path, i * 3, false);
-      DrawPath(simplePath, getColorFromGradient(i, 0, 10));
-    }
+   
   }
 
-  function getColorFromGradient(
-    value: number,
-    min: number = 0,
-    max: number = 10
-  ): string {
-    const clampedValue = Math.max(min, Math.min(max, value));
-
-    const normalized = (clampedValue - min) / (max - min);
-    const r = Math.floor(255 * (1 - normalized));
-    const g = 0;
-    const b = Math.floor(255 * normalized);
-
-    return `rgb(${r}, ${g}, ${b})`;
-  }
-
-  export function GetRandomRGBColor() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r}, ${g}, ${b})`;
-  }
+  
 }
