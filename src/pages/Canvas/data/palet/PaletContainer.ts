@@ -1,6 +1,5 @@
 import { keyBy } from "lodash";
 import { PaletContainer } from "./PaletConstants";
-import useBacgroundStore from "../store/BacgroundStore";
 import useGlobalStore from "../store/GlobalStore";
 
 export type Color = string;

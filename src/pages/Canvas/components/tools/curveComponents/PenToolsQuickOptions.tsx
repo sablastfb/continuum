@@ -1,4 +1,3 @@
-import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePenStore as usePenStore } from "../../../data/store/PenStore";
 import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";

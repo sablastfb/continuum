@@ -1,5 +1,3 @@
-import { ColorPalet } from "../../data/palet/PaletContainer";
-import { ThicknesPalet } from "../../data/thicknes/ThickneContainer";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { useEraseStore } from "../../data/store/EraseStore";
 import { Continuum_Canvas } from "../CanvasApp";

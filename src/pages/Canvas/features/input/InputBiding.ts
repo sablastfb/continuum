@@ -26,13 +26,11 @@ export class InputBidings {
     return match;
   }
 
-  public addBinding(InputBinding: InputBinding) {}
+  public addBinding() {}
 
   public removeBinding() {}
 
-  private matchKeys(inputState: InputState, keys?: string[]) {
-    if (!keys) return true;
-  }
+
 
   private matchMouse(inputState: InputState, mouseButtons?: MouseButton[]) {
     if (!mouseButtons) return true;

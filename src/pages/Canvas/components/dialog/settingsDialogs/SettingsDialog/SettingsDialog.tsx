@@ -11,10 +11,8 @@ import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
 import useBacgroundStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
 import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
-import useGlobalStore from "../../../../data/store/GlobalStore";
 
 const SettingsDialog = () => {
-  const setTheme = useGlobalStore().setTheme;
   const settingVisible = useCanvasStore((state) => state.settingVisible);
   const canvasSettings = useBacgroundStore((state) => state);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);

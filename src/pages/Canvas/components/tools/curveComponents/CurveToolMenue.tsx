@@ -6,7 +6,6 @@ import {
 import useToolStore from "../../../data/store/ToolStore";
 import { usePenStore } from "../../../data/store/PenStore";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
-import { ColorPalet } from "../../../data/palet/PaletContainer";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolMenue = () => {

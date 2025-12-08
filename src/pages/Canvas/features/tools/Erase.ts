@@ -46,7 +46,7 @@ export class Erase implements ITool {
     }
   }
 
-  public endDrawing(e: InputState) {
+  public endDrawing() {
     GraphicsCommand.removeGraphics(this.delteGraphics);
     this.delteGraphics = [];
   }

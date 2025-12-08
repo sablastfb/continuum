@@ -1,15 +1,8 @@
 import { Graphics, Point } from "pixi.js";
-import { ColorPalet } from "../../../data/palet/PaletContainer";
-import { ThicknesPalet } from "../../../data/thicknes/ThickneContainer";
 import { usePenStore } from "../../../data/store/PenStore";
-import { CanvasViewport } from "../../service/Viewport";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import type {
-  MouseInputPoint,
-  SimplePoint,
-} from "../../../data/types/PointTypes";
 import { Continuum_CurveService } from "../../service/CurveService";
 import { CrossHairCursor } from "../../cursor/CrossHair";
 import { GraphicsCommand } from "../../commands/Graphics";
@@ -92,7 +85,7 @@ export class Curve implements ITool {
     });
   }
 
-  public endDrawing(e: InputState) {
+  public endDrawing() {
     if (this.activeThicknes === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
