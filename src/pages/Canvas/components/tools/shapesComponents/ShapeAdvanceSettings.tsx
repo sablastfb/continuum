@@ -167,6 +167,8 @@ const ShapeAdvanceSettings = () => {
         lineColor={Continuum_Canvas.colorPalet.getColor(shapeStore.lineColor)}
         onPatternSelect={handlePatternSelect}
       />
+      
+
     </div>
   );
 };

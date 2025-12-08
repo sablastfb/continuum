@@ -66,7 +66,7 @@ export class ShapeTool implements ITool {
     }
   }
 
-  endDrawing(e: InputState): void {
+  endDrawing(): void {
     this.shapeGraphics = null;
   }
 
