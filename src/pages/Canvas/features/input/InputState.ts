@@ -1,6 +1,7 @@
 import { FederatedPointerEvent } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
+import useCanvasStore from "../../data/store/CanvasStore";
 
 export type AppCanvasState = "IDLE" | "DARWING" | "KEY_PUSHED";
 
@@ -57,6 +58,7 @@ export class InputStateManager {
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
     Continuum_Canvas.viewportManager.viewport.on("pointerdown", (e) => {
+      useCanvasStore.getState().setAdvanceToolsVisibility(false);
       this.inputState.pointerDown = true;
       this.updatePointerEvent(e);
     });
