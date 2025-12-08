@@ -1,51 +1,63 @@
-# 🎨 Continuum
+# Continuum
 
-**One Canvas. One Program. All Devices.**
+**A cross-platform infinite canvas application for creative work and visual thinking.**
 
-Continuum is a free, open-source, and cross-platform drawing app designed for limitless creativity. Sketch, plan, and design on an infinite canvas from your desktop, tablet, or phone.
+Continuum is a free, open-source drawing and diagramming application built with Tauri. Work seamlessly across Windows, macOS, Linux, Android, and iOS with a unified, native experience on every platform.
 
-![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen) ![Passion Project](https://img.shields.io/badge/%F0%9F%92%96-Passion%20Project-ff69b4)
-
-## ✨ Features
-
-### Core & Canvas
-- **Infinite Canvas**: Never run out of space for your ideas.
-- **Light & Dark Mode**: Draw comfortably in any lighting.
-- **Customizable Backgrounds**: Choose from a variety of textures.
-
-### Tools & Functionality
-- **Rich Toolset**: Pen, Marker, Pencil, and Eraser.
-- **Shape Tools**: Create rectangles, circles, polygons, and arrows (both filled and hollow).
-- **Precise Editing**: Select, rotate, and scale objects with ease.
-- **Full History**: Undo and Redo.
-- **Image Integration**: Import and work with images directly on your canvas.
-- **Flexible Export**: Export your entire masterpiece or just a selected area.
-
-### Interface & Compatibility
-- **Modular View**: A customizable interface that adapts to your workflow.
-- **Cross-Platform Stylus Support**: Fully compatible with styluses on Android and other platforms.
-
-## 🛠️ Built With
-
-This project is made possible by these amazing technologies:
-- [**PixiJS**](https://pixijs.com/) - The powerhouse HTML5 creation engine.
-- [**Tauri**](https://tauri.app/) - For building a lean, fast, and secure desktop app.
-- **Lots of Love** ❤️
-
-## 🤝 How to Contribute
-
-As a solo passion project, contributions of all kinds are incredibly welcome!
-
-1. **Use the App**: The best way to help is to use it and provide feedback.
-2. **Suggest Features**: Have an idea? I'd love to hear it! Open an issue to start a discussion.
-3. **Report Bugs**: Found something broken? Let me know so I can fix it.
-4. **Spread the Word**: Like the app? Suggest it to a friend!
-
-## 📖 About the Project
-
-Continuum was born from a simple need: the lack of a great, simple drawing canvas app for Linux and Android. This project is my solution—a tool without borders or limitations, where the only limit is your creativity.
-
-Use it to doodle, plan, diagram, or create. It's your canvas.
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen) ![Cross Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-blue)
 
 ---
-**Made by a solo developer, for the community.**
+
+## Features
+
+### Drawing & Design
+- **Advanced line tools** with texture support and curve optimization
+- **Shape creation** including rectangles, circles, polygons, and arrows with customizable textures
+- **Shape combination** for creating complex composite forms
+- **Stylus support** with pressure sensitivity on compatible devices
+- **Pen, marker, pencil, and eraser tools** for varied artistic expression
+
+### Content & Media
+- **Text rendering** with formatting options
+- **Image import** for reference and integration
+- **PDF loading** for annotation and markup
+- **Emoji support** including emoji-decorated curve lines
+- **Bookmarks** for quick navigation across large canvases
+
+### Workflow
+- **Clipboard system** for storing and reusing common shapes and graphics
+- **Full undo/redo history** for non-destructive editing
+- **Selection, rotation, and scaling** with precision controls
+- **Export functionality** for entire canvas or selected regions
+- **Light and dark mode** with customizable backgrounds
+
+### Canvas
+- **Infinite canvas** that scales to your project needs
+- **Modular interface** adaptable to different workflows
+- **Background textures** for enhanced visual organization
+
+---
+
+## Technology Stack
+
+- **[PixiJS](https://pixijs.com/)** - High-performance 2D rendering engine
+- **[Tauri](https://tauri.app/)** - Lightweight, secure cross-platform framework
+- **Rust + Web Technologies** - Native performance with modern UI
+
+---
+
+## Roadmap
+
+- [ ] Real-time collaborative editing
+- [ ] Additional export formats
+- [ ] Plugin system
+- [ ] Cloud synchronization
+
+
+
+
+## About
+
+Continuum addresses the need for a capable, open-source canvas application that works consistently across all major platforms. Whether sketching ideas, creating diagrams, or planning projects, Continuum provides an uncluttered workspace that adapts to your needs.
+
+Built for the community by an independent developer.
