@@ -4,7 +4,7 @@ import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import useLayoutStore from "../../../data/store/LayoutStore";
-import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const EraseToolQuickOptions = () => {

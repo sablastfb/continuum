@@ -5,7 +5,7 @@ import {
 } from "../../../data/constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
-import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
 
 import CircleColorPicker from "../../pickers/CircleColorPicker";
 import { useShapesStore } from "../../../data/store/ShapeStore";

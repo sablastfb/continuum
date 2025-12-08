@@ -8,7 +8,7 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolQuickOptions from "./PenToolsQuickOptions";
 import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
-import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
 import { usePenStore } from "../../../data/store/PenStore";
 import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";

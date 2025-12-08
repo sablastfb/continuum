@@ -11,7 +11,7 @@ import {
 import useToolStore from "../../../data/store/ToolStore";
 import { SelectionToolType } from "../../../data/types/ToolTypes";
 import { JSX } from "react";
-import ToolOptionHeaderComponent from "../../toolBoxes/ToolOptionsHeaderComponent";
+import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
 
 interface Par {
   icon: JSX.Element;
