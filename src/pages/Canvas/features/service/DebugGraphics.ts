@@ -34,9 +34,4 @@ export namespace Continuum_Debug {
     Continuum_Canvas.viewportManager.viewport?.addChild(g);
   }
 
-  export function SimplePathOptmizationTest<P extends SimplePoint>(path: P[]) {
-   
-  }
-
-  
 }
