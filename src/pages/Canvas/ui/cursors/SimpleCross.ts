@@ -1,4 +1,4 @@
-import { Continuum_Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../../features/CanvasApp";
 
 export class SimpleCross {
   static draw() {

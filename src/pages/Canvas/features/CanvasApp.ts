@@ -3,7 +3,6 @@ import { ToolManager } from "./tools/ToolManager";
 import { ColorPalet } from "../data/palet/PaletContainer";
 import useBacgroundStore from "../data/store/BacgroundStore";
 import { ResizeService } from "./service/Resize";
-import { CursorManager } from "./cursor/CursorManager";
 import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
@@ -15,6 +14,7 @@ import { BacgroundService } from "./service/Bacgroun";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
 import { BacgroundShaderService } from "./service/Shader/BacgroundShaderService";
 import { MeshManager } from "./service/MeshCreator";
+import { CursorManager } from "./cursors/CursorManager";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;

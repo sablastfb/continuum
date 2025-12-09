@@ -1,6 +1,6 @@
 import useCanvasStore from "../../data/store/CanvasStore";
 import { usePenStore } from "../../data/store/PenStore";
-import { Continuum_Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../../features/CanvasApp";
 
 export class CrossHairCursor  {
   static draw() {

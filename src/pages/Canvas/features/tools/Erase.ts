@@ -1,12 +1,12 @@
 import { useEraseStore } from "../../data/store/EraseStore";
 import { ITool } from "./ToolManager";
-import { CircleCursor } from "../cursor/Circle";
 import { Continuum_CollisionService } from "../service/ColisionDetection";
 import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
 import type { EraserToolType } from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { Continuum_Canvas } from "../CanvasApp";
+import { CircleCursor } from "../../ui/cursors/Circle";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";

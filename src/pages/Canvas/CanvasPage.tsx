@@ -1,7 +1,7 @@
-import BarrelDialogs from "./components/dialog/BarrelDialogs";
-import BarrelEffect from "./components/effects/BarrelEffect";
-import PixiCanvasComponent from "./components/components/CanvasComponent";
-import ToolLayout from "./components/components/ToolLayout";
+import PixiCanvasComponent from "./ui/components/CanvasComponent";
+import ToolLayout from "./ui/components/ToolLayout";
+import BarrelDialogs from "./ui/dialog/BarrelDialogs";
+import BarrelEffect from "./ui/effects/BarrelEffect";
 
 const CanvasPage = () => {
   return (

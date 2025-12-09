@@ -1,6 +1,6 @@
 import useCanvasStore from "../../data/store/CanvasStore";
 import { useEraseStore } from "../../data/store/EraseStore";
-import { Continuum_Canvas } from "../CanvasApp";
+import { Continuum_Canvas } from "../../features/CanvasApp";
 
 export class CircleCursor {
   static draw() {
