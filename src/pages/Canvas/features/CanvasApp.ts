@@ -8,13 +8,13 @@ import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
 import { InputStateManager } from "./input/InputState";
 import { InputBidings } from "./input/InputBiding";
-import { BookmarkService } from "./service/BookMark";
 import { ThicknesPalet } from "../data/thicknes/ThickneContainer";
 import { BacgroundService } from "./service/Bacgroun";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
 import { BacgroundShaderService } from "./service/Shader/BacgroundShaderService";
 import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
+import { BookmarkService } from "./service/Bookmark";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
