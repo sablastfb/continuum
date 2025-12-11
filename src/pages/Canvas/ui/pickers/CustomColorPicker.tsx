@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { usePenStore } from "../../data/store/PenStore";
+import { useCurveStore } from "../../data/store/PenStore";
 import { CirclePickeSize, DefaultOutline } from "../../data/constants/CanvasConstants";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const CustomColorPicker = ({ customColorId }: { customColorId: string }) => {
-  const setPenColor = usePenStore().setPenColor;
-  const pencilColorId = usePenStore().penColorId;
+  const setPenColor = useCurveStore().setPenColor;
+  const pencilColorId = useCurveStore().penColorId;
 
   const [color, setColor] = useState<string>("#6466f1");
 

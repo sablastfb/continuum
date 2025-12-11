@@ -1,4 +1,4 @@
-import { usePenStore as usePenStore } from "../../../data/store/PenStore";
+import { useCurveStore as useCurveStore } from "../../../data/store/PenStore";
 import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
@@ -7,12 +7,12 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const PenToolQuickOptions = () => {
-  const penSettings = usePenStore();
-  const pencilColorId = usePenStore().penColorId;
-  const thicknesId = usePenStore().thicknesId;
-  const setPenColor = usePenStore((state) => state.setPenColor);
+  const penSettings = useCurveStore();
+  const pencilColorId = useCurveStore().penColorId;
+  const thicknesId = useCurveStore().thicknesId;
+  const setPenColor = useCurveStore((state) => state.setPenColor);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
-  const setPenThickens = usePenStore(
+  const setPenThickens = useCurveStore(
     (state) => state.setPenThickens
   );
 

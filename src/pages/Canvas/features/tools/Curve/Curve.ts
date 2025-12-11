@@ -1,5 +1,5 @@
 import { Graphics, Point } from "pixi.js";
-import { usePenStore, useMarkerStore } from "../../../data/store/PenStore";
+import { useCurveStore, useMarkerStore } from "../../../data/store/PenStore";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
@@ -48,10 +48,10 @@ export class Curve implements ITool {
     switch (this.curveStyleType) {
       case "pen":
         this.activeColor = Continuum_Canvas.colorPalet.getColor(
-          usePenStore.getState().penColorId
+          useCurveStore.getState().penColorId
         );
         this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
-          usePenStore.getState().thicknesId
+          useCurveStore.getState().thicknesId
         );
         break;
       case "marker":

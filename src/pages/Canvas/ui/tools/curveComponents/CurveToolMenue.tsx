@@ -4,12 +4,12 @@ import {
   DefaultOutline,
 } from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
-import { usePenStore, useMarkerStore } from "../../../data/store/PenStore";
+import { useCurveStore, useMarkerStore } from "../../../data/store/PenStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolMenue = () => {
   const toolStore = useToolStore();
-  const penStore = usePenStore();
+  const penStore = useCurveStore();
   const markerStore = useMarkerStore();
   return (
     <>

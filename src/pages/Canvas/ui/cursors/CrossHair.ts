@@ -1,5 +1,5 @@
 import useCanvasStore from "../../data/store/CanvasStore";
-import { usePenStore } from "../../data/store/PenStore";
+import { useCurveStore } from "../../data/store/PenStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
 export class CrossHairCursor  {
@@ -9,12 +9,12 @@ export class CrossHairCursor  {
     const lineWidth = 1;
     const outlineWidth = 1;
     const color = Continuum_Canvas.colorPalet.getColor(
-      usePenStore.getState().penColorId
+      useCurveStore.getState().penColorId
     );
 
     const zoom = useCanvasStore.getState().zoome;
     const radius =
-      zoom * Continuum_Canvas.thicknesPalet.getThicknes(usePenStore.getState().thicknesId);
+      zoom * Continuum_Canvas.thicknesPalet.getThicknes(useCurveStore.getState().thicknesId);
     const outerRadius = Math.max(radius, 10);
     const lineDistance = 30 + outerRadius;
      Continuum_Canvas.cursorManager.cursor

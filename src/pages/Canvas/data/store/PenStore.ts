@@ -3,89 +3,83 @@ import { immer } from "zustand/middleware/immer";
 import { Color, ColorId } from "../palet/PaletContainer";
 import { Thicknes, ThicknesId } from "../thicknes/ThickneContainer";
 
-export type PenSettings = {
-  penColorId: ColorId;
-  penColor: Color;
-  thicknesId: ThicknesId;
-  thicknes: Thicknes;
-  allPencilColors: ColorId[];
-  allThicknes: ThicknesId[];
-  addColor: (color: ColorId) => void;
+const allPencilThicknes = ["th-0", "th-1", "th-2", "th-3"];
+const allPencilColors = ["p-7", "p-1", "p-2", "p-5", "p-4"];
+const allMarkerColors = [
+  "marker-yellow",
+  "marker-orange",
+  "marker-green",
+  "marker-pink",
+];
+
+export type CurveSettings = {
+  penSettings: {
+    color: Color; // TODO probably can remove
+    colorId: ColorId;
+    thicknesId: ThicknesId;
+    thicknes: Thicknes;
+    allThicknes: ThicknesId[];
+    allPencilColors: ColorId[];
+  };
+  markerSettings: {
+    color: Color;
+    colorId: ColorId;
+    thicknesId: ThicknesId;
+    thicknes: Thicknes;
+    opacity: number;
+    allThicknes: ThicknesId[];
+    allMarkerColors: ColorId[];
+  };
   setPenColor: (newColor: { colorId: ColorId; color: string }) => void;
   setPenThickens: (penThickens: {
     thicknesId: ThicknesId;
     thicknes: number;
   }) => void;
-};
-
-const allPencilThicknes = ["th-0", "th-1", "th-2", "th-3"];
-const allPencilColors = ["p-7", "p-1", "p-2", "p-5", "p-4"];
-
-export const usePenStore = create<PenSettings>()(
-  immer((set) => ({
-    penColor: "",
-    thicknes: 0,
-    allPencilColors: allPencilColors,
-    allThicknes: allPencilThicknes,
-    penColorId: allPencilColors[0],
-    thicknesId: allPencilThicknes[0],
-    addColor: (color) =>
-      set((state) => {
-        state.allPencilColors.push(color);
-      }),
-    setPenColor: (color) =>
-      set((state) => {
-        state.penColorId = color.colorId;
-        state.penColor = color.color;
-      }),
-    setPenThickens: (penThickens) =>
-      set((state) => {
-        state.thicknes = penThickens.thicknes;
-        state.thicknesId = penThickens.thicknesId;
-      }),
-  }))
-);
-
-
-export type MarkerSettings = {
-  markerColorId: ColorId;
-  markerColor: Color;
-  thicknesId: ThicknesId;
-  thicknes: Thicknes;
-  allmarkerColors: ColorId[];
-  allThicknes: ThicknesId[];
-  addColor: (color: ColorId) => void;
-  setMarkereColor: (newColor: { colorId: ColorId; color: string }) => void;
-  setmarkereThickens: (markereThickens: {
+  setMarkerColor: (newColor: { colorId: ColorId; color: string }) => void;
+  setMarkerThicknes: (penThickens: {
     thicknesId: ThicknesId;
     thicknes: number;
   }) => void;
 };
 
-const allMarkerThicknes = ["th-0", "th-1", "th-2", "th-3"];
-const allMarkerColors = ["marker-yellow", "marker-orange", "marker-green", "marker-pink" ];
-
-export const useMarkerStore = create<MarkerSettings>()(
+export const useCurveStore = create<CurveSettings>()(
   immer((set) => ({
-    markerColor: "",
-    thicknes: 0,
-    allmarkerColors: allMarkerColors,
-    allThicknes: allMarkerThicknes,
-    markerColorId: allMarkerColors[0],
-    thicknesId: allMarkerThicknes[0],
-    addColor: (color) =>
+    penSettings: {
+      color: "", // TODO probably can remove
+      colorId: allPencilColors[0],
+      thicknes: 0,
+      thicknesId: allPencilThicknes[0],
+      allThicknes: allPencilThicknes,
+      allPencilColors: allPencilColors,
+    },
+    markerSettings: {
+      color: "",
+      colorId: allMarkerColors[0],
+      opacity: 1.0,
+      thicknes: 0,
+      thicknesId: allPencilThicknes[0],
+      allThicknes: allPencilThicknes,
+      allMarkerColors: allMarkerColors,
+    },
+    setPenColor: (color) =>
       set((state) => {
-        state.allmarkerColors.push(color);
+        state.penSettings.colorId = color.colorId;
+        state.penSettings.color = color.color;
       }),
-    setMarkereColor: (color) =>
+    setPenThickens: (penThickens) =>
       set((state) => {
-        state.markerColorId = color.colorId;
-        state.markerColor = color.color;
+        state.penSettings.thicknes = penThickens.thicknes;
+        state.penSettings.thicknesId = penThickens.thicknesId;
       }),
-    setmarkereThickens: (markereThickens) =>
+    setMarkerColor: (color) =>
       set((state) => {
-        state.thicknes = markereThickens.thicknes;
-        state.thicknesId = markereThickens.thicknesId;
+        state.markerSettings.colorId = color.colorId;
+        state.markerSettings.color = color.color;
+      }),
+    setMarkerThicknes: (penThickens) =>
+      set((state) => {
+        state.markerSettings.thicknes = penThickens.thicknes;
+        state.markerSettings.thicknesId = penThickens.thicknesId;
       }),
   }))
 );

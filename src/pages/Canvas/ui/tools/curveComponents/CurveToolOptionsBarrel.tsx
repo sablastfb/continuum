@@ -9,7 +9,7 @@ import PenToolQuickOptions from "./PenToolsQuickOptions";
 import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
-import { usePenStore, useMarkerStore } from "../../../data/store/PenStore";
+import { useCurveStore, useMarkerStore } from "../../../data/store/PenStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolOptions = () => {
@@ -17,7 +17,7 @@ const CurveToolOptions = () => {
   const lastCureveTool = useToolStore((state) => state.setLastCureveTool);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   const activeTool = useToolStore().activeTool;
-  const penStore = usePenStore();
+  const penStore = useCurveStore();
   const markerStore = useMarkerStore();
 
   return (
