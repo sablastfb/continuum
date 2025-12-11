@@ -1,28 +1,26 @@
-import { useCurveStore as useCurveStore } from "../../../data/store/PenStore";
 import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
+import { Continuum_Canvas } from "../../../features/CanvasApp";
+import { useCurveStore } from "../../../data/store/PenStore";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
-import { Continuum_Canvas } from "../../../features/CanvasApp";
 
-const PenToolQuickOptions = () => {
-  const penSettings = useCurveStore();
-  const pencilColorId = useCurveStore().penSettings.colorId;
-  const thicknesId = useCurveStore().penSettings.thicknesId;
-  const setPenColor = useCurveStore((state) => state.setPenColor);
+const MarkerToolsQuickOptions = () => {
+  const markerSettings = useCurveStore();
+  const markerColorId = useCurveStore().markerSettings.colorId;
+  const thicknesId = useCurveStore().markerSettings.thicknesId;
+  const setMarkerColor = useCurveStore((state) => state.setMarkerColor);
+  const setMarkerThickens = useCurveStore((state) => state.setMarkerThicknes);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
-  const setPenThickens = useCurveStore(
-    (state) => state.setPenThickens
-  );
 
   return (
     <>
-      {penSettings.penSettings.allThicknes.map((id, ix) => {
+      {markerSettings.markerSettings.allThicknes.map((id, ix) => {
         return (
           <CircleThicknesPicker
             action={() => {
-              setPenThickens({
+              setMarkerThickens({
                 thicknes: Continuum_Canvas.thicknesPalet.getThicknes(id),
                 thicknesId: id,
               });
@@ -34,19 +32,19 @@ const PenToolQuickOptions = () => {
         );
       })}
       <ArrayDivider direction={toolOptionsDirection} />
-      {penSettings.penSettings.allPencilColors.map((colorId, ix) => {
+      {markerSettings.markerSettings.allMarkerColors.map((colorId, ix) => {
         return (
           <CircleColorPicker
             colorId={colorId}
             key={ix}
-            selected={colorId === pencilColorId}
-            action={() => setPenColor({ colorId: colorId, color: "" })}
+            selected={colorId === markerColorId}
+            action={() => setMarkerColor({ colorId: colorId, color: "" })}
           />
         );
       })}
       <CustomColorPicker customColorId="pencilCustomColor" />
     </>
   );
-}
+};
 
-export default PenToolQuickOptions;
+export default MarkerToolsQuickOptions;

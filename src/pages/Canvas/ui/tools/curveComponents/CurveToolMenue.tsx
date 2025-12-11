@@ -4,13 +4,12 @@ import {
   DefaultOutline,
 } from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
-import { useCurveStore, useMarkerStore } from "../../../data/store/PenStore";
+import { useCurveStore } from "../../../data/store/PenStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolMenue = () => {
   const toolStore = useToolStore();
   const penStore = useCurveStore();
-  const markerStore = useMarkerStore();
   return (
     <>
       <div
@@ -23,10 +22,10 @@ const CurveToolMenue = () => {
     
       >
         {toolStore.lastCureveTool === "pen" && (
-        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penColorId )}/>
+        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penSettings.colorId )}/>
         )}
         {toolStore.lastCureveTool === "highlighter" && (
-               <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( markerStore.markerColorId )}/>
+               <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.markerSettings.colorId )}/>
        
         )}
       </div>

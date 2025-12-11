@@ -9,12 +9,12 @@ export class CrossHairCursor  {
     const lineWidth = 1;
     const outlineWidth = 1;
     const color = Continuum_Canvas.colorPalet.getColor(
-      useCurveStore.getState().penColorId
+      useCurveStore.getState().penSettings.colorId
     );
 
     const zoom = useCanvasStore.getState().zoome;
     const radius =
-      zoom * Continuum_Canvas.thicknesPalet.getThicknes(useCurveStore.getState().thicknesId);
+      zoom * Continuum_Canvas.thicknesPalet.getThicknes(useCurveStore.getState().penSettings.thicknesId);
     const outerRadius = Math.max(radius, 10);
     const lineDistance = 30 + outerRadius;
      Continuum_Canvas.cursorManager.cursor

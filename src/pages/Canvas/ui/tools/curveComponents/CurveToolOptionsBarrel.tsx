@@ -6,10 +6,10 @@ import {
 } from "../../../data/constants/CanvasConstants";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import PenToolQuickOptions from "./PenToolsQuickOptions";
-import HighlighterToolsQuickOptions from "./HighlighterToolQuickOptions";
+import MarkerToolsQuickOptions from "./MarkerToolQuickOptions";
 import useToolStore from "../../../data/store/ToolStore";
 import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
-import { useCurveStore, useMarkerStore } from "../../../data/store/PenStore";
+import { useCurveStore } from "../../../data/store/PenStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolOptions = () => {
@@ -18,7 +18,6 @@ const CurveToolOptions = () => {
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   const activeTool = useToolStore().activeTool;
   const penStore = useCurveStore();
-  const markerStore = useMarkerStore();
 
   return (
     <>
@@ -29,7 +28,7 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("pen"); lastCureveTool("pen");}}
       >
-        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penColorId )}/>
+        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penSettings.colorId )}/>
       </div>
       <div
         className={`cursor-pointer ${
@@ -37,11 +36,11 @@ const CurveToolOptions = () => {
         }`}
         onClick={() => {setActiveTool("highlighter"); lastCureveTool("highlighter"); }}
       >
-        <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( markerStore.markerColorId )}/>
+        <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.markerSettings.colorId )}/>
       </div>
       <ArrayDivider direction={toolOptionsDirection} />
       {activeTool === "pen" && <PenToolQuickOptions />}
-      {activeTool === "highlighter" && <HighlighterToolsQuickOptions />}
+      {activeTool === "highlighter" && <MarkerToolsQuickOptions />}
     </>
   );
 }

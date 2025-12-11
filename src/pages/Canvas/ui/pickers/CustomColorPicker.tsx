@@ -5,7 +5,7 @@ import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const CustomColorPicker = ({ customColorId }: { customColorId: string }) => {
   const setPenColor = useCurveStore().setPenColor;
-  const pencilColorId = useCurveStore().penColorId;
+  const pencilColorId = useCurveStore().penSettings.colorId;
 
   const [color, setColor] = useState<string>("#6466f1");
 
