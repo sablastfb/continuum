@@ -1,5 +1,5 @@
 import { Graphics, Point } from "pixi.js";
-import { usePenStore } from "../../../data/store/PenStore";
+import { usePenStore, useMarkerStore } from "../../../data/store/PenStore";
 import { ITool } from "../ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
@@ -8,7 +8,6 @@ import { GraphicsCommand } from "../../commands/Graphics";
 import { Continuum_Canvas } from "../../CanvasApp";
 import { PenStyle } from "./Pen";
 import { MarkerStyle } from "./Marker";
-import { useMarkerStore } from "../../../data/store/MarkerStore";
 import { ToolType } from "../../../data/types/ToolTypes";
 import { InputState } from "../../input/InputState";
 import { CrossHairCursor } from "../../../ui/cursors/CrossHair";

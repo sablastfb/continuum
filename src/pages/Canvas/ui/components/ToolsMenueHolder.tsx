@@ -14,7 +14,7 @@ import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
 import ScrollableContainer from "./ScrollableContainer";
-import { Type, Image, Clipboard, Link, ChartSpline } from "lucide-react";
+import { Type, Image, Clipboard, Link } from "lucide-react";
 import EmojiToolMenue from "../tools/emojiComponents/EmojiToolMenue";
 
 export interface ToolsMenueParameter {

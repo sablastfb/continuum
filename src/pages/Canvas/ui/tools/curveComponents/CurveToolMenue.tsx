@@ -4,8 +4,7 @@ import {
   DefaultOutline,
 } from "../../../data/constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
-import { usePenStore } from "../../../data/store/PenStore";
-import { useMarkerStore } from "../../../data/store/MarkerStore";
+import { usePenStore, useMarkerStore } from "../../../data/store/PenStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
 const CurveToolMenue = () => {

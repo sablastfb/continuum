@@ -1,8 +1,8 @@
-import { useMarkerStore } from "../../../data/store/MarkerStore";
 import CircleColorPicker from "../../pickers/CircleColorPicker";
 import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
+import { useMarkerStore } from "../../../data/store/PenStore";
 
 
 const HighlighterToolsQuickOptions = () => {
