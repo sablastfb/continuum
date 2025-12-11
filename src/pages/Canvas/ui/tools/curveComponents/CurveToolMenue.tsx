@@ -24,7 +24,7 @@ const CurveToolMenue = () => {
         {toolStore.lastCureveTool === "pen" && (
         <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penSettings.colorId )}/>
         )}
-        {toolStore.lastCureveTool === "highlighter" && (
+        {toolStore.lastCureveTool === "marker" && (
                <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.markerSettings.colorId )}/>
        
         )}

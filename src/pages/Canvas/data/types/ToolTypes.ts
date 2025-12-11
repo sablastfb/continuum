@@ -1,4 +1,4 @@
-export type CurveToolType = "pen" | "highlighter";
+export type CurveToolType = "pen" | "marker";
 export type ShapeToolType = "shape";
 export type EraserToolType = "eraser";
 export type TextToolType = "text";

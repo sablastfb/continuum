@@ -1,23 +1,16 @@
 import { Graphics, Point } from "pixi.js";
-import { useCurveStore } from "../../../data/store/PenStore";
-import { ITool } from "../ToolManager";
-import { GraphicsData, graphicOnCanvas } from "../../data/GraphicsDataManager";
+import { useCurveStore } from "../../data/store/PenStore";
+import { ITool } from "./ToolManager";
+import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
 import { v4 as uuidv4 } from "uuid";
-import { Continuum_CurveService } from "../../service/CurveService";
-import { GraphicsCommand } from "../../commands/Graphics";
-import { Continuum_Canvas } from "../../CanvasApp";
-import { PenStyle } from "./Pen";
-import { MarkerStyle } from "./Marker";
-import { ToolType } from "../../../data/types/ToolTypes";
-import { InputState } from "../../input/InputState";
-import { CrossHairCursor } from "../../../ui/cursors/CrossHair";
+import { Continuum_CurveService } from "../service/CurveService";
+import { GraphicsCommand } from "../commands/Graphics";
+import { Continuum_Canvas } from "../CanvasApp";
+import { ToolType } from "../../data/types/ToolTypes";
+import { InputState } from "../input/InputState";
+import { CrossHairCursor } from "../../ui/cursors/CrossHair";
 
 export type CruveStyle = "pen" | "marker";
-
-export interface ICurveStyle {
-  draw(info: any): void;
-  stopDrawingStyle(info: any): void;
-}
 
 export class Curve implements ITool {
   type: ToolType = "base";
@@ -25,16 +18,13 @@ export class Curve implements ITool {
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
   private line: Point[] = [];
-  private curveStyle!: ICurveStyle;
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
         this.type = "pen";
-        this.curveStyle = new PenStyle();
         break;
       case "marker":
-        this.type = "highlighter";
-        this.curveStyle = new MarkerStyle();
+        this.type = "marker";
         break;
     }
   }
@@ -48,7 +38,7 @@ export class Curve implements ITool {
     switch (this.curveStyleType) {
       case "pen":
         this.activeColor = Continuum_Canvas.colorPalet.getColor(
-          useCurveStore.getState().penSettings.color
+          useCurveStore.getState().penSettings.colorId
         );
         this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useCurveStore.getState().penSettings.thicknesId
@@ -76,12 +66,24 @@ export class Curve implements ITool {
     this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
     this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
 
-    this.curveStyle.draw({
-      activeCurve: this.activeCurve,
-      line: this.line,
-      activeThicknes: this.activeThicknes,
-      activeColor: this.activeColor,
-    });
+    switch (this.curveStyleType) {
+      case "pen":
+        this.activeCurve.stroke({
+          width: this.activeThicknes * 2,
+          color: "white",
+          cap: "round",
+          join: "round",
+        });
+        this.activeCurve.tint = this.activeColor;
+        break;
+      case "marker":
+        this.activeCurve.stroke({
+          width: this.activeThicknes * 2,
+        });
+        this.activeCurve.tint = this.activeColor;
+        this.activeCurve.alpha = 0.5;
+        break;
+    }
   }
 
   public endDrawing() {
@@ -108,13 +110,45 @@ export class Curve implements ITool {
     Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
     Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
 
-    this.curveStyle.stopDrawingStyle({
-      optimizedCruveGraphics,
-      optimizedPath,
-      line: this.line,
-      activeThicknes: this.activeThicknes,
-      activeColor: this.activeColor,
-    });
+    switch (this.curveStyleType) {
+      case "pen":
+        if (this.line.length == 2) {
+          const firstCurve = optimizedPath.curves[0];
+          const firstPoint = firstCurve.point1;
+          if (firstPoint) {
+            optimizedCruveGraphics
+              .circle(firstPoint.x, firstPoint.y, this.activeThicknes)
+              .fill("white");
+          }
+        }
+        optimizedCruveGraphics.stroke({
+          width: this.activeThicknes * 2,
+          color: "white",
+          cap: "round",
+          join: "round",
+        });
+        optimizedCruveGraphics.tint = this.activeColor;
+        break;
+      case "marker":
+        if (this.line.length == 2) {
+          const firstCurve = optimizedPath.curves[0];
+          const firstPoint = firstCurve.point1;
+          if (firstPoint) {
+            optimizedCruveGraphics
+              .circle(firstPoint.x, firstPoint.y, this.activeThicknes)
+              .fill("white");
+          }
+        }
+        optimizedCruveGraphics.stroke({
+          width: this.activeThicknes * 2,
+          join: "round",
+        });
+
+        optimizedCruveGraphics.alpha = 0.5;
+        optimizedCruveGraphics.tint = this.activeColor;
+        break;
+    }
+
     this.line = [];
   }
 
@@ -123,7 +157,7 @@ export class Curve implements ITool {
       case "pen":
         CrossHairCursor.draw();
         break;
-      case "highlighter":
+      case "marker":
         CrossHairCursor.draw();
     }
   }

@@ -1,4 +1,4 @@
-import { Curve } from "./Curve/Curve";
+import { Curve } from "./Curve";
 import { Erase } from "./Erase";
 import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";

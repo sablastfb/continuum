@@ -34,7 +34,7 @@ const CurveToolOptions = () => {
         className={`cursor-pointer ${
           activeTool === "highlighter" && DefaultOutlineSelection
         }`}
-        onClick={() => {setActiveTool("highlighter"); lastCureveTool("highlighter"); }}
+        onClick={() => {setActiveTool("highlighter"); lastCureveTool("marker"); }}
       >
         <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.markerSettings.colorId )}/>
       </div>
