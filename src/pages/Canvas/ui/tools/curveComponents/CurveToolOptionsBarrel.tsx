@@ -32,15 +32,15 @@ const CurveToolOptions = () => {
       </div>
       <div
         className={`cursor-pointer ${
-          activeTool === "highlighter" && DefaultOutlineSelection
+          activeTool === "marker" && DefaultOutlineSelection
         }`}
-        onClick={() => {setActiveTool("highlighter"); lastCureveTool("marker"); }}
+        onClick={() => {setActiveTool("marker"); lastCureveTool("marker"); }}
       >
         <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.markerSettings.colorId )}/>
       </div>
       <ArrayDivider direction={toolOptionsDirection} />
       {activeTool === "pen" && <PenToolQuickOptions />}
-      {activeTool === "highlighter" && <MarkerToolsQuickOptions />}
+      {activeTool === "marker" && <MarkerToolsQuickOptions />}
     </>
   );
 }

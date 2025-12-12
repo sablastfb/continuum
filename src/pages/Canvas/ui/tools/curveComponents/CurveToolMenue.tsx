@@ -19,18 +19,26 @@ const CurveToolMenue = () => {
         onClick={() => {
           toolStore.setActiveTool(toolStore.lastCureveTool);
         }}
-    
       >
         {toolStore.lastCureveTool === "pen" && (
-        <Pen size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.penSettings.colorId )}/>
+          <Pen
+            size={DefaultIconSize}
+            fill={Continuum_Canvas.colorPalet.getColor(
+              penStore.penSettings.colorId
+            )}
+          />
         )}
         {toolStore.lastCureveTool === "marker" && (
-               <Highlighter size={DefaultIconSize} fill={Continuum_Canvas.colorPalet.getColor( penStore.markerSettings.colorId )}/>
-       
+          <Highlighter
+            size={DefaultIconSize}
+            fill={Continuum_Canvas.colorPalet.getColor(
+              penStore.markerSettings.colorId
+            )}
+          />
         )}
       </div>
     </>
   );
-}
+};
 
 export default CurveToolMenue;

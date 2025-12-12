@@ -55,7 +55,7 @@ export const useCurveStore = create<CurveSettings>()(
     markerSettings: {
       color: "",
       colorId: allMarkerColors[0],
-      opacity: 1.0,
+      opacity: 0.2,
       thicknes: 0,
       thicknesId: allPencilThicknes[0],
       allThicknes: allPencilThicknes,

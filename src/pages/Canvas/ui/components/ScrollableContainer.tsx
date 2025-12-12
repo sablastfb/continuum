@@ -4,10 +4,8 @@ import {
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
-import { useRef, useState, useEffect, type ReactNode } from "react";
-import {
-  DefaultIconSize,
-} from "../../data/constants/CanvasConstants";
+import { Activity, useRef, useState, useEffect, type ReactNode } from "react";
+import { DefaultIconSize } from "../../data/constants/CanvasConstants";
 
 type Direction = "horizontal" | "vertical";
 
@@ -37,12 +35,13 @@ const ScrollableContainer = ({
     if (isHorizontal) {
       setCanScrollStart(container.scrollLeft > 0);
       setCanScrollEnd(
-        container.scrollLeft+2 < container.scrollWidth - container.clientWidth
+        container.scrollLeft + 2 < container.scrollWidth - container.clientWidth
       );
     } else {
       setCanScrollStart(container.scrollTop > 0);
       setCanScrollEnd(
-       container.scrollTop+2 < container.scrollHeight - container.clientHeight
+        container.scrollTop + 2 <
+          container.scrollHeight - container.clientHeight
       );
     }
   };
@@ -104,15 +103,21 @@ const ScrollableContainer = ({
         isHorizontal ? "flex-row h-full" : "flex-col "
       } items-center`}
     >
-      <div
-        onClick={() => scroll("start")}
-        className={`pointer-events-auto   transition-colors  cursor-pointer  flex  justify-center bg-black/20 dark:bg-white/30  backdrop-blur-sm
-        ${isHorizontal ? "h-11 flex items-center rounded-l-2xl" : "w-full rounded-t-2xl"}
-        ${!canScrollStart && 'hidden'}
+      <Activity mode={canScrollStart ? "visible" : "hidden"}>
+        <div
+          onClick={() => scroll("start")}
+          className={`pointer-events-auto   transition-colors  cursor-pointer  flex  justify-center bg-black/20 dark:bg-white/30  backdrop-blur-sm
+        ${
+          isHorizontal
+            ? "h-11 flex items-center rounded-l-2xl"
+            : "w-full rounded-t-2xl"
+        }
         `}
-      >
-        <StartIcon size={DefaultIconSize / 1.5} />
-      </div>
+        >
+          <StartIcon size={DefaultIconSize / 1.5} />
+        </div>
+      </Activity>
+
       <div
         ref={scrollContainerRef}
         onScroll={checkScrollability}
@@ -125,8 +130,14 @@ const ScrollableContainer = ({
               : "overflow-y-auto overflow-x-hidden "
           }
           flex ${isHorizontal ? "flex-row" : "flex-col"}
-          ${!canScrollStart && (direction === 'vertical' ? 'rounded-t-2xl' : 'rounded-l-2xl')}
-          ${!canScrollEnd && (direction === 'vertical' ? 'rounded-b-2xl' : 'rounded-r-2xl')}
+          ${
+            !canScrollStart &&
+            (direction === "vertical" ? "rounded-t-2xl" : "rounded-l-2xl")
+          }
+          ${
+            !canScrollEnd &&
+            (direction === "vertical" ? "rounded-b-2xl" : "rounded-r-2xl")
+          }
           `}
         style={{
           scrollbarWidth: "none",
@@ -136,14 +147,16 @@ const ScrollableContainer = ({
         {children}
       </div>
 
-    <div
+      <div
         onClick={() => scroll("end")}
         className={`pointer-events-auto   transition-colors  cursor-pointer  flex  justify-center bg-black/20 dark:bg-white/30  backdrop-blur-sm
-        ${isHorizontal ? "h-11 flex items-center rounded-r-2xl" : "w-full rounded-b-2xl"}
-          ${!canScrollEnd && 'hidden'}
+        ${
+          isHorizontal
+            ? "h-11 flex items-center rounded-r-2xl"
+            : "w-full rounded-b-2xl"
+        }
+          ${!canScrollEnd && "hidden"}
         `}
-        
-        aria-label={`Scroll ${isHorizontal ? "right" : "down"}`}
       >
         <EndIcon size={DefaultIconSize / 1.5} />
       </div>

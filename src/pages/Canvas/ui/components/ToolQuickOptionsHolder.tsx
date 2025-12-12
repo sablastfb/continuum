@@ -29,7 +29,7 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
   
   switch (activeTool) {
     case "pen":
-    case "highlighter":
+    case "marker":
       activeToolComponent = <CurveToolOptions />;
       advanceSettingsComponent = <CurveAdvanceSettings />;
       break;

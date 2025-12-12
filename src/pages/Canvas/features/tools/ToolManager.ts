@@ -26,7 +26,7 @@ export class ToolManager {
 
   public registerDefaultTools() {
     this.tools.set("pen", new Curve("pen"));
-    this.tools.set("highlighter", new Curve("marker"));
+    this.tools.set("marker", new Curve("marker"));
     this.tools.set("eraser", new Erase());
     this.tools.set("shape", new ShapeTool());
   }
