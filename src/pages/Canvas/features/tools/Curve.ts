@@ -1,4 +1,4 @@
-import { Container, Graphics, Point, RenderTexture, Sprite, MeshRope, Texture, Assets } from "pixi.js";
+import { Graphics, Point } from "pixi.js";
 import { useCurveStore } from "../../data/store/PenStore";
 import { ITool } from "./ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
@@ -10,7 +10,6 @@ import { ToolType } from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { CrossHairCursor } from "../../ui/cursors/CrossHair";
 
-
 export type CruveStyle = "pen" | "marker";
 
 export class Curve implements ITool {
@@ -18,12 +17,7 @@ export class Curve implements ITool {
   private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
-  private opacity: number | null = null;
-  private points: Point[] = [];
-  private curveContainer: Container | null = null;
-  private meshRope: MeshRope | null = null;
-  private ropeTexture: Texture | null = null;
-
+  private line: Point[] = [];
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
@@ -35,9 +29,12 @@ export class Curve implements ITool {
     }
   }
 
-  public async startDrawing(e: InputState) {
+  public startDrawing(e: InputState) {
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
+    this.activeCurve = new Graphics();
+
+    Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
     switch (this.curveStyleType) {
       case "pen":
         this.activeColor = Continuum_Canvas.colorPalet.getColor(
@@ -46,7 +43,6 @@ export class Curve implements ITool {
         this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useCurveStore.getState().penSettings.thicknesId
         );
-        this.opacity = 1;
         break;
       case "marker":
         this.activeColor = Continuum_Canvas.colorPalet.getColor(
@@ -55,65 +51,48 @@ export class Curve implements ITool {
         this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useCurveStore.getState().markerSettings.thicknesId
         );
-        this.opacity = useCurveStore.getState().markerSettings.opacity;
         break;
     }
-
-    this.points = [new Point(e.mousePosition.x, e.mousePosition.y)];
-
-    // Create texture
-    const brushWidth = 32;
-    const brushHeight = this.activeThicknes! * 4;
-       this.ropeTexture = await Assets.load('https://pixijs.com/assets/snake.png');
-
-    if (  this.ropeTexture){
-
-      // Create MeshRope with initial point
-      this.meshRope = new MeshRope({ 
-        points: this.points, 
-        texture: this.ropeTexture,
-        textureScale: 1
-      });
-      
-      Continuum_Canvas.viewportManager.viewport.addChild(this.meshRope);
-    }
+    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
   }
 
   public draw(e: InputState) {
-    if (this.meshRope === null) return;
+    if (this.activeCurve === null) return;
     if (this.activeThicknes === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
-    // Add new point
-    this.points.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+    this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
 
-    // Update the rope geometry with new points
-    // Access the geometry's points buffer and update it
-    const geometry = this.meshRope.geometry;
-    const verticesBuffer = geometry.getBuffer('aPosition');
-    
-    // Rebuild points - MeshRope needs to be recreated with new points
-    const newMeshRope = new MeshRope({ 
-      points: this.points, 
-      texture: this.ropeTexture! ,
-       textureScale: 1
-    });
-    
-    // Replace old mesh with new one
-    Continuum_Canvas.viewportManager.viewport.removeChild(this.meshRope);
-    this.meshRope.destroy({ children: false, texture: false, textureSource: false });
-    this.meshRope = newMeshRope;
-    Continuum_Canvas.viewportManager.viewport.addChild(this.meshRope);
+    switch (this.curveStyleType) {
+      case "pen":
+        this.activeCurve.stroke({
+          width: this.activeThicknes * 2,
+          color: "white",
+          cap: "round",
+          join: "round",
+        });
+        this.activeCurve.tint = this.activeColor;
+        break;
+      case "marker":
+        this.activeCurve.stroke({
+          width: this.activeThicknes * 2,
+        });
+        this.activeCurve.tint = this.activeColor;
+        this.activeCurve.alpha = 0.5;
+        break;
+    }
   }
 
   public endDrawing() {
     if (this.activeThicknes === null) return;
+    if (this.activeCurve === null) return;
     if (!this.activeColor) return;
-    if (this.meshRope === null) return;
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
-    const optimizedPath = Continuum_CurveService.ConverLineToPath(this.points);
+    const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
     const optimizedCruveGraphics =
       Continuum_CurveService.CreatGrahicPath(optimizedPath);
     const g: GraphicsData = {
@@ -128,13 +107,12 @@ export class Curve implements ITool {
     };
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
-
-    Continuum_Canvas.viewportManager.viewport?.removeChild(this.meshRope);
+    Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
     Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
 
     switch (this.curveStyleType) {
       case "pen":
-        if (this.points.length == 2) {
+        if (this.line.length == 2) {
           const firstCurve = optimizedPath.curves[0];
           const firstPoint = firstCurve.point1;
           if (firstPoint) {
@@ -152,7 +130,7 @@ export class Curve implements ITool {
         optimizedCruveGraphics.tint = this.activeColor;
         break;
       case "marker":
-        if (this.points.length == 2) {
+        if (this.line.length == 2) {
           const firstCurve = optimizedPath.curves[0];
           const firstPoint = firstCurve.point1;
           if (firstPoint) {
@@ -165,17 +143,13 @@ export class Curve implements ITool {
           width: this.activeThicknes * 2,
           join: "round",
         });
+
+        optimizedCruveGraphics.alpha = 0.5;
         optimizedCruveGraphics.tint = this.activeColor;
-        optimizedCruveGraphics.alpha = this.opacity ?? 1;
         break;
     }
 
-    // Clean up
-    this.meshRope?.destroy({ texture: false, textureSource: false });
-    this.ropeTexture?.destroy(true);
-    this.meshRope = null;
-    this.ropeTexture = null;
-    this.points = [];
+    this.line = [];
   }
 
   public updateCursor() {
