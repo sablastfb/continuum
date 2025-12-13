@@ -9,7 +9,8 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { ToolType } from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { CrossHairCursor } from "../../ui/cursors/CrossHair";
-
+import { getStroke } from "perfect-freehand";
+import simplify from "simplify-js"; // You would need to import this library
 export type CruveStyle = "pen" | "marker";
 
 export class Curve implements ITool {
@@ -18,6 +19,7 @@ export class Curve implements ITool {
   private activeColor: string | null = null;
   private activeThicknes: number | null = null;
   private line: Point[] = [];
+  private drawingLayer!: Graphics;
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
@@ -55,6 +57,8 @@ export class Curve implements ITool {
     }
     this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
     this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
+    this.drawingLayer = new Graphics();
+    Continuum_Canvas.viewportManager.viewport.addChild(this.drawingLayer);
   }
 
   public draw(e: InputState) {
@@ -108,7 +112,7 @@ export class Curve implements ITool {
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
     Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
-    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
+    // Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
 
     switch (this.curveStyleType) {
       case "pen":
@@ -148,8 +152,36 @@ export class Curve implements ITool {
         optimizedCruveGraphics.tint = this.activeColor;
         break;
     }
+    const strokePoints = getStroke(this.line, {
+      size: 16,
+      thinning: 0.5,
+      smoothing: 0.5,
+      streamline: 0.5,
+    });
 
+    this.renderStroke(strokePoints, this.drawingLayer);
     this.line = [];
+  }
+
+  renderStroke(points: any, graphics: Graphics) {
+    graphics.clear();
+
+    // perfect-freehand returns [[x, y], [x, y]...]
+
+    const flattenedPoints = points.flat();
+
+    if (flattenedPoints.length >= 6) {
+      // v8 Pattern: Define shape -> Apply Fill
+
+      graphics
+
+        .poly(flattenedPoints)
+
+        .fill("yellow"); // .fill() now takes a color or a config object
+
+      graphics.alpha = 0.5;
+       graphics.blendMode = 'multiply';
+    }
   }
 
   public updateCursor() {
