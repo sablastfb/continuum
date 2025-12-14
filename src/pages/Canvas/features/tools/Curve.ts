@@ -1,4 +1,4 @@
-import { AlphaFilter, Graphics, Point } from "pixi.js";
+import { AlphaFilter, BlurFilter, Graphics, NoiseFilter, Point } from "pixi.js";
 import { useCurveStore } from "../../data/store/PenStore";
 import { ITool } from "./ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
@@ -58,6 +58,8 @@ export class Curve implements ITool {
     this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
     this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
     this.drawingLayer = new Graphics();
+          this.activeCurve.filters = [new AlphaFilter({alpha:0.5}), new NoiseFilter()];
+
     Continuum_Canvas.viewportManager.viewport.addChild(this.drawingLayer);
   }
 
@@ -88,7 +90,8 @@ export class Curve implements ITool {
           cap: "round",
         });
         this.activeCurve.tint = this.activeColor;
-        this.activeCurve.filters = [new AlphaFilter({alpha:0.2})];
+
+        // this.activeCurve.filters = [new AlphaFilter({alpha:0.2})];
         break;
     }
   }
@@ -151,10 +154,11 @@ export class Curve implements ITool {
           join: "round",
           color: "white",
           cap: "round",
+            alignment: 0.5, 
         });
 
         optimizedCruveGraphics.tint = this.activeColor;
-          optimizedCruveGraphics.filters = [new AlphaFilter({alpha:0.5})];
+          optimizedCruveGraphics.filters = [new AlphaFilter({alpha:0.5}), new BlurFilter()];
         break;
     }
 
