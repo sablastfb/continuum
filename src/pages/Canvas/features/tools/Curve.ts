@@ -9,8 +9,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { ToolType } from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { CrossHairCursor } from "../../ui/cursors/CrossHair";
-import { getStroke } from "perfect-freehand";
-import simplify from "simplify-js"; // You would need to import this library
+import { Bluetooth } from "lucide-react";
 export type CruveStyle = "pen" | "marker";
 
 export class Curve implements ITool {
@@ -53,12 +52,13 @@ export class Curve implements ITool {
         this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useCurveStore.getState().markerSettings.thicknesId
         );
+        this.activeCurve.filters = [new AlphaFilter({ alpha: 0.2 }), new BlurFilter({quality:3, strength:0.5})];
+
         break;
     }
     this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
     this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
     this.drawingLayer = new Graphics();
-          this.activeCurve.filters = [new AlphaFilter({alpha:0.5}), new NoiseFilter()];
 
     Continuum_Canvas.viewportManager.viewport.addChild(this.drawingLayer);
   }
@@ -91,7 +91,6 @@ export class Curve implements ITool {
         });
         this.activeCurve.tint = this.activeColor;
 
-        // this.activeCurve.filters = [new AlphaFilter({alpha:0.2})];
         break;
     }
   }
@@ -154,11 +153,12 @@ export class Curve implements ITool {
           join: "round",
           color: "white",
           cap: "round",
-            alignment: 0.5, 
         });
 
         optimizedCruveGraphics.tint = this.activeColor;
-          optimizedCruveGraphics.filters = [new AlphaFilter({alpha:0.5}), new BlurFilter()];
+         optimizedCruveGraphics.filters = [new AlphaFilter({ alpha: 1 })];
+  optimizedCruveGraphics.filters[0].resolution = window.devicePixelRatio;
+        // optimizedCruveGraphics.filters = [new AlphaFilter({ alpha: 0.5 })];
         break;
     }
 
