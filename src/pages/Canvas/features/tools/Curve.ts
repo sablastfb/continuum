@@ -30,7 +30,7 @@ export class Curve implements ITool {
   private activeThicknes: number | null = null;
   private line: Point[] = [];
   private drawingLayer!: Graphics;
-        private filter = new AlphaFilter({alpha:0.4});
+  private filter = new AlphaFilter({ alpha: 0.4 });
 
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
@@ -41,7 +41,6 @@ export class Curve implements ITool {
         this.type = "marker";
         break;
     }
-    this.filter.resolution=5;
   }
 
   public startDrawing(e: InputState) {
@@ -172,83 +171,8 @@ export class Curve implements ITool {
         });
 
         optimizedCruveGraphics.tint = this.activeColor;
-        // const bounds = optimizedCruveGraphics.getBounds();
-
-        // const renderTexture = RenderTexture.create({
-        //   width: Math.ceil(bounds.width),
-        //   height: Math.ceil(bounds.height),
-        //   resolution: 5,
-        // });
-        // const matrix = new Matrix();
-        // matrix.translate(-bounds.x, -bounds.y);
-
-        // Continuum_Canvas.appInstance!.renderer.render({
-        //   container: optimizedCruveGraphics,
-        //   target: renderTexture,
-        //   transform: matrix,
-        //   clear: true,
-        // });
-        // renderTexture.source.updateMipmaps();
-        // const c = new Sprite(renderTexture);
-        // c.alpha = 0.5;
-        // Continuum_Canvas.viewportManager.viewport?.addChild(c);
-
-        const vertex = `
-  in vec2 aPosition;
-  out vec2 vTextureCoord;
-
-  uniform vec4 uInputSize;
-  uniform vec4 uOutputFrame;
-  uniform vec4 uOutputTexture;
-
-  vec4 filterVertexPosition( void )
-  {
-      vec2 position = aPosition * uOutputFrame.zw + uOutputFrame.xy;
-
-      position.x = position.x * (2.0 / uOutputTexture.x) - 1.0;
-      position.y = position.y * (2.0*uOutputTexture.z / uOutputTexture.y) - uOutputTexture.z;
-
-      return vec4(position, 0.0, 1.0);
-  }
-
-  vec2 filterTextureCoord( void )
-  {
-      return aPosition * (uOutputFrame.zw * uInputSize.zw);
-  }
-
-  void main(void)
-  {
-      gl_Position = filterVertexPosition();
-      vTextureCoord = filterTextureCoord();
-  }
-`;
-
-        const fragment = `
-precision mediump float;
-
-varying vec2 vTextureCoord;
-uniform sampler2D uTexture;
-
-void main(void)
-{
-    vec4 fg = texture2D(uTexture, vTextureCoord);
-
-    float alpha = 0.5;
-
-    // premultiplied alpha output
-    gl_FragColor = vec4(fg.rgb * alpha, alpha*fg.a);
-}
-
-`;
-        const customFilter = new Filter({
-          glProgram: new GlProgram({
-            fragment,
-            vertex,
-          }),
-          resources: {
-          },
-        });
         optimizedCruveGraphics.filters = [this.filter];
+
         break;
     }
 
