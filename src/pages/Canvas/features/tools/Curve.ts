@@ -30,6 +30,8 @@ export class Curve implements ITool {
   private activeThicknes: number | null = null;
   private line: Point[] = [];
   private drawingLayer!: Graphics;
+        private filter = new AlphaFilter({alpha:0.4});
+
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
       case "pen":
@@ -39,6 +41,7 @@ export class Curve implements ITool {
         this.type = "marker";
         break;
     }
+    this.filter.resolution=5;
   }
 
   public startDrawing(e: InputState) {
@@ -64,7 +67,6 @@ export class Curve implements ITool {
           useCurveStore.getState().markerSettings.thicknesId
         );
         this.activeCurve.filters = [
-          new AlphaFilter({ alpha: 0.2 }),
           new BlurFilter({ quality: 3, strength: 0.5 }),
         ];
 
@@ -231,10 +233,10 @@ void main(void)
 {
     vec4 fg = texture2D(uTexture, vTextureCoord);
 
-    float alpha = 0.1;
+    float alpha = 0.5;
 
     // premultiplied alpha output
-    gl_FragColor = vec4(fg.rgb * alpha, fg.a * alpha);
+    gl_FragColor = vec4(fg.rgb * alpha, alpha*fg.a);
 }
 
 `;
@@ -246,8 +248,7 @@ void main(void)
           resources: {
           },
         });
-
-        optimizedCruveGraphics.filters = [customFilter];
+        optimizedCruveGraphics.filters = [this.filter];
         break;
     }
 
