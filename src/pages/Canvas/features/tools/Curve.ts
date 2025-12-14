@@ -1,4 +1,4 @@
-import { Graphics, Point } from "pixi.js";
+import { AlphaFilter, Graphics, Point } from "pixi.js";
 import { useCurveStore } from "../../data/store/PenStore";
 import { ITool } from "./ToolManager";
 import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
@@ -83,9 +83,12 @@ export class Curve implements ITool {
       case "marker":
         this.activeCurve.stroke({
           width: this.activeThicknes * 2,
+          join: "round",
+          color: "white",
+          cap: "round",
         });
         this.activeCurve.tint = this.activeColor;
-        this.activeCurve.alpha = 0.5;
+        this.activeCurve.filters = [new AlphaFilter({alpha:0.2})];
         break;
     }
   }
@@ -112,7 +115,7 @@ export class Curve implements ITool {
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
     Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
-    // Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
+    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
 
     switch (this.curveStyleType) {
       case "pen":
@@ -146,42 +149,16 @@ export class Curve implements ITool {
         optimizedCruveGraphics.stroke({
           width: this.activeThicknes * 2,
           join: "round",
+          color: "white",
+          cap: "round",
         });
 
-        optimizedCruveGraphics.alpha = 0.5;
         optimizedCruveGraphics.tint = this.activeColor;
+          optimizedCruveGraphics.filters = [new AlphaFilter({alpha:0.5})];
         break;
     }
-    const strokePoints = getStroke(this.line, {
-      size: 16,
-      thinning: 0.5,
-      smoothing: 0.5,
-      streamline: 0.5,
-    });
 
-    this.renderStroke(strokePoints, this.drawingLayer);
     this.line = [];
-  }
-
-  renderStroke(points: any, graphics: Graphics) {
-    graphics.clear();
-
-    // perfect-freehand returns [[x, y], [x, y]...]
-
-    const flattenedPoints = points.flat();
-
-    if (flattenedPoints.length >= 6) {
-      // v8 Pattern: Define shape -> Apply Fill
-
-      graphics
-
-        .poly(flattenedPoints)
-
-        .fill("yellow"); // .fill() now takes a color or a config object
-
-      graphics.alpha = 0.5;
-       graphics.blendMode = 'multiply';
-    }
   }
 
   public updateCursor() {
