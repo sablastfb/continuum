@@ -31,6 +31,7 @@ export class Curve implements ITool {
   private line: Point[] = [];
   private drawingLayer!: Graphics;
   private filter = new AlphaFilter({ alpha: 0.4 });
+  private bluere = new BlurFilter({ quality:4, strength:2 });
 
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
@@ -171,7 +172,7 @@ export class Curve implements ITool {
         });
 
         optimizedCruveGraphics.tint = this.activeColor;
-        optimizedCruveGraphics.filters = [this.filter];
+        optimizedCruveGraphics.filters = [this.filter, this.bluere];
 
         break;
     }
