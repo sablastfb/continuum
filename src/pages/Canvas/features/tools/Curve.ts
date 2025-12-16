@@ -31,7 +31,7 @@ export class Curve implements ITool {
   private line: Point[] = [];
   private drawingLayer!: Graphics;
   private filter = new AlphaFilter({ alpha: 0.4 });
-  private bluere = new BlurFilter({ quality:4, strength:2 });
+  private bluere = new BlurFilter({ quality: 4, strength: 2 });
 
   constructor(private curveStyleType: CruveStyle) {
     switch (curveStyleType) {
@@ -66,9 +66,7 @@ export class Curve implements ITool {
         this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
           useCurveStore.getState().markerSettings.thicknesId
         );
-        this.activeCurve.filters = [
-          new BlurFilter({ quality: 3, strength: 0.5 }),
-        ];
+        this.activeCurve.filters = [this.filter, this.bluere];
 
         break;
     }

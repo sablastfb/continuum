@@ -33,7 +33,7 @@ export type InputState = {
 
 export class InputStateManager {
   private currentAppCanvasState: AppCanvasState = "IDLE";
-  private inputState: InputState = {
+  public inputState: InputState = {
     keyDown: new Set<string>(),
     mouseButtons: 0,
     mousePosition: {
