@@ -9,7 +9,7 @@ import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
-import useBacgroundStore, { BacgroundDefault, BacgroundData } from "../../../../data/store/BacgroundStore";
+import useBacgroundStore, { BacgroundDefault, BackgroundData } from "../../../../data/store/BacgroundStore";
 import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
 
 const SettingsDialog = () => {
@@ -17,7 +17,7 @@ const SettingsDialog = () => {
   const canvasSettings = useBacgroundStore((state) => state);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const [currentCanvasSettings, setCurrentCanvasSettings] =
-    useState<BacgroundData>(BacgroundDefault);
+    useState<BackgroundData>(BacgroundDefault);
 
   const [settingActiveTab, setSettingActiveTab] =
     useState<SettingTabs>("background");

@@ -4,7 +4,7 @@ import { merge } from "lodash";
 import { DeepPartial } from "../types/UtilTypes";
 import { ColorId } from "../palet/PaletContainer";
 
-export type BacgroundPatternType = "color" | "grid" | "dots" | "line";
+export type BackgroundPatternType = "color" | "grid" | "dots" | "line";
 
 export type SolidColorBackground = ColorId;
 export type GridBackground = {
@@ -19,8 +19,8 @@ export type LineBackground = {
   spaceBetween: number;
 };
 
-export type BacgroundPatternSettings = {
-  activeBacgroundType: BacgroundPatternType;
+export type BackgroundPatternSettings = {
+  activeBackgroundType: BackgroundPatternType;
   fillColorId: ColorId;
   fillColors: ColorId[];
   grid: GridBackground;
@@ -28,22 +28,22 @@ export type BacgroundPatternSettings = {
   line: LineBackground;
 };
 
-export type BacgroundData = BacgroundPatternSettings & {
+export type BackgroundData = BackgroundPatternSettings & {
   mainAxisVisible: boolean;
 };
 
-export interface BacgroundStore extends BacgroundData {
-  discardSettings: (settings: BacgroundData) => void;
+export interface BacgroundStore extends BackgroundData {
+  discardSettings: (settings: BackgroundData) => void;
   setBackgroundSettings: (
-    bacgroundSettings: DeepPartial<BacgroundData>
+    bacgroundSettings: DeepPartial<BackgroundData>
   ) => void;
-  reserToDefaultSettings: () => void;
+  revertToDefaultSettings: () => void;
 }
 
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
-export const BacgroundDefault: BacgroundData = {
-  activeBacgroundType: "dots",
+export const BacgroundDefault: BackgroundData = {
+  activeBackgroundType: "dots",
   fillColorId: backgroundColors[0],
   fillColors: backgroundColors,
   mainAxisVisible: false,
@@ -72,7 +72,7 @@ export const useBacgroundStore = create<BacgroundStore>()(
         merge(state, settings);
       });
     },
-    reserToDefaultSettings: () =>
+    revertToDefaultSettings: () =>
       set((state) => {
         merge(state, BacgroundDefault);
       }),

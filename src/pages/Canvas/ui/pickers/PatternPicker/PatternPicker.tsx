@@ -2,9 +2,9 @@ import { FC } from "react";
 import { DefaultOutline } from "../../../data/constants/CanvasConstants";
 import "./PatternPicker.css";
 import { ShapePatternTypes } from "../../../data/store/ShapeStore";
-import { BacgroundPatternType } from "../../../data/store/BacgroundStore";
+import { BackgroundPatternType } from "../../../data/store/BacgroundStore";
 
-export type PatternType = ShapePatternTypes | BacgroundPatternType;
+export type PatternType = ShapePatternTypes | BackgroundPatternType;
 
 interface PatternPickerProps {
   selectedPattern: PatternType;

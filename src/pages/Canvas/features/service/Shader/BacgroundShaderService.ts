@@ -3,7 +3,7 @@ import standardVetex from "./shaders/bacground/bacground.vert?raw";
 import bacgrounShader from "./shaders/bacground/bacground.frag?raw";
 import { Continuum_Canvas } from "../../CanvasApp";
 import useBacgroundStore, {
-  BacgroundPatternType,
+  BackgroundPatternType,
 } from "../../../data/store/BacgroundStore";
 import { ShaderUtils } from "./ShaderUtils";
 
@@ -15,7 +15,7 @@ export class BacgroundShaderService {
     fragment: bacgrounShader,
   });
 
-  private patternMapper: Record<BacgroundPatternType, number> = {
+  private patternMapper: Record<BackgroundPatternType, number> = {
     color: 0,
     dots: 1,
     grid: 2,
@@ -68,7 +68,7 @@ export class BacgroundShaderService {
     return this.createBacgroundShader()!;
   }
 
-  public updateBacgroundType(pattern: BacgroundPatternType) {
+  public updateBacgroundType(pattern: BackgroundPatternType) {
     if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
       const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
       uniforms.patternId = this.patternMapper[pattern];

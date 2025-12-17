@@ -29,7 +29,7 @@ export class BacgroundService {
       Continuum_Canvas.bacgroundShaderService.updateShaderColor(color);
       this.backgroundGraphics.tint = color;
     }
-    const activeType = bacgroundSettings.activeBacgroundType;
+    const activeType = bacgroundSettings.activeBackgroundType;
     Continuum_Canvas.bacgroundShaderService.updateBacgroundType(activeType);
   }
 
