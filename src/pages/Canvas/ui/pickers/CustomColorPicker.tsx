@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCurveStore } from "../../data/store/PenStore";
-import { CirclePickeSize, DefaultOutline } from "../../data/constants/CanvasConstants";
+import { CirclePickSize, DefaultOutline } from "../../../../constants/CanvasConstants";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const CustomColorPicker = ({ customColorId }: { customColorId: string }) => {
@@ -25,7 +25,7 @@ const CustomColorPicker = ({ customColorId }: { customColorId: string }) => {
     const rgbString = `rgb(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`;
 
     setColor(hexColor);
-    Continuum_Canvas.colorPalet.setColor(customColorId, rgbString);
+    Continuum_Canvas.colorPalette.setColor(customColorId, rgbString);
     setPenColor({ colorId: customColorId, color: rgbString });
   };
 
@@ -38,12 +38,12 @@ const CustomColorPicker = ({ customColorId }: { customColorId: string }) => {
     >
       <input
         type="color"
-        className={`rounded-xl cursor-pointer opacity-0  ${CirclePickeSize}`}
+        className={`rounded-xl cursor-pointer opacity-0  ${CirclePickSize}`}
         value={color}
         onDoubleClick={(e) => {
           e.preventDefault();
           const rgbObj = hexToRgb(color);
-          Continuum_Canvas.colorPalet.setColor(
+          Continuum_Canvas.colorPalette.setColor(
             customColorId,
             `rgb(${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`
           );

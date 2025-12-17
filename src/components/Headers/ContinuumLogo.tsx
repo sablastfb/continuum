@@ -1,4 +1,4 @@
-const ContinumLogo = () => {
+const ContinuumLogo = () => {
   return (
     <>
     <div className="w-7">
@@ -8,4 +8,4 @@ const ContinumLogo = () => {
   );
 };
 
-export default ContinumLogo;
+export default ContinuumLogo;

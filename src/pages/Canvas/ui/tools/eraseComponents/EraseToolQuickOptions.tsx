@@ -1,8 +1,8 @@
 import { Circle, LineSquiggle } from "lucide-react";
 import { useEraseStore } from "../../../data/store/EraseStore";
-import { DefaultOutline } from "../../../data/constants/CanvasConstants";
+import { DefaultOutline } from "../../../../../constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
-import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
+import CircleThicknessPicker from "../../pickers/CircleThicknessPicker.tsx";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
@@ -10,7 +10,7 @@ import { Continuum_Canvas } from "../../../features/CanvasApp";
 const EraseToolQuickOptions = () => {
   const eraseSettings = useEraseStore();
   const eraseMethod = useEraseStore().eraseMethod;
-  const thicknesId = useEraseStore().thicknesId;
+  const thicknessId = useEraseStore().thicknessId;
   const setEraseMode = useEraseStore().setEraseMode;
   const setEraseThickens = useEraseStore((state) => state.setEraseThickens);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
@@ -37,17 +37,17 @@ const EraseToolQuickOptions = () => {
 
       <ArrayDivider direction={toolOptionsDirection} />
       
-      {eraseSettings.allEraseThicknes.map((id, ix) => {
+      {eraseSettings.allEraseThickness.map((id, ix) => {
         return (
-          <CircleThicknesPicker
+          <CircleThicknessPicker
             action={() => {
               setEraseThickens({
-                thicknes: Continuum_Canvas.thicknesPalet.getThicknes(id),
-                thicknesId: id,
+                thickness: Continuum_Canvas.thicknessPalette.getThickness(id),
+                thicknessId: id,
               });
             }}
-            thicknesId={id}
-            selected={thicknesId === id}
+            thicknessId={id}
+            selected={thicknessId === id}
             key={ix}
           />
         );

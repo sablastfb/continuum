@@ -15,10 +15,10 @@ export type GraphicsData = {
 export const graphicOnCanvas = new Map<Id, GraphicsData>();
 
 export type GraphicInfo = CurveGraphicInfo;
-export type GraphicType = "cruve";
+export type GraphicType = "curve";
 
 
 export type CurveGraphicInfo = {
-  thicknes: number;
+  thickness: number;
   path: paper.Path;
 };

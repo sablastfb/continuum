@@ -1,14 +1,8 @@
 import {
   AlphaFilter,
   BlurFilter,
-  Filter,
-  GlProgram,
   Graphics,
-  Matrix,
-  NoiseFilter,
   Point,
-  RenderTexture,
-  Sprite,
 } from "pixi.js";
 import { useCurveStore } from "../../data/store/PenStore";
 import { ITool } from "./ToolManager";
@@ -17,24 +11,22 @@ import { v4 as uuidv4 } from "uuid";
 import { Continuum_CurveService } from "../service/CurveService";
 import { GraphicsCommand } from "../commands/Graphics";
 import { Continuum_Canvas } from "../CanvasApp";
-import { ToolType } from "../../data/types/ToolTypes";
+import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { CrossHairCursor } from "../../ui/cursors/CrossHair";
-import { Bluetooth } from "lucide-react";
-export type CruveStyle = "pen" | "marker";
 
 export class Curve implements ITool {
   type: ToolType = "base";
   private activeCurve: Graphics | null = null;
   private activeColor: string | null = null;
-  private activeThicknes: number | null = null;
+  private activeThickness: number | null = null;
   private line: Point[] = [];
   private drawingLayer!: Graphics;
   private filter = new AlphaFilter({ alpha: 0.4 });
-  private bluere = new BlurFilter({ quality: 4, strength: 2 });
+  private bluer = new BlurFilter({ quality: 4, strength: 2 });
 
-  constructor(private curveStyleType: CruveStyle) {
-    switch (curveStyleType) {
+  constructor(toolType: CurveToolType) {
+    switch (toolType) {
       case "pen":
         this.type = "pen";
         break;
@@ -50,23 +42,23 @@ export class Curve implements ITool {
     this.activeCurve = new Graphics();
 
     Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
-    switch (this.curveStyleType) {
+    switch (this.type) {
       case "pen":
-        this.activeColor = Continuum_Canvas.colorPalet.getColor(
+        this.activeColor = Continuum_Canvas.colorPalette.getColor(
           useCurveStore.getState().penSettings.colorId
         );
-        this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
-          useCurveStore.getState().penSettings.thicknesId
+        this.activeThickness = Continuum_Canvas.thicknessPalette.getThickness(
+          useCurveStore.getState().penSettings.thicknessId
         );
         break;
       case "marker":
-        this.activeColor = Continuum_Canvas.colorPalet.getColor(
+        this.activeColor = Continuum_Canvas.colorPalette.getColor(
           useCurveStore.getState().markerSettings.colorId
         );
-        this.activeThicknes = Continuum_Canvas.thicknesPalet.getThicknes(
-          useCurveStore.getState().markerSettings.thicknesId
+        this.activeThickness = Continuum_Canvas.thicknessPalette.getThickness(
+          useCurveStore.getState().markerSettings.thicknessId
         );
-        this.activeCurve.filters = [this.filter, this.bluere];
+        this.activeCurve.filters = [this.filter, this.bluer];
 
         break;
     }
@@ -79,17 +71,17 @@ export class Curve implements ITool {
 
   public draw(e: InputState) {
     if (this.activeCurve === null) return;
-    if (this.activeThicknes === null) return;
+    if (this.activeThickness === null) return;
     if (this.activeColor === null) return;
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
     this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
     this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
 
-    switch (this.curveStyleType) {
+    switch (this.type) {
       case "pen":
         this.activeCurve.stroke({
-          width: this.activeThicknes * 2,
+          width: this.activeThickness * 2,
           color: "white",
           cap: "round",
           join: "round",
@@ -98,7 +90,7 @@ export class Curve implements ITool {
         break;
       case "marker":
         this.activeCurve.stroke({
-          width: this.activeThicknes * 2,
+          width: this.activeThickness * 2,
           join: "round",
           color: "white",
           cap: "round",
@@ -110,67 +102,67 @@ export class Curve implements ITool {
   }
 
   public endDrawing() {
-    if (this.activeThicknes === null) return;
+    if (this.activeThickness === null) return;
     if (this.activeCurve === null) return;
     if (!this.activeColor) return;
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
-    const optimizedPath = Continuum_CurveService.ConverLineToPath(this.line);
-    const optimizedCruveGraphics =
-      Continuum_CurveService.CreatGrahicPath(optimizedPath);
+    const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line);
+    const optimizedCurveGraphics =
+      Continuum_CurveService.CreatGraphicPath(optimizedPath);
     const g: GraphicsData = {
       id: uuidv4(),
-      type: "cruve",
-      graph: optimizedCruveGraphics,
+      type: "curve",
+      graph: optimizedCurveGraphics,
       visible: true,
       graphicInfo: {
         path: optimizedPath,
-        thicknes: this.activeThicknes * 2,
+        thickness: this.activeThickness * 2,
       },
     };
     graphicOnCanvas.set(g.id, g);
     GraphicsCommand.addNew(g);
     Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
-    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCruveGraphics);
+    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCurveGraphics);
 
-    switch (this.curveStyleType) {
+    switch (this.type) {
       case "pen":
         if (this.line.length == 2) {
           const firstCurve = optimizedPath.curves[0];
           const firstPoint = firstCurve.point1;
           if (firstPoint) {
-            optimizedCruveGraphics
-              .circle(firstPoint.x, firstPoint.y, this.activeThicknes)
+            optimizedCurveGraphics
+              .circle(firstPoint.x, firstPoint.y, this.activeThickness)
               .fill("white");
           }
         }
-        optimizedCruveGraphics.stroke({
-          width: this.activeThicknes * 2,
+        optimizedCurveGraphics.stroke({
+          width: this.activeThickness * 2,
           color: "white",
           cap: "round",
           join: "round",
         });
-        optimizedCruveGraphics.tint = this.activeColor;
+        optimizedCurveGraphics.tint = this.activeColor;
         break;
       case "marker":
         if (this.line.length == 2) {
           const firstCurve = optimizedPath.curves[0];
           const firstPoint = firstCurve.point1;
           if (firstPoint) {
-            optimizedCruveGraphics
-              .circle(firstPoint.x, firstPoint.y, this.activeThicknes)
+            optimizedCurveGraphics
+              .circle(firstPoint.x, firstPoint.y, this.activeThickness)
               .fill("white");
           }
         }
-        optimizedCruveGraphics.stroke({
-          width: this.activeThicknes * 2,
+        optimizedCurveGraphics.stroke({
+          width: this.activeThickness * 2,
           join: "round",
           color: "white",
           cap: "round",
         });
 
-        optimizedCruveGraphics.tint = this.activeColor;
-        optimizedCruveGraphics.filters = [this.filter, this.bluere];
+        optimizedCurveGraphics.tint = this.activeColor;
+        optimizedCurveGraphics.filters = [this.filter, this.bluer];
 
         break;
     }

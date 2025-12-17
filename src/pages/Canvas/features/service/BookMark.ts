@@ -6,7 +6,7 @@ export class BookmarkService {
   private lastNumber = 0;
   public addBookmark() {
     if (!Continuum_Canvas.viewportManager.viewport) return;
-    const bookmakr: Bookmark = {
+    const bookmark: Bookmark = {
       name: `New Bookmark ${++this.lastNumber}`,
       id: uuidv4(),
       position: {
@@ -15,11 +15,11 @@ export class BookmarkService {
       },
       scale: Continuum_Canvas.viewportManager.viewport.scale.x,
     };
-    useBookmark.getState().addBookmark(bookmakr);
+    useBookmark.getState().addBookmark(bookmark);
   }
 
   public moveToBookmarkHome() {
-    const bookmark = useBookmark.getState().homeBookmakrs;
+    const bookmark = useBookmark.getState().homeBookmarks;
     if (bookmark) this.moveToBookmark(bookmark);
   }
 

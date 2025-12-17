@@ -1,5 +1,5 @@
 import CircleColorPicker from "../../pickers/CircleColorPicker";
-import CircleThicknesPicker from "../../pickers/CircleThicknesPicker";
+import CircleThicknessPicker from "../../pickers/CircleThicknessPicker.tsx";
 import CustomColorPicker from "../../pickers/CustomColorPicker";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import { useCurveStore } from "../../../data/store/PenStore";
@@ -9,24 +9,24 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 const MarkerToolsQuickOptions = () => {
   const markerSettings = useCurveStore();
   const markerColorId = useCurveStore().markerSettings.colorId;
-  const thicknesId = useCurveStore().markerSettings.thicknesId;
+  const thicknessId = useCurveStore().markerSettings.thicknessId;
   const setMarkerColor = useCurveStore((state) => state.setMarkerColor);
-  const setMarkerThickens = useCurveStore((state) => state.setMarkerThicknes);
+  const setMarkerThickens = useCurveStore((state) => state.setMarkerThickness);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
 
   return (
     <>
-      {markerSettings.markerSettings.allThicknes.map((id, ix) => {
+      {markerSettings.markerSettings.allThickness.map((id, ix) => {
         return (
-          <CircleThicknesPicker
+          <CircleThicknessPicker
             action={() => {
               setMarkerThickens({
-                thicknes: Continuum_Canvas.thicknesPalet.getThicknes(id),
-                thicknesId: id,
+                thickness: Continuum_Canvas.thicknessPalette.getThickness(id),
+                thicknessId: id,
               });
             }}
-            thicknesId={id}
-            selected={thicknesId === id}
+            thicknessId={id}
+            selected={thicknessId === id}
             key={ix}
           />
         );

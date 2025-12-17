@@ -12,15 +12,15 @@ const LayoutSettings = ()  => {
       <h3 className="text-xl  mb-4">Layout Settings</h3>
         <div>
           <h3>Quic tools visible</h3>
-          <Checkbox onChange={e => canvasStore.setEdditingMod(e.checked ?? true )} checked={canvasStore.editingModOn}></Checkbox>
+          <Checkbox onChange={e => canvasStore.setEditingMod(e.checked ?? true )} checked={canvasStore.editingModOn}></Checkbox>
         </div>
       <div>
-        <h3> Tool menue</h3>
+        <h3> Tool menu</h3>
         <div>
           <Dropdown
-            value={layoutStore.toolMenuePosition}
+            value={layoutStore.toolMenuPosition}
             onChange={(e) =>
-              layoutStore.setLayoutOptions({ toolMenuePosition: e.value })
+              layoutStore.setLayoutOptions({ toolMenuPosition: e.value })
             }
             options={["top", "bottom", "left", "right"]}
           />

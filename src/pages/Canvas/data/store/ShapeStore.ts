@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { ColorId } from "../palet/PaletContainer";
+import {ColorId} from "../palet/PaletteContainer.ts";
 
-export type Shape = "square" | "circle" | "poligon";
+export type Shape = "square" | "circle" | "polygon";
 export type ShapeFillType = "outline-only" | "fill-only" | "outline-and-fill";
 
 const shapeBackgroundColors = [
@@ -25,14 +25,14 @@ export const shapePatternShaderIdMapper: Record<ShapePatternTypes, number> = {
 
 export type SolidColorBackground = ColorId;
 
-export type GridBackground = {};
+export type GridBackground = object;
 export type DotBackground = {
   dotRadius: number;
 };
-export type LineBackground = {};
+export type LineBackground = object;
 
 export type ShapePatternSettings = {
-  activeBacgroundType: ShapePatternTypes;
+  activeBackgroundType: ShapePatternTypes;
   fillColorId: ColorId;
   fillColors: ColorId[];
   grid: GridBackground;
@@ -59,7 +59,7 @@ export const DefaultShapeSettings: ShapeData = {
   strokeSize: 5,
   cornerRadius: 20,
   numberOfCorners: 6,
-  activeBacgroundType: "color",
+  activeBackgroundType: "color",
   strokeColorId: shapeOutlineColors[0],
   strokeColors: shapeOutlineColors,
   fillColorId: shapeBackgroundColors[0],

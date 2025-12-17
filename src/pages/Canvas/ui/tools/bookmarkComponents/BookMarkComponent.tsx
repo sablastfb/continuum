@@ -1,11 +1,11 @@
 import { Home, Plus, Trash, X } from "lucide-react";
-import { DefaultButtonsBackground } from "../../../data/constants/CanvasConstants";
+import { DefaultButtonsBackground } from "../../../../../constants/CanvasConstants";
 import { useState } from "react";
 import { useBookmark } from "../../../data/store/BookmarkStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
-const BookmakrContainer = () => {
-  const [editingId, seteditingId] = useState<string | null>(null);
+const BookmarkContainer = () => {
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const visible = useBookmark().containerVisible;
   const setVisible = useBookmark().setContainerVisible;
@@ -25,7 +25,7 @@ const BookmakrContainer = () => {
       >
         <div className="flex justify-start gap-5 border-b-2">
           <div className="text-xl font-bold dark:text-amber-300">
-            Bookmakrs
+            Bookmark
           </div>
           <div className="cursor-pointer rounded-full">
             <Plus
@@ -59,8 +59,8 @@ const BookmakrContainer = () => {
                 Continuum_Canvas.bookMarkService.moveToBookmark(bookmark);
                 setSelectedId(bookmark.id);
               }}
-              onDoubleClick={() => seteditingId(bookmark.id)}
-              onBlur={() => seteditingId(null)}
+              onDoubleClick={() => setEditingId(bookmark.id)}
+              onBlur={() => setEditingId(null)}
             >
               {editingId === bookmark.id && (
                 <div className="flex flex-row justify-start gap-5 text-right">
@@ -77,7 +77,7 @@ const BookmakrContainer = () => {
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        seteditingId(null);
+                        setEditingId(null);
                       }
                     }}
                   />
@@ -116,4 +116,4 @@ const BookmakrContainer = () => {
   );
 };
 
-export default BookmakrContainer;
+export default BookmarkContainer;

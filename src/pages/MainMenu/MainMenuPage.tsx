@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 
-function MainMenue() {
+function MainMenu() {
   return (
     <>
       <div>Yi bi</div>
@@ -12,4 +12,4 @@ function MainMenue() {
   );
 }
 
-export default MainMenue;
+export default MainMenu;

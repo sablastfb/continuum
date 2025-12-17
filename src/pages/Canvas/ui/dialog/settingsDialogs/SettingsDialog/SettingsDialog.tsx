@@ -9,15 +9,15 @@ import LayoutSettings from "../LayoutSettings";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import useCanvasStore from "../../../../data/store/CanvasStore";
 import ThemeToggle from "../../../misc/ThemeToggle";
-import useBacgroundStore, { BacgroundDefault, BackgroundData } from "../../../../data/store/BacgroundStore";
-import { DefaultDialogBacground } from "../../../../data/constants/CanvasConstants";
+import useBackgroundStore, { BackgroundDefault, BackgroundData } from "../../../../data/store/BackgroundStore.ts";
+import { DefaultDialogBackground } from "../../../../../../constants/CanvasConstants";
 
 const SettingsDialog = () => {
   const settingVisible = useCanvasStore((state) => state.settingVisible);
-  const canvasSettings = useBacgroundStore((state) => state);
+  const canvasSettings = useBackgroundStore((state) => state);
   const setSettingVisible = useCanvasStore((state) => state.setSettingVisible);
   const [currentCanvasSettings, setCurrentCanvasSettings] =
-    useState<BackgroundData>(BacgroundDefault);
+    useState<BackgroundData>(BackgroundDefault);
 
   const [settingActiveTab, setSettingActiveTab] =
     useState<SettingTabs>("background");
@@ -26,8 +26,8 @@ const SettingsDialog = () => {
     useState(false);
   const defaultButton = useRef(null);
 
-  const reserToDefaultSettings = useBacgroundStore().reserToDefaultSettings;
-  const discardSettings = useBacgroundStore().discardSettings;
+  const reserToDefaultSettings = useBackgroundStore().reserToDefaultSettings;
+  const discardSettings = useBackgroundStore().discardSettings;
   type SettingTabs = "background" | "layout";
   const items = [
     {
@@ -47,7 +47,7 @@ const SettingsDialog = () => {
       modal
       header="Settings"
       visible={settingVisible}
-      className={`${DefaultDialogBacground} settings`}
+      className={`${DefaultDialogBackground} settings`}
       onShow={() => {
         setCurrentCanvasSettings(canvasSettings);
       }}

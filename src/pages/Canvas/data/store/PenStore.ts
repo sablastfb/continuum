@@ -1,9 +1,9 @@
 import { create } from "zustand/react";
 import { immer } from "zustand/middleware/immer";
-import { Color, ColorId } from "../palet/PaletContainer";
-import { Thicknes, ThicknesId } from "../thicknes/ThickneContainer";
+import {Thickness, ThicknessId} from "../thicknes/ThickneContainer";
+import { Color, ColorId } from "../palet/PaletteContainer";
 
-const allPencilThicknes = ["th-0", "th-1", "th-2", "th-3"];
+const allPencilThickness = ["th-0", "th-1", "th-2", "th-3"];
 const allPencilColors = ["p-7", "p-1", "p-2", "p-5", "p-4"];
 const allMarkerColors = [
   "marker-yellow",
@@ -16,29 +16,29 @@ export type CurveSettings = {
   penSettings: {
     color: Color; // TODO probably can remove
     colorId: ColorId;
-    thicknesId: ThicknesId;
-    thicknes: Thicknes;
-    allThicknes: ThicknesId[];
+    thicknessId: ThicknessId;
+    thickness: Thickness;
+    allThickness: ThicknessId[];
     allPencilColors: ColorId[];
   };
   markerSettings: {
     color: Color;
     colorId: ColorId;
-    thicknesId: ThicknesId;
-    thicknes: Thicknes;
+    thicknessId: ThicknessId;
+    thickness: Thickness;
     opacity: number;
-    allThicknes: ThicknesId[];
+    allThickness: ThicknessId[];
     allMarkerColors: ColorId[];
   };
   setPenColor: (newColor: { colorId: ColorId; color: string }) => void;
   setPenThickens: (penThickens: {
-    thicknesId: ThicknesId;
-    thicknes: number;
+    thicknessId: ThicknessId;
+    thickness: number;
   }) => void;
   setMarkerColor: (newColor: { colorId: ColorId; color: string }) => void;
-  setMarkerThicknes: (penThickens: {
-    thicknesId: ThicknesId;
-    thicknes: number;
+  setMarkerThickness: (penThickens: {
+    thicknessId: ThicknessId;
+    thickness: number;
   }) => void;
 };
 
@@ -47,18 +47,18 @@ export const useCurveStore = create<CurveSettings>()(
     penSettings: {
       color: "", // TODO probably can remove
       colorId: allPencilColors[0],
-      thicknes: 0,
-      thicknesId: allPencilThicknes[0],
-      allThicknes: allPencilThicknes,
+      thickness: 0,
+      thicknessId: allPencilThickness[0],
+      allThickness: allPencilThickness,
       allPencilColors: allPencilColors,
     },
     markerSettings: {
       color: "",
       colorId: allMarkerColors[0],
       opacity: 0.2,
-      thicknes: 0,
-      thicknesId: allPencilThicknes[0],
-      allThicknes: allPencilThicknes,
+      thickness: 0,
+      thicknessId: allPencilThickness[0],
+      allThickness: allPencilThickness,
       allMarkerColors: allMarkerColors,
     },
     setPenColor: (color) =>
@@ -68,18 +68,18 @@ export const useCurveStore = create<CurveSettings>()(
       }),
     setPenThickens: (penThickens) =>
       set((state) => {
-        state.penSettings.thicknes = penThickens.thicknes;
-        state.penSettings.thicknesId = penThickens.thicknesId;
+        state.penSettings.thickness = penThickens.thickness;
+        state.penSettings.thicknessId = penThickens.thicknessId;
       }),
     setMarkerColor: (color) =>
       set((state) => {
         state.markerSettings.colorId = color.colorId;
         state.markerSettings.color = color.color;
       }),
-    setMarkerThicknes: (penThickens) =>
+    setMarkerThickness: (penThickens) =>
       set((state) => {
-        state.markerSettings.thicknes = penThickens.thicknes;
-        state.markerSettings.thicknesId = penThickens.thicknesId;
+        state.markerSettings.thickness = penThickens.thickness;
+        state.markerSettings.thicknessId = penThickens.thicknessId;
       }),
   }))
 );

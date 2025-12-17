@@ -1,5 +1,5 @@
 import { drawingBidings } from "./DrawingState";
-import { idleBidings } from "./IdleState";
+import { idleSidings } from "./IdleState";
 import { AppCanvasState, InputState, MouseButton } from "./InputState";
 
 export type InputBinding = {
@@ -10,10 +10,10 @@ export type InputBinding = {
   appState: AppCanvasState[];
 };
 
-export class InputBidings {
+export class InputBindings {
   private bindings: InputBinding[] = [
     ...drawingBidings,
-    ...idleBidings
+    ...idleSidings
   ];
 
   public getBiding(inputState: InputState, appState: AppCanvasState) {

@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { DefaultOutline } from "../../../data/constants/CanvasConstants";
+import { DefaultOutline } from "../../../../../constants/CanvasConstants";
 import "./PatternPicker.css";
 import { ShapePatternTypes } from "../../../data/store/ShapeStore";
-import { BackgroundPatternType } from "../../../data/store/BacgroundStore";
+import { BackgroundPatternType } from "../../../data/store/BackgroundStore.ts";
 
 export type PatternType = ShapePatternTypes | BackgroundPatternType;
 

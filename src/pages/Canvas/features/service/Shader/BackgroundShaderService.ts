@@ -2,15 +2,15 @@ import { Filter, GlProgram } from "pixi.js";
 import standardVetex from "./shaders/bacground/bacground.vert?raw";
 import bacgrounShader from "./shaders/bacground/bacground.frag?raw";
 import { Continuum_Canvas } from "../../CanvasApp";
-import useBacgroundStore, {
+import useBackgroundStore, {
   BackgroundPatternType,
-} from "../../../data/store/BacgroundStore";
+} from "../../../data/store/BackgroundStore.ts";
 import { ShaderUtils } from "./ShaderUtils";
 
-export class BacgroundShaderService {
-  private bacgroundShader?: Filter;
+export class BackgroundShaderService {
+  private backgroundShader?: Filter;
 
-  private bacgroundGlPrograms = GlProgram.from({
+  private backgroundGlPrograms = GlProgram.from({
     vertex: standardVetex,
     fragment: bacgrounShader,
   });
@@ -22,9 +22,9 @@ export class BacgroundShaderService {
     line: 3,
   };
 
-  public createBacgroundShader() {
+  public createBackgroundShader() {
     if (!Continuum_Canvas.viewportManager.viewport) return;
-    const bacgroundResurces = {
+    const backgroundResources = {
       uniforms: {
         iResolution: {
           value: [window.innerWidth, window.innerHeight],
@@ -50,34 +50,34 @@ export class BacgroundShaderService {
           type: "f32",
         },
         showAxis: {
-          value: useBacgroundStore.getState().mainAxisVisible,
+          value: useBackgroundStore.getState().mainAxisVisible,
           type: "f32",
         },
       },
     };
     const filter = new Filter({
-      glProgram: this.bacgroundGlPrograms,
-      resources: bacgroundResurces,
+      glProgram: this.backgroundGlPrograms,
+      resources: backgroundResources,
     });
-    this.bacgroundShader = filter;
+    this.backgroundShader = filter;
     return filter;
   }
 
-  public getBacgroundShader() {
-    if (this.bacgroundShader) return this.bacgroundShader;
-    return this.createBacgroundShader()!;
+  public getBackgroundShader() {
+    if (this.backgroundShader) return this.backgroundShader;
+    return this.createBackgroundShader()!;
   }
 
-  public updateBacgroundType(pattern: BackgroundPatternType) {
-    if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
+  public updateBackgroundType(pattern: BackgroundPatternType) {
+    if (this.backgroundShader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = this.backgroundShader.resources.uniforms.uniforms;
       uniforms.patternId = this.patternMapper[pattern];
     }
   }
 
-  public updateBacgroundUniforms() {
-    if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
+  public updateBackgroundUniforms() {
+    if (this.backgroundShader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = this.backgroundShader.resources.uniforms.uniforms;
       uniforms.viewportPosition = [
         Continuum_Canvas.viewportManager.viewport.corner.x,
         Continuum_Canvas.viewportManager.viewport.corner.y,
@@ -87,15 +87,15 @@ export class BacgroundShaderService {
     }
   }
 
-  public updateMainAxises(visible: boolean) {
-    if (!this.bacgroundShader) return;
-    const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
+  public updateMainAxes(visible: boolean) {
+    if (!this.backgroundShader) return;
+    const uniforms = this.backgroundShader.resources.uniforms.uniforms;
     uniforms.showAxis = visible;
   }
 
   public updateShaderColor(color: string) {
-    if (this.bacgroundShader && Continuum_Canvas.viewportManager.viewport) {
-      const uniforms = this.bacgroundShader.resources.uniforms.uniforms;
+    if (this.backgroundShader && Continuum_Canvas.viewportManager.viewport) {
+      const uniforms = this.backgroundShader.resources.uniforms.uniforms;
       uniforms.backgroundColor = ShaderUtils.rgbStringToVec3(color);
     }
   }

@@ -1,14 +1,14 @@
 import { ZoomedEvent } from "pixi-viewport/dist/types";
-import { ZoomSensitivity } from "../../data/constants/CanvasConstants";
+import { ZoomSensitivity } from "../../../../constants/CanvasConstants";
 import useCanvasStore from "../../data/store/CanvasStore";
 import { Continuum_Canvas } from "../CanvasApp";
 
 export class ResizeService {
-  public manualZoom(zoomeDirection: number) {
+  public manualZoom(zoomDirection: number) {
     if (Continuum_Canvas.viewportManager.viewport === null) return;
-    const zoome = useCanvasStore.getState().zoome;
-    const zomeValue = zoome + zoomeDirection * ZoomSensitivity;
-    useCanvasStore.getState().setZoom(zoome + zoomeDirection * ZoomSensitivity);
+    const zoom = useCanvasStore.getState().zoom;
+    const zomeValue = zoom + zoomDirection * ZoomSensitivity;
+    useCanvasStore.getState().setZoom(zoom + zoomDirection * ZoomSensitivity);
     Continuum_Canvas.viewportManager.viewport.setZoom(zomeValue, true);
     this.handleResize();
   }
@@ -38,6 +38,6 @@ export class ResizeService {
       window.innerWidth,
       window.innerHeight
     );
-    Continuum_Canvas.bacgroundService.resize();
+    Continuum_Canvas.backgroundService.resize();
   }
 }

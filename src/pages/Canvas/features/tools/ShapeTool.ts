@@ -28,7 +28,7 @@ export class ShapeTool implements ITool {
     this.startPoint = { ...e.mousePosition };
 
     const colorId = useShapesStore.getState().fillColorId;
-    const fillColor = Continuum_Canvas.colorPalet.getColor(colorId);
+    const fillColor = Continuum_Canvas.colorPalette.getColor(colorId);
 
     Continuum_Canvas.shapeShaderService.updateShaderColor(
       this.shapeGraphics.shader,
@@ -36,7 +36,7 @@ export class ShapeTool implements ITool {
     );
     Continuum_Canvas.shapeShaderService.updateShaderPatter(
       this.shapeGraphics.shader,
-      shapePatternShaderIdMapper[useShapesStore.getState().activeBacgroundType]
+      shapePatternShaderIdMapper[useShapesStore.getState().activeBackgroundType]
     );
   }
 
@@ -46,22 +46,22 @@ export class ShapeTool implements ITool {
 
     const currentPoint = { ...e.mousePosition };
 
-    const curentShape = useShapesStore.getState().shape;
+    const currentShape = useShapesStore.getState().shape;
     const fillType = useShapesStore.getState().fillType;
     const drawFill =
       fillType === "fill-only" || fillType === "outline-and-fill";
     const drawStroke =
       fillType === "outline-only" || fillType === "outline-and-fill";
 
-    switch (curentShape) {
+    switch (currentShape) {
       case "square":
         this.drawRect(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
       case "circle":
         this.drawCircle(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
-      case "poligon":
-        this.drawPoligon(this.startPoint, currentPoint, drawFill, drawStroke);
+      case "polygon":
+        this.drawPolygon(this.startPoint, currentPoint, drawFill, drawStroke);
         break;
     }
   }
@@ -113,7 +113,7 @@ export class ShapeTool implements ITool {
     }
   }
 
-  private drawPoligon(
+  private drawPolygon(
     p1: SimplePoint,
     p2: SimplePoint,
     drawFill: boolean,
@@ -181,7 +181,7 @@ export class ShapeTool implements ITool {
     if (!this.strokeGraphics) return;
     const strokeColorId = useShapesStore.getState().strokeColorId;
     const strokeSize = useShapesStore.getState().strokeSize;
-    const strokeColor = Continuum_Canvas.colorPalet.getColor(strokeColorId);
+    const strokeColor = Continuum_Canvas.colorPalette.getColor(strokeColorId);
 
     this.strokeGraphics.clear();
     this.strokeGraphics

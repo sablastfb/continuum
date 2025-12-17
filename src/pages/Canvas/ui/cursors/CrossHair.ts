@@ -10,13 +10,13 @@ export class CrossHairCursor  {
      Continuum_Canvas.cursorManager.cursor.clear();
     const lineWidth = 1;
     const outlineWidth = 1;
-    const color = Continuum_Canvas.colorPalet.getColor(
+    const color = Continuum_Canvas.colorPalette.getColor(
       useCurveStore.getState().penSettings.colorId
     );
     console.log(down);
-    const zoom = useCanvasStore.getState().zoome;
+    const zoom = useCanvasStore.getState().zoom;
     const radius =
-      zoom * Continuum_Canvas.thicknesPalet.getThicknes(useCurveStore.getState().penSettings.thicknesId);
+      zoom * Continuum_Canvas.thicknessPalette.getThickness(useCurveStore.getState().penSettings.thicknessId);
     const outerRadius = Math.max(radius+5, 10);
     const lineDistance = 19 + outerRadius;
      Continuum_Canvas.cursorManager.cursor
@@ -24,7 +24,7 @@ export class CrossHairCursor  {
       .stroke({
         alignment: 0,
         width: outlineWidth,
-        color: Continuum_Canvas.colorPalet.getColor("c-1"),
+        color: Continuum_Canvas.colorPalette.getColor("c-1"),
       })
       .circle(0, 0, radius)
       .fill(color)

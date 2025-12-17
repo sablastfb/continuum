@@ -2,10 +2,10 @@ import { Eraser } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../../../constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 
-const EraserToolMenue = () => {
+const EraserToolMenu = () => {
   const canvasStore = useToolStore();
 
   return (
@@ -25,4 +25,4 @@ const EraserToolMenue = () => {
   );
 }
 
-export default EraserToolMenue;
+export default EraserToolMenu;

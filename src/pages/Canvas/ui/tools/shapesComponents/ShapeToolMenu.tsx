@@ -2,24 +2,24 @@ import { Circle, HexagonIcon, Square } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../../../constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 import { useShapesStore } from "../../../data/store/ShapeStore";
 
-const ShapeToolMenue = () => {
+const ShapeToolMenu = () => {
   const canvasStore = useToolStore();
   const shapesStore = useShapesStore();
   const toolType = "shape";
   const fillColor =
     shapesStore.fillType === "fill-only" ||
     shapesStore.fillType === "outline-and-fill"
-      ? Continuum_Canvas.colorPalet.getColor(shapesStore.fillColorId)
+      ? Continuum_Canvas.colorPalette.getColor(shapesStore.fillColorId)
       : "transparent";
   const strokeColor =
     shapesStore.fillType === "outline-only" ||
     shapesStore.fillType === "outline-and-fill"
-      ? Continuum_Canvas.colorPalet.getColor(shapesStore.strokeColorId)
+      ? Continuum_Canvas.colorPalette.getColor(shapesStore.strokeColorId)
       : "transparent";
   return (
     <>
@@ -47,7 +47,7 @@ const ShapeToolMenue = () => {
             stroke={strokeColor}
           />
         )}
-        {shapesStore.shape === "poligon" && (
+        {shapesStore.shape === "polygon" && (
           <HexagonIcon
             size={DefaultIconSize}
             fill={fillColor}
@@ -59,4 +59,4 @@ const ShapeToolMenue = () => {
   );
 };
 
-export default ShapeToolMenue;
+export default ShapeToolMenu;

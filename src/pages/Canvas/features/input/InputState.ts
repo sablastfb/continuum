@@ -3,7 +3,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
 import useCanvasStore from "../../data/store/CanvasStore";
 
-export type AppCanvasState = "IDLE" | "DARWING" | "KEY_PUSHED";
+export type AppCanvasState = "IDLE" | "DRAWING" | "KEY_PUSHED";
 
 export enum PointerType {
   MOUSE = "mouse",
@@ -138,7 +138,7 @@ export class InputStateManager {
 
   // BAD name
   private runCanvasAction() {
-    const biding = Continuum_Canvas.inputBidings.getBiding(
+    const biding = Continuum_Canvas.inputBiding.getBiding(
       this.inputState,
       this.currentAppCanvasState
     );

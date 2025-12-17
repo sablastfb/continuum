@@ -1,4 +1,4 @@
-const Color = [
+export const BackgroundColors = [
   { id: "bg-1", light: "rgb(255, 255, 255)", dark: "rgb(0, 0, 0)" },
   {
     id: "bg-2",
@@ -15,5 +15,3 @@ const Color = [
     dark: "rgb(30, 25, 15)",
   },
 ];
-
-export const BacgroundColors = [...Color, ];

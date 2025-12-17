@@ -16,6 +16,6 @@ export class SimpleCross {
       .lineTo(0, lineSize)
       .moveTo(0, -lineDist)
       .lineTo(0, -lineSize)
-      .stroke({ width: 1, color: Continuum_Canvas.colorPalet.getColor("c-2") });
+      .stroke({ width: 1, color: Continuum_Canvas.colorPalette.getColor("c-2") });
   }
 }

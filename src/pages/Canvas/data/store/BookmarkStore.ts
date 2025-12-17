@@ -12,7 +12,7 @@ export type Bookmark = {
 };
 export interface BookmarkStore {
   containerVisible: boolean;
-  homeBookmakrs: Bookmark;
+  homeBookmarks: Bookmark;
   bookmarks: Bookmark[];
   addBookmark: (bookmark: Bookmark) => void;
   update: (bookmark: Bookmark) => void;
@@ -23,7 +23,7 @@ export interface BookmarkStore {
 export const useBookmark = create<BookmarkStore>()(
   immer((set) => ({
     containerVisible: false,
-    homeBookmakrs: {
+    homeBookmarks: {
       id: "home",
       name: "home",
       position: {
@@ -37,10 +37,10 @@ export const useBookmark = create<BookmarkStore>()(
       set((state) => {
         state.bookmarks.push(bookmark);
       }),
-    update: (bookmakr) =>
+    update: (bookmark) =>
       set((state) => {
-        const id = state.bookmarks.findIndex((obj) => obj.id === bookmakr.id);
-        state.bookmarks[id] = bookmakr;
+        const id = state.bookmarks.findIndex((obj) => obj.id === bookmark.id);
+        state.bookmarks[id] = bookmark;
       }),
     removeBookmark: (id) =>
       set((state) => {

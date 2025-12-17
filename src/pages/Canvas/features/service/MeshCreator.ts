@@ -13,8 +13,8 @@ export class MeshManager {
     height: number,
     radius: number
   ) {
-    var rect = new Rectangle(0, 0, width, height);
-    var path = new Path.Rectangle(rect, new Size(radius, radius));
+    const rect = new Rectangle(0, 0, width, height);
+    const path = new Path.Rectangle(rect, new Size(radius, radius));
     const coords: number[] = [];
     path.flatten(1);
 
@@ -38,9 +38,8 @@ export class MeshManager {
     radius: number,
     sides: number
   ) {
-    var center = new Point(0, 0);
-
-    var triangle = new Path.RegularPolygon(center, sides, radius);
+    const center = new Point(0, 0);
+    const triangle = new Path.RegularPolygon(center, sides, radius);
 
     const coords: number[] = [];
     triangle.flatten(1);
@@ -65,9 +64,8 @@ export class MeshManager {
     width: number,
     height: number,
   ) {
-    var center = new Point(0, 0);
-
-    var triangle = new Path.Ellipse({center, radius:[width, height]});
+    const center = new Point(0, 0);
+    const triangle = new Path.Ellipse({center, radius:[width, height]});
 
     const coords: number[] = [];
     triangle.flatten(0.3);

@@ -1,19 +1,19 @@
-import { keyBy } from "lodash";
-import { ThicknesConstants } from "./ThicknesConstants";
+import {keyBy} from "lodash";
+import {ThicknessConstants} from "./ThicknessConstants.ts";
 
-export type Thicknes = number;
-export type ThicknesId = (typeof ThicknesConstants)[number]["id"];
+export type Thickness = number;
+export type ThicknessId = (typeof ThicknessConstants)[number]["id"];
 
-export class ThicknesPalet {
-  public thicknesContainer = keyBy(ThicknesConstants, "id");
+export class ThicknessPalette {
+  public thicknessContainer = keyBy(ThicknessConstants, "id");
 
-  public getThicknes(thicknesId: ThicknesId) {
-    const thicknes = this.thicknesContainer[thicknesId];
-    if (thicknes === undefined) return 0;
-    return thicknes.thicknes;
+  public getThickness(thicknessId: ThicknessId) {
+    const thickness = this.thicknessContainer[thicknessId];
+    if (thickness === undefined) return 0;
+    return thickness.thickness;
   }
 
-  public setThicknes(id: ThicknesId, thicknes: Thicknes) {
-    this.thicknesContainer[id] = { id, thicknes };
+  public setThickness(id: ThicknessId, thickness: Thickness) {
+    this.thicknessContainer[id] = { id, thickness };
   }
 }

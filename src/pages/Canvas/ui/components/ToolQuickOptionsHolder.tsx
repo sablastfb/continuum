@@ -4,7 +4,7 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import useToolStore from "../../data/store/ToolStore";
 import CurveToolOptions from "../tools/curveComponents/CurveToolOptionsBarrel";
 import CurveAdvanceSettings from "../tools/curveComponents/CurveAdvanceSettings";
-import SelectoinToolQuickOptions from "../tools/selectonComponents/SelectoinToolQuickOptions";
+import SelectionToolQuickOptions from "../tools/selectonComponents/SelectionToolQuickOptions.tsx";
 import EraseToolQuickOptions from "../tools/eraseComponents/EraseToolQuickOptions";
 import ShapeToolQuickOptions from "../tools/shapesComponents/ShapeToolQuickOptions";
 import {
@@ -12,7 +12,7 @@ import {
   DefaultToolBarHeight,
   DefaultToolBarPadding,
   DefaultToolBarVPadding,
-} from "../../data/constants/CanvasConstants";
+} from "../../../../constants/CanvasConstants";
 import ScrollableContainer from "./ScrollableContainer";
 import ShapeAdvanceSettings from "../tools/shapesComponents/ShapeAdvanceSettings";
 
@@ -37,7 +37,7 @@ const ToolOptionsHolder = ({ direction: direction }: ToolOptionParameters) => {
     case "selection-lasso":
     case "selection-square":
     case "screen-shot":
-      activeToolComponent = <SelectoinToolQuickOptions />;
+      activeToolComponent = <SelectionToolQuickOptions />;
       break;
     case "eraser":
       activeToolComponent = <EraseToolQuickOptions />;

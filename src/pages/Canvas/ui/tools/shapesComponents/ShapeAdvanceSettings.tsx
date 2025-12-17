@@ -135,7 +135,7 @@ const CircleSettings = () => {
   );
 };
 
-const PoligonSettings = () => {
+const PolygonSettings = () => {
   return (
     <>
       <NumberOfSidesPicker />
@@ -148,7 +148,7 @@ const PoligonSettings = () => {
 const ShapeAdvanceSettings = () => {
   const shapeStore = useShapesStore();
   const handlePatternSelect = (pattern: PatternType) => {
-    shapeStore.updateShape({ activeBacgroundType: pattern });
+    shapeStore.updateShape({ activeBackgroundType: pattern });
   };
 
   return (
@@ -156,15 +156,15 @@ const ShapeAdvanceSettings = () => {
       <h3 className="text-lg font-semibold  mb-2">Shape Settings</h3>
       {shapeStore.shape === "square" && <SquareSettings />}
       {shapeStore.shape === "circle" && <CircleSettings />}
-      {shapeStore.shape === "poligon" && <PoligonSettings />}
+      {shapeStore.shape === "polygon" && <PolygonSettings />}
       <PatternPicker
-        selectedPattern={shapeStore.activeBacgroundType}
-        backgroundColor={Continuum_Canvas.colorPalet.getColor(
+        selectedPattern={shapeStore.activeBackgroundType}
+        backgroundColor={Continuum_Canvas.colorPalette.getColor(
           shapeStore.fillColorId
         )}
-        gridColor={Continuum_Canvas.colorPalet.getColor(shapeStore.lineColor)}
-        dotColor={Continuum_Canvas.colorPalet.getColor(shapeStore.lineColor)}
-        lineColor={Continuum_Canvas.colorPalet.getColor(shapeStore.lineColor)}
+        gridColor={Continuum_Canvas.colorPalette.getColor(shapeStore.lineColor)}
+        dotColor={Continuum_Canvas.colorPalette.getColor(shapeStore.lineColor)}
+        lineColor={Continuum_Canvas.colorPalette.getColor(shapeStore.lineColor)}
         onPatternSelect={handlePatternSelect}
       />
       

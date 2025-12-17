@@ -5,23 +5,23 @@ import {
   DefaultIconSize,
   DefaultToolBarHeight,
   DefaultToolBarWith,
-} from "../../data/constants/CanvasConstants";
-import CurveToolMenue from "../tools/curveComponents/CurveToolMenue";
-import SelectionToolMenue from "../tools/selectonComponents/SelectionToolMenue";
-import EraserToolMenue from "../tools/eraseComponents/EraserToolMenue";
-import ShapeToolMenue from "../tools/shapesComponents/ShapeToolMenue";
-import BookmankrButton from "../tools/bookmarkComponents/BookmankrButton";
+} from "../../../../constants/CanvasConstants";
+import CurveToolMenu from "../tools/curveComponents/CurveToolMenu.tsx";
+import SelectionToolMenu from "../tools/selectonComponents/SelectionToolMenu.tsx";
+import EraserToolMenu from "../tools/eraseComponents/EraserToolMenu.tsx";
+import ShapeToolMenu from "../tools/shapesComponents/ShapeToolMenu.tsx";
+import BookmarkButton from "../tools/bookmarkComponents/BookmarkButton.tsx";
 import ArrayDivider from "../misc/ArrayDivider";
 import useCanvasStore from "../../data/store/CanvasStore";
 import ScrollableContainer from "./ScrollableContainer";
 import { Type, Image, Clipboard, Link } from "lucide-react";
-import EmojiToolMenue from "../tools/emojiComponents/EmojiToolMenue";
+import EmojiToolMenu from "../tools/emojiComponents/EmojiToolMenu.tsx";
 
-export interface ToolsMenueParameter {
+export interface ToolsMenuParameter {
   direction: Direction;
 }
 
-const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
+const ToolsMenuHolder = ({ direction }: ToolsMenuParameter) => {
   const canvasStore = useCanvasStore();
 
   return (
@@ -41,10 +41,10 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
 
           `}
         >
-          <CurveToolMenue />
-          <SelectionToolMenue />
-          <EraserToolMenue />
-          <ShapeToolMenue />
+          <CurveToolMenu />
+          <SelectionToolMenu />
+          <EraserToolMenu />
+          <ShapeToolMenu />
           <div>
             <Type size={DefaultIconSize} />
           </div>
@@ -52,7 +52,7 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
             <Image size={DefaultIconSize} />
           </div>
           <div>
-            <EmojiToolMenue/>
+            <EmojiToolMenu/>
           </div>
           <div>
             <Clipboard size={DefaultIconSize} />
@@ -60,7 +60,7 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
           <div>
             <Link size={DefaultIconSize} />
           </div>
-          <BookmankrButton />
+          <BookmarkButton />
           <ArrayDivider direction={direction} />
           <DoUnDoComponent />
         </ScrollableContainer>
@@ -69,4 +69,4 @@ const ToolsMenueHolder = ({ direction }: ToolsMenueParameter) => {
   );
 };
 
-export default ToolsMenueHolder;
+export default ToolsMenuHolder;

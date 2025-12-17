@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export interface CanvasStore {
-  zoome: number;
+  zoom: number;
   settingVisible: boolean;
   infoVisible: boolean;
   exportVisible: boolean;
@@ -21,13 +21,13 @@ export interface CanvasStore {
   setHistoryPosition: (historyCount: number) => void;
   setHistoryCount: (historyPosition: number) => void;
   setAdvanceToolsVisibility: (advanceTools: boolean) => void;
-  setEdditingMod: (advanceTools: boolean) => void;
+  setEditingMod: (advanceTools: boolean) => void;
   setLayoutEditableVisible: (layoutActive: boolean) => void;
 }
 
 const useCanvasStore = create<CanvasStore>()(
   immer((set) => ({
-    zoome: 1,
+    zoom: 1,
     settingVisible: false,
     infoVisible: false,
     exportVisible: false,
@@ -52,7 +52,7 @@ const useCanvasStore = create<CanvasStore>()(
       }),
     setZoom: (zoome) =>
       set((state) => {
-        state.zoome = zoome;
+        state.zoom = zoome;
       }),
     setSettingVisible: (settingVisible) =>
       set((state) => {
@@ -75,7 +75,7 @@ const useCanvasStore = create<CanvasStore>()(
       set((state) => {
         state.advanceToolsActive = advanceTools;
       }),
-    setEdditingMod: (advanceTools: boolean) =>
+    setEditingMod: (advanceTools: boolean) =>
       set((state) => {
         state.editingModOn = advanceTools;
       }),

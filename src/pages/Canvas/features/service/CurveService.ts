@@ -15,15 +15,15 @@ export namespace Continuum_CurveService {
     paperScope.setup(canvas);
   }
 
-  export function ConverLineToPath<P extends SimplePoint>(line: P[]) {
+  export function ConverseLineToPath<P extends SimplePoint>(line: P[]) {
     const path = new Continuum_CurveService.paperScope.Path([...line]);
     if (line.length > 2)
-    path.simplify(2);
+    path.simplify(-1);
     return path;
   }
 
 
-  export function CreatGrahicPath(paperPath: paper.Path) {
+  export function CreatGraphicPath(paperPath: paper.Path) {
     const pathGraphics = new Graphics();
 
     const segments = paperPath.segments;

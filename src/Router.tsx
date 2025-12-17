@@ -1,6 +1,6 @@
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import CanvasPage from "./pages/Canvas/CanvasPage";
-import MainMenue from './pages/MainMenue/MainMenuePage';
+import MainMenu from './pages/MainMenu/MainMenuPage.tsx';
 
 function Router() {
   return (
@@ -8,8 +8,8 @@ function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<CanvasPage />} />
-          <Route path="/main-menue" element={<MainMenue />} />
-          <Route path="*" element={<MainMenue />} />
+          <Route path="/main-menu" element={<MainMenu />} />
+          <Route path="*" element={<MainMenu />} />
         </Routes>
       </BrowserRouter>
     </>

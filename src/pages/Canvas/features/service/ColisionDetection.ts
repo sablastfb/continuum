@@ -23,7 +23,7 @@ export namespace Continuum_CollisionService {
   }
 
   export function GetContinouseColison<P extends SimplePoint>(activePoint: P) {
-    const diffPath = Continuum_CurveService.ConverLineToPath([
+    const diffPath = Continuum_CurveService.ConverseLineToPath([
       lastPoint,
       activePoint,
     ]);
@@ -75,7 +75,7 @@ export namespace Continuum_CollisionService {
       x: pointOfCurve.x,
       y: pointOfCurve.y,
     });
-    if (dist <= radius + graphicInfo.thicknes / 2) {
+    if (dist <= radius + graphicInfo.thickness / 2) {
       return true;
     }
     return false;

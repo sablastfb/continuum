@@ -2,7 +2,7 @@ import { Circle, HexagonIcon, Square } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutlineColor,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../../../constants/CanvasConstants";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import ToolOptionHeaderComponent from "../../components/ToolOptionsHeaderComponent";
@@ -32,9 +32,9 @@ export const ShapeToolShapePicker = () => {
         <Circle size={DefaultIconSize} />
       </div>
       <div
-        onClick={() => store.updateShape({ shape: "poligon" })}
+        onClick={() => store.updateShape({ shape: "polygon" })}
         className={`rounded-xl hover:cursor-pointer flex justify-center items-center ${
-          store.shape === "poligon" ? DefaultOutlineColor : ""
+          store.shape === "polygon" ? DefaultOutlineColor : ""
         }`}
       >
         <HexagonIcon size={DefaultIconSize} />
@@ -116,7 +116,7 @@ const ShapeToolQuickOptions = () => {
             key={id}
             colorId={id}
             selected={id === shapeStore.strokeColorId}
-            variant="stroek"
+            variant="stroke"
             action={() => {shapeStore.updateShape({strokeColorId: id})}}
           />
         ))}

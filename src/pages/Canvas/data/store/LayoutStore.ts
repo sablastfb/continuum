@@ -1,27 +1,26 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-export type Theme = "dark" | "light";
 export type LayoutPositon = "top" | "bottom" | "left" | "right";
 export type Direction = "vertical" | "horizontal";
 
 export interface LayoutData {
   toolOptionsPosition: LayoutPositon;
-  toolMenuePosition: LayoutPositon;
+  toolMenuPosition: LayoutPositon;
   toolOptionsDirection: Direction;
-  toolMenuesDirection: Direction;
+  toolMenuDirection: Direction;
 }
 
 export const LayoutDefault: LayoutData = {
-  toolMenuePosition: "top",
-  toolMenuesDirection: "horizontal",
+  toolMenuPosition: "top",
+  toolMenuDirection: "horizontal",
 
   toolOptionsPosition: "top",
   toolOptionsDirection: "horizontal",
 };
 
 export interface LayoutStore extends LayoutData {
-  setLayoutOptions: (partialstate: Partial<LayoutStore>) => void;
+  setLayoutOptions: (partialState: Partial<LayoutStore>) => void;
 }
 
 export const useLayoutStore = create<LayoutStore>()(
@@ -31,9 +30,8 @@ export const useLayoutStore = create<LayoutStore>()(
       set((state) => {
         Object.assign(state, partialState);
         
-        // Auto-correct directions based on positions
-        if (partialState.toolMenuePosition !== undefined) {
-          state.toolMenuesDirection = (partialState.toolMenuePosition === 'left' || partialState.toolMenuePosition === 'right') 
+        if (partialState.toolMenuPosition !== undefined) {
+          state.toolMenuDirection = (partialState.toolMenuPosition === 'left' || partialState.toolMenuPosition === 'right')
             ? 'vertical' 
             : 'horizontal';
         }

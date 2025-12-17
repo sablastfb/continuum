@@ -1,9 +1,9 @@
 import { Checkbox } from "primereact/checkbox";
-import useBacgroundStore from "../../../data/store/BacgroundStore";
+import useBackgroundStore from "../../../data/store/BackgroundStore.ts";
 
 const BackgroundSettings = () => {
-  const setBackgroundSettings = useBacgroundStore().setBackgroundSettings;
-  const background = useBacgroundStore();
+  const setBackgroundSettings = useBackgroundStore().setBackgroundSettings;
+  const background = useBackgroundStore();
 
   return (
     <div className="p-4">

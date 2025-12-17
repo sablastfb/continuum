@@ -1,20 +1,20 @@
 import { useEffect } from "react";
-import useBacgroundStore from "../../data/store/BacgroundStore";
+import useBackgroundStore from "../../data/store/BackgroundStore.ts";
 import useToolStore from "../../data/store/ToolStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
 const BackgroundEffect = () => {
-  const bacgroundSettings = useBacgroundStore((state) => state);
-  const mainAxses = useBacgroundStore((state) => state).mainAxisVisible;
+  const backgroundSettings = useBackgroundStore((state) => state);
+  const mainAxes = useBackgroundStore((state) => state).mainAxisVisible;
   const activeTool = useToolStore().activeTool;
 
   useEffect(() => {
-    Continuum_Canvas.bacgroundService.updateBacground(bacgroundSettings);
-  }, [bacgroundSettings]);
+    Continuum_Canvas.backgroundService.updateBackground(backgroundSettings);
+  }, [backgroundSettings]);
 
   useEffect(() => {
-    Continuum_Canvas.bacgroundShaderService.updateMainAxises(mainAxses);
-  }, [mainAxses]);
+    Continuum_Canvas.backgroundShaderService.updateMainAxes(mainAxes);
+  }, [mainAxes]);
 
   useEffect(() => {
     Continuum_Canvas.toolManager.setTool(activeTool);

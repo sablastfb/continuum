@@ -5,7 +5,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Activity, useRef, useState, useEffect, type ReactNode } from "react";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
+import { DefaultIconSize } from "../../../../constants/CanvasConstants";
 
 type Direction = "horizontal" | "vertical";
 

@@ -1,12 +1,11 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { merge } from "lodash";
-import { DeepPartial } from "../types/UtilTypes";
-import { ColorId } from "../palet/PaletContainer";
+import {ColorId} from "../palet/PaletteContainer.ts";
+import {DeepPartial} from "../types/UtilTypes.ts";
 
 export type BackgroundPatternType = "color" | "grid" | "dots" | "line";
 
-export type SolidColorBackground = ColorId;
 export type GridBackground = {
   sizeOfGrid: number;
   widthOfGridLine: number;
@@ -32,17 +31,17 @@ export type BackgroundData = BackgroundPatternSettings & {
   mainAxisVisible: boolean;
 };
 
-export interface BacgroundStore extends BackgroundData {
+export interface BackgroundStore extends BackgroundData {
   discardSettings: (settings: BackgroundData) => void;
   setBackgroundSettings: (
-    bacgroundSettings: DeepPartial<BackgroundData>
+    backgroundSettings: DeepPartial<BackgroundData>
   ) => void;
   revertToDefaultSettings: () => void;
 }
 
 const backgroundColors = ["bg-1", "bg-2", "bg-3", "bg-5"];
 
-export const BacgroundDefault: BackgroundData = {
+export const BackgroundDefault: BackgroundData = {
   activeBackgroundType: "dots",
   fillColorId: backgroundColors[0],
   fillColors: backgroundColors,
@@ -60,9 +59,9 @@ export const BacgroundDefault: BackgroundData = {
   },
 };
 
-export const useBacgroundStore = create<BacgroundStore>()(
+export const useBackgroundStore = create<BackgroundStore>()(
   immer((set) => ({
-    ...BacgroundDefault,
+    ...BackgroundDefault,
     setBackgroundSettings: (settings) =>
       set((state) => {
         state = Object.assign(state, settings);
@@ -74,9 +73,9 @@ export const useBacgroundStore = create<BacgroundStore>()(
     },
     revertToDefaultSettings: () =>
       set((state) => {
-        merge(state, BacgroundDefault);
+        merge(state, BackgroundDefault);
       }),
   }))
 );
 
-export default useBacgroundStore;
+export default useBackgroundStore;

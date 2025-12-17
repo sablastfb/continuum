@@ -10,12 +10,12 @@ import { CircleCursor } from "../../ui/cursors/Circle";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";
-  delteGraphics: GraphicsData[] = [];
+  deleteGraphics: GraphicsData[] = [];
 
   public startDrawing(e: InputState) {
     if (! Continuum_Canvas.viewportManager.viewport) return;
 
-    this.delteGraphics = [];
+    this.deleteGraphics = [];
     const activePoint = Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     Continuum_CollisionService.StartContinouseColison(activePoint);
   }
@@ -23,8 +23,8 @@ export class Erase implements ITool {
   public draw(e: InputState) {
     const activePoint =  Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     if (!activePoint) return;
-    const radius = Continuum_Canvas.thicknesPalet.getThicknes(
-      useEraseStore.getState().thicknesId
+    const radius = Continuum_Canvas.thicknessPalette.getThickness(
+      useEraseStore.getState().thicknessId
     );
 
     const slowDetectionGraphics =
@@ -33,7 +33,7 @@ export class Erase implements ITool {
     for (const g of slowDetectionGraphics) {
       g.visible = false;
       g.graph.visible = false;
-      this.delteGraphics.push(g);
+      this.deleteGraphics.push(g);
     }
 
     const fastDetectionGraphics =
@@ -42,13 +42,13 @@ export class Erase implements ITool {
     for (const g of fastDetectionGraphics) {
       g.visible = false;
       g.graph.visible = false;
-      this.delteGraphics.push(g);
+      this.deleteGraphics.push(g);
     }
   }
 
   public endDrawing() {
-    GraphicsCommand.removeGraphics(this.delteGraphics);
-    this.delteGraphics = [];
+    GraphicsCommand.removeGraphics(this.deleteGraphics);
+    this.deleteGraphics = [];
   }
 
   updateCursor(): void {

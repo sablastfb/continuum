@@ -2,7 +2,7 @@ import { Continuum_Canvas } from "../CanvasApp";
 import { InputBinding } from "./InputBiding";
 import { PointerType } from "./InputState";
 
-export const idleBidings: InputBinding[] = [
+export const idleSidings: InputBinding[] = [
   // DRAWING
   {
     pointerDown: true,

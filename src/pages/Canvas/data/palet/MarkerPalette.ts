@@ -1,4 +1,4 @@
-export const MarkerColors = [
+export const MarkerPalette = [
   {
     id: "marker-yellow",
     light: "rgba(255, 247, 0, 0.4)",

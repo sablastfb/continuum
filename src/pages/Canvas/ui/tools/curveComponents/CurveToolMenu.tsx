@@ -2,36 +2,36 @@ import { Highlighter, Pen } from "lucide-react";
 import {
   DefaultIconSize,
   DefaultOutline,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../../../constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 import { useCurveStore } from "../../../data/store/PenStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
 
-const CurveToolMenue = () => {
+const CurveToolMenu = () => {
   const toolStore = useToolStore();
   const penStore = useCurveStore();
   return (
     <>
       <div
         className={`cursor-pointer   ${
-          toolStore.activeTool === toolStore.lastCureveTool && DefaultOutline
+          toolStore.activeTool === toolStore.lastCurveTool && DefaultOutline
         }`}
         onClick={() => {
-          toolStore.setActiveTool(toolStore.lastCureveTool);
+          toolStore.setActiveTool(toolStore.lastCurveTool);
         }}
       >
-        {toolStore.lastCureveTool === "pen" && (
+        {toolStore.lastCurveTool === "pen" && (
           <Pen
             size={DefaultIconSize}
-            fill={Continuum_Canvas.colorPalet.getColor(
+            fill={Continuum_Canvas.colorPalette.getColor(
               penStore.penSettings.colorId
             )}
           />
         )}
-        {toolStore.lastCureveTool === "marker" && (
+        {toolStore.lastCurveTool === "marker" && (
           <Highlighter
             size={DefaultIconSize}
-            fill={Continuum_Canvas.colorPalet.getColor(
+            fill={Continuum_Canvas.colorPalette.getColor(
               penStore.markerSettings.colorId
             )}
           />
@@ -41,4 +41,4 @@ const CurveToolMenue = () => {
   );
 };
 
-export default CurveToolMenue;
+export default CurveToolMenu;

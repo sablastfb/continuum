@@ -1,10 +1,10 @@
 import { Graphics } from "pixi.js";
-import useBacgroundStore, {
-  BacgroundStore,
-} from "../../data/store/BacgroundStore";
+import useBackgroundStore, {
+  BackgroundStore,
+} from "../../data/store/BackgroundStore.ts";
 import { Continuum_Canvas } from "../CanvasApp";
 
-export class BacgroundService {
+export class BackgroundService {
   private backgroundGraphics?: Graphics;
 
   public init() {
@@ -14,30 +14,30 @@ export class BacgroundService {
 
     Continuum_Canvas.appInstance?.stage?.addChild(this.backgroundGraphics);
     this.backgroundGraphics.filters = [
-      Continuum_Canvas.bacgroundShaderService.getBacgroundShader(),
+      Continuum_Canvas.backgroundShaderService.getBackgroundShader(),
     ];
-    this.updateBacground(useBacgroundStore.getState());
+    this.updateBackground(useBackgroundStore.getState());
   }
 
-  public updateBacground(bacgroundSettings: BacgroundStore) {
+  public updateBackground(backgroundSettings: BackgroundStore) {
     if (!this.backgroundGraphics) return;
 
-    const color = Continuum_Canvas.colorPalet.getColor(
-      bacgroundSettings.fillColorId
+    const color = Continuum_Canvas.colorPalette.getColor(
+      backgroundSettings.fillColorId
     );
     if (this.backgroundGraphics) {
-      Continuum_Canvas.bacgroundShaderService.updateShaderColor(color);
+      Continuum_Canvas.backgroundShaderService.updateShaderColor(color);
       this.backgroundGraphics.tint = color;
     }
-    const activeType = bacgroundSettings.activeBackgroundType;
-    Continuum_Canvas.bacgroundShaderService.updateBacgroundType(activeType);
+    const activeType = backgroundSettings.activeBackgroundType;
+    Continuum_Canvas.backgroundShaderService.updateBackgroundType(activeType);
   }
 
   resize() {
-    Continuum_Canvas.bacgroundService?.backgroundGraphics?.setSize(
+    Continuum_Canvas.backgroundService?.backgroundGraphics?.setSize(
       window.innerWidth,
       window.innerHeight
     );
-    Continuum_Canvas.bacgroundShaderService?.updateBacgroundUniforms();
+    Continuum_Canvas.backgroundShaderService?.updateBackgroundUniforms();
   }
 }

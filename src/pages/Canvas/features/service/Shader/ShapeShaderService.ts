@@ -4,7 +4,7 @@ import { ShaderUtils } from "./ShaderUtils";
 import shapeVertex from "../Shader/shaders/shape/shape.vert?raw";
 import shapeFragmet from "../Shader/shaders/shape/shape.frag?raw";
 import { useShapesStore } from "../../../data/store/ShapeStore";
-export type ContinumShader = {
+export type ContinuumShader = {
   filter: Filter;
   id: number;
 };

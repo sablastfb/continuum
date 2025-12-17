@@ -1,11 +1,11 @@
-import { ColorId } from "../../data/palet/PaletContainer";
+import { ColorId } from "../../data/palet/PaletteContainer.ts";
 import { Continuum_Canvas } from "../../features/CanvasApp";
 
 export type CircleColorPickerParm = {
   colorId: ColorId;
   selected: boolean;
   action: () => void;
-  variant?: "fill" | "stroek";
+  variant?: "fill" | "stroke";
 };
 
 const CircleColorPicker = ({
@@ -14,7 +14,7 @@ const CircleColorPicker = ({
   action,
   variant = "fill",
 }: CircleColorPickerParm) => {
-  const color = Continuum_Canvas.colorPalet.getColor(colorId);
+  const color = Continuum_Canvas.colorPalette.getColor(colorId);
 
   return (
     <div

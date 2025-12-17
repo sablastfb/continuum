@@ -2,12 +2,12 @@ import { Redo, Undo } from "lucide-react";
 import useCanvasStore from "../../data/store/CanvasStore";
 import useLayoutStore from "../../data/store/LayoutStore";
 import { Continuum_Canvas } from "../../features/CanvasApp";
-import { DefaultIconSize } from "../../data/constants/CanvasConstants";
+import { DefaultIconSize } from "../../../../constants/CanvasConstants";
 
 const DoUnDoComponent = () => {
   const historyPosition = useCanvasStore().historyPosition;
   const historyCount = useCanvasStore().historyCount;
-  const layoutStore = useLayoutStore().toolMenuesDirection;
+  const layoutStore = useLayoutStore().toolMenuDirection;
 
   return (
     <>

@@ -1,8 +1,8 @@
 import useLayoutStore from "../../data/store/LayoutStore";
-import BookmakrContainer from "../tools/bookmarkComponents/BookMarkComponent";
+import BookmarkContainer from "../tools/bookmarkComponents/BookMarkComponent";
 import HideQuickToolSettings from "./HideButotn";
 import ToolOptionsHolder from "./ToolQuickOptionsHolder";
-import ToolsMenueHolder from "./ToolsMenueHolder";
+import ToolsMenuHolder from "./ToolsMenuHolder.tsx";
 import ZoomingButton from "./ZoomingComponent";
 
 const ToolLayout = () => {
@@ -23,8 +23,8 @@ const ToolLayout = () => {
         {layoutStore.toolOptionsPosition === "left" && (
           <ToolOptionsHolder direction="vertical" />
         )}
-        {layoutStore.toolMenuePosition === "left" && (
-          <ToolsMenueHolder direction="vertical" />
+        {layoutStore.toolMenuPosition === "left" && (
+          <ToolsMenuHolder direction="vertical" />
         )}
       </div>
       {/* RIGT */}
@@ -32,8 +32,8 @@ const ToolLayout = () => {
         {layoutStore.toolOptionsPosition === "right" && (
           <ToolOptionsHolder direction="vertical" />
         )}
-        {layoutStore.toolMenuePosition === "right" && (
-          <ToolsMenueHolder direction="vertical" />
+        {layoutStore.toolMenuPosition === "right" && (
+          <ToolsMenuHolder direction="vertical" />
         )}
       </div>
 
@@ -42,8 +42,8 @@ const ToolLayout = () => {
         {layoutStore.toolOptionsPosition === "top" && (
           <ToolOptionsHolder direction="horizontal" />
         )}
-        {layoutStore.toolMenuePosition === "top" && (
-          <ToolsMenueHolder direction="horizontal" />
+        {layoutStore.toolMenuPosition === "top" && (
+          <ToolsMenuHolder direction="horizontal" />
         )}
       </div>
       {/*BOTOM */}
@@ -51,8 +51,8 @@ const ToolLayout = () => {
         {layoutStore.toolOptionsPosition === "bottom" && (
           <ToolOptionsHolder direction="horizontal" />
         )}
-        {layoutStore.toolMenuePosition === "bottom" && (
-          <ToolsMenueHolder direction="horizontal" />
+        {layoutStore.toolMenuPosition === "bottom" && (
+          <ToolsMenuHolder direction="horizontal" />
         )}
       </div>
       {/* <OptionButtons /> */}
@@ -60,7 +60,7 @@ const ToolLayout = () => {
         <ZoomingButton />
         <HideQuickToolSettings />
       </div>
-      <BookmakrContainer />
+      <BookmarkContainer />
     </div>
   );
 };

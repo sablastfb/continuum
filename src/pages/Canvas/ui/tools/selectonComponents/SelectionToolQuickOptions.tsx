@@ -7,7 +7,7 @@ import {
 import {
   DefaultIconSize,
   DefaultOutline as DefaultOutlineSelection,
-} from "../../../data/constants/CanvasConstants";
+} from "../../../../../constants/CanvasConstants";
 import useToolStore from "../../../data/store/ToolStore";
 import { SelectionToolType } from "../../../data/types/ToolTypes";
 import { JSX } from "react";
@@ -18,7 +18,7 @@ interface Par {
   toolType: SelectionToolType;
 }
 
-const SelectoinToolOptionsButton = ({ icon, toolType }: Par) => {
+const SelectionToolOptionsButton = ({ icon, toolType }: Par) => {
   const setActiveTool = useToolStore((state) => state.setActiveTool);
   const setLastSelectionTool = useToolStore(
     (state) => state.setLastSelectionTool
@@ -41,23 +41,23 @@ const SelectoinToolOptionsButton = ({ icon, toolType }: Par) => {
   );
 }
 
-function SelectoinToolQuickOptions() {
+function SelectionToolQuickOptions() {
   return (
     <>
       <ToolOptionHeaderComponent />
-      <SelectoinToolOptionsButton
+      <SelectionToolOptionsButton
         icon={<MousePointer2 size={DefaultIconSize} />}
         toolType={"pan-zoom"}
       />
-      <SelectoinToolOptionsButton
+      <SelectionToolOptionsButton
         icon={<Lasso size={DefaultIconSize} />}
         toolType={"selection-lasso"}
       />
-      <SelectoinToolOptionsButton
+      <SelectionToolOptionsButton
         icon={<SquareDashed size={DefaultIconSize} />}
         toolType={"selection-square"}
       />
-      <SelectoinToolOptionsButton
+      <SelectionToolOptionsButton
         icon={<Camera size={DefaultIconSize} />}
         toolType={"screen-shot"}
       />
@@ -65,4 +65,4 @@ function SelectoinToolQuickOptions() {
   );
 }
 
-export default SelectoinToolQuickOptions;
+export default SelectionToolQuickOptions;

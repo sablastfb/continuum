@@ -4,25 +4,25 @@ import { CurveToolType, SelectionToolType, ToolType } from "../types/ToolTypes";
 
 export interface ToolStore {
   activeTool: ToolType;
-  lastCureveTool: CurveToolType;
+  lastCurveTool: CurveToolType;
   lastSelectionTool: SelectionToolType;
   setActiveTool: (activeTool: ToolType) => void;
-  setLastCureveTool: (activeTool: CurveToolType) => void;
+  setLastCurveTool: (activeTool: CurveToolType) => void;
   setLastSelectionTool: (activeTool: SelectionToolType) => void;
 }
 
 const useToolStore = create<ToolStore>()(
   immer((set) => ({
     activeTool: "pen",
-    lastCureveTool: "pen",
+    lastCurveTool: "pen",
     lastSelectionTool: "pan-zoom",
     setActiveTool: (activeTool) =>
       set((state) => {
         state.activeTool = activeTool;
       }),
-    setLastCureveTool: (activeTool) =>
+    setLastCurveTool: (activeTool) =>
       set((state) => {
-        state.lastCureveTool = activeTool;
+        state.lastCurveTool = activeTool;
       }),
     setLastSelectionTool: (activeTool) =>
       set((state) => {

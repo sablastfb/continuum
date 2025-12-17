@@ -14,7 +14,7 @@ export class CursorManager {
       Continuum_Canvas.toolManager.currentTool.updateCursor!();
   }
 
-  public updateCursorVisibilty(visible: boolean) {
+  public updateCursorVisibility(visible: boolean) {
     if (this.cursor) {
       this.cursor.visible = visible;
     }
