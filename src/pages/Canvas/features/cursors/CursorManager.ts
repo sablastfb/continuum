@@ -1,16 +1,21 @@
-import { Graphics } from "pixi.js";
-import { InputState } from "../input/InputState";
-import { Continuum_Canvas } from "../CanvasApp";
+import {FederatedPointerEvent, Graphics} from "pixi.js";
+import {Cursor} from "./Cursor.ts";
+
+export type ICursor = {
+  updateCursor(): void;
+}
 
 export class CursorManager {
   public cursorGraphics: Graphics;
+  public currentCursor: ICursor = new Cursor();
+
   constructor() {
     this.cursorGraphics = new Graphics();
   }
 
   public updateCursorGraphics() {
-    if (Continuum_Canvas.toolManager.currentTool)
-      Continuum_Canvas.toolManager.currentTool.updateCursor!();
+    if (this.currentCursor)
+      this.currentCursor.updateCursor();
   }
 
   public updateCursorVisibility(visible: boolean) {
@@ -19,10 +24,7 @@ export class CursorManager {
     }
   }
 
-  public updateCursorPosition(e: InputState) {
-    this.cursorGraphics.x = e.globalPosition.x;
-    this.cursorGraphics.y = e.globalPosition.y;
-    if (Continuum_Canvas.toolManager.currentCursor)
-      Continuum_Canvas.toolManager.currentCursor.updateCursor(e);
+  public updateCursorPosition(e: FederatedPointerEvent) {
+    this.cursorGraphics.position.set(e.globalX, e.globalY);
   }
 }

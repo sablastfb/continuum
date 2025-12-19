@@ -57,6 +57,10 @@ export class InputStateManager {
     window.addEventListener("keyup", (e) => this.updateKeyUp(e));
     if (!Continuum_Canvas.viewportManager.viewport) return;
 
+    Continuum_Canvas.viewportManager.viewport.addEventListener('mousemove', (e) => {
+      Continuum_Canvas.cursorManager.updateCursorPosition(e);
+    });
+
     Continuum_Canvas.viewportManager.viewport.on("pointerdown", (e) => {
       useCanvasStore.getState().setAdvanceToolsVisibility(false);
       this.inputState.pointerDown = true;
@@ -108,8 +112,7 @@ export class InputStateManager {
       x: e.global.x,
       y: e.global.y,
     };
-
-    Continuum_Canvas.cursorManager.updateCursorPosition(this.inputState);
+    // Continuum_Canvas.cursorManager.updateCursorPosition(this.inputState);
     this.runCanvasAction();
   }
 

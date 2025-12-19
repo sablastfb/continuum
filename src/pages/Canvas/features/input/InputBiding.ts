@@ -1,4 +1,4 @@
-import { drawingBidings } from "./DrawingState";
+import { drawingBiding } from "./DrawingState";
 import { idleSidings } from "./IdleState";
 import { AppCanvasState, InputState, MouseButton } from "./InputState";
 
@@ -12,7 +12,7 @@ export type InputBinding = {
 
 export class InputBindings {
   private bindings: InputBinding[] = [
-    ...drawingBidings,
+    ...drawingBiding,
     ...idleSidings
   ];
 

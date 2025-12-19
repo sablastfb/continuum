@@ -1,7 +1,7 @@
 import { Continuum_Canvas } from "../CanvasApp";
 import { InputBinding } from "./InputBiding";
 
-export const drawingBidings: InputBinding[] = [
+export const drawingBiding: InputBinding[] = [
   // DRAWING
   {
     pointerDown: true,
