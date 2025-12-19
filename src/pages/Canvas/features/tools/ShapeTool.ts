@@ -9,7 +9,7 @@ import {
   useShapesStore,
 } from "../../data/store/ShapeStore";
 import { ContinuumMeshGeometry } from "../service/MeshCreator";
-import { SimpleCross } from "../../ui/cursors/SimpleCross";
+import { SimpleCross } from "../cursors/graphics/SimpleCross.ts";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";

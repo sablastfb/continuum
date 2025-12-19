@@ -9,7 +9,7 @@ import useLayoutStore from "../../../data/store/LayoutStore";
 const MarkerToolsQuickOptions = () => {
   const markerSettings = useCurveStore();
   const markerColorId = useCurveStore().markerSettings.colorId;
-  const thicknessId = useCurveStore().markerSettings.thicknessId;
+  const thicknessId = useCurveStore().thicknessId;
   const setMarkerColor = useCurveStore((state) => state.setMarkerColor);
   const setMarkerThickens = useCurveStore((state) => state.setMarkerThickness);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;

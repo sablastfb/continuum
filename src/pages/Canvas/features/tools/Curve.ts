@@ -1,182 +1,171 @@
 import {
-  AlphaFilter,
-  BlurFilter,
-  Graphics,
-  Point,
+    AlphaFilter,
+    BlurFilter,
+    Graphics,
+    Point,
 } from "pixi.js";
-import { useCurveStore } from "../../data/store/PenStore";
-import { ITool } from "./ToolManager";
-import { GraphicsData, graphicOnCanvas } from "../data/GraphicsDataManager";
-import { v4 as uuidv4 } from "uuid";
-import { Continuum_CurveService } from "../service/CurveService";
-import { GraphicsCommand } from "../commands/Graphics";
-import { Continuum_Canvas } from "../CanvasApp";
+import {useCurveStore} from "../../data/store/PenStore";
+import {ITool} from "./ToolManager";
+import {GraphicsData, graphicOnCanvas} from "../data/GraphicsDataManager";
+import {v4 as uuidv4} from "uuid";
+import {Continuum_CurveService} from "../service/CurveService";
+import {GraphicsCommand} from "../commands/Graphics";
+import {Continuum_Canvas} from "../CanvasApp";
 import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
-import { InputState } from "../input/InputState";
-import { CrossHairCursor } from "../../ui/cursors/CrossHair";
+import {InputState} from "../input/InputState";
+import {CrossHairCursor} from "../cursors/graphics/CrossHair.ts";
 
 export class Curve implements ITool {
-  type: ToolType = "base";
-  private activeCurve: Graphics | null = null;
-  private activeColor: string | null = null;
-  private activeThickness: number | null = null;
-  private line: Point[] = [];
-  private drawingLayer!: Graphics;
-  private filter = new AlphaFilter({ alpha: 0.4 });
-  private bluer = new BlurFilter({ quality: 4, strength: 2 });
+    type: ToolType = "base";
+    private activeCurve: Graphics | null = null;
+    private activeColor: string | null = null;
+    private activeThickness: number | null = null;
+    private line: Point[] = [];
+    private filter = new AlphaFilter({alpha: 0.4});
+    private bluer = new BlurFilter({quality: 4, strength: 2});
 
-  constructor(toolType: CurveToolType) {
-    switch (toolType) {
-      case "pen":
-        this.type = "pen";
-        break;
-      case "marker":
-        this.type = "marker";
-        break;
+    constructor(toolType: CurveToolType) {
+        this.type = toolType;
     }
-  }
 
-  public startDrawing(e: InputState) {
-    if (!Continuum_Canvas.viewportManager.viewport) return;
+    public startDrawing(e: InputState) {
+        if (!Continuum_Canvas.viewportManager.viewport) return;
 
-    this.activeCurve = new Graphics();
+        this.activeCurve = new Graphics();
+        Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
 
-    Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
-    switch (this.type) {
-      case "pen":
-        this.activeColor = Continuum_Canvas.colorPalette.getColor(
-          useCurveStore.getState().penSettings.colorId
-        );
-        this.activeThickness = Continuum_Canvas.thicknessPalette.getThickness(
-          useCurveStore.getState().penSettings.thicknessId
-        );
-        break;
-      case "marker":
-        this.activeColor = Continuum_Canvas.colorPalette.getColor(
-          useCurveStore.getState().markerSettings.colorId
-        );
-        this.activeThickness = Continuum_Canvas.thicknessPalette.getThickness(
-          useCurveStore.getState().markerSettings.thicknessId
-        );
-        this.activeCurve.filters = [this.filter, this.bluer];
+        switch (this.type) {
+            case "pen":
+                this.activeColor = Continuum_Canvas.colorPalette.getColor(
+                    useCurveStore.getState().penSettings.colorId
+                );
+                this.activeThickness = Continuum_Canvas.thicknessPalette.getThickness(
+                    useCurveStore.getState().thicknessId
+                );
+                break;
+            case "marker":
+                this.activeColor = Continuum_Canvas.colorPalette.getColor(
+                    useCurveStore.getState().markerSettings.colorId
+                );
+                this.activeThickness = Continuum_Canvas.thicknessPalette.getThickness(
+                    useCurveStore.getState().thicknessId
+                );
+                this.activeCurve.filters = [this.filter, this.bluer];
 
-        break;
-    }
-    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
-    this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
-    this.drawingLayer = new Graphics();
-
-    Continuum_Canvas.viewportManager.viewport.addChild(this.drawingLayer);
-  }
-
-  public draw(e: InputState) {
-    if (this.activeCurve === null) return;
-    if (this.activeThickness === null) return;
-    if (this.activeColor === null) return;
-    if (!Continuum_Canvas.viewportManager.viewport) return;
-
-    this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
-    this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
-
-    switch (this.type) {
-      case "pen":
-        this.activeCurve.stroke({
-          width: this.activeThickness * 2,
-          color: "white",
-          cap: "round",
-          join: "round",
-        });
-        this.activeCurve.tint = this.activeColor;
-        break;
-      case "marker":
-        this.activeCurve.stroke({
-          width: this.activeThickness * 2,
-          join: "round",
-          color: "white",
-          cap: "round",
-        });
-        this.activeCurve.tint = this.activeColor;
-
-        break;
-    }
-  }
-
-  public endDrawing() {
-    if (this.activeThickness === null) return;
-    if (this.activeCurve === null) return;
-    if (!this.activeColor) return;
-    if (!Continuum_Canvas.viewportManager.viewport) return;
-
-    const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line);
-    const optimizedCurveGraphics =
-      Continuum_CurveService.CreatGraphicPath(optimizedPath);
-    const g: GraphicsData = {
-      id: uuidv4(),
-      type: "curve",
-      graph: optimizedCurveGraphics,
-      visible: true,
-      graphicInfo: {
-        path: optimizedPath,
-        thickness: this.activeThickness * 2,
-      },
-    };
-    graphicOnCanvas.set(g.id, g);
-    GraphicsCommand.addNew(g);
-    Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
-    Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCurveGraphics);
-
-    switch (this.type) {
-      case "pen":
-        if (this.line.length == 2) {
-          const firstCurve = optimizedPath.curves[0];
-          const firstPoint = firstCurve.point1;
-          if (firstPoint) {
-            optimizedCurveGraphics
-              .circle(firstPoint.x, firstPoint.y, this.activeThickness)
-              .fill("white");
-          }
+                break;
         }
-        optimizedCurveGraphics.stroke({
-          width: this.activeThickness * 2,
-          color: "white",
-          cap: "round",
-          join: "round",
-        });
-        optimizedCurveGraphics.tint = this.activeColor;
-        break;
-      case "marker":
-        if (this.line.length == 2) {
-          const firstCurve = optimizedPath.curves[0];
-          const firstPoint = firstCurve.point1;
-          if (firstPoint) {
-            optimizedCurveGraphics
-              .circle(firstPoint.x, firstPoint.y, this.activeThickness)
-              .fill("white");
-          }
+        this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+        this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
+    }
+
+    public draw(e: InputState) {
+        if (this.activeCurve === null) return;
+        if (this.activeThickness === null) return;
+        if (this.activeColor === null) return;
+        if (!Continuum_Canvas.viewportManager.viewport) return;
+
+        this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
+        this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
+
+        switch (this.type) {
+            case "pen":
+                this.activeCurve.stroke({
+                    width: this.activeThickness * 2,
+                    color: "white",
+                    cap: "round",
+                    join: "round",
+                });
+                this.activeCurve.tint = this.activeColor;
+                break;
+            case "marker":
+                this.activeCurve.stroke({
+                    width: this.activeThickness * 2,
+                    join: "round",
+                    color: "white",
+                    cap: "round",
+                });
+                this.activeCurve.tint = this.activeColor;
+
+                break;
         }
-        optimizedCurveGraphics.stroke({
-          width: this.activeThickness * 2,
-          join: "round",
-          color: "white",
-          cap: "round",
-        });
-
-        optimizedCurveGraphics.tint = this.activeColor;
-        optimizedCurveGraphics.filters = [this.filter, this.bluer];
-
-        break;
     }
 
-    this.line = [];
-  }
+    public endDrawing() {
+        if (this.activeThickness === null) return;
+        if (this.activeCurve === null) return;
+        if (!this.activeColor) return;
+        if (!Continuum_Canvas.viewportManager.viewport) return;
 
-  public updateCursor() {
-    switch (this.type) {
-      case "pen":
-        CrossHairCursor.draw();
-        break;
-      case "marker":
-        CrossHairCursor.draw();
+        const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line, useCurveStore.getState().simplificationTolerance);
+        const optimizedCurveGraphics =
+            Continuum_CurveService.CreatGraphicPath(optimizedPath);
+        const g: GraphicsData = {
+            id: uuidv4(),
+            type: "curve",
+            graph: optimizedCurveGraphics,
+            visible: true,
+            graphicInfo: {
+                path: optimizedPath,
+                thickness: this.activeThickness * 2,
+            },
+        };
+        graphicOnCanvas.set(g.id, g);
+        GraphicsCommand.addNew(g);
+        Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
+        Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCurveGraphics);
+
+        switch (this.type) {
+            case "pen":
+                if (this.line.length == 2) {
+                    const firstCurve = optimizedPath.curves[0];
+                    const firstPoint = firstCurve.point1;
+                    if (firstPoint) {
+                        optimizedCurveGraphics
+                            .circle(firstPoint.x, firstPoint.y, this.activeThickness)
+                            .fill("white");
+                    }
+                }
+                optimizedCurveGraphics.stroke({
+                    width: this.activeThickness * 2,
+                    color: "white",
+                    cap: "round",
+                    join: "round",
+                });
+                optimizedCurveGraphics.tint = this.activeColor;
+                break;
+            case "marker":
+                if (this.line.length == 2) {
+                    const firstCurve = optimizedPath.curves[0];
+                    const firstPoint = firstCurve.point1;
+                    if (firstPoint) {
+                        optimizedCurveGraphics
+                            .circle(firstPoint.x, firstPoint.y, this.activeThickness)
+                            .fill("white");
+                    }
+                }
+                optimizedCurveGraphics.stroke({
+                    width: this.activeThickness * 2,
+                    join: "round",
+                    color: "white",
+                    cap: "round",
+                });
+
+                optimizedCurveGraphics.tint = this.activeColor;
+                optimizedCurveGraphics.filters = [this.filter, this.bluer];
+
+                break;
+        }
+
+        this.line = [];
     }
-  }
+
+    public updateCursor() {
+        // switch (this.type) {
+        //     case "pen":
+        //         CrossHairCursor.draw();
+        //         break;
+        //     case "marker":
+        //         CrossHairCursor.draw();
+        // }
+    }
 }

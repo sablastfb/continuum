@@ -15,10 +15,11 @@ export namespace Continuum_CurveService {
     paperScope.setup(canvas);
   }
 
-  export function ConverseLineToPath<P extends SimplePoint>(line: P[]) {
+  export function ConverseLineToPath<P extends SimplePoint>(line: P[], tolerance: number=  2) {
     const path = new Continuum_CurveService.paperScope.Path([...line]);
-    if (line.length > 2)
-    path.simplify(-1);
+    if (line.length > 2){
+      path.simplify(tolerance);
+    }
     return path;
   }
 

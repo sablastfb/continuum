@@ -4,6 +4,7 @@ import { ToolType } from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
 import { InputState } from "../input/InputState";
 import { ShapeTool } from "./ShapeTool";
+import {Cursor} from "../cursors/Cursor.ts";
 
 export type ITool ={
   type: ToolType;
@@ -15,9 +16,18 @@ export type ITool ={
   disposeTool?(): void;
 };
 
+export type ICursor = {
+  updateCursor(e: InputState): void;
+}
+export type ToolBinding = {
+  Tool: ITool;
+  Cursor: ICursor;
+}
+
 export class ToolManager {
-  public tools: Map<ToolType, ITool> = new Map();
+  public tools: Map<ToolType, ToolBinding> = new Map();
   public currentTool: ITool | null = null;
+  public currentCursor: ICursor | null = null;
 
   constructor() {
     this.registerDefaultTools();
@@ -25,10 +35,10 @@ export class ToolManager {
   }
 
   public registerDefaultTools() {
-    this.tools.set("pen", new Curve("pen"));
-    this.tools.set("marker", new Curve("marker"));
-    this.tools.set("eraser", new Erase());
-    this.tools.set("shape", new ShapeTool());
+    this.tools.set("pen", {Tool:new Curve("pen"), Cursor: new Cursor()});
+    this.tools.set("marker", {Tool: new Curve("marker"), Cursor: new Cursor()});
+    this.tools.set("eraser", {Tool: new Erase(), Cursor: new Cursor()});
+    this.tools.set("shape",  {Tool: new ShapeTool(), Cursor: new Cursor()});
   }
 
   public setTool(toolType: ToolType) {
@@ -39,7 +49,8 @@ export class ToolManager {
     if (this.currentTool && this.currentTool.disposeTool) {
       this.currentTool.disposeTool();
     }
-    this.currentTool = this.tools.get(toolType) ?? null;
+    this.currentTool = this.tools.get(toolType)?.Tool ?? null;
+    this.currentCursor = this.tools.get(toolType)?.Cursor ?? null;
     if (this.currentTool?.initTool) {
       this.currentTool.initTool();
     }

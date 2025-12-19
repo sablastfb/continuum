@@ -109,7 +109,7 @@ export class InputStateManager {
       y: e.global.y,
     };
 
-    Continuum_Canvas.cursorManager.updateCursorState(this.inputState);
+    Continuum_Canvas.cursorManager.updateCursorPosition(this.inputState);
     this.runCanvasAction();
   }
 

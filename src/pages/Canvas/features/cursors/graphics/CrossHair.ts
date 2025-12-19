@@ -1,25 +1,24 @@
-import useCanvasStore from "../../data/store/CanvasStore";
-import { useCurveStore } from "../../data/store/PenStore";
-import { Continuum_Canvas } from "../../features/CanvasApp";
+import useCanvasStore from "../../../data/store/CanvasStore.ts";
+import { useCurveStore } from "../../../data/store/PenStore.ts";
+import { Continuum_Canvas } from "../../CanvasApp.ts";
 
 export class CrossHairCursor  {
   static draw() {
-    if (! Continuum_Canvas.cursorManager.cursor) return;
+    if (! Continuum_Canvas.cursorManager.cursorGraphics) return;
     const down = 
     Continuum_Canvas.inputStateManager.inputState.pointerDown;
-     Continuum_Canvas.cursorManager.cursor.clear();
+     Continuum_Canvas.cursorManager.cursorGraphics.clear();
     const lineWidth = 1;
     const outlineWidth = 1;
     const color = Continuum_Canvas.colorPalette.getColor(
       useCurveStore.getState().penSettings.colorId
     );
-    console.log(down);
     const zoom = useCanvasStore.getState().zoom;
     const radius =
-      zoom * Continuum_Canvas.thicknessPalette.getThickness(useCurveStore.getState().penSettings.thicknessId);
+      zoom * Continuum_Canvas.thicknessPalette.getThickness(useCurveStore.getState().thicknessId);
     const outerRadius = Math.max(radius+5, 10);
     const lineDistance = 19 + outerRadius;
-     Continuum_Canvas.cursorManager.cursor
+     Continuum_Canvas.cursorManager.cursorGraphics
       .circle(0, 0, outerRadius).fill({color:"white", alpha:0.5})
       .stroke({
         alignment: 0,

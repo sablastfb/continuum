@@ -64,7 +64,7 @@ export namespace Continuum_Canvas {
     Continuum_Canvas.backgroundService.init();
     if (Continuum_Canvas.viewportManager.viewport) {
       app.stage.addChild(Continuum_Canvas.viewportManager.viewport);
-      app.stage.addChild(Continuum_Canvas.cursorManager.cursor);
+      app.stage.addChild(Continuum_Canvas.cursorManager.cursorGraphics);
     }
 
     Continuum_Canvas.cursorManager.updateCursorGraphics();

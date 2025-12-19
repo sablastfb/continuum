@@ -1,13 +1,13 @@
-import { Continuum_Canvas } from "../../features/CanvasApp";
+import { Continuum_Canvas } from "../../CanvasApp.ts";
 
 export class SimpleCross {
   static draw() {
     const lineSize = 15;
     const lineDist = 4;
-    Continuum_Canvas.cursorManager.cursor.clear();
+    Continuum_Canvas.cursorManager.cursorGraphics.clear();
 
 
-    Continuum_Canvas.cursorManager.cursor
+    Continuum_Canvas.cursorManager.cursorGraphics
       .moveTo(lineDist, 0)
       .lineTo(lineSize, 0)
       .moveTo(-lineDist, 0)

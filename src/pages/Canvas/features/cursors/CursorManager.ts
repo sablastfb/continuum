@@ -1,12 +1,11 @@
-import { throttle } from "lodash";
 import { Graphics } from "pixi.js";
 import { InputState } from "../input/InputState";
 import { Continuum_Canvas } from "../CanvasApp";
 
 export class CursorManager {
-  public cursor: Graphics;
+  public cursorGraphics: Graphics;
   constructor() {
-    this.cursor = new Graphics();
+    this.cursorGraphics = new Graphics();
   }
 
   public updateCursorGraphics() {
@@ -15,18 +14,15 @@ export class CursorManager {
   }
 
   public updateCursorVisibility(visible: boolean) {
-    if (this.cursor) {
-      this.cursor.visible = visible;
+    if (this.cursorGraphics) {
+      this.cursorGraphics.visible = visible;
     }
   }
 
-  moveCursor = throttle((e: InputState) => {
-    this.cursor.x = e.globalPosition.x;
-    this.cursor.y = e.globalPosition.y;
-  }, 1);
-
-  public updateCursorState(e: InputState) {
-    this.cursor.x = e.globalPosition.x;
-    this.cursor.y = e.globalPosition.y;
+  public updateCursorPosition(e: InputState) {
+    this.cursorGraphics.x = e.globalPosition.x;
+    this.cursorGraphics.y = e.globalPosition.y;
+    if (Continuum_Canvas.toolManager.currentCursor)
+      Continuum_Canvas.toolManager.currentCursor.updateCursor(e);
   }
 }

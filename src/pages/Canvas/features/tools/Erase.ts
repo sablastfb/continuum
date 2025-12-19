@@ -6,7 +6,7 @@ import { GraphicsCommand } from "../commands/Graphics";
 import type { EraserToolType } from "../../data/types/ToolTypes";
 import { InputState } from "../input/InputState";
 import { Continuum_Canvas } from "../CanvasApp";
-import { CircleCursor } from "../../ui/cursors/Circle";
+import { CircleCursor } from "../cursors/graphics/Circle.ts";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";

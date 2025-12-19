@@ -9,7 +9,7 @@ import { Continuum_Canvas } from "../../../features/CanvasApp";
 const PenToolQuickOptions = () => {
   const penSettings = useCurveStore();
   const pencilColorId = useCurveStore().penSettings.colorId;
-  const thicknessId = useCurveStore().penSettings.thicknessId;
+  const thicknessId = useCurveStore().thicknessId;
   const setPenColor = useCurveStore((state) => state.setPenColor);
   const toolOptionsDirection = useLayoutStore().toolOptionsDirection;
   const setPenThickens = useCurveStore(
