@@ -1,23 +1,24 @@
 import {JSX, useEffect} from "react";
-import useCanvasStore from "../../data/store/CanvasStore";
+import useCanvasStore from "../../data/store/CanvasStore.ts";
 import useBackgroundStore from "../../data/store/BackgroundStore.ts";
-import {useCurveStore} from "../../data/store/PenStore";
-import {useEraseStore} from "../../data/store/EraseStore";
-import {Continuum_Canvas} from "../../features/CanvasApp";
+import {useCurveStore} from "../../data/store/PenStore.ts";
+import {useEraseStore} from "../../data/store/EraseStore.ts";
+import {Continuum_Canvas} from "../CanvasApp.ts";
 import toolStore from "../../data/store/ToolStore.ts";
 import {ToolType} from "../../data/types/ToolTypes.ts";
+import {useKeyStore} from "../../data/store/KeyStore.ts";
 
 
 const PenEffect = () => {
-    const zoom = useCanvasStore().zoom;
+    const zoom = useCanvasStore((state) => state.zoom);
     const color = useBackgroundStore((state) => state);
     const pen = useCurveStore();
     const eraser = useEraseStore();
-
+    const pointerDown = useKeyStore().pointerDown;
 
     useEffect(() => {
         Continuum_Canvas.cursorManager.updateCursorGraphics();
-    }, [color, zoom, pen, eraser]);
+    }, [color, zoom, pen, eraser, pointerDown]);
 
     return <></>;
 }
@@ -60,6 +61,10 @@ const CursorEffect = () => {
     useEffect(() => {
         Continuum_Canvas.cursorManager.updateCursorVisibility(canvasCursorActive);
     }, [canvasCursorActive]);
+
+    useEffect(() => {
+        Continuum_Canvas.cursorManager.setCursor(activeTool);
+    }, [activeTool]);
 
     return CurrentEffect ? <CurrentEffect/> : null;
 }

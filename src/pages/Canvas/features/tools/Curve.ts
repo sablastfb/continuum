@@ -12,8 +12,7 @@ import {Continuum_CurveService} from "../service/CurveService";
 import {GraphicsCommand} from "../commands/Graphics";
 import {Continuum_Canvas} from "../CanvasApp";
 import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
-import {InputState} from "../input/InputState";
-import {CrossHairCursor} from "../cursors/graphics/CrossHair.ts";
+import {useInputStore} from "../../data/store/InputStore.ts";
 
 export class Curve implements ITool {
     type: ToolType = "base";
@@ -28,7 +27,7 @@ export class Curve implements ITool {
         this.type = toolType;
     }
 
-    public startDrawing(e: InputState) {
+    public startDrawing() {
         if (!Continuum_Canvas.viewportManager.viewport) return;
 
         this.activeCurve = new Graphics();
@@ -54,19 +53,22 @@ export class Curve implements ITool {
 
                 break;
         }
-        this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
-        this.activeCurve.moveTo(e.mousePosition.x, e.mousePosition.y);
+
+        const mousePosition = useInputStore.getState().mousePosition;
+
+        this.line.push(new Point(mousePosition.x, mousePosition.y));
+        this.activeCurve.moveTo(mousePosition.x, mousePosition.y);
     }
 
-    public draw(e: InputState) {
+    public draw() {
         if (this.activeCurve === null) return;
         if (this.activeThickness === null) return;
         if (this.activeColor === null) return;
         if (!Continuum_Canvas.viewportManager.viewport) return;
+        const mousePosition = useInputStore.getState().mousePosition;
 
-        this.line.push(new Point(e.mousePosition.x, e.mousePosition.y));
-        this.activeCurve.lineTo(e.mousePosition.x, e.mousePosition.y);
-
+        this.line.push(new Point(mousePosition.x, mousePosition.y));
+        this.activeCurve.lineTo(mousePosition.x, mousePosition.y);
         switch (this.type) {
             case "pen":
                 this.activeCurve.stroke({
@@ -95,7 +97,6 @@ export class Curve implements ITool {
         if (this.activeCurve === null) return;
         if (!this.activeColor) return;
         if (!Continuum_Canvas.viewportManager.viewport) return;
-
         const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line, useCurveStore.getState().simplificationTolerance);
         const optimizedCurveGraphics =
             Continuum_CurveService.CreatGraphicPath(optimizedPath);
@@ -157,15 +158,5 @@ export class Curve implements ITool {
         }
 
         this.line = [];
-    }
-
-    public updateCursor() {
-        // switch (this.type) {
-        //     case "pen":
-        //         CrossHairCursor.draw();
-        //         break;
-        //     case "marker":
-        //         CrossHairCursor.draw();
-        // }
     }
 }

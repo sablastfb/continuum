@@ -1,6 +1,6 @@
 import { Graphics, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { ToolType } from "../../data/types/ToolTypes";
-import { InputState } from "../input/InputState";
+import { InputState } from "../input/InputStateManager.ts";
 import { ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
@@ -9,7 +9,6 @@ import {
   useShapesStore,
 } from "../../data/store/ShapeStore";
 import { ContinuumMeshGeometry } from "../service/MeshCreator";
-import { SimpleCross } from "../cursors/graphics/SimpleCross.ts";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";
@@ -190,9 +189,5 @@ export class ShapeTool implements ITool {
     this.strokeGraphics.x = x;
     this.strokeGraphics.y = y;
     this.strokeGraphics.tint = strokeColor;
-  }
-
-  updateCursor(): void {
-    SimpleCross.draw();
   }
 }

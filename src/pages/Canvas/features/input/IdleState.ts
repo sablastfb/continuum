@@ -1,19 +1,14 @@
-import { Continuum_Canvas } from "../CanvasApp";
-import { InputBinding } from "./InputBiding";
-import { PointerType } from "./InputState";
+import {Continuum_Canvas} from "../CanvasApp";
+import {InputBinding} from "./InputShortcuts.ts";
 
-export const idleSidings: InputBinding[] = [
-  // DRAWING
-  {
-    pointerDown: true,
-    action: (e) => {
-      if (e.pointerType === PointerType.MOUSE) {
-        if (e.mouseButtons & 1) {
-          Continuum_Canvas.inputStateManager.SwitchState("DARWING");
-          Continuum_Canvas.toolManager.currentTool!.startDrawing!(e);
-        }
-      }
+export const idleShortcuts: InputBinding[] = [
+    {
+        pointerDown: true,
+        mouseButtons: "LEFT",
+        action: () => {
+            Continuum_Canvas.toolManager.currentTool!.startDrawing!();
+            Continuum_Canvas.inputStateManager.SwitchState("DRAWING");
+        },
+        appState: 'IDLE'
     },
-    appState: ["IDLE"],
-  },
 ];

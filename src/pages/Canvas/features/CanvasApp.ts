@@ -6,8 +6,6 @@ import { ResizeService } from "./service/Resize";
 import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
-import { InputStateManager } from "./input/InputState";
-import { InputBindings } from "./input/InputBiding";
 import { ThicknessPalette } from "../data/thicknes/ThickneContainer";
 import { BackgroundService } from "./service/Bacgroun";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
@@ -15,6 +13,8 @@ import { BackgroundShaderService } from "./service/Shader/BackgroundShaderServic
 import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
 import { BookmarkService } from "./service/Bookmark";
+import {InputStateManager} from "./input/InputStateManager.ts";
+import {InputBindings} from "./input/InputShortcuts.ts";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -45,6 +45,8 @@ export namespace Continuum_Canvas {
 
     initPromise = setUpApplication();
     appInstance = await initPromise;
+    setUpAdditionalData();
+
     return appInstance;
   }
 
@@ -64,13 +66,18 @@ export namespace Continuum_Canvas {
     Continuum_Canvas.backgroundService.init();
     if (Continuum_Canvas.viewportManager.viewport) {
       app.stage.addChild(Continuum_Canvas.viewportManager.viewport);
-      app.stage.addChild(Continuum_Canvas.cursorManager.cursorGraphics);
+      app.stage.addChild(Continuum_Canvas.cursorManager.cursorGraphic);
     }
 
     Continuum_Canvas.cursorManager.updateCursorGraphics();
-    inputStateManager.subscribeEvents();
+    Continuum_Canvas.inputStateManager.subscribeEvents();
+    Continuum_Canvas.inputBiding.subscribeShortcuts();
     Continuum_Canvas.resizeService.handleResize();
     return app;
+  }
+
+  function setUpAdditionalData(){
+    inputStateManager.setUpRect();
   }
 
   export function IsCanvasReady() {

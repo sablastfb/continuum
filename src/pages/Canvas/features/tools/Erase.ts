@@ -4,15 +4,13 @@ import { Continuum_CollisionService } from "../service/ColisionDetection";
 import { GraphicsData } from "../data/GraphicsDataManager";
 import { GraphicsCommand } from "../commands/Graphics";
 import type { EraserToolType } from "../../data/types/ToolTypes";
-import { InputState } from "../input/InputState";
 import { Continuum_Canvas } from "../CanvasApp";
-import { CircleCursor } from "../cursors/graphics/Circle.ts";
 
 export class Erase implements ITool {
   type: EraserToolType = "eraser";
   deleteGraphics: GraphicsData[] = [];
 
-  public startDrawing(e: InputState) {
+  public startDrawing() {
     if (! Continuum_Canvas.viewportManager.viewport) return;
 
     this.deleteGraphics = [];
@@ -20,7 +18,7 @@ export class Erase implements ITool {
     Continuum_CollisionService.StartContinouseColison(activePoint);
   }
 
-  public draw(e: InputState) {
+  public draw() {
     const activePoint =  Continuum_Canvas.viewportManager.viewport?.toWorld(e.mousePosition);
     if (!activePoint) return;
     const radius = Continuum_Canvas.thicknessPalette.getThickness(
@@ -49,9 +47,5 @@ export class Erase implements ITool {
   public endDrawing() {
     GraphicsCommand.removeGraphics(this.deleteGraphics);
     this.deleteGraphics = [];
-  }
-
-  updateCursor(): void {
-    CircleCursor.draw();
   }
 }

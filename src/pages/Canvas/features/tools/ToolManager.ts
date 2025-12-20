@@ -2,15 +2,13 @@ import {Curve} from "./Curve";
 import {Erase} from "./Erase";
 import {ToolType} from "../../data/types/ToolTypes";
 import useToolStore from "../../data/store/ToolStore";
-import {InputState} from "../input/InputState";
 import {ShapeTool} from "./ShapeTool";
 
 export type ITool = {
     type: ToolType;
-    startDrawing(e: InputState): void;
-    draw(e: InputState): void;
-    endDrawing(e: InputState): void;
-    updateCursor(): void;
+    startDrawing(): void;
+    draw(): void;
+    endDrawing(): void;
     initTool?(): void;
     disposeTool?(): void;
 };

@@ -1,30 +1,54 @@
-import {FederatedPointerEvent, Graphics} from "pixi.js";
-import {Cursor} from "./Cursor.ts";
+import {Graphics} from "pixi.js";
+import {ToolType} from "../../data/types/ToolTypes.ts";
+import {CrossHairCursor} from "./graphics/CrossHair.ts";
+import {SimpleCross} from "./graphics/SimpleCross.ts";
+import {SimplePoint} from "../../data/types/PointTypes.ts";
 
 export type ICursor = {
-  updateCursor(): void;
+    updateCursor(): void;
 }
 
 export class CursorManager {
-  public cursorGraphics: Graphics;
-  public currentCursor: ICursor = new Cursor();
+    public cursorGraphic: Graphics;
+    public currentCursor: ICursor | null = null;
 
-  constructor() {
-    this.cursorGraphics = new Graphics();
-  }
+    private _crossHairCursor = new CrossHairCursor();
+    private _simpleCross = new SimpleCross();
 
-  public updateCursorGraphics() {
-    if (this.currentCursor)
-      this.currentCursor.updateCursor();
-  }
+    public cursorGraphics: Record<ToolType, ICursor | null> = {
+        pen: this._crossHairCursor,
+        marker: this._crossHairCursor,
+        shape: this._simpleCross,
+        base: null,
+        "pan-zoom": null,
+        "selection-lasso": null,
+        "selection-square": null,
+        "screen-shot": null,
+        eraser: null,
+        text: null
+    };
 
-  public updateCursorVisibility(visible: boolean) {
-    if (this.cursorGraphics) {
-      this.cursorGraphics.visible = visible;
+    constructor() {
+        this.cursorGraphic = new Graphics();
     }
-  }
 
-  public updateCursorPosition(e: FederatedPointerEvent) {
-    this.cursorGraphics.position.set(e.globalX, e.globalY);
-  }
+    public setCursor(activeTool: ToolType) {
+        this.currentCursor = this.cursorGraphics[activeTool];
+    }
+
+    public updateCursorGraphics() {
+        if (this.currentCursor){
+            this.currentCursor.updateCursor();
+        }
+    }
+
+    public updateCursorVisibility(visible: boolean) {
+        if (this.cursorGraphic) {
+            this.cursorGraphic.visible = visible;
+        }
+    }
+
+    public updateCursorPosition(e: SimplePoint) {
+        this.cursorGraphic.position.set(e.x, e.y);
+    }
 }
