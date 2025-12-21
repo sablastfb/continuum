@@ -1,5 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
+import {CurveGenerator} from "../curve/CurveGenerator.ts";
 
 export class CanvasViewport {
   public viewport: Viewport | null = null;
@@ -34,5 +35,13 @@ export class CanvasViewport {
         Continuum_Canvas.backgroundShaderService.updateBackgroundUniforms();
         Continuum_Canvas.shapeShaderService.updateAllShadersSize();
       });
+
+      this.test();
+  }
+
+  //TODO REMOVE THIS
+  public async test(){
+    const g =await CurveGenerator.TexturedCurve();
+    this.viewport?.addChild(g);
   }
 }

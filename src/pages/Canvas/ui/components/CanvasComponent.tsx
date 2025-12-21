@@ -16,6 +16,7 @@ const PixiCanvasComponent = () => {
       if (canvasContainer?.current && app?.canvas) {
         canvasContainer.current.appendChild(app.canvas);
       }
+      Continuum_Canvas.setUpAdditionalData();
     }
     SetUpPixi();
   }, []);

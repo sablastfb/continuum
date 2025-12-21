@@ -4,11 +4,11 @@ import useCanvasStore from "../../data/store/CanvasStore";
 import {PointerType, useInputStore} from "../../data/store/InputStore.ts";
 import {useKeyStore} from "../../data/store/KeyStore.ts";
 import {AppCanvasState} from "./InputShortcuts.ts";
-import {throttle} from "lodash";
+import {throttle, DebouncedFunc } from "lodash";
 
 export class InputStateManager {
     private rect: { left: number; top: number } | null = null;
-    private updateInputThrottled: DebouncedFuncLeading<(e: FederatedPointerEvent) => void>;
+    private updateInputThrottled: DebouncedFunc <(e: FederatedPointerEvent) => void>;
 
     constructor() {
         this.updateInputThrottled = throttle(
@@ -65,7 +65,6 @@ export class InputStateManager {
         useInputStore.getState().setPressure(e.pressure || 0);
         useInputStore.setState((state) => {
             state.pointerType = e.pointerType as PointerType;
-            this.setUpRect();
             if (this.rect) {
                 const x = e.clientX - this.rect.left;
                 const y = e.clientY - this.rect.top;
@@ -85,7 +84,6 @@ export class InputStateManager {
 
     public setUpRect() {
         if (this.rect !==  null) return;
-
         const c = Continuum_Canvas.appInstance?.canvas.getBoundingClientRect();
         if (c) {
             this.rect= {top:c.top, left: c.left};

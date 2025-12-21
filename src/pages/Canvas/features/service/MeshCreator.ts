@@ -1,6 +1,7 @@
 import { earcut, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { Continuum_Canvas } from "../CanvasApp";
 import { Path, Point, Rectangle, Size } from "paper/dist/paper-core";
+
 export type ContinuumMeshGeometry = {
   positions: Float32Array;
   indices: Uint32Array;
@@ -34,7 +35,7 @@ export class MeshManager {
     } as ContinuumMeshGeometry;
   }
 
-   getPoligonGeometry(
+   getPolygonGeometry(
     radius: number,
     sides: number
   ) {
@@ -109,5 +110,4 @@ export class MeshManager {
       uniforms.iResolution = [w,h];
     }
   }
-
 }

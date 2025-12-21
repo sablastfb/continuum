@@ -45,7 +45,6 @@ export namespace Continuum_Canvas {
 
     initPromise = setUpApplication();
     appInstance = await initPromise;
-    setUpAdditionalData();
 
     return appInstance;
   }
@@ -61,8 +60,8 @@ export namespace Continuum_Canvas {
     });
 
     Continuum_Canvas.appInstance = app;
-    Continuum_Canvas.viewportManager = new CanvasViewport();
     await Continuum_CurveService.init();
+    Continuum_Canvas.viewportManager = new CanvasViewport();
     Continuum_Canvas.backgroundService.init();
     if (Continuum_Canvas.viewportManager.viewport) {
       app.stage.addChild(Continuum_Canvas.viewportManager.viewport);
@@ -76,7 +75,7 @@ export namespace Continuum_Canvas {
     return app;
   }
 
-  function setUpAdditionalData(){
+  export function setUpAdditionalData(){
     inputStateManager.setUpRect();
   }
 

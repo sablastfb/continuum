@@ -1,6 +1,5 @@
 import { Graphics, Mesh, MeshGeometry, Shader } from "pixi.js";
 import { ToolType } from "../../data/types/ToolTypes";
-import { InputState } from "../input/InputStateManager.ts";
 import { ITool } from "./ToolManager";
 import { Continuum_Canvas } from "../CanvasApp";
 import { SimplePoint } from "../../data/types/PointTypes";
@@ -9,6 +8,7 @@ import {
   useShapesStore,
 } from "../../data/store/ShapeStore";
 import { ContinuumMeshGeometry } from "../service/MeshCreator";
+import {useInputStore} from "../../data/store/InputStore.ts";
 
 export class ShapeTool implements ITool {
   type: ToolType = "shape";
@@ -16,7 +16,7 @@ export class ShapeTool implements ITool {
   strokeGraphics: Graphics | null = null;
   startPoint: SimplePoint = { x: 0, y: 0 };
 
-  startDrawing(e: InputState): void {
+  startDrawing(): void {
     this.shapeGraphics = Continuum_Canvas.meshCreator.createMesh(
       Continuum_Canvas.shapeShaderService.createShader()
     );
@@ -24,7 +24,7 @@ export class ShapeTool implements ITool {
     Continuum_Canvas.viewportManager.viewport?.addChild(this.shapeGraphics);
     Continuum_Canvas.viewportManager.viewport?.addChild(this.strokeGraphics);
 
-    this.startPoint = { ...e.mousePosition };
+    this.startPoint = { ...useInputStore.getState().mousePosition };
 
     const colorId = useShapesStore.getState().fillColorId;
     const fillColor = Continuum_Canvas.colorPalette.getColor(colorId);
@@ -39,11 +39,11 @@ export class ShapeTool implements ITool {
     );
   }
 
-  draw(e: InputState): void {
+  draw(): void {
     if (!this.shapeGraphics) return;
     if (!this.strokeGraphics) return;
 
-    const currentPoint = { ...e.mousePosition };
+    const currentPoint = { ...useInputStore.getState().mousePosition };
 
     const currentShape = useShapesStore.getState().shape;
     const fillType = useShapesStore.getState().fillType;
@@ -123,7 +123,7 @@ export class ShapeTool implements ITool {
     const { centerX, centerY, radius } = this.getPoints(p1, p2);
     const numberOfCorners = useShapesStore.getState().numberOfCorners;
 
-    const newGeometry = Continuum_Canvas.meshCreator.getPoligonGeometry(
+    const newGeometry = Continuum_Canvas.meshCreator.getPolygonGeometry(
       radius,
       numberOfCorners
     );
