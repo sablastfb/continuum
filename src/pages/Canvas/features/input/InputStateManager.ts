@@ -2,13 +2,28 @@ import {FederatedPointerEvent} from "pixi.js";
 import {Continuum_Canvas} from "../CanvasApp";
 import useCanvasStore from "../../data/store/CanvasStore";
 import {PointerType, useInputStore} from "../../data/store/InputStore.ts";
-import {useKeyStore} from "../../data/store/KeyStore.ts";
-import {AppCanvasState} from "./InputShortcuts.ts";
+import {KeyboardKey, MouseButton, useKeyStore} from "../../data/store/KeyStore.ts";
 import {throttle, DebouncedFunc } from "lodash";
+import {idleShortcuts} from "./IdleState.ts";
+import {drawingShortcuts} from "./DrawingState.ts";
+import {InputUtils} from "./InputUtils.ts";
+import {voidShortcuts} from "./VoidState.ts";
+
+
+export type AppCanvasState = "IDLE" | "DRAWING" | "VOID";
+
+export type InputBinding = {
+    keys?: KeyboardKey[];
+    pointerDown?: boolean,
+    mouseButtons?: MouseButton;
+    appState: AppCanvasState;
+    action: () => void;
+};
+
 
 export class InputStateManager {
     private rect: { left: number; top: number } | null = null;
-    private updateInputThrottled: DebouncedFunc <(e: FederatedPointerEvent) => void>;
+    private readonly updateInputThrottled: DebouncedFunc <(e: FederatedPointerEvent) => void>;
 
     constructor() {
         this.updateInputThrottled = throttle(
@@ -17,14 +32,47 @@ export class InputStateManager {
         );
     }
 
+    private shortcuts: InputBinding[] = [
+        ...idleShortcuts,
+        ...drawingShortcuts,
+        ...voidShortcuts,
+    ];
+
+    private activeAction: (() => void) | null = null;
+
+    public subscribeShortcuts() {
+        useKeyStore.subscribe(() => {
+            this.activeAction = null;
+            const appState = useKeyStore.getState().currentAppCanvasState;
+            const mouseButtons = useKeyStore.getState().mouseButtons;
+            const pointerDown = useKeyStore.getState().pointerDown;
+            const keysDown = useKeyStore.getState().keyDown;
+            for (const shortcut of this.shortcuts) {
+                if (shortcut.appState !== appState) continue;
+                if (pointerDown !== undefined && shortcut.pointerDown !== pointerDown) continue;
+                if (shortcut.mouseButtons !== undefined && !InputUtils.hasMouseButton(mouseButtons, shortcut.mouseButtons)) continue;
+                if (shortcut.keys && !InputUtils.containKey(shortcut.keys, keysDown))continue;
+
+                this.activeAction = shortcut.action;
+                break;
+            }
+        })
+    }
+
+    public runAction(){
+        if (this.activeAction !== null )
+            this.activeAction();
+    }
+
+
     public subscribeEvents() {
         window.addEventListener("keydown", (e) => {
             useKeyStore.getState().setKeyDown(e.key, true);
-            Continuum_Canvas.inputBiding.runAction();
+            Continuum_Canvas.inputStateManager.runAction();
         });
         window.addEventListener("keyup", (e) => {
             useKeyStore.getState().setKeyDown(e.key, false);
-            Continuum_Canvas.inputBiding.runAction();
+            Continuum_Canvas.inputStateManager.runAction();
         });
         if (!Continuum_Canvas.viewportManager.viewport) return;
 
@@ -36,28 +84,28 @@ export class InputStateManager {
             useCanvasStore.getState().setAdvanceToolsVisibility(false);
             this.updateInputStore(e);
             this.updateKeyStore(e);
-            Continuum_Canvas.inputBiding.runAction();
+            this.runAction();
         });
         Continuum_Canvas.viewportManager.viewport.on("pointermove", (e) => {
             this.updateInputStore(e);
-            Continuum_Canvas.inputBiding.runAction();
+            this.runAction();
         });
         Continuum_Canvas.viewportManager.viewport.on("pointerup", (e) => {
             this.updateInputStore(e);
             this.updateKeyStore(e);
-            Continuum_Canvas.inputBiding.runAction();
+            this.runAction();
         });
 
         Continuum_Canvas.viewportManager.viewport.on("pointercancel", (e) => {
             this.updateInputStore(e);
             this.updateKeyStore(e);
-            Continuum_Canvas.inputBiding.runAction();
+            this.runAction();
         });
 
         Continuum_Canvas.viewportManager.viewport.on("pointerout", (e) => {
             this.updateInputStore(e);
             this.updateKeyStore(e);
-            Continuum_Canvas.inputBiding.runAction();
+            this.runAction();
         });
     }
 

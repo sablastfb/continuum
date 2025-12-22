@@ -1,5 +1,5 @@
 import {Continuum_Canvas} from "../CanvasApp";
-import {InputBinding} from "./InputShortcuts.ts";
+import {InputBinding} from "./InputStateManager.ts";
 
 export const idleShortcuts: InputBinding[] = [
     {

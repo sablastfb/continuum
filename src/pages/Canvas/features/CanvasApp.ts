@@ -7,14 +7,13 @@ import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
 import { Continuum_CurveService } from "./service/CurveService";
 import { ThicknessPalette } from "../data/thicknes/ThickneContainer";
-import { BackgroundService } from "./service/Bacgroun";
+import { BackgroundService } from "./service/Background.ts";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
 import { BackgroundShaderService } from "./service/Shader/BackgroundShaderService.ts";
 import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
-import { BookmarkService } from "./service/Bookmark";
 import {InputStateManager} from "./input/InputStateManager.ts";
-import {InputBindings} from "./input/InputShortcuts.ts";
+import {BookmarkService} from "./service/Bookmark.ts";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -23,7 +22,6 @@ export namespace Continuum_Canvas {
   export let viewportManager: CanvasViewport;
   export const commandManage = new Continuum_CommandManager();
   export const inputStateManager = new InputStateManager();
-  export const inputBiding = new InputBindings();
   export const cursorManager = new CursorManager();
   export const toolManager = new ToolManager();
   export const resizeService = new ResizeService();
@@ -70,7 +68,7 @@ export namespace Continuum_Canvas {
 
     Continuum_Canvas.cursorManager.updateCursorGraphics();
     Continuum_Canvas.inputStateManager.subscribeEvents();
-    Continuum_Canvas.inputBiding.subscribeShortcuts();
+    Continuum_Canvas.inputStateManager.subscribeShortcuts();
     Continuum_Canvas.resizeService.handleResize();
     return app;
   }
