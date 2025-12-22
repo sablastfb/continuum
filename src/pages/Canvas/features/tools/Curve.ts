@@ -13,6 +13,7 @@ import {GraphicsCommand} from "../commands/Graphics";
 import {Continuum_Canvas} from "../CanvasApp";
 import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
 import {useInputStore} from "../../data/store/InputStore.ts";
+import {CurveGenerator} from "../curve/CurveGenerator.ts";
 
 export class Curve implements ITool {
     type: ToolType = "base";
@@ -92,14 +93,14 @@ export class Curve implements ITool {
         }
     }
 
-    public endDrawing() {
+    public async endDrawing() {
         if (this.activeThickness === null) return;
         if (this.activeCurve === null) return;
         if (!this.activeColor) return;
         if (!Continuum_Canvas.viewportManager.viewport) return;
         const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line, useCurveStore.getState().simplificationTolerance);
-        const optimizedCurveGraphics =
-            Continuum_CurveService.CreatGraphicPath(optimizedPath);
+        const optimizedCurveGraphics= await CurveGenerator.TexturedCurve(optimizedPath);
+
         const g: GraphicsData = {
             id: uuidv4(),
             type: "curve",
@@ -112,44 +113,47 @@ export class Curve implements ITool {
         };
         graphicOnCanvas.set(g.id, g);
         GraphicsCommand.addNew(g);
+
+
+
         Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
         Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCurveGraphics);
 
         switch (this.type) {
             case "pen":
-                if (this.line.length == 2) {
-                    const firstCurve = optimizedPath.curves[0];
-                    const firstPoint = firstCurve.point1;
-                    if (firstPoint) {
-                        optimizedCurveGraphics
-                            .circle(firstPoint.x, firstPoint.y, this.activeThickness)
-                            .fill("white");
-                    }
-                }
-                optimizedCurveGraphics.stroke({
-                    width: this.activeThickness * 2,
-                    color: "white",
-                    cap: "round",
-                    join: "round",
-                });
+                // if (this.line.length == 2) {
+                //     const firstCurve = optimizedPath.curves[0];
+                //     const firstPoint = firstCurve.point1;
+                //     if (firstPoint) {
+                //         optimizedCurveGraphics
+                //             .circle(firstPoint.x, firstPoint.y, this.activeThickness)
+                //             .fill("white");
+                //     }
+                // }
+                // optimizedCurveGraphics.stroke({
+                //     width: this.activeThickness * 2,
+                //     color: "white",
+                //     cap: "round",
+                //     join: "round",
+                // });
                 optimizedCurveGraphics.tint = this.activeColor;
                 break;
             case "marker":
-                if (this.line.length == 2) {
-                    const firstCurve = optimizedPath.curves[0];
-                    const firstPoint = firstCurve.point1;
-                    if (firstPoint) {
-                        optimizedCurveGraphics
-                            .circle(firstPoint.x, firstPoint.y, this.activeThickness)
-                            .fill("white");
-                    }
-                }
-                optimizedCurveGraphics.stroke({
-                    width: this.activeThickness * 2,
-                    join: "round",
-                    color: "white",
-                    cap: "round",
-                });
+                // if (this.line.length == 2) {
+                //     const firstCurve = optimizedPath.curves[0];
+                //     const firstPoint = firstCurve.point1;
+                //     if (firstPoint) {
+                //         optimizedCurveGraphics
+                //             .circle(firstPoint.x, firstPoint.y, this.activeThickness)
+                //             .fill("white");
+                //     }
+                // }
+                // optimizedCurveGraphics.stroke({
+                //     width: this.activeThickness * 2,
+                //     join: "round",
+                //     color: "white",
+                //     cap: "round",
+                // });
 
                 optimizedCurveGraphics.tint = this.activeColor;
                 optimizedCurveGraphics.filters = [this.filter, this.bluer];

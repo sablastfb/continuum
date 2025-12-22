@@ -41,7 +41,7 @@ export class CanvasViewport {
 
   //TODO REMOVE THIS
   public async test(){
-    const g =await CurveGenerator.TexturedCurve();
-    this.viewport?.addChild(g);
+    // const g =await CurveGenerator.TexturedCurve();
+    // this.viewport?.addChild(g);
   }
 }
