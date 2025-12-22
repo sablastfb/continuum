@@ -1,5 +1,18 @@
-import {Assets, Rectangle, Graphics, MeshRope, Point as PixiP, RenderTexture, Sprite, Texture, Cache as PixiCache, Container} from "pixi.js";
+import {
+    Assets,
+    Rectangle,
+    Graphics,
+    MeshRope,
+    Point as PixiP,
+    RenderTexture,
+    Sprite,
+    Texture,
+    Cache as PixiCache,
+    Container,
+    ParticleContainer, Particle
+} from "pixi.js";
 import {Path, Point} from "paper/dist/paper-core";
+import {Continuum_Canvas} from "../CanvasApp.ts";
 
 export class CurveGenerator {
     static async TexturedCurve(){
@@ -9,23 +22,22 @@ export class CurveGenerator {
             radius: [250, 100]
         });
 
-        const container = new Container();
-        const dotSpacing = 20;
+        const container = new ParticleContainer();
+        const dotSpacing = 5;
         const pathLength = ellipse.length;
+        const graphics = new Graphics().rect(0, 0, 2,10).fill("white");
+        const texture = Continuum_Canvas.appInstance!.renderer.generateTexture(graphics);
 
         for (let offset = 0; offset < pathLength; offset += dotSpacing) {
             const location = ellipse.getLocationAt(offset);
             const point = location.point;
             const tangent = location.tangent;
 
-            const sprite = new Graphics().rect(0, 0, 10,5).fill("red");
+            const sprite = new Particle(texture);
             sprite.x = point.x;
             sprite.y = point.y;
-
-            // Rotate sprite to align with path direction
-            sprite.angle = Math.atan2(tangent.y, tangent.x) * (180 / Math.PI);
-
-            container.addChild(sprite);
+            sprite.rotation = Math.atan2(tangent.y, tangent.x) ;
+            container.addParticle(sprite);
         }
 
         ellipse.remove();
