@@ -13,12 +13,15 @@ export class CurveGenerator {
 
         const pathLength = path.length;
         const width = texture.width;
-        for (let offset = 0; offset < pathLength; offset +=width+distance) {
+        for (let offset = width / 2; offset < pathLength; offset += width + distance) {
             const location = path.getLocationAt(offset);
             const point = location.point;
             const tangent = location.tangent;
 
             const sprite =  new Particle(texture);
+            sprite.anchorX=0.5;
+            sprite.anchorY=0.5;
+
             sprite.x = point.x;
             sprite.y = point.y;
             sprite.rotation = Math.atan2(tangent.y, tangent.x);

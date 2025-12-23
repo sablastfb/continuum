@@ -10,7 +10,7 @@ export class TextureManager {
     }
 
     public addDefaultTextures() {
-        const dash1 = new Graphics().roundRect(0, 0, 5, 2, 1).fill("white");
+        const dash1 = new Graphics().roundRect(0, 0, 15, 4, 1).fill("white");
         this.texturesCache.set('dash-1',  Continuum_Canvas.appInstance!.renderer.generateTexture({target: dash1, resolution: 5}));
 
         const dash2 = new Graphics().roundRect(0, 0, 25, 10, 1).fill("white");

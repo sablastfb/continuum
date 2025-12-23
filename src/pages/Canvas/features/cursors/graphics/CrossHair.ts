@@ -21,8 +21,8 @@ export class CrossHairCursor implements ICursor {
                 break;
             case "dotted": {
                 const center = new Point(0, 0);
+                const texture = Continuum_Canvas.textureManager.get('dot-1' );
                 const circlePath = new Path.Circle({center, radius: [radius, radius]});
-                const texture = Continuum_Canvas.textureManager.get('dash-1' );
                 this.particleContainer = await CurveGenerator.TexturedCurve(circlePath,texture!, this.particleContainer,2);
                 Continuum_Canvas.cursorManager.cursorGraphic.addChild(this.particleContainer);
                 break;
@@ -30,7 +30,7 @@ export class CrossHairCursor implements ICursor {
             case "dashed":{
                 const center = new Point(0, 0);
                 const circlePath = new Path.Circle({center, radius: [radius, radius]});
-                const texture = Continuum_Canvas.textureManager.get('dot-1' );
+                const texture = Continuum_Canvas.textureManager.get('dash-1' );
                 this.particleContainer = await CurveGenerator.TexturedCurve(circlePath,texture!, this.particleContainer,2);
                 Continuum_Canvas.cursorManager.cursorGraphic.addChild(this.particleContainer);
                 break;
