@@ -1,10 +1,10 @@
 import {
     AlphaFilter,
     BlurFilter,
-    Graphics,
+    Graphics, ParticleContainer,
     Point,
 } from "pixi.js";
-import {useCurveStore} from "../../data/store/PenStore";
+import {CurveFillType, useCurveStore} from "../../data/store/PenStore";
 import {ITool} from "./ToolManager";
 import {GraphicsData, graphicOnCanvas} from "../data/GraphicsDataManager";
 import {v4 as uuidv4} from "uuid";
@@ -13,7 +13,8 @@ import {GraphicsCommand} from "../commands/Graphics";
 import {Continuum_Canvas} from "../CanvasApp";
 import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
 import {useInputStore} from "../../data/store/InputStore.ts";
-import {CurveGenerator} from "../curve/CurveGenerator.ts";
+import {CurveGenerator} from "../service/CurveGenerator.ts";
+import CreatGraphicPath = Continuum_CurveService.CreatGraphicPath;
 
 export class Curve implements ITool {
     type: ToolType = "base";
@@ -23,6 +24,7 @@ export class Curve implements ITool {
     private line: Point[] = [];
     private filter = new AlphaFilter({alpha: 0.4});
     private bluer = new BlurFilter({quality: 4, strength: 2});
+    private fillStyle: CurveFillType = 'solid';
 
     constructor(toolType: CurveToolType) {
         this.type = toolType;
@@ -30,6 +32,7 @@ export class Curve implements ITool {
 
     public startDrawing() {
         if (!Continuum_Canvas.viewportManager.viewport) return;
+        this.fillStyle = useCurveStore.getState().penSettings.fillStyle;
 
         this.activeCurve = new Graphics();
         Continuum_Canvas.viewportManager.viewport.addChild(this.activeCurve);
@@ -99,7 +102,32 @@ export class Curve implements ITool {
         if (!this.activeColor) return;
         if (!Continuum_Canvas.viewportManager.viewport) return;
         const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line, useCurveStore.getState().simplificationTolerance);
-        const optimizedCurveGraphics= await CurveGenerator.TexturedCurve(optimizedPath);
+        let optimizedCurveGraphics: ParticleContainer | Graphics;
+        switch (this.fillStyle) {
+            case "solid": {
+                optimizedCurveGraphics = CreatGraphicPath(optimizedPath);
+                optimizedCurveGraphics.stroke({
+                    width: this.activeThickness * 2,
+                    color: "white",
+                    cap: "round",
+                    join: "round",
+                });
+                break;
+            }
+            case  'dashed': {
+                const circle = Continuum_Canvas.textureManager.get('dash-1');
+                optimizedCurveGraphics = await CurveGenerator.TexturedCurve(optimizedPath, circle!);
+                break
+            }
+            case 'dotted': {
+                const circle = Continuum_Canvas.textureManager.get('dot-1');
+                optimizedCurveGraphics = await CurveGenerator.TexturedCurve(optimizedPath, circle!);
+            }
+        }
+
+
+        // const circle = Continuum_Canvas.textureManager.get('dash-1');
+        // const optimizedCurveGraphics= await CurveGenerator.TexturedCurve(optimizedPath, circle!);
 
         const g: GraphicsData = {
             id: uuidv4(),
@@ -113,7 +141,6 @@ export class Curve implements ITool {
         };
         graphicOnCanvas.set(g.id, g);
         GraphicsCommand.addNew(g);
-
 
 
         Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
@@ -130,12 +157,8 @@ export class Curve implements ITool {
                 //             .fill("white");
                 //     }
                 // }
-                // optimizedCurveGraphics.stroke({
-                //     width: this.activeThickness * 2,
-                //     color: "white",
-                //     cap: "round",
-                //     join: "round",
-                // });
+
+
                 optimizedCurveGraphics.tint = this.activeColor;
                 break;
             case "marker":

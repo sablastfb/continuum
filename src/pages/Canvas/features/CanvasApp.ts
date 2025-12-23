@@ -14,6 +14,8 @@ import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
 import {InputStateManager} from "./input/InputStateManager.ts";
 import {BookmarkService} from "./service/Bookmark.ts";
+import {CurveGenerator} from "./service/CurveGenerator.ts";
+import {TextureManager} from "./service/TextureManager.ts";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -32,6 +34,8 @@ export namespace Continuum_Canvas {
   export const backgroundService = new BackgroundService();
   export const backgroundShaderService = new BackgroundShaderService();
   export const meshCreator = new MeshManager();
+  export const curveGenerator = new CurveGenerator();
+  export const textureManager = new TextureManager();
 
   export async function creatPixiApp() {
     if (appInstance) {
@@ -69,6 +73,7 @@ export namespace Continuum_Canvas {
     Continuum_Canvas.cursorManager.updateCursorGraphics();
     Continuum_Canvas.inputStateManager.subscribeEvents();
     Continuum_Canvas.inputStateManager.subscribeShortcuts();
+    Continuum_Canvas.textureManager.addDefaultTextures();
     Continuum_Canvas.resizeService.handleResize();
     return app;
   }

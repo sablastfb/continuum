@@ -4,10 +4,11 @@ import {Continuum_Canvas} from "../../CanvasApp.ts";
 import {ICursor} from "../CursorManager.ts";
 import {useKeyStore} from "../../../data/store/KeyStore.ts";
 import {Path, Point} from "paper/dist/paper-core";
-import {CurveGenerator} from "../../curve/CurveGenerator.ts";
+import {CurveGenerator} from "../../service/CurveGenerator.ts";
+import {ParticleContainer} from "pixi.js";
 
 export class CrossHairCursor implements ICursor {
-
+    private particleContainer: ParticleContainer | null = null;
     private async getStroke(fillType: CurveFillType, radius: number) {
         switch (fillType) {
             case 'solid':
@@ -21,8 +22,17 @@ export class CrossHairCursor implements ICursor {
             case "dotted": {
                 const center = new Point(0, 0);
                 const circlePath = new Path.Circle({center, radius: [radius, radius]});
-                const g = await CurveGenerator.TexturedCurve(circlePath);
-                Continuum_Canvas.cursorManager.cursorGraphic.addChild(g);
+                const texture = Continuum_Canvas.textureManager.get('dash-1' );
+                this.particleContainer = await CurveGenerator.TexturedCurve(circlePath,texture!, this.particleContainer,2);
+                Continuum_Canvas.cursorManager.cursorGraphic.addChild(this.particleContainer);
+                break;
+            }
+            case "dashed":{
+                const center = new Point(0, 0);
+                const circlePath = new Path.Circle({center, radius: [radius, radius]});
+                const texture = Continuum_Canvas.textureManager.get('dot-1' );
+                this.particleContainer = await CurveGenerator.TexturedCurve(circlePath,texture!, this.particleContainer,2);
+                Continuum_Canvas.cursorManager.cursorGraphic.addChild(this.particleContainer);
                 break;
             }
         }
