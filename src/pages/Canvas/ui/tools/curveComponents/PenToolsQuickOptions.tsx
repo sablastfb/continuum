@@ -5,6 +5,7 @@ import CustomColorPicker from "../../pickers/CustomColorPicker";
 import ArrayDivider from "../../misc/ArrayDivider";
 import useLayoutStore from "../../../data/store/LayoutStore";
 import { Continuum_Canvas } from "../../../features/CanvasApp";
+import PathStilePicker from "../../pickers/PathStilePicker.tsx";
 
 const PenToolQuickOptions = () => {
   const penSettings = useCurveStore();
@@ -45,6 +46,8 @@ const PenToolQuickOptions = () => {
         );
       })}
       <CustomColorPicker customColorId="pencilCustomColor" />
+      <ArrayDivider direction={toolOptionsDirection} />
+      <PathStilePicker/>
     </>
   );
 }

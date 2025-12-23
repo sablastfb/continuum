@@ -1,6 +1,5 @@
 import { Viewport } from "pixi-viewport";
 import { Continuum_Canvas } from "../CanvasApp";
-import {CurveGenerator} from "../curve/CurveGenerator.ts";
 
 export class CanvasViewport {
   public viewport: Viewport | null = null;

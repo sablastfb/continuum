@@ -13,12 +13,13 @@ const PenEffect = () => {
     const zoom = useCanvasStore((state) => state.zoom);
     const color = useBackgroundStore((state) => state);
     const pen = useCurveStore();
+    const fillStyle = useCurveStore().penSettings.fillStyle;
     const eraser = useEraseStore();
     const pointerDown = useKeyStore().pointerDown;
 
     useEffect(() => {
         Continuum_Canvas.cursorManager.updateCursorGraphics();
-    }, [color, zoom, pen, eraser, pointerDown]);
+    }, [color, zoom, pen, eraser, pointerDown, fillStyle]);
 
     return <></>;
 }

@@ -23,7 +23,6 @@ const CircleThicknessPicker = ({
   return (
     <div>
       <div
-      
         onClick={() => action()}
         className={` ${CirclePickSize} flex items-center justify-center  hover:cursor-pointer  rounded-full outline-2 select-none  ${
           selected ? `${DefaultOutlineColor}` : "outline-gray-500"

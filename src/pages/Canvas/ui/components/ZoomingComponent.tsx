@@ -21,7 +21,7 @@ const ZoomingButton = () => {
                 size={DefaultIconSize}
                 onClick={() => Continuum_Canvas.resizeService.manualZoom(1)}
               />
-              <div className="select-none text-xl w-20 text-center">
+              <div className=" text-xl w-20 text-center">
                 {(zoom * 100).toFixed(1)}%
               </div>
               <ZoomOut

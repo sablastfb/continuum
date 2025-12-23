@@ -12,11 +12,14 @@ const allMarkerColors = [
     "marker-pink",
 ];
 
+export type CurveFillType = 'solid' | 'dotted' | 'dashed';
+
 export type CurveSettings = {
     simplificationTolerance: number;
     thicknessId: ThicknessId;
     thickness: Thickness;
     penSettings: {
+        fillStyle: CurveFillType,
         color: Color; // TODO probably can remove
         colorId: ColorId;
         allThickness: ThicknessId[];
@@ -39,6 +42,9 @@ export type CurveSettings = {
         thicknessId: ThicknessId;
         thickness: number;
     }) => void;
+    setFillStyle: (
+        fillStyle: CurveFillType
+    ) => void;
 };
 
 export const useCurveStore = create<CurveSettings>()(
@@ -47,6 +53,7 @@ export const useCurveStore = create<CurveSettings>()(
         thickness: 0,
         thicknessId: allPencilThickness[0],
         penSettings: {
+            fillStyle: 'solid',
             color: "", // TODO probably can remove
             colorId: allPencilColors[0],
             allThickness: allPencilThickness,
@@ -78,6 +85,10 @@ export const useCurveStore = create<CurveSettings>()(
             set((state) => {
                 state.thickness = penThickens.thickness;
                 state.thicknessId = penThickens.thicknessId;
+            }),
+        setFillStyle: (fillStyle) =>
+            set((state) => {
+                state.penSettings.fillStyle = fillStyle;
             }),
     }))
 );
