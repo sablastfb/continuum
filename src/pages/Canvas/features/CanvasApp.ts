@@ -13,9 +13,9 @@ import { BackgroundShaderService } from "./service/Shader/BackgroundShaderServic
 import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
 import {InputStateManager} from "./input/InputStateManager.ts";
-import {BookmarkService} from "./service/Bookmark.ts";
 import {CurveGenerator} from "./service/CurveGenerator.ts";
 import {TextureManager} from "./service/TextureManager.ts";
+import { BookmarkService } from "./service/BookMark.ts";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
