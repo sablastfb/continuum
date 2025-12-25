@@ -57,7 +57,7 @@ export namespace Continuum_Canvas {
       autoDensity: true,
       antialias: true,
       resolution: window.devicePixelRatio || 1,
-
+      preference: 'webgpu',
       background: colorPalette.getColor(useBackgroundStore.getState().fillColorId),
     });
 

@@ -24,12 +24,13 @@ export namespace Continuum_CurveService {
   }
 
 
-  export function CreatGraphicPath(paperPath: paper.Path) {
-    const pathGraphics = new Graphics();
-
+  export function CreatGraphicPath(paperPath: paper.Path, pathGraphics: Graphics| null) {
+    if (!pathGraphics) pathGraphics = new Graphics();
+    else {
+      pathGraphics.clear();
+    }
     const segments = paperPath.segments;
     pathGraphics.moveTo(segments[0].point.x, segments[0].point.y);
-
     for (let i = 1; i < segments.length; i++) {
       const seg = segments[i];
       const prevSeg = segments[i - 1];

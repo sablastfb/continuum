@@ -15,23 +15,28 @@ import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
 import {useInputStore} from "../../data/store/InputStore.ts";
 import {CurveGenerator} from "../service/CurveGenerator.ts";
 import CreatGraphicPath = Continuum_CurveService.CreatGraphicPath;
+import { SimplePoint } from "../../data/types/PointTypes.ts";
+import { Continuum_Math } from "../service/MathUtils.ts";
 
 export class Curve implements ITool {
     type: ToolType = "base";
-    private activeCurve: Graphics | null = null;
+    private activeCurve: Graphics| ParticleContainer | null = null;
     private activeColor: string | null = null;
     private activeThickness: number | null = null;
-    private line: Point[] = [];
+    private paperPath: paper.Path | null = null; // remove to to path 
     private filter = new AlphaFilter({alpha: 0.4});
     private bluer = new BlurFilter({quality: 4, strength: 2});
     private fillStyle: CurveFillType = 'solid';
-
+    private lastPoint: SimplePoint;
     constructor(toolType: CurveToolType) {
         this.type = toolType;
     }
 
+
+
     public startDrawing() {
         if (!Continuum_Canvas.viewportManager.viewport) return;
+
         this.fillStyle = useCurveStore.getState().penSettings.fillStyle;
 
         this.activeCurve = new Graphics();
@@ -59,20 +64,48 @@ export class Curve implements ITool {
         }
 
         const mousePosition = useInputStore.getState().mousePosition;
+        this.paperPath = new Continuum_CurveService.paperScope.Path([new Point(mousePosition.x, mousePosition.y)]); // remove to to path 
 
-        this.line.push(new Point(mousePosition.x, mousePosition.y));
+        // this.paperPath.add(new Point(mousePosition.x, mousePosition.y));
         this.activeCurve.moveTo(mousePosition.x, mousePosition.y);
+        this.lastPoint = {x: mousePosition.x, y: mousePosition.y};
     }
+
+
 
     public draw() {
         if (this.activeCurve === null) return;
         if (this.activeThickness === null) return;
         if (this.activeColor === null) return;
         if (!Continuum_Canvas.viewportManager.viewport) return;
+        if (!this.paperPath) return;
         const mousePosition = useInputStore.getState().mousePosition;
+        if (Continuum_Math.Distance(mousePosition, this.lastPoint) < 5){
+            return;
+        }
 
-        this.line.push(new Point(mousePosition.x, mousePosition.y));
-        this.activeCurve.lineTo(mousePosition.x, mousePosition.y);
+        this.lastPoint = mousePosition;
+
+        this.paperPath!.add(new Point(mousePosition.x, mousePosition.y));
+        const segments = this.paperPath.segments;
+        if (segments.length < 2) return;
+
+        // Get the last segment
+        const segment = segments[segments.length - 1];
+        const prevSegment = segments[segments.length - 2];
+        
+        // Draw bezier curve from previous point to current point
+        this.activeCurve.bezierCurveTo(
+            prevSegment.handleOut.x + prevSegment.point.x,
+            prevSegment.handleOut.y + prevSegment.point.y,
+            segment.handleIn.x + segment.point.x,
+            segment.handleIn.y + segment.point.y,
+            segment.point.x,
+            segment.point.y
+        );
+
+
+        //this.activeCurve.lineTo(mousePosition.x, mousePosition.y);
         switch (this.type) {
             case "pen":
                 this.activeCurve.stroke({
@@ -101,12 +134,14 @@ export class Curve implements ITool {
         if (this.activeCurve === null) return;
         if (!this.activeColor) return;
         if (!Continuum_Canvas.viewportManager.viewport) return;
-        const optimizedPath = Continuum_CurveService.ConverseLineToPath(this.line, useCurveStore.getState().simplificationTolerance);
-        let optimizedCurveGraphics: ParticleContainer | Graphics;
+        if (!this.paperPath) return;
+        this.paperPath.simplify(1);
+        // this.activeCurve.clear();
+
         switch (this.fillStyle) {
             case "solid": {
-                optimizedCurveGraphics = CreatGraphicPath(optimizedPath);
-                optimizedCurveGraphics.stroke({
+                this.activeCurve = CreatGraphicPath(this.paperPath, this.activeCurve);
+                this.activeCurve.stroke({
                     width: this.activeThickness * 2,
                     color: "white",
                     cap: "round",
@@ -115,13 +150,15 @@ export class Curve implements ITool {
                 break;
             }
             case  'dashed': {
-                const circle = Continuum_Canvas.textureManager.get('dash-1');
-                optimizedCurveGraphics = await CurveGenerator.TexturedCurve(optimizedPath, circle!);
+
+                
+                const dash = Continuum_Canvas.textureManager.get('dash-1');
+                this.activeCurve = await CurveGenerator.TexturedCurve(this.paperPath, dash!);
                 break
             }
             case 'dotted': {
                 const circle = Continuum_Canvas.textureManager.get('dot-1');
-                optimizedCurveGraphics = await CurveGenerator.TexturedCurve(optimizedPath, circle!);
+                this.activeCurve = await CurveGenerator.TexturedCurve(this.paperPath, circle!);
             }
         }
 
@@ -132,10 +169,10 @@ export class Curve implements ITool {
         const g: GraphicsData = {
             id: uuidv4(),
             type: "curve",
-            graph: optimizedCurveGraphics,
+            graph: this.activeCurve,
             visible: true,
             graphicInfo: {
-                path: optimizedPath,
+                path: this.paperPath,
                 thickness: this.activeThickness * 2,
             },
         };
@@ -143,8 +180,8 @@ export class Curve implements ITool {
         GraphicsCommand.addNew(g);
 
 
-        Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
-        Continuum_Canvas.viewportManager.viewport?.addChild(optimizedCurveGraphics);
+        // Continuum_Canvas.viewportManager.viewport?.removeChild(this.activeCurve);
+        // Continuum_Canvas.viewportManager.viewport?.addChild(this.activeCurve);
 
         switch (this.type) {
             case "pen":
@@ -159,7 +196,7 @@ export class Curve implements ITool {
                 // }
 
 
-                optimizedCurveGraphics.tint = this.activeColor;
+                this.activeCurve.tint = this.activeColor;
                 break;
             case "marker":
                 // if (this.line.length == 2) {
@@ -178,12 +215,11 @@ export class Curve implements ITool {
                 //     cap: "round",
                 // });
 
-                optimizedCurveGraphics.tint = this.activeColor;
-                optimizedCurveGraphics.filters = [this.filter, this.bluer];
+                this.activeCurve.tint = this.activeColor;
+                this.activeCurve.filters = [this.filter, this.bluer];
 
                 break;
         }
-
-        this.line = [];
+        this.paperPath?.remove();
     }
 }
