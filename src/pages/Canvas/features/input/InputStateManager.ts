@@ -76,9 +76,12 @@ export class InputStateManager {
         });
         if (!Continuum_Canvas.viewportManager.viewport) return;
 
-        Continuum_Canvas.viewportManager.viewport.addEventListener('mousemove', (e) => {
-            Continuum_Canvas.cursorManager.updateCursorPosition({x: e.globalX, y: e.globalY});
-        });
+        // Continuum_Canvas.viewportManager.viewport.addEventListener('mousemove', (e) => {
+        //     Continuum_Canvas.cursorManager.updateCursorPosition({x: e.globalX, y: e.globalY});
+        // });
+        document.addEventListener('pointermove', (e) => {
+                Continuum_Canvas.cursorManager.updateCursorPosition({x: e.clientX ,y:e.clientY });
+        }, {passive: true});
 
         Continuum_Canvas.viewportManager.viewport.on("pointerdown", (e) => {
             useCanvasStore.getState().setAdvanceToolsVisibility(false);

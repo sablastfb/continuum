@@ -5,7 +5,6 @@ import { ColorPalette } from "../data/palet/PaletteContainer.ts";
 import { ResizeService } from "./service/Resize";
 import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
-import { Continuum_CurveService } from "./service/CurveService";
 import { ThicknessPalette } from "../data/thicknes/ThickneContainer";
 import { BackgroundService } from "./service/Background.ts";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
@@ -13,9 +12,10 @@ import { BackgroundShaderService } from "./service/Shader/BackgroundShaderServic
 import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
 import {InputStateManager} from "./input/InputStateManager.ts";
-import {CurveGenerator} from "./service/CurveGenerator.ts";
+import {TexturedCurve} from "./service/CurveAlgorithms/TexturedCurve.ts";
 import {TextureManager} from "./service/TextureManager.ts";
 import { BookmarkService } from "./service/BookMark.ts";
+import { PaperManager } from "./service/PaperManager.ts";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;
@@ -34,8 +34,9 @@ export namespace Continuum_Canvas {
   export const backgroundService = new BackgroundService();
   export const backgroundShaderService = new BackgroundShaderService();
   export const meshCreator = new MeshManager();
-  export const curveGenerator = new CurveGenerator();
+  export const curveGenerator = new TexturedCurve();
   export const textureManager = new TextureManager();
+  export const paperManager = new PaperManager();
 
   export async function creatPixiApp() {
     if (appInstance) {
@@ -62,7 +63,6 @@ export namespace Continuum_Canvas {
     });
 
     Continuum_Canvas.appInstance = app;
-    await Continuum_CurveService.init();
     Continuum_Canvas.viewportManager = new CanvasViewport();
     Continuum_Canvas.backgroundService.init();
     if (Continuum_Canvas.viewportManager.viewport) {

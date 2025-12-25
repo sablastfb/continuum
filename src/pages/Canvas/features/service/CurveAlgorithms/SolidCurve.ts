@@ -1,30 +1,20 @@
-/**
- * Interface for paper js
- * Use for optimizeing curvs, geting nearst points and outher useful curve stuff
- */
-
-import { PaperScope } from "paper/dist/paper-core";
-import { SimplePoint } from "../../data/types/PointTypes";
+import { SimplePoint } from "../../../data/types/PointTypes";
 import { Graphics } from "pixi.js";
 
-export namespace Continuum_CurveService {
-  export const paperScope = new PaperScope();
 
-  export async function init() {
-    const canvas = document.createElement("canvas");
-    paperScope.setup(canvas);
-  }
 
-  export function ConverseLineToPath<P extends SimplePoint>(line: P[], tolerance: number=  2) {
-    const path = new Continuum_CurveService.paperScope.Path([...line]);
+// updates graphics to cursor 
+  export class SolidCurve {
+
+  public ConverseLineToPath<P extends SimplePoint>(line: P[], tolerance: number=  2) {
+    const path = new paper.Path([...line]);
     if (line.length > 2){
       path.simplify(tolerance);
     }
     return path;
   }
 
-
-  export function CreatGraphicPath(paperPath: paper.Path, pathGraphics: Graphics| null) {
+  public CreatGraphicPath(paperPath: paper.Path, pathGraphics: Graphics| null) {
     if (!pathGraphics) pathGraphics = new Graphics();
     else {
       pathGraphics.clear();

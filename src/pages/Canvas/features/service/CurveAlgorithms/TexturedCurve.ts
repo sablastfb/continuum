@@ -2,7 +2,7 @@ import {
     ParticleContainer, Particle, Texture,
 } from "pixi.js";
 
-export class CurveGenerator {
+export class TexturedCurve {
 
     static async TexturedCurve(path:  paper.Path, texture: Texture, container: ParticleContainer|null = null, distance: number = 10) {
         if (container) {

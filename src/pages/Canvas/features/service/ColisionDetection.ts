@@ -5,7 +5,6 @@ import {
   graphicOnCanvas,
   GraphicsData,
 } from "../data/GraphicsDataManager";
-import { Continuum_CurveService } from "./CurveService";
 import { Continuum_Math } from "./MathUtils";
 
 export namespace Continuum_CollisionService {
@@ -23,24 +22,24 @@ export namespace Continuum_CollisionService {
   }
 
   export function GetContinouseColison<P extends SimplePoint>(activePoint: P) {
-    const diffPath = Continuum_CurveService.ConverseLineToPath([
-      lastPoint,
-      activePoint,
-    ]);
-    const graphics: GraphicsData[] = [];
+    // const diffPath = Continuum_CurveService.ConverseLineToPath([
+    //   lastPoint,
+    //   activePoint,
+    // ]);
+    // const graphics: GraphicsData[] = [];
 
-    for (const g of graphicOnCanvas.values()) {
-      if (g.visible === false) continue;
-      const pointOfCurve = g.graphicInfo.path.getIntersections(diffPath);
-      if (pointOfCurve.length > 0) {
-        graphics.push(g);
-      }
-    }
+    // for (const g of graphicOnCanvas.values()) {
+    //   if (g.visible === false) continue;
+    //   const pointOfCurve = g.graphicInfo.path.getIntersections(diffPath);
+    //   if (pointOfCurve.length > 0) {
+    //     graphics.push(g);
+    //   }
+    // }
 
-    lastPoint.x = activePoint.x;
-    lastPoint.y = activePoint.y;
+    // lastPoint.x = activePoint.x;
+    // lastPoint.y = activePoint.y;
 
-    return graphics;
+    // return graphics;
   }
 
   export function GetAllGraphicAroundPoint<P extends SimplePoint>(

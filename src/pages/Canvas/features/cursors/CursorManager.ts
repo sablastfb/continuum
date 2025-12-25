@@ -30,6 +30,8 @@ export class CursorManager {
 
     constructor() {
         this.cursorGraphic = new Graphics();
+        this.cursorGraphic.interactiveChildren = false;
+        this.cursorGraphic.interactive = false;
     }
 
     public setCursor(activeTool: ToolType) {

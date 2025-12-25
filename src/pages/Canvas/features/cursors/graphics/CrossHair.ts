@@ -4,7 +4,7 @@ import {Continuum_Canvas} from "../../CanvasApp.ts";
 import {ICursor} from "../CursorManager.ts";
 import {useKeyStore} from "../../../data/store/KeyStore.ts";
 import {Path, Point} from "paper/dist/paper-core";
-import {CurveGenerator} from "../../service/CurveGenerator.ts";
+import {TexturedCurve} from "../../service/CurveAlgorithms/TexturedCurve.ts";
 import {ParticleContainer} from "pixi.js";
 
 export class CrossHairCursor implements ICursor {
@@ -23,7 +23,7 @@ export class CrossHairCursor implements ICursor {
                 const center = new Point(0, 0);
                 const texture = Continuum_Canvas.textureManager.get('dot-1' );
                 const circlePath = new Path.Circle({center, radius: [radius, radius]});
-                this.particleContainer = await CurveGenerator.TexturedCurve(circlePath,texture!, this.particleContainer,2);
+                this.particleContainer = await TexturedCurve.TexturedCurve(circlePath,texture!, this.particleContainer,2);
                 Continuum_Canvas.cursorManager.cursorGraphic.addChild(this.particleContainer);
                 break;
             }
@@ -31,7 +31,7 @@ export class CrossHairCursor implements ICursor {
                 const center = new Point(0, 0);
                 const circlePath = new Path.Circle({center, radius: [radius, radius]});
                 const texture = Continuum_Canvas.textureManager.get('dash-1' );
-                this.particleContainer = await CurveGenerator.TexturedCurve(circlePath,texture!, this.particleContainer,2);
+                this.particleContainer = await TexturedCurve.TexturedCurve(circlePath,texture!, this.particleContainer,2);
                 Continuum_Canvas.cursorManager.cursorGraphic.addChild(this.particleContainer);
                 break;
             }
