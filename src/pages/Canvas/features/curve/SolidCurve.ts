@@ -1,4 +1,4 @@
-import { SimplePoint } from "../../../data/types/PointTypes";
+import { SimplePoint } from "../../data/types/PointTypes";
 import { Graphics } from "pixi.js";
 
 

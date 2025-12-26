@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import {Thickness, ThicknessId} from "../thicknes/ThickneContainer";
+import {Thickness, ThicknessId} from "../thicknesPalette/ThickneContainer";
 
 export type EraseMethod = "strong" | "soft";
 export interface EraseStore {

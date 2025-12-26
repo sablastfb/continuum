@@ -80,7 +80,8 @@ export class InputStateManager {
         //     Continuum_Canvas.cursorManager.updateCursorPosition({x: e.globalX, y: e.globalY});
         // });
         document.addEventListener('pointermove', (e) => {
-                Continuum_Canvas.cursorManager.updateCursorPosition({x: e.clientX ,y:e.clientY });
+            if (!this.rect) return;
+            Continuum_Canvas.cursorManager.cursorGraphic.position.set(e.x-this.rect.left, e.y-this.rect.top);
         }, {passive: true});
 
         Continuum_Canvas.viewportManager.viewport.on("pointerdown", (e) => {

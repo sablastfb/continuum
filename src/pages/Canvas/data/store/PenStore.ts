@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {immer} from "zustand/middleware/immer";
-import {Thickness, ThicknessId} from "../thicknes/ThickneContainer";
+import {Thickness, ThicknessId} from "../thicknesPalette/ThickneContainer";
 import {Color, ColorId} from "../palet/PaletteContainer";
 
 const allPencilThickness = ["th-0", "th-1", "th-2", "th-3"];

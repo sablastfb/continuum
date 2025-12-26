@@ -4,7 +4,7 @@ import {Continuum_Canvas} from "../../CanvasApp.ts";
 import {ICursor} from "../CursorManager.ts";
 import {useKeyStore} from "../../../data/store/KeyStore.ts";
 import {Path, Point} from "paper/dist/paper-core";
-import {TexturedCurve} from "../../service/CurveAlgorithms/TexturedCurve.ts";
+import {TexturedCurve} from "../../curve/TexturedCurve.ts";
 import {ParticleContainer} from "pixi.js";
 
 export class CrossHairCursor implements ICursor {

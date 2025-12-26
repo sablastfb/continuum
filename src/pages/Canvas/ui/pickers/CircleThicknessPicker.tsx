@@ -3,7 +3,7 @@ import {
   DefaultOutlineColor,
 } from "../../../../constants/CanvasConstants";
 import { Continuum_Canvas } from "../../features/CanvasApp";
-import {ThicknessId} from "../../data/thicknes/ThickneContainer.ts";
+import {ThicknessId} from "../../data/thicknesPalette/ThickneContainer.ts";
 
 const baseSize = 4;
 const sigma = 6;

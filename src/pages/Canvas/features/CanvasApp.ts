@@ -1,21 +1,21 @@
 import useBackgroundStore from "../data/store/BackgroundStore.ts";
 import { Application } from "pixi.js";
 import { ToolManager } from "./tools/ToolManager";
-import { ColorPalette } from "../data/palet/PaletteContainer.ts";
 import { ResizeService } from "./service/Resize";
 import { CanvasViewport as CanvasViewport } from "./service/Viewport";
 import { Continuum_CommandManager } from "./commands/CommandManager";
-import { ThicknessPalette } from "../data/thicknes/ThickneContainer";
+import { ThicknessPalette } from "../data/thicknesPalette/ThickneContainer.ts";
 import { BackgroundService } from "./service/Background.ts";
 import { ShapeShaderService } from "./service/Shader/ShapeShaderService";
 import { BackgroundShaderService } from "./service/Shader/BackgroundShaderService.ts";
 import { MeshManager } from "./service/MeshCreator";
 import { CursorManager } from "./cursors/CursorManager";
 import {InputStateManager} from "./input/InputStateManager.ts";
-import {TexturedCurve} from "./service/CurveAlgorithms/TexturedCurve.ts";
+import {TexturedCurve} from "./curve/TexturedCurve.ts";
 import {TextureManager} from "./service/TextureManager.ts";
 import { BookmarkService } from "./service/BookMark.ts";
 import { PaperManager } from "./service/PaperManager.ts";
+import { ColorPalette } from "../data/colorPalette/PaletteContainer.ts";
 
 export namespace Continuum_Canvas {
   export let appInstance: Application | null = null;

@@ -12,7 +12,7 @@ import {GraphicsCommand} from "../commands/Graphics";
 import {Continuum_Canvas} from "../CanvasApp";
 import {CurveToolType, ToolType} from "../../data/types/ToolTypes";
 import {useInputStore} from "../../data/store/InputStore.ts";
-import {TexturedCurve} from "../service/CurveAlgorithms/TexturedCurve.ts";
+import {TexturedCurve} from "../curve/TexturedCurve.ts";
 import { SimplePoint } from "../../data/types/PointTypes.ts";
 import { Continuum_Math } from "../service/MathUtils.ts";
 import { Path } from "paper/dist/paper-core";
